@@ -5,9 +5,7 @@ package com.mymanager.data.database;
  * @author gentjan koliçaj
  *
  */
-public interface Connectable {
-
-	void initDriver() throws Exception;
+public interface Connectable extends ConnectionDriver {
 
 	void connect() throws Exception;
 

@@ -20,6 +20,7 @@ public class Database implements Connectable {
 
 	private final String driverName;
 	private String api;
+	private boolean ssl;
 	private String databaseType;
 	private String server;
 	private int port;
@@ -40,18 +41,22 @@ public class Database implements Connectable {
 	 * @param user
 	 * @param password
 	 * @param schema
+	 * @throws Exception
 	 */
-	public Database(String driverName, String api, String databaseType, String server, int port, String user,
-			String password, String schema) {
+	public Database(String driverName, String api, boolean ssl, String databaseType, String server, int port,
+			String user, String password, String schema) throws Exception {
 		super();
 		this.driverName = driverName;
 		this.api = api;
+		this.ssl = ssl;
 		this.databaseType = databaseType;
 		this.server = server;
 		this.port = port;
 		this.user = user;
 		this.password = password;
 		this.schema = schema;
+
+		initDriver();
 	}
 
 	@Override
@@ -62,12 +67,10 @@ public class Database implements Connectable {
 
 	@Override
 	public void connect() throws Exception {
-		initDriver();
 		url = new ConnectionUrlBuilder().setApi(api).setDatabase(databaseType).setServer(server).setPort(port)
-				.setSchema(schema).build();
-		PrintUtils.print(url, PrintType.LOG);
+				.setSchema(schema).setSSL(ssl).build();
 		connection = DriverManager.getConnection(url, user, password);
-		PrintUtils.print("--- CONNECTED ---- ".concat(databaseType), PrintType.DATABASE_IO);
+		PrintUtils.print("--> Connected : " + url, PrintType.DATABASE_IO);
 
 	}
 
@@ -75,7 +78,7 @@ public class Database implements Connectable {
 	public void disconnect() throws Exception {
 		if (connection != null) {
 			connection.close();
-			PrintUtils.print("--- DISCONNECTED --- ".concat(databaseType), PrintType.DATABASE_IO);
+			PrintUtils.print("--> Disconnected : " + url, PrintType.DATABASE_IO);
 
 		}
 
@@ -102,6 +105,14 @@ public class Database implements Connectable {
 		}
 		resultSet = preparedStatement.executeQuery();
 		return resultSet;
+	}
+
+	public boolean isSsl() {
+		return ssl;
+	}
+
+	public void setSsl(boolean ssl) {
+		this.ssl = ssl;
 	}
 
 }

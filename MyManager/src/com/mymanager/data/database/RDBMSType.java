@@ -6,5 +6,15 @@ package com.mymanager.data.database;
  *
  */
 public enum RDBMSType {
-	MySQL, ORACLE, PostgreSQL
+	MySQL("MySQL"), ORACLE("ORACLE"), PostgreSQL(" PostgreSQL");
+
+	private String value;
+
+	private RDBMSType(String value) {
+		this.value = value;
+	}
+
+	public String toString() {
+		return value;
+	}
 }

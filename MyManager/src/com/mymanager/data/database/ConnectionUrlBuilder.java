@@ -12,6 +12,7 @@ public class ConnectionUrlBuilder {
 	private String server;
 	private int port;
 	private String schema;
+	private boolean SSL;
 
 	/**
 	 * 
@@ -46,23 +47,33 @@ public class ConnectionUrlBuilder {
 		return this;
 	}
 
-	public String build() {
-		if (api == null) {
-			api = "jdbc";
-			if (database == null) {
-				database = "mysql";
-				if (server == null) {
-					server = "localhost";
-					if (port == 0) {
-						port = 3306;
-						schema = "";
-					}
-				}
-			}
-		}
+	public ConnectionUrlBuilder setSSL(boolean sSL) {
+		SSL = sSL;
+		return this;
+	}
 
-		return new StringBuilder().append(api).append(":").append(database).append("://").append(server).append(":")
-				.append(port).append("/").append(schema).toString();
+	public String build() {
+		String sslParam = "";
+
+		if (api == null)
+			api = "jdbc";
+
+		if (database == null)
+			database = "mysql";
+
+		if (server == null)
+			server = "localhost";
+
+		if (port == 0)
+			port = 3306;
+
+		if (schema == null)
+			schema = "";
+
+		if (SSL = true)
+			sslParam = "?useSSL=true";
+
+		return api + ":" + database + "://" + server + ":" + port + "/" + schema + sslParam;
 
 	}
 

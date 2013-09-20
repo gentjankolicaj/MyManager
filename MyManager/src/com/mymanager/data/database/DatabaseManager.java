@@ -28,47 +28,63 @@ public class DatabaseManager {
 			temp = new MySQLDatabase();
 
 		}
-		openConnection(temp);
+		temp.connect();
 		instanceNumber++;
 		DatabasePool.putReference(new Integer(instanceNumber), temp);
 		return temp;
 	}
 
-	public static Database getDatabase(InstanceData instanceData) throws Exception {
+	public static Database getDatabase(RDBMSType type, boolean useSSL) throws Exception {
 		Database temp = null;
-		switch (instanceData.getRdbmsType()) {
+		switch (type) {
 		case MySQL:
-			temp = new MySQLDatabase(instanceData.getDriverName(), instanceData.getApi(),
-					instanceData.getDatabaseType(), instanceData.getServer(), instanceData.getPort(),
-					instanceData.getUser(), instanceData.getPassword(), instanceData.getSchema());
+			temp = new MySQLDatabase();
+			temp.setSsl(useSSL);
 			break;
-
 		case ORACLE:
-			temp = new OracleDatabase(instanceData.getDriverName(), instanceData.getApi(),
-					instanceData.getDatabaseType(), instanceData.getServer(), instanceData.getPort(),
-					instanceData.getUser(), instanceData.getPassword(), instanceData.getSchema());
+			temp = new OracleDatabase();
+			temp.setSsl(useSSL);
 			break;
 		case PostgreSQL:
-			temp = new PostgresDatabase(instanceData.getDriverName(), instanceData.getApi(),
-					instanceData.getDatabaseType(), instanceData.getServer(), instanceData.getPort(),
-					instanceData.getUser(), instanceData.getPassword(), instanceData.getSchema());
+			temp = new PostgresDatabase();
+			temp.setSsl(useSSL);
+			break;
 		default:
 			temp = new MySQLDatabase();
+			temp.setSsl(useSSL);
 
 		}
-		openConnection(temp);
+		temp.connect();
+		instanceNumber++;
+		DatabasePool.putReference(new Integer(instanceNumber), temp);
+		return temp;
+	}
+
+	public static Database getDatabase(ConnectionInstanceData instanceData) throws Exception {
+		Database temp = null;
+
+		if (instanceData.getDatabaseType().contains("mysql")) {
+			temp = new MySQLDatabase(instanceData.getDriverName(), instanceData.getApi(), instanceData.isSsl(),
+					instanceData.getDatabaseType(), instanceData.getServer(), instanceData.getPort(),
+					instanceData.getUser(), instanceData.getPassword(), instanceData.getSchema());
+
+		} else if (instanceData.getDatabaseType().contains("oracle")) {
+			temp = new OracleDatabase(instanceData.getDriverName(), instanceData.getApi(), instanceData.isSsl(),
+					instanceData.getDatabaseType(), instanceData.getServer(), instanceData.getPort(),
+					instanceData.getUser(), instanceData.getPassword(), instanceData.getSchema());
+
+		} else if (instanceData.getDatabaseType().contains("postgresql")) {
+			temp = new PostgresDatabase(instanceData.getDriverName(), instanceData.getApi(), instanceData.isSsl(),
+					instanceData.getDatabaseType(), instanceData.getServer(), instanceData.getPort(),
+					instanceData.getUser(), instanceData.getPassword(), instanceData.getSchema());
+		} else
+			temp = new MySQLDatabase();
+
+		temp.connect();
 		instanceNumber++;
 		DatabasePool.putReference(new Integer(instanceNumber), temp);
 
 		return temp;
-	}
-
-	public static void openConnection(Database database) throws Exception {
-		database.connect();
-	}
-
-	public static void closeConnection(Database database) throws Exception {
-		database.disconnect();
 	}
 
 	public static int getRecentInstanceNumber() {
