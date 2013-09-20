@@ -34,22 +34,8 @@ public class PaymentType extends MyModel {
 	}
 
 	@Override
-	public String toNormal() {
-		String cls = getClass().getSimpleName();
-		String text = cls + ": paymentType:" + payment;
-		return text;
-	}
-
-	@Override
-	public String toJson() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String toXml() {
-		// TODO Auto-generated method stub
-		return null;
+	public String toString() {
+		return "PaymentType [payment=" + payment + "]";
 	}
 
 }

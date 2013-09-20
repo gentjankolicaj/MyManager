@@ -126,25 +126,10 @@ public class JobHistory extends MyModel {
 	}
 
 	@Override
-	public String toNormal() {
-		String cls = getClass().getSimpleName();
-		String text = cls + ": employeeId:" + employeeId + ", startDate:" + startDate + ", endDate:" + endDate
-				+ ", jobId:" + jobId + ", departmentId:" + departmentId + ", createdBy:" + createdBy + ", createdDate:"
-				+ createdDate.toString() + ", updatedBy:" + updatedBy + ", updatedDate:" + updatedDate.toString();
-
-		return text;
-	}
-
-	@Override
-	public String toJson() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String toXml() {
-		// TODO Auto-generated method stub
-		return null;
+	public String toString() {
+		return "JobHistory [employeeId=" + employeeId + ", startDate=" + startDate + ", endDate=" + endDate + ", jobId="
+				+ jobId + ", departmentId=" + departmentId + ", createdBy=" + createdBy + ", updatedBy=" + updatedBy
+				+ ", createdDate=" + createdDate + ", updatedDate=" + updatedDate + "]";
 	}
 
 }

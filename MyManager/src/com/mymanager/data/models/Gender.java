@@ -6,6 +6,16 @@ package com.mymanager.data.models;
  *
  */
 public enum Gender {
+	M("M"), F("F"), O("O");
 
-	M, F, T, O
+	private String value;
+
+	private Gender(String value) {
+		this.value = value;
+	}
+
+	public String toString() {
+		return value;
+	}
+
 }

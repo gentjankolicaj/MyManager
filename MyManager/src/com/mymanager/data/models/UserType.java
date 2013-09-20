@@ -7,5 +7,15 @@ package com.mymanager.data.models;
  */
 public enum UserType {
 
-	HR, ASSISTANT, MANAGER, ADMIN, FINANCE
+	HR("HR"), MANAGER("MANAGER"), ADMIN("ADMIN"), FINANCE("FINANCE");
+
+	private String value;
+
+	private UserType(String value) {
+		this.value = value;
+	}
+
+	public String toString() {
+		return value;
+	}
 }

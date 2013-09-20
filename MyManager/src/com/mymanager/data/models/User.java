@@ -171,31 +171,11 @@ public class User extends MyModel {
 	}
 
 	@Override
-	public String toNormal() {
-		String cls = getClass().getSimpleName();
-		String text = null;
-		if ((birthday != null) && (createdDate != null) && (updatedDate != null)) {
-			text = cls + ": userId:" + userId + ", userType:" + userType + ", firstName:" + firstName + ", lastName:"
-					+ lastName + ", password:" + password + " , birthday:" + birthday.toString() + ", birthplace:"
-					+ birthplace + ", gender:" + gender + ", rights:" + rights + ", createdBy:" + createdBy
-					+ ", createdDate:" + createdDate.toString() + ", updatedBy:" + updatedBy + ", updatedDate:"
-					+ updatedDate.toString();
-		} else
-			text = cls + ": userId:" + userId;
-
-		return text;
-	}
-
-	@Override
-	public String toJson() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String toXml() {
-		// TODO Auto-generated method stub
-		return null;
+	public String toString() {
+		return "User [userId=" + userId + ", userType=" + userType + ", firstName=" + firstName + ", lastName="
+				+ lastName + ", password=" + password + ", birthday=" + birthday + ", birthplace=" + birthplace
+				+ ", gender=" + gender + ", rights=" + rights + ", createdBy=" + createdBy + ", updatedBy=" + updatedBy
+				+ ", createdDate=" + createdDate + ", updatedDate=" + updatedDate + "]";
 	}
 
 }

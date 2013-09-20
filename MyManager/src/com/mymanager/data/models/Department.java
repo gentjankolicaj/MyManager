@@ -103,25 +103,10 @@ public class Department extends MyModel {
 	}
 
 	@Override
-	public String toNormal() {
-		String cls = getClass().getSimpleName();
-		String text = cls + ": departmentId:" + departmentId + ", departmentName:" + departmentName + ", managerId:"
-				+ managerId + ", createdBy:" + createdBy + ", createdDate:" + createdDate.toString() + ", updatedBy:"
-				+ updatedBy + ", updatedDate:" + updatedDate.toString();
-
-		return text;
-	}
-
-	@Override
-	public String toJson() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String toXml() {
-		// TODO Auto-generated method stub
-		return null;
+	public String toString() {
+		return "Department [departmentId=" + departmentId + ", departmentName=" + departmentName + ", managerId="
+				+ managerId + ", createdBy=" + createdBy + ", updatedBy=" + updatedBy + ", createdDate=" + createdDate
+				+ ", updatedDate=" + updatedDate + "]";
 	}
 
 }

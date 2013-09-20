@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
  * @author gentjan koliçaj
  *
  */
-public class Contact extends MyModel {
+public class EmployeeContact extends MyModel {
 
 	private int contactId;
 	private String personId;
@@ -23,7 +23,7 @@ public class Contact extends MyModel {
 	/**
 	 * 
 	 */
-	public Contact() {
+	public EmployeeContact() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -40,7 +40,7 @@ public class Contact extends MyModel {
 	 * @param createdDate
 	 * @param updatedDate
 	 */
-	public Contact(int contactId, String personId, int telephone, int celular, String email, String fax,
+	public EmployeeContact(int contactId, String personId, int telephone, int celular, String email, String fax,
 			String createdBy, String updatedBy, LocalDateTime createdDate, LocalDateTime updatedDate) {
 		super();
 		this.contactId = contactId;
@@ -136,26 +136,10 @@ public class Contact extends MyModel {
 	}
 
 	@Override
-	public String toNormal() {
-		String cls = getClass().getSimpleName();
-		String text = cls + ": contactId:" + contactId + ", personId:" + personId + ", telephone:" + telephone
-				+ ", celular:" + celular + ", email:" + email + " , fax:" + fax + ", createdBy:" + createdBy
-				+ ", createdDate:" + createdDate.toString() + ", updatedBy:" + updatedBy + ", updatedDate:"
-				+ updatedDate.toString();
-
-		return text;
-	}
-
-	@Override
-	public String toJson() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String toXml() {
-		// TODO Auto-generated method stub
-		return null;
+	public String toString() {
+		return "EmployeeContact [contactId=" + contactId + ", personId=" + personId + ", telephone=" + telephone
+				+ ", celular=" + celular + ", email=" + email + ", fax=" + fax + ", createdBy=" + createdBy
+				+ ", updatedBy=" + updatedBy + ", createdDate=" + createdDate + ", updatedDate=" + updatedDate + "]";
 	}
 
 }

@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
  * @author gentjan koliçaj
  *
  */
-public class Adress extends MyModel {
+public class UserAdress extends MyModel {
 
 	private int adressId;
 	private String personId;
@@ -24,7 +24,7 @@ public class Adress extends MyModel {
 	/**
 	 * 
 	 */
-	public Adress() {
+	public UserAdress() {
 		super();
 
 	}
@@ -42,7 +42,7 @@ public class Adress extends MyModel {
 	 * @param createdDate
 	 * @param updatedDate
 	 */
-	public Adress(int adressId, String personId, Country country, String city, String streetName, int zipCode,
+	public UserAdress(int adressId, String personId, Country country, String city, String streetName, int zipCode,
 			String building, String createdBy, String updatedBy, LocalDateTime createdDate, LocalDateTime updatedDate) {
 		super();
 		this.adressId = adressId;
@@ -147,26 +147,11 @@ public class Adress extends MyModel {
 	}
 
 	@Override
-	public String toNormal() {
-		String cls = getClass().getSimpleName();
-		String text = cls + ": adressId:" + adressId + ", personId:" + personId + ", country:"
-				+ country.getCountryName() + ", city:" + city + ", streetName:" + streetName + " , zipCode:" + zipCode
-				+ ", building:" + building + ", createdBy:" + createdBy + ", createdDate:" + createdDate.toString()
-				+ ", updatedBy:" + updatedBy + ", updatedDate:" + updatedDate.toString();
-
-		return text;
-	}
-
-	@Override
-	public String toJson() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String toXml() {
-		// TODO Auto-generated method stub
-		return null;
+	public String toString() {
+		return "UserAdress [adressId=" + adressId + ", personId=" + personId + ", country=" + country + ", city=" + city
+				+ ", streetName=" + streetName + ", zipCode=" + zipCode + ", building=" + building + ", createdBy="
+				+ createdBy + ", updatedBy=" + updatedBy + ", createdDate=" + createdDate + ", updatedDate="
+				+ updatedDate + "]";
 	}
 
 }

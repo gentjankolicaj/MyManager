@@ -91,24 +91,9 @@ public class Attempt extends MyModel {
 	}
 
 	@Override
-	public String toNormal() {
-		String cls = getClass().getSimpleName();
-		String text = cls + ": index:" + index + ", user:" + user + ", password:" + password + ", status:" + status
-				+ ", description:" + description + " , dateTime:" + dateTime;
-
-		return text;
-	}
-
-	@Override
-	public String toJson() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String toXml() {
-		// TODO Auto-generated method stub
-		return null;
+	public String toString() {
+		return "Attempt [index=" + index + ", user=" + user + ", password=" + password + ", status=" + status
+				+ ", description=" + description + ", dateTime=" + dateTime + "]";
 	}
 
 }

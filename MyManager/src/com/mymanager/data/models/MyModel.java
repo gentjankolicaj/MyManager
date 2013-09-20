@@ -7,10 +7,4 @@ package com.mymanager.data.models;
  */
 public abstract class MyModel {
 
-	public abstract String toNormal();
-
-	public abstract String toJson();
-
-	public abstract String toXml();
-
 }

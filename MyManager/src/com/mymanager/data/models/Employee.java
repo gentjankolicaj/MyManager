@@ -182,27 +182,12 @@ public class Employee extends MyModel {
 	}
 
 	@Override
-	public String toNormal() {
-		String cls = getClass().getSimpleName();
-		String text = cls + ": employeeId:" + employeeId + ", firstName:" + firstName + ", lastName:" + lastName
-				+ ", middleName:" + middleName + ", birthday:" + birthday.toString() + " , birthplace:" + birthplace
-				+ ", gender:" + gender + ", jobId:" + jobId + ", departmentId:" + departmentId + ", projectName:"
-				+ projectName + ", createdBy:" + createdBy + ", createdDate:" + createdDate.toString() + ", updatedBy:"
-				+ updatedBy + ", updatedDate:" + updatedDate.toString();
-
-		return text;
-	}
-
-	@Override
-	public String toJson() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String toXml() {
-		// TODO Auto-generated method stub
-		return null;
+	public String toString() {
+		return "Employee [employeeId=" + employeeId + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", middleName=" + middleName + ", birthday=" + birthday + ", birthplace=" + birthplace + ", gender="
+				+ gender + ", jobId=" + jobId + ", departmentId=" + departmentId + ", projectName=" + projectName
+				+ ", createdBy=" + createdBy + ", updatedBy=" + updatedBy + ", createdDate=" + createdDate
+				+ ", updatedDate=" + updatedDate + "]";
 	}
 
 }

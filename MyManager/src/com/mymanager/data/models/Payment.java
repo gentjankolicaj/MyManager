@@ -137,27 +137,11 @@ public class Payment extends MyModel {
 	}
 
 	@Override
-	public String toNormal() {
-		String cls = getClass().getSimpleName();
-		String text = cls + ": paymentId:" + paymentId + ", paymentType:" + paymentType + ", employeeId:" + employeeId
-				+ ", currency:" + currency.getCurrencyName() + ", paymentAmount:" + paymentAmount
-				+ " , paymentDescription:" + paymentDescription + ", createdBy:" + createdBy + ", createdDate:"
-				+ createdDate.toString() + ", updatedBy:" + updatedBy + ", updatedDate:" + updatedDate.toString();
-
-		return text;
-
-	}
-
-	@Override
-	public String toJson() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String toXml() {
-		// TODO Auto-generated method stub
-		return null;
+	public String toString() {
+		return "Payment [paymentId=" + paymentId + ", paymentType=" + paymentType + ", employeeId=" + employeeId
+				+ ", currency=" + currency + ", paymentAmount=" + paymentAmount + ", paymentDescription="
+				+ paymentDescription + ", createdBy=" + createdBy + ", updatedBy=" + updatedBy + ", createdDate="
+				+ createdDate + ", updatedDate=" + updatedDate + "]";
 	}
 
 }

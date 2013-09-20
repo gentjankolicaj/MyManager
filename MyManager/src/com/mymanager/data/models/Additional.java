@@ -104,34 +104,10 @@ public class Additional extends MyModel {
 	}
 
 	@Override
-	public String toNormal() {
-		/**
-		 * @param employeeId
-		 * @param salaryAmount
-		 * @param hireDate
-		 * @param createdBy
-		 * @param updatedBy
-		 * @param createdDate
-		 * @param updatedDate
-		 */
-		String cls = getClass().getSimpleName();
-		String text = cls + ": employeeId:" + employeeId + ", salaryAmount:" + salaryAmount + ", hireDate:"
-				+ hireDate.toString() + ", createdBy:" + createdBy + ", createdDate:" + createdDate.toString()
-				+ ", updatedBy:" + updatedBy + ", updatedDate:" + updatedDate.toString();
-
-		return text;
-	}
-
-	@Override
-	public String toJson() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String toXml() {
-		// TODO Auto-generated method stub
-		return null;
+	public String toString() {
+		return "Additional [employeeId=" + employeeId + ", salaryAmount=" + salaryAmount + ", hireDate=" + hireDate
+				+ ", createdBy=" + createdBy + ", updatedBy=" + updatedBy + ", createdDate=" + createdDate
+				+ ", updatedDate=" + updatedDate + "]";
 	}
 
 }
