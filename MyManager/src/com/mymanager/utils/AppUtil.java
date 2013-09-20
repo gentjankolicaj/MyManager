@@ -74,6 +74,16 @@ public class AppUtil {
 
 	}
 
+	public static void changeEmpView(MyPanel mainPanel, MyPanel newPanel, MyPanel oldPanel) {
+		mainPanel.remove(oldPanel);
+		mainPanel.setSize(mainPanel.getWidth() + newPanel.getMyWidth(), newPanel.getMyHeight());
+		newPanel.setBounds(134, 11, newPanel.getMyWidth(), newPanel.getMyHeight());
+		newPanel.loadData(); // fills table of new view with data
+		mainPanel.add(newPanel);
+		mainPanel.repaint();
+
+	}
+
 	public static void returnToMainView(JFrame jframe, MyPanel oldPanel, MyPanel mainView) {
 		jframe.getContentPane().remove(oldPanel);
 		jframe.setSize(mainView.getMyWidth(), mainView.getMyHeight());

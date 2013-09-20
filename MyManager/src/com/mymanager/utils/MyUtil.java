@@ -1,6 +1,9 @@
 package com.mymanager.utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * 
@@ -22,6 +25,14 @@ public class MyUtil {
 			}
 			return flag;
 		}
+	}
+
+	public static Date parseDate(String stringDate, String dateFormat) throws ParseException {
+		Date parsedDate = null;
+		SimpleDateFormat dateFormatter = new SimpleDateFormat(dateFormat);
+		parsedDate = dateFormatter.parse(stringDate);
+		return parsedDate;
+
 	}
 
 }
