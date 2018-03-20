@@ -1,0 +1,31 @@
+package com.mymanager.data.models;
+
+public class PaymentType {
+
+	private String payment;
+
+	/**
+	 * 
+	 */
+	public PaymentType() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param payment
+	 */
+	public PaymentType(String payment) {
+		super();
+		this.payment = payment;
+	}
+
+	public String getPayment() {
+		return payment;
+	}
+
+	public void setPayment(String payment) {
+		this.payment = payment;
+	}
+
+}
