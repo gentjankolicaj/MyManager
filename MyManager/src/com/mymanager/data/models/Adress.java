@@ -2,6 +2,12 @@ package com.mymanager.data.models;
 
 import java.time.LocalDateTime;
 
+/**
+ * 
+ * @author gentjan_kolicaj
+ *
+ */
+
 public class Adress {
 
 	private String id;
