@@ -3,6 +3,11 @@ package com.mymanager.data.models;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * 
+ * @author gentjan_kolicaj
+ *
+ */
 public class WorkingHour {
 
 	private int index;

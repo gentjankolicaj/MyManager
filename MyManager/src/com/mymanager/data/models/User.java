@@ -3,6 +3,11 @@ package com.mymanager.data.models;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * 
+ * @author gentjan_kolicaj
+ *
+ */
 public class User {
 
 	private String userId;
@@ -13,6 +18,7 @@ public class User {
 	private String password;
 	private LocalDate birthday;
 	private String birthplace;
+	private Gender gender;
 	private Contact contact;
 	private Adress adress;
 	private String createdBy;
@@ -37,6 +43,7 @@ public class User {
 	 * @param password
 	 * @param birthday
 	 * @param birthplace
+	 * @param gender
 	 * @param contact
 	 * @param adress
 	 * @param createdBy
@@ -45,8 +52,8 @@ public class User {
 	 * @param updatedDate
 	 */
 	public User(String userId, UserType userType, String firstName, String lastName, String middleName, String password,
-			LocalDate birthday, String birthplace, Contact contact, Adress adress, String createdBy, String updatedBy,
-			LocalDateTime createdDate, LocalDateTime updatedDate) {
+			LocalDate birthday, String birthplace, Gender gender, Contact contact, Adress adress, String createdBy,
+			String updatedBy, LocalDateTime createdDate, LocalDateTime updatedDate) {
 		super();
 		this.userId = userId;
 		this.userType = userType;
@@ -56,6 +63,7 @@ public class User {
 		this.password = password;
 		this.birthday = birthday;
 		this.birthplace = birthplace;
+		this.gender = gender;
 		this.contact = contact;
 		this.adress = adress;
 		this.createdBy = createdBy;
@@ -126,6 +134,14 @@ public class User {
 
 	public void setBirthplace(String birthplace) {
 		this.birthplace = birthplace;
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
 	}
 
 	public Contact getContact() {

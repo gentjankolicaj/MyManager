@@ -7,12 +7,13 @@ import java.time.LocalDateTime;
  * @author gentjan_kolicaj
  *
  */
-
 public class Atempt {
 
 	private int index;
-	private String userId;
-	private String actionType;
+	private String user;
+	private String password;
+	private Status status;
+	private String description;
 	private LocalDateTime dateTime;
 
 	/**
@@ -25,15 +26,19 @@ public class Atempt {
 
 	/**
 	 * @param index
-	 * @param userId
-	 * @param actionType
+	 * @param user
+	 * @param password
+	 * @param status
+	 * @param description
 	 * @param dateTime
 	 */
-	public Atempt(int index, String userId, String actionType, LocalDateTime dateTime) {
+	public Atempt(int index, String user, String password, Status status, String description, LocalDateTime dateTime) {
 		super();
 		this.index = index;
-		this.userId = userId;
-		this.actionType = actionType;
+		this.user = user;
+		this.password = password;
+		this.status = status;
+		this.description = description;
 		this.dateTime = dateTime;
 	}
 
@@ -45,20 +50,36 @@ public class Atempt {
 		this.index = index;
 	}
 
-	public String getUserId() {
-		return userId;
+	public String getUser() {
+		return user;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUser(String user) {
+		this.user = user;
 	}
 
-	public String getActionType() {
-		return actionType;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setActionType(String actionType) {
-		this.actionType = actionType;
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public LocalDateTime getDateTime() {
