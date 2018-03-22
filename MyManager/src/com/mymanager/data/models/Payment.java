@@ -2,6 +2,11 @@ package com.mymanager.data.models;
 
 import java.time.LocalDateTime;
 
+/**
+ * 
+ * @author gentjan_kolicaj
+ *
+ */
 public class Payment {
 
 	private int paymentId;

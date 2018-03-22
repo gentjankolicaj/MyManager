@@ -1,5 +1,10 @@
 package com.mymanager.data.models;
 
+/**
+ * 
+ * @author gentjan_kolicaj
+ *
+ */
 public class PaymentType {
 
 	private String payment;
