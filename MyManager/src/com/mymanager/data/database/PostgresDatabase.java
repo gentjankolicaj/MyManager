@@ -13,8 +13,8 @@ public class PostgresDatabase extends Database {
 	private static final String server = "localhost";
 	private static final int port = 5432;
 
-	private static final String user = "toor8";
-	private static final String password = "root8";
+	private static final String user = "root";
+	private static final String password = "toor8";
 	private static final String schema = "mymanager";
 
 	public PostgresDatabase(String driverName, String api, String databaseType, String server, int port, String user,

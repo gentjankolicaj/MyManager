@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.mymanager.utils.PrintType;
+import com.mymanager.utils.PrintUtils;
+
 /**
  * 
  * @author gentjan_kolicaj
@@ -49,8 +52,7 @@ public class Database implements Connectable {
 		try {
 			Class.forName(driverName);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			PrintUtils.print(e, PrintType.EXCEPTION);
 		}
 
 	}
@@ -60,10 +62,11 @@ public class Database implements Connectable {
 		try {
 			String url = new ConnectionUrlBuilder().setApi(api).setDatabase(databaseType).setServer(server)
 					.setPort(port).setSchema(schema).build();
+			PrintUtils.print(url, PrintType.LOG);
 			connection = DriverManager.getConnection(url, user, password);
 
-		} catch (SQLException se) {
-			se.printStackTrace();
+		} catch (SQLException sqle) {
+			PrintUtils.print(sqle, PrintType.EXCEPTION);
 		}
 
 	}
@@ -73,9 +76,9 @@ public class Database implements Connectable {
 		if (connection != null) {
 			try {
 				connection.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (SQLException sqle) {
+				PrintUtils.print(sqle, PrintType.EXCEPTION);
+
 			}
 		}
 

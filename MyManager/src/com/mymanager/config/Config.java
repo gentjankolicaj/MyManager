@@ -1,0 +1,22 @@
+package com.mymanager.config;
+
+import com.mymanager.utils.PrintEnviroment;
+import com.mymanager.utils.PrintFormat;
+
+/**
+ * 
+ * @author gentjan_kolicaj
+ *
+ */
+public class Config {
+
+	public static final boolean PRINT_EXCEPTION = true;
+	public static final boolean PRINT_FILE_IO = true;
+	public static final boolean PRINT_DATABASE_QUERY = true;
+	public static final boolean PRINT_DATABASE_IO = true;
+	public static final boolean PRINT_LOG = true;
+
+	public static final PrintFormat PRINT_FORMAT = PrintFormat.NORMAL;
+	public static final PrintEnviroment PRINT_ENV = PrintEnviroment.CONSOLE;
+
+}
