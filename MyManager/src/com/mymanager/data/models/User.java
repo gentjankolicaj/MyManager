@@ -21,6 +21,7 @@ public class User {
 	private Gender gender;
 	private Contact contact;
 	private Adress adress;
+	private Rights rights;
 	private String createdBy;
 	private String updatedBy;
 	private LocalDateTime createdDate;
@@ -46,14 +47,15 @@ public class User {
 	 * @param gender
 	 * @param contact
 	 * @param adress
+	 * @param rights
 	 * @param createdBy
 	 * @param updatedBy
 	 * @param createdDate
 	 * @param updatedDate
 	 */
 	public User(String userId, UserType userType, String firstName, String lastName, String middleName, String password,
-			LocalDate birthday, String birthplace, Gender gender, Contact contact, Adress adress, String createdBy,
-			String updatedBy, LocalDateTime createdDate, LocalDateTime updatedDate) {
+			LocalDate birthday, String birthplace, Gender gender, Contact contact, Adress adress, Rights rights,
+			String createdBy, String updatedBy, LocalDateTime createdDate, LocalDateTime updatedDate) {
 		super();
 		this.userId = userId;
 		this.userType = userType;
@@ -66,6 +68,7 @@ public class User {
 		this.gender = gender;
 		this.contact = contact;
 		this.adress = adress;
+		this.rights = rights;
 		this.createdBy = createdBy;
 		this.updatedBy = updatedBy;
 		this.createdDate = createdDate;
@@ -158,6 +161,14 @@ public class User {
 
 	public void setAdress(Adress adress) {
 		this.adress = adress;
+	}
+
+	public Rights getRights() {
+		return rights;
+	}
+
+	public void setRights(Rights rights) {
+		this.rights = rights;
 	}
 
 	public String getCreatedBy() {
