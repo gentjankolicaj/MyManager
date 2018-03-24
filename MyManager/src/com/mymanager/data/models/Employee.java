@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 /**
  * 
- * @author gentjan_kolicaj
+ * @author gentjan koliçaj
  *
  */
 public class Employee {
@@ -20,7 +20,6 @@ public class Employee {
 	private int jobId;
 	private int departmentId;
 	private String projectName;
-
 	private String createdBy;
 	private String updatedBy;
 	private LocalDateTime createdDate;

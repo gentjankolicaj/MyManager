@@ -102,15 +102,10 @@ public class Database implements Connectable {
 
 	}
 
-	public ResultSet selectStatement(String query) {
+	public ResultSet selectStatement(String query) throws SQLException {
 		ResultSet resultSet = null;
-		try {
-			statement = connection.createStatement();
-			resultSet = statement.executeQuery(query);
-
-		} catch (SQLException e) {
-			PrintUtils.print(e, PrintType.DATABASE_QUERY);
-		}
+		statement = connection.createStatement();
+		resultSet = statement.executeQuery(query);
 		return resultSet;
 	}
 

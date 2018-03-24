@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * 
- * @author gentjan_kolicaj
+ * @author gentjan koliçaj
  *
  */
 public class DatabasePool {

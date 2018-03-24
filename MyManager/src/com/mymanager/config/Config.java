@@ -5,7 +5,7 @@ import com.mymanager.utils.PrintFormat;
 
 /**
  * 
- * @author gentjan_kolicaj
+ * @author gentjan koliçaj
  *
  */
 public class Config {

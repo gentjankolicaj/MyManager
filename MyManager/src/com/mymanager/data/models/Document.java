@@ -5,14 +5,14 @@ import java.time.LocalDateTime;
 
 /**
  * 
- * @author gentjan_kolicaj
+ * @author gentjan koliçaj
  *
  */
 public class Document {
 
 	private int number;
 	private String name;
-	private String type;
+	private String type; // type determines who gets to see it
 	private File file;
 	private FileType fileType;
 	private String employeeId;

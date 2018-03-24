@@ -9,7 +9,7 @@ import com.mymanager.config.Config;
 
 /**
  * 
- * @author gentjan_kolicaj
+ * @author gentjan koliçaj
  *
  */
 public class ConsolePrinter {

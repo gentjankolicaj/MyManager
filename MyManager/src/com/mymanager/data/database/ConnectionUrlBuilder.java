@@ -2,7 +2,7 @@ package com.mymanager.data.database;
 
 /**
  * 
- * @author gentjan_kolicaj
+ * @author gentjan koliçaj
  *
  */
 public class ConnectionUrlBuilder {

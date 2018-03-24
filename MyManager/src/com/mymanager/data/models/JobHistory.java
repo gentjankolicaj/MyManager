@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 /**
  * 
- * @author gentjan_kolicaj
+ * @author gentjan koliçaj
  *
  */
 public class JobHistory {

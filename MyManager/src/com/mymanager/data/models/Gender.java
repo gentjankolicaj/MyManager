@@ -2,7 +2,7 @@ package com.mymanager.data.models;
 
 /**
  * 
- * @author gentjan_kolicaj
+ * @author gentjan koliçaj
  *
  */
 public enum Gender {

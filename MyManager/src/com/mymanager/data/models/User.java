@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 /**
  * 
- * @author gentjan_kolicaj
+ * @author gentjan koliçaj
  *
  */
 public class User {
@@ -19,8 +19,6 @@ public class User {
 	private LocalDate birthday;
 	private String birthplace;
 	private Gender gender;
-	private Contact contact;
-	private Adress adress;
 	private Rights rights;
 	private String createdBy;
 	private String updatedBy;
@@ -54,8 +52,8 @@ public class User {
 	 * @param updatedDate
 	 */
 	public User(String userId, UserType userType, String firstName, String lastName, String middleName, String password,
-			LocalDate birthday, String birthplace, Gender gender, Contact contact, Adress adress, Rights rights,
-			String createdBy, String updatedBy, LocalDateTime createdDate, LocalDateTime updatedDate) {
+			LocalDate birthday, String birthplace, Gender gender, Rights rights, String createdBy, String updatedBy,
+			LocalDateTime createdDate, LocalDateTime updatedDate) {
 		super();
 		this.userId = userId;
 		this.userType = userType;
@@ -66,8 +64,6 @@ public class User {
 		this.birthday = birthday;
 		this.birthplace = birthplace;
 		this.gender = gender;
-		this.contact = contact;
-		this.adress = adress;
 		this.rights = rights;
 		this.createdBy = createdBy;
 		this.updatedBy = updatedBy;
@@ -145,22 +141,6 @@ public class User {
 
 	public void setGender(Gender gender) {
 		this.gender = gender;
-	}
-
-	public Contact getContact() {
-		return contact;
-	}
-
-	public void setContact(Contact contact) {
-		this.contact = contact;
-	}
-
-	public Adress getAdress() {
-		return adress;
-	}
-
-	public void setAdress(Adress adress) {
-		this.adress = adress;
 	}
 
 	public Rights getRights() {
