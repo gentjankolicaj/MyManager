@@ -13,8 +13,8 @@ public interface Connectable {
 
 	void disconnect();
 
-	void start();
+	void open();
 
-	void stop();
+	void close();
 
 }

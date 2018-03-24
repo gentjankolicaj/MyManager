@@ -2,7 +2,10 @@ package com.mymanager.data.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import com.mymanager.utils.PrintType;
 import com.mymanager.utils.PrintUtils;
@@ -24,6 +27,8 @@ public class Database implements Connectable {
 	private String schema;
 
 	private Connection connection;
+	private Statement statement;
+	private PreparedStatement preparedStatement;
 
 	/**
 	 * @param driverName
@@ -85,15 +90,45 @@ public class Database implements Connectable {
 	}
 
 	@Override
-	public void start() {
+	public void open() {
 		initDriver();
 		connect();
 
 	}
 
 	@Override
-	public void stop() {
+	public void close() {
 		disconnect();
+
+	}
+
+	public ResultSet selectStatement(String query) {
+		ResultSet resultSet = null;
+		try {
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(query);
+
+		} catch (SQLException e) {
+			PrintUtils.print(e, PrintType.DATABASE_QUERY);
+		}
+		return resultSet;
+	}
+
+	public PreparedStatement insertStatement(String query) throws SQLException {
+		preparedStatement = connection.prepareStatement(query);
+		return preparedStatement;
+
+	}
+
+	public PreparedStatement updateStatement(String query) throws SQLException {
+		preparedStatement = connection.prepareStatement(query);
+		return preparedStatement;
+
+	}
+
+	public PreparedStatement deleteStatement(String query) throws SQLException {
+		preparedStatement = connection.prepareStatement(query);
+		return preparedStatement;
 
 	}
 
