@@ -27,9 +27,9 @@ public class MySQLDatabaseTest {
 	}
 
 	@Test
-	public final void start() {
+	public final void open() {
 		temp = new MySQLDatabase();
-		temp.start();
+		temp.open();
 	}
 
 }
