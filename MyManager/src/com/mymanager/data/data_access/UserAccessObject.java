@@ -3,6 +3,10 @@ package com.mymanager.data.data_access;
 import java.util.List;
 
 import com.mymanager.data.data_access.interfaces.UserAccess;
+import com.mymanager.data.database.Database;
+import com.mymanager.data.database.DatabaseManager;
+import com.mymanager.data.database.DatabasePool;
+import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.Rights;
 import com.mymanager.data.models.User;
 import com.mymanager.data.models.UserType;
@@ -13,6 +17,10 @@ import com.mymanager.data.models.UserType;
  *
  */
 public class UserAccessObject implements UserAccess {
+
+	protected static Database database = DatabasePool.getReference(DatabaseManager.getRecentInstanceNumber());
+
+	private QueryType queryType;
 
 	@Override
 	public List<User> readAllUsers() {

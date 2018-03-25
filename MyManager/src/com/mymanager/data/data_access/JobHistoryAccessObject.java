@@ -4,6 +4,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.mymanager.data.data_access.interfaces.JobHistoryAccess;
+import com.mymanager.data.database.Database;
+import com.mymanager.data.database.DatabaseManager;
+import com.mymanager.data.database.DatabasePool;
+import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.JobHistory;
 
 /**
@@ -12,6 +16,10 @@ import com.mymanager.data.models.JobHistory;
  *
  */
 public class JobHistoryAccessObject implements JobHistoryAccess {
+
+	protected static Database database = DatabasePool.getReference(DatabaseManager.getRecentInstanceNumber());
+
+	private QueryType queryType;
 
 	@Override
 	public List<JobHistory> readAllJobHistories() {

@@ -1,9 +1,18 @@
 package com.mymanager.data.data_access;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mymanager.data.data_access.interfaces.AdditionalAccess;
+import com.mymanager.data.database.Database;
+import com.mymanager.data.database.DatabaseManager;
+import com.mymanager.data.database.DatabasePool;
+import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.Additional;
+import com.mymanager.utils.PrintType;
+import com.mymanager.utils.PrintUtils;
 
 /**
  * 
@@ -12,10 +21,36 @@ import com.mymanager.data.models.Additional;
  */
 public class AdditionalAccessObject implements AdditionalAccess {
 
+	protected static Database database = DatabasePool.getReference(DatabaseManager.getRecentInstanceNumber());
+
+	private QueryType queryType;
+
+	public AdditionalAccessObject() {
+		this.queryType = QueryType.NORMAL;
+	}
+
+	public AdditionalAccessObject(QueryType queryType) {
+		this.queryType = queryType;
+	}
+
+	public void setQueryType(QueryType queryType) {
+		this.queryType = queryType;
+
+	}
+
 	@Override
 	public List<Additional> readAllAdditionals() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Additional> additionalList = new ArrayList<>();
+		try {
+
+			ResultSet res = database.selectStatement("Select * from ");
+
+		} catch (SQLException e) {
+			PrintUtils.print(e, PrintType.DATABASE_QUERY);
+		}
+
+		return additionalList;
+
 	}
 
 	@Override

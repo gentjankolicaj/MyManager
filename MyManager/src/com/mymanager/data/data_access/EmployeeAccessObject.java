@@ -3,6 +3,10 @@ package com.mymanager.data.data_access;
 import java.util.List;
 
 import com.mymanager.data.data_access.interfaces.EmployeeAccess;
+import com.mymanager.data.database.Database;
+import com.mymanager.data.database.DatabaseManager;
+import com.mymanager.data.database.DatabasePool;
+import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.Employee;
 
 /**
@@ -11,6 +15,10 @@ import com.mymanager.data.models.Employee;
  *
  */
 public class EmployeeAccessObject implements EmployeeAccess {
+
+	protected static Database database = DatabasePool.getReference(DatabaseManager.getRecentInstanceNumber());
+
+	private QueryType queryType;
 
 	@Override
 	public List<Employee> readAllEmployees() {

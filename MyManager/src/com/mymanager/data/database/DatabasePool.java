@@ -12,6 +12,10 @@ public class DatabasePool {
 
 	public static Map<Integer, Database> dbPool = new HashMap<>();
 
+	public static Map<Integer, Database> getDbPool() {
+		return dbPool;
+	}
+
 	public static Database getReference(Integer key) {
 		return dbPool.get(key);
 	}

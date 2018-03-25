@@ -7,6 +7,8 @@ package com.mymanager.data.database;
  */
 public class DatabaseManager {
 
+	private static int instanceNumber = 0;
+
 	private DatabaseManager() {
 	}
 
@@ -27,7 +29,8 @@ public class DatabaseManager {
 
 		}
 		openConnection(temp);
-		DatabasePool.putReference(new Integer(1), temp);
+		instanceNumber++;
+		DatabasePool.putReference(new Integer(instanceNumber), temp);
 
 		return temp;
 	}
@@ -56,7 +59,8 @@ public class DatabaseManager {
 
 		}
 		openConnection(temp);
-		DatabasePool.putReference(new Integer(1), temp);
+		instanceNumber++;
+		DatabasePool.putReference(new Integer(instanceNumber), temp);
 
 		return temp;
 	}
@@ -67,6 +71,10 @@ public class DatabaseManager {
 
 	public static void closeConnection(Database database) {
 		database.close();
+	}
+
+	public static int getRecentInstanceNumber() {
+		return instanceNumber;
 	}
 
 }
