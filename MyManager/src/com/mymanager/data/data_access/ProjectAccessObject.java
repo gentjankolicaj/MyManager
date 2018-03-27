@@ -20,6 +20,26 @@ public class ProjectAccessObject implements ProjectAccess {
 
 	private QueryType queryType;
 
+	/**
+	 * 
+	 */
+	public ProjectAccessObject() {
+		super();
+		this.queryType = QueryType.NORMAL;
+	}
+
+	/**
+	 * @param queryType
+	 */
+	public ProjectAccessObject(QueryType queryType) {
+		super();
+		this.queryType = queryType;
+	}
+
+	public void setQueryType(QueryType queryType) {
+		this.queryType = queryType;
+	}
+
 	@Override
 	public List<Project> readAllProjects() {
 		// TODO Auto-generated method stub

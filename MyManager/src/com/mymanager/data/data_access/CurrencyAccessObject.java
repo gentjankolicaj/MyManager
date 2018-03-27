@@ -20,6 +20,26 @@ public class CurrencyAccessObject implements CurrencyAccess {
 
 	private QueryType queryType;
 
+	/**
+	 * 
+	 */
+	public CurrencyAccessObject() {
+		super();
+		this.queryType = QueryType.NORMAL;
+	}
+
+	/**
+	 * @param queryType
+	 */
+	public CurrencyAccessObject(QueryType queryType) {
+		super();
+		this.queryType = queryType;
+	}
+
+	public void setQueryType(QueryType queryType) {
+		this.queryType = queryType;
+	}
+
 	@Override
 	public List<Currency> readAllCurrencies() {
 		// TODO Auto-generated method stub

@@ -20,6 +20,26 @@ public class DocumentAccessObject implements DocumentAccess {
 
 	private QueryType queryType;
 
+	/**
+	 * 
+	 */
+	public DocumentAccessObject() {
+		super();
+		this.queryType = QueryType.NORMAL;
+	}
+
+	/**
+	 * @param queryType
+	 */
+	public DocumentAccessObject(QueryType queryType) {
+		super();
+		this.queryType = queryType;
+	}
+
+	public void setQueryType(QueryType queryType) {
+		this.queryType = queryType;
+	}
+
 	@Override
 	public List<Document> readAllDocuments() {
 		// TODO Auto-generated method stub

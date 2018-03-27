@@ -21,6 +21,26 @@ public class PaymentAccessObject implements PaymentAccess {
 
 	private QueryType queryType;
 
+	/**
+	 * 
+	 */
+	public PaymentAccessObject() {
+		super();
+		this.queryType = QueryType.NORMAL;
+	}
+
+	/**
+	 * @param queryType
+	 */
+	public PaymentAccessObject(QueryType queryType) {
+		super();
+		this.queryType = queryType;
+	}
+
+	public void setQueryType(QueryType queryType) {
+		this.queryType = queryType;
+	}
+
 	@Override
 	public List<Payment> readAllPayments() {
 		// TODO Auto-generated method stub

@@ -20,6 +20,26 @@ public class ContactAccessObject implements ContactAccess {
 
 	private QueryType queryType;
 
+	/**
+	 * 
+	 */
+	public ContactAccessObject() {
+		super();
+		this.queryType = QueryType.NORMAL;
+	}
+
+	/**
+	 * @param queryType
+	 */
+	public ContactAccessObject(QueryType queryType) {
+		super();
+		this.queryType = queryType;
+	}
+
+	public void setQueryType(QueryType queryType) {
+		this.queryType = queryType;
+	}
+
 	@Override
 	public List<Contact> readAllContacts() {
 		// TODO Auto-generated method stub

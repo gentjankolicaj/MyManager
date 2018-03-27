@@ -20,6 +20,26 @@ public class DepartmentAccessObject implements DepartmentAccess {
 
 	private QueryType queryType;
 
+	/**
+	 * 
+	 */
+	public DepartmentAccessObject() {
+		super();
+		this.queryType = QueryType.NORMAL;
+	}
+
+	/**
+	 * @param queryType
+	 */
+	public DepartmentAccessObject(QueryType queryType) {
+		super();
+		this.queryType = queryType;
+	}
+
+	public void setQueryType(QueryType queryType) {
+		this.queryType = queryType;
+	}
+
 	@Override
 	public List<Department> readAllDepartments() {
 		// TODO Auto-generated method stub

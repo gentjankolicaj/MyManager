@@ -20,6 +20,27 @@ public class EmployeeAccessObject implements EmployeeAccess {
 
 	private QueryType queryType;
 
+	/**
+	 * 
+	 */
+	public EmployeeAccessObject() {
+		super();
+		this.queryType = QueryType.NORMAL;
+
+	}
+
+	/**
+	 * @param queryType
+	 */
+	public EmployeeAccessObject(QueryType queryType) {
+		super();
+		this.queryType = queryType;
+	}
+
+	public void setQueryType(QueryType queryType) {
+		this.queryType = queryType;
+	}
+
 	@Override
 	public List<Employee> readAllEmployees() {
 		// TODO Auto-generated method stub

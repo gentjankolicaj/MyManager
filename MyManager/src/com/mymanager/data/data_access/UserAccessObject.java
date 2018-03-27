@@ -22,6 +22,26 @@ public class UserAccessObject implements UserAccess {
 
 	private QueryType queryType;
 
+	/**
+	 * 
+	 */
+	public UserAccessObject() {
+		super();
+		this.queryType = QueryType.NORMAL;
+	}
+
+	/**
+	 * @param queryType
+	 */
+	public UserAccessObject(QueryType queryType) {
+		super();
+		this.queryType = queryType;
+	}
+
+	public void setQueryType(QueryType queryType) {
+		this.queryType = queryType;
+	}
+
 	@Override
 	public List<User> readAllUsers() {
 		// TODO Auto-generated method stub

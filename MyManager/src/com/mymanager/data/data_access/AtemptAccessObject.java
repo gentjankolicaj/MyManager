@@ -21,6 +21,27 @@ public class AtemptAccessObject implements AtemptAccess {
 
 	private QueryType queryType;
 
+	/**
+	 * 
+	 */
+	public AtemptAccessObject() {
+		super();
+		this.queryType = QueryType.NORMAL;
+
+	}
+
+	/**
+	 * @param queryType
+	 */
+	public AtemptAccessObject(QueryType queryType) {
+		super();
+		this.queryType = queryType;
+	}
+
+	public void setQueryType(QueryType queryType) {
+		this.queryType = queryType;
+	}
+
 	@Override
 	public List<Atempt> readAllAtempts() {
 		// TODO Auto-generated method stub

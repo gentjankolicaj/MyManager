@@ -15,6 +15,26 @@ public class JobAccessObject implements JobAccess {
 
 	private QueryType queryType;
 
+	/**
+	 * 
+	 */
+	public JobAccessObject() {
+		super();
+		this.queryType = QueryType.NORMAL;
+	}
+
+	/**
+	 * @param queryType
+	 */
+	public JobAccessObject(QueryType queryType) {
+		super();
+		this.queryType = queryType;
+	}
+
+	public void setQueryType(QueryType queryType) {
+		this.queryType = queryType;
+	}
+
 	@Override
 	public List<Job> readAllJobs() {
 		// TODO Auto-generated method stub

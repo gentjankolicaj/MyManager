@@ -21,6 +21,26 @@ public class JobHistoryAccessObject implements JobHistoryAccess {
 
 	private QueryType queryType;
 
+	/**
+	 * 
+	 */
+	public JobHistoryAccessObject() {
+		super();
+		this.queryType = QueryType.NORMAL;
+	}
+
+	/**
+	 * @param queryType
+	 */
+	public JobHistoryAccessObject(QueryType queryType) {
+		super();
+		this.queryType = queryType;
+	}
+
+	public void setQueryType(QueryType queryType) {
+		this.queryType = queryType;
+	}
+
 	@Override
 	public List<JobHistory> readAllJobHistories() {
 		// TODO Auto-generated method stub

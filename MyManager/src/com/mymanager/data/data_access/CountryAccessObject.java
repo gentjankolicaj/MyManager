@@ -20,6 +20,26 @@ public class CountryAccessObject implements CountryAccess {
 
 	private QueryType queryType;
 
+	/**
+	 * 
+	 */
+	public CountryAccessObject() {
+		super();
+		this.queryType = QueryType.NORMAL;
+	}
+
+	/**
+	 * @param queryType
+	 */
+	public CountryAccessObject(QueryType queryType) {
+		super();
+		this.queryType = queryType;
+	}
+
+	public void setQueryType(QueryType queryType) {
+		this.queryType = queryType;
+	}
+
 	@Override
 	public List<Country> readAllCountries() {
 		// TODO Auto-generated method stub

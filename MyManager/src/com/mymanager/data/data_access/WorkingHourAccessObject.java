@@ -21,6 +21,26 @@ public class WorkingHourAccessObject implements WorkingHourAccess {
 
 	private QueryType queryType;
 
+	/**
+	 * 
+	 */
+	public WorkingHourAccessObject() {
+		super();
+		this.queryType = QueryType.NORMAL;
+	}
+
+	/**
+	 * @param queryType
+	 */
+	public WorkingHourAccessObject(QueryType queryType) {
+		super();
+		this.queryType = queryType;
+	}
+
+	public void setQueryType(QueryType queryType) {
+		this.queryType = queryType;
+	}
+
 	@Override
 	public List<WorkingHour> readAllWorkingHour() {
 		// TODO Auto-generated method stub
