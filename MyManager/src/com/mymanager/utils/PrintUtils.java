@@ -112,6 +112,16 @@ public class PrintUtils {
 				return true;
 			else
 				return false;
+		} else if (type == PrintType.OTHER) {
+			if (Config.PRINT_OTHER)
+				return true;
+			else
+				return false;
+		} else if (type == PrintType.QUERY_RESULTS) {
+			if (Config.PRINT_QUERY_RESULTS)
+				return true;
+			else
+				return false;
 		} else
 			return false;
 

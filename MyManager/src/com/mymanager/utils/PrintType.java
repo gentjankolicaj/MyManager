@@ -7,6 +7,6 @@ package com.mymanager.utils;
  */
 public enum PrintType {
 
-	EXCEPTION, FILE_IO, DATABASE_QUERY, DATABASE_IO, LOG,
+	EXCEPTION, FILE_IO, DATABASE_QUERY, DATABASE_IO, LOG, OTHER, QUERY_RESULTS
 
 }

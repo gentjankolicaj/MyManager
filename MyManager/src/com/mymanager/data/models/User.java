@@ -14,7 +14,6 @@ public class User {
 	private UserType userType;
 	private String firstName;
 	private String lastName;
-	private String middleName;
 	private String password;
 	private LocalDate birthday;
 	private String birthplace;
@@ -51,7 +50,7 @@ public class User {
 	 * @param createdDate
 	 * @param updatedDate
 	 */
-	public User(String userId, UserType userType, String firstName, String lastName, String middleName, String password,
+	public User(String userId, UserType userType, String firstName, String lastName, String password,
 			LocalDate birthday, String birthplace, Gender gender, Rights rights, String createdBy, String updatedBy,
 			LocalDateTime createdDate, LocalDateTime updatedDate) {
 		super();
@@ -59,7 +58,6 @@ public class User {
 		this.userType = userType;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.middleName = middleName;
 		this.password = password;
 		this.birthday = birthday;
 		this.birthplace = birthplace;
@@ -101,14 +99,6 @@ public class User {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-
-	public String getMiddleName() {
-		return middleName;
-	}
-
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
 	}
 
 	public String getPassword() {

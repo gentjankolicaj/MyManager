@@ -51,9 +51,8 @@ public class ConsolePrinter {
 	public static void print(List<?> list) {
 		int i = 0;
 		for (Object object : list) {
-			String temp = (String) object;
 			i++;
-			print(i + "." + temp);
+			print(i + "." + object.toString());
 		}
 	}
 
