@@ -1,5 +1,6 @@
 package com.mymanager.data.data_access;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -52,7 +53,12 @@ public class UserAccessObject implements UserAccess {
 	public List<User> readAllUsers() {
 		List<User> userList = new ArrayList<>();
 		ResultSet results = null;
-		String query = "Select * from users";
+		String query = null;
+		if (queryType.equals(QueryType.NORMAL))
+			query = "SELECT * FROM users";
+		else
+			query = "SELECT * FROM users_history";
+
 		try {
 			results = database.selectStatement(query);
 			while (results.next()) {
@@ -85,7 +91,12 @@ public class UserAccessObject implements UserAccess {
 	public List<User> readUsersByFirstName(String firstName) {
 		List<User> userList = new ArrayList<>();
 		ResultSet results = null;
-		String query = "Select * from users where first_name like '" + firstName + "%'";
+		String query = null;
+		if (queryType.equals(QueryType.NORMAL))
+			query = "SELECT * FROM users WHERE first_name like '" + firstName + "%'";
+		else
+			query = "SELECT * FROM users_history WHERE first_name like '" + firstName + "%'";
+
 		try {
 			results = database.selectStatement(query);
 			while (results.next()) {
@@ -118,7 +129,12 @@ public class UserAccessObject implements UserAccess {
 	public List<User> readUsersByLastName(String lastName) {
 		List<User> userList = new ArrayList<>();
 		ResultSet results = null;
-		String query = "Select * from users where last_name like '" + lastName + "%'";
+		String query = null;
+		if (queryType.equals(QueryType.NORMAL))
+			query = "SELECT * FROM users WHERE last_name like '" + lastName + "%'";
+		else
+			query = "SELECT * FROM users_history WHERE last_name like '" + lastName + "%'";
+
 		try {
 			results = database.selectStatement(query);
 			while (results.next()) {
@@ -150,7 +166,12 @@ public class UserAccessObject implements UserAccess {
 	public List<User> readUsersByUserType(UserType userType) {
 		List<User> userList = new ArrayList<>();
 		ResultSet results = null;
-		String query = "Select * from users where user_type=" + userType.name();
+		String query = null;
+		if (queryType.equals(QueryType.NORMAL))
+			query = "SELECT * FROM users WHERE user_type=" + userType.name();
+		else
+			query = "SELECT * FROM users_history WHERE user_type=" + userType.name();
+
 		try {
 			results = database.selectStatement(query);
 			while (results.next()) {
@@ -182,7 +203,11 @@ public class UserAccessObject implements UserAccess {
 	public List<User> readUsersByRights(Rights rights) {
 		List<User> userList = new ArrayList<>();
 		ResultSet results = null;
-		String query = "Select * from users where rights=" + rights.name();
+		String query = null;
+		if (queryType.equals(QueryType.NORMAL))
+			query = "SELECT * FROM users WHERE rights=" + rights.name();
+		else
+			query = "SELECT * FROM users_history WHERE rights=" + rights.name();
 		try {
 			results = database.selectStatement(query);
 			while (results.next()) {
@@ -211,10 +236,15 @@ public class UserAccessObject implements UserAccess {
 	}
 
 	@Override
-	public User readUser(String userId) {
+	public User readUser(User user) {
 		ResultSet results = null;
 		User temp = null;
-		String query = "Select * from users where user_id=" + userId;
+		String query = null;
+		if (queryType.equals(QueryType.NORMAL))
+			query = "SELECT * FROM users WHERE user_id=" + user.getUserId();
+		else
+			query = "SELECT * FROM users_history WHERE user_id=" + user.getUserId();
+
 		try {
 			results = database.selectStatement(query);
 			while (results.next()) {
@@ -243,20 +273,133 @@ public class UserAccessObject implements UserAccess {
 
 	@Override
 	public int updateUser(User user) {
-		// TODO Auto-generated method stub
-		return 0;
+		String query = "UPDATE users SET" + "user_type =?," + "first_name=?," + "last_name=?," + "password=?,"
+				+ "birthday=?," + "birthplace=?," + "gender=?," + "rights=?," + "created_by=?," + "created_date=?,"
+				+ "updated_by=?," + "updated_date=? WHERE user_id=?";
+		setQueryType(QueryType.NORMAL);
+		User temp = readUser(user);
+		savePreviousRow(temp);
+
+		int i = 0;
+		try {
+			PreparedStatement pstmt = database.updateStatement(query);
+			pstmt.setString(1, user.getUserType().name());
+			pstmt.setString(2, user.getFirstName());
+			pstmt.setString(3, user.getLastName());
+			pstmt.setString(4, user.getPassword());
+			pstmt.setObject(5, user.getBirthday());
+			pstmt.setString(6, user.getBirthplace());
+			pstmt.setString(7, user.getGender().name());
+			pstmt.setString(8, user.getRights().name());
+			pstmt.setString(9, user.getCreatedBy());
+			pstmt.setObject(10, user.getCreatedDate());
+			pstmt.setString(11, user.getUpdatedBy());
+			pstmt.setObject(12, user.getUpdatedDate());
+			pstmt.setString(13, user.getUserId());
+
+			pstmt.executeUpdate();
+			i = 1;
+		} catch (SQLException sql) {
+			PrintUtils.print(sql, PrintType.DATABASE_QUERY);
+
+		} catch (Exception e) {
+			PrintUtils.print(e, PrintType.OTHER);
+
+		}
+
+		return i;
 	}
 
 	@Override
 	public int insertUser(User user) {
-		// TODO Auto-generated method stub
-		return 0;
+		String query = "INSERT INTO users (user_id,user_type,first_name,last_name,password,"
+				+ "birthday,birthplace,gender,rights,created_by,created_date) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+
+		int i = 0;
+		try {
+			PreparedStatement pstmt = database.updateStatement(query);
+			pstmt.setString(1, user.getUserId());
+			pstmt.setString(2, user.getUserType().name());
+			pstmt.setString(3, user.getFirstName());
+			pstmt.setString(4, user.getLastName());
+			pstmt.setString(5, user.getPassword());
+			pstmt.setObject(6, user.getBirthday());
+			pstmt.setString(7, user.getBirthplace());
+			pstmt.setString(8, user.getGender().name());
+			pstmt.setString(9, user.getRights().name());
+			pstmt.setString(10, user.getCreatedBy());
+			pstmt.setObject(11, user.getCreatedDate());
+
+			pstmt.executeUpdate();
+			i = 1;
+		} catch (SQLException sql) {
+			PrintUtils.print(sql, PrintType.DATABASE_QUERY);
+
+		} catch (Exception e) {
+			PrintUtils.print(e, PrintType.OTHER);
+
+		}
+
+		return i;
 	}
 
 	@Override
 	public int deleteUser(User user) {
-		// TODO Auto-generated method stub
-		return 0;
+		String query = "DELETE FROM users WHERE user_id=?";
+
+		User temp = readUser(user);
+		savePreviousRow(temp);
+
+		int i = 0;
+		try {
+			PreparedStatement pstmt = database.updateStatement(query);
+			pstmt.setString(1, user.getUserId());
+
+			pstmt.executeUpdate();
+			i = 1;
+		} catch (SQLException sql) {
+			PrintUtils.print(sql, PrintType.DATABASE_QUERY);
+
+		} catch (Exception e) {
+			PrintUtils.print(e, PrintType.OTHER);
+
+		}
+
+		return i;
+	}
+
+	public int savePreviousRow(User user) {
+		String query = "INSERT INTO users_history (user_id,user_type,first_name,last_name,password,"
+				+ "birthday,birthplace,gender,rights,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+		int i = 0;
+		try {
+			PreparedStatement pstmt = database.updateStatement(query);
+			pstmt.setString(1, user.getUserId());
+			pstmt.setString(2, user.getUserType().name());
+			pstmt.setString(3, user.getFirstName());
+			pstmt.setString(4, user.getLastName());
+			pstmt.setString(5, user.getPassword());
+			pstmt.setObject(6, user.getBirthday());
+			pstmt.setString(7, user.getBirthplace());
+			pstmt.setString(8, user.getGender().name());
+			pstmt.setString(9, user.getRights().name());
+			pstmt.setString(10, user.getCreatedBy());
+			pstmt.setObject(11, user.getCreatedDate());
+			pstmt.setString(12, user.getUpdatedBy());
+			pstmt.setObject(13, user.getUpdatedDate());
+
+			pstmt.executeUpdate();
+			i = 1;
+		} catch (SQLException sql) {
+			PrintUtils.print(sql, PrintType.DATABASE_QUERY);
+
+		} catch (Exception e) {
+			PrintUtils.print(e, PrintType.OTHER);
+
+		}
+
+		return i;
 	}
 
 }

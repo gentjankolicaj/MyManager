@@ -23,7 +23,7 @@ public interface UserAccess {
 
 	public abstract List<User> readUsersByRights(Rights rights);
 
-	public abstract User readUser(String userId);
+	public abstract User readUser(User user);
 
 	public abstract int updateUser(User user);
 
