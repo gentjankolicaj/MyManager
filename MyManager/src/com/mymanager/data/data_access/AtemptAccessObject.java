@@ -40,7 +40,7 @@ public class AtemptAccessObject implements AtemptAccess {
 		try {
 			results = database.selectStatement(query);
 			while (results.next()) {
-				Atempt temp = new Atempt(new Integer(results.getString("index")), results.getString("user"),
+				Atempt temp = new Atempt(results.getInt("index"), results.getString("user"),
 						results.getString("password"), Status.valueOf(results.getString("status")),
 						results.getString("description"), results.getTimestamp("date_time").toLocalDateTime());
 
@@ -70,7 +70,7 @@ public class AtemptAccessObject implements AtemptAccess {
 		try {
 			results = database.selectStatement(query);
 			while (results.next()) {
-				Atempt temp = new Atempt(new Integer(results.getString("index")), results.getString("user"),
+				Atempt temp = new Atempt(results.getInt("index"), results.getString("user"),
 						results.getString("password"), Status.valueOf(results.getString("status")),
 						results.getString("description"), results.getTimestamp("date_time").toLocalDateTime());
 
@@ -101,7 +101,7 @@ public class AtemptAccessObject implements AtemptAccess {
 		try {
 			results = database.selectStatement(query);
 			while (results.next()) {
-				Atempt temp = new Atempt(new Integer(results.getString("index")), results.getString("user"),
+				Atempt temp = new Atempt(results.getInt("index"), results.getString("user"),
 						results.getString("password"), Status.valueOf(results.getString("status")),
 						results.getString("description"), results.getTimestamp("date_time").toLocalDateTime());
 
@@ -156,7 +156,7 @@ public class AtemptAccessObject implements AtemptAccess {
 		int i = 0;
 		try {
 			PreparedStatement pstmt = database.updateStatement(query);
-			pstmt.setString(1, String.valueOf(atempt.getIndex()));
+			pstmt.setInt(1, atempt.getIndex());
 			pstmt.executeUpdate();
 
 			i = 1;

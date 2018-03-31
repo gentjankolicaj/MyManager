@@ -59,10 +59,9 @@ public class DepartmentAccessObject implements DepartmentAccess {
 		try {
 			results = database.selectStatement(query);
 			while (results.next()) {
-				Department temp = new Department(Integer.parseInt(results.getString("department_id")),
-						results.getString("department_name"), results.getString("manager_id"),
-						results.getString("created_by"), results.getString("updated_by"),
-						results.getTimestamp("created_date").toLocalDateTime(),
+				Department temp = new Department(results.getInt("department_id"), results.getString("department_name"),
+						results.getString("manager_id"), results.getString("created_by"),
+						results.getString("updated_by"), results.getTimestamp("created_date").toLocalDateTime(),
 						results.getTimestamp("updated_date").toLocalDateTime());
 
 				departmentList.add(temp);
@@ -94,10 +93,9 @@ public class DepartmentAccessObject implements DepartmentAccess {
 		try {
 			results = database.selectStatement(query);
 			while (results.next()) {
-				Department temp = new Department(Integer.parseInt(results.getString("department_id")),
-						results.getString("department_name"), results.getString("manager_id"),
-						results.getString("created_by"), results.getString("updated_by"),
-						results.getTimestamp("created_date").toLocalDateTime(),
+				Department temp = new Department(results.getInt("department_id"), results.getString("department_name"),
+						results.getString("manager_id"), results.getString("created_by"),
+						results.getString("updated_by"), results.getTimestamp("created_date").toLocalDateTime(),
 						results.getTimestamp("updated_date").toLocalDateTime());
 
 				departmentList.add(temp);
@@ -129,10 +127,9 @@ public class DepartmentAccessObject implements DepartmentAccess {
 		try {
 			results = database.selectStatement(query);
 			while (results.next()) {
-				temp = new Department(Integer.parseInt(results.getString("department_id")),
-						results.getString("department_name"), results.getString("manager_id"),
-						results.getString("created_by"), results.getString("updated_by"),
-						results.getTimestamp("created_date").toLocalDateTime(),
+				temp = new Department(results.getInt("department_id"), results.getString("department_name"),
+						results.getString("manager_id"), results.getString("created_by"),
+						results.getString("updated_by"), results.getTimestamp("created_date").toLocalDateTime(),
 						results.getTimestamp("updated_date").toLocalDateTime());
 			}
 

@@ -8,6 +8,7 @@ package com.mymanager.data.models;
 public class Currency {
 
 	private String currencyName;
+	private String updatedCurrencyName;
 
 	/**
 	 * 
@@ -20,17 +21,36 @@ public class Currency {
 	/**
 	 * @param currencyName
 	 */
-	public Currency(String currencyName) {
-		super();
-		this.currencyName = currencyName;
-	}
 
 	public String getCurrencyName() {
 		return currencyName;
 	}
 
+	public Currency(String currencyName) {
+		super();
+		this.currencyName = currencyName;
+	}
+
+	/**
+	 * @param currencyName
+	 * @param updatedCurrencyName
+	 */
+	public Currency(String currencyName, String updatedCurrencyName) {
+		super();
+		this.currencyName = currencyName;
+		this.updatedCurrencyName = updatedCurrencyName;
+	}
+
 	public void setCurrencyName(String currencyName) {
 		this.currencyName = currencyName;
+	}
+
+	public String getUpdatedCurrencyName() {
+		return updatedCurrencyName;
+	}
+
+	public void setUpdatedCurrencyName(String updatedCurrencyName) {
+		this.updatedCurrencyName = updatedCurrencyName;
 	}
 
 }
