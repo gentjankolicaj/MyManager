@@ -13,7 +13,7 @@ public interface AdditionalAccess {
 
 	public abstract List<Additional> readAllAdditionals();
 
-	public abstract Additional readAdditional(String employeeId);
+	public abstract List<Additional> readAdditional(Additional additional);
 
 	public abstract int updateAdditional(Additional additional);
 

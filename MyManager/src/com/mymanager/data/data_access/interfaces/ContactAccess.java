@@ -17,7 +17,7 @@ public interface ContactAccess {
 
 	public abstract List<Contact> readContacts(String email);
 
-	public abstract Contact readContact(String ownerId);
+	public abstract List<Contact> readContact(Contact contact);
 
 	public abstract int updateContact(Contact contact);
 

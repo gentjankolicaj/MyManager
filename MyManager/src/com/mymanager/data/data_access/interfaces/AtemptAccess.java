@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mymanager.data.models.Atempt;
 import com.mymanager.data.models.Status;
+import com.mymanager.data.models.User;
 
 /**
  * 
@@ -14,7 +15,7 @@ public interface AtemptAccess {
 
 	public abstract List<Atempt> readAllAtempts();
 
-	public abstract List<Atempt> readAtempts(String user);
+	public abstract List<Atempt> readAtempts(User user);
 
 	public abstract List<Atempt> readAtempts(Status status);
 

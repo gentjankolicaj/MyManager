@@ -14,7 +14,7 @@ public class Adress {
 	private String city;
 	private String streetName;
 	private int zipCode;
-	private int building;
+	private String building;
 	private String createdBy;
 	private String updatedBy;
 	private LocalDateTime createdDate;
@@ -40,7 +40,7 @@ public class Adress {
 	 * @param createdDate
 	 * @param updatedDate
 	 */
-	public Adress(String id, Country country, String city, String streetName, int zipCode, int building,
+	public Adress(String id, Country country, String city, String streetName, int zipCode, String building,
 			String createdBy, String updatedBy, LocalDateTime createdDate, LocalDateTime updatedDate) {
 		super();
 		this.id = id;
@@ -95,11 +95,11 @@ public class Adress {
 		this.zipCode = zipCode;
 	}
 
-	public int getBuilding() {
+	public String getBuilding() {
 		return building;
 	}
 
-	public void setBuilding(int building) {
+	public void setBuilding(String building) {
 		this.building = building;
 	}
 

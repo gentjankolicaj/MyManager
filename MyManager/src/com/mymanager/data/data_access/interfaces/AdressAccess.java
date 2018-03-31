@@ -13,7 +13,7 @@ public interface AdressAccess {
 
 	public abstract List<Adress> readAllAdresses();
 
-	public abstract Adress readAdress(String employeeId);
+	public abstract List<Adress> readAdress(Adress adress);
 
 	public abstract int updateAdress(Adress adress);
 
