@@ -17,7 +17,7 @@ public interface JobAccess {
 
 	public abstract List<Job> readAllJobsByTitle(String jobTitle);
 
-	public abstract Job readJob(int jobId);
+	public abstract Job readJob(Job job);
 
 	public abstract int updateJob(Job job);
 

@@ -93,9 +93,9 @@ public class UserAccessObject implements UserAccess {
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM users WHERE first_name like '" + firstName + "%'";
+			query = "SELECT * FROM users WHERE first_name LIKE '" + firstName + "%'";
 		else
-			query = "SELECT * FROM users_history WHERE first_name like '" + firstName + "%'";
+			query = "SELECT * FROM users_history WHERE first_name LIKE '" + firstName + "%'";
 
 		try {
 			results = database.selectStatement(query);
@@ -131,9 +131,9 @@ public class UserAccessObject implements UserAccess {
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM users WHERE last_name like '" + lastName + "%'";
+			query = "SELECT * FROM users WHERE last_name LIKE '" + lastName + "%'";
 		else
-			query = "SELECT * FROM users_history WHERE last_name like '" + lastName + "%'";
+			query = "SELECT * FROM users_history WHERE last_name LIKE '" + lastName + "%'";
 
 		try {
 			results = database.selectStatement(query);
@@ -273,7 +273,7 @@ public class UserAccessObject implements UserAccess {
 
 	@Override
 	public int updateUser(User user) {
-		String query = "UPDATE users SET" + "user_type =?," + "first_name=?," + "last_name=?," + "password=?,"
+		String query = "UPDATE users SET" + " user_type =?," + "first_name=?," + "last_name=?," + "password=?,"
 				+ "birthday=?," + "birthplace=?," + "gender=?," + "rights=?," + "created_by=?," + "created_date=?,"
 				+ "updated_by=?," + "updated_date=? WHERE user_id=?";
 		setQueryType(QueryType.NORMAL);
