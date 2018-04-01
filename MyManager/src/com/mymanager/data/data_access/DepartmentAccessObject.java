@@ -115,8 +115,9 @@ public class DepartmentAccessObject implements DepartmentAccess {
 	}
 
 	@Override
-	public Department readDepartment(Department department) {
-		Department temp = null;
+	public List<Department> readDepartment(Department department) {
+
+		List<Department> departmentList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
@@ -127,10 +128,11 @@ public class DepartmentAccessObject implements DepartmentAccess {
 		try {
 			results = database.selectStatement(query);
 			while (results.next()) {
-				temp = new Department(results.getInt("department_id"), results.getString("department_name"),
+				Department temp = new Department(results.getInt("department_id"), results.getString("department_name"),
 						results.getString("manager_id"), results.getString("created_by"),
 						results.getString("updated_by"), results.getTimestamp("created_date").toLocalDateTime(),
 						results.getTimestamp("updated_date").toLocalDateTime());
+				departmentList.add(temp);
 			}
 
 		} catch (SQLException sql) {
@@ -140,9 +142,9 @@ public class DepartmentAccessObject implements DepartmentAccess {
 			PrintUtils.print(e, PrintType.OTHER);
 
 		}
-		PrintUtils.print(temp, PrintType.QUERY_RESULTS);
+		PrintUtils.print(departmentList, PrintType.QUERY_RESULTS);
 
-		return temp;
+		return departmentList;
 	}
 
 	@Override
@@ -150,7 +152,7 @@ public class DepartmentAccessObject implements DepartmentAccess {
 		String query = "UPDATE departments SET" + "department_name=?,manager_id=?,created_by=?," + "created_date=?,"
 				+ "updated_by=?," + "updated_date=? WHERE department_id=?";
 		setQueryType(QueryType.NORMAL);
-		Department temp = readDepartment(department);
+		List<Department> temp = readDepartment(department);
 		savePreviousRow(temp);
 
 		int i = 0;
@@ -225,9 +227,10 @@ public class DepartmentAccessObject implements DepartmentAccess {
 		return i;
 	}
 
-	public int savePreviousRow(Department department) {
+	public int savePreviousRow(List<Department> departments) {
 		String query = "INSERT INTO departments_history (department_id,department_name,manager_id,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?)";
 		int i = 0;
+		Department department = departments.get(0);
 		try {
 			PreparedStatement pstmt = database.updateStatement(query);
 			pstmt.setInt(1, department.getDepartmentId());

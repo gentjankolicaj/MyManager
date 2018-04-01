@@ -15,7 +15,7 @@ public interface DepartmentAccess {
 
 	public abstract List<Department> readDepartments(String departmentName);
 
-	public abstract Department readDepartment(Department department);
+	public abstract List<Department> readDepartment(Department department);
 
 	public abstract int updateDepartment(Department department);
 

@@ -199,8 +199,39 @@ public class DocumentAccessObject implements DocumentAccess {
 
 	@Override
 	public int updateDocument(Document document) {
-		// TODO Auto-generated method stub
-		return 0;
+		String query = "UPDATE employee_documents SET document_name=?,document_type=?,document_file=?,file_type=?,employee_id=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE document_number=?";
+		setQueryType(QueryType.NORMAL);
+
+		List<Document> temp = readDocumentByDocumentNumber(document);
+		savePreviousRow(temp);
+
+		int i = 0;
+
+		try {
+			PreparedStatement pstmt = database.updateStatement(query);
+			pstmt.setString(1, document.getName());
+			pstmt.setString(2, document.getType());
+			pstmt.setBlob(3, document.getFile());
+			pstmt.setString(4, document.getFileType().getFile());
+			pstmt.setString(5, document.getEmployeeId());
+			pstmt.setString(6, document.getCreatedBy());
+			pstmt.setObject(7, document.getCreatedDate());
+			pstmt.setString(8, document.getUpdatedBy());
+			pstmt.setObject(9, document.getUpdatedDate());
+			pstmt.setInt(10, document.getNumber());
+
+			pstmt.executeUpdate();
+			i = 1;
+		} catch (SQLException sql) {
+			PrintUtils.print(sql, PrintType.DATABASE_QUERY);
+
+		} catch (Exception e) {
+			PrintUtils.print(e, PrintType.OTHER);
+
+		}
+
+		return i;
+
 	}
 
 	@Override
@@ -271,8 +302,11 @@ public class DocumentAccessObject implements DocumentAccess {
 		return i;
 	}
 
-	public int savePreviousRow(Document document) {
+	public int savePreviousRow(List<Document> documents) {
 		String query = "INSERT INTO employee_documents_history (document_name,document_type,document_file,file_type,document_number,employee_id,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
+
+		Document document = documents.get(0);
+
 		int i = 0;
 		try {
 			PreparedStatement pstmt = database.updateStatement(query);
