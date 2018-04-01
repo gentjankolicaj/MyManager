@@ -15,9 +15,9 @@ public interface DocumentAccess {
 
 	public abstract List<Document> readDocuments(String documentName);
 
-	public abstract Document readDocument(int number);
+	public abstract List<Document> readDocumentByDocumentNumber(Document document);
 
-	public abstract Document readDocument(String employeeId);
+	public abstract List<Document> readDocumentByEmployeeId(Document document);
 
 	public abstract int updateDocument(Document document);
 

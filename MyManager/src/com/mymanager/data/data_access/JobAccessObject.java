@@ -54,9 +54,8 @@ public class JobAccessObject implements JobAccess {
 		try {
 			results = database.selectStatement(query);
 			while (results.next()) {
-				Job temp = new Job(Integer.parseInt(results.getString("job_id")), results.getString("job_title"),
-						Float.parseFloat(results.getString("max_salary")),
-						Float.parseFloat(results.getString("min_salary")), results.getString("created_by"),
+				Job temp = new Job(results.getInt("job_id"), results.getString("job_title"),
+						results.getFloat("max_salary"), results.getFloat("min_salary"), results.getString("created_by"),
 						results.getString("updated_by"), results.getTimestamp("created_date").toLocalDateTime(),
 						results.getTimestamp("updated_date").toLocalDateTime());
 
@@ -90,9 +89,8 @@ public class JobAccessObject implements JobAccess {
 		try {
 			results = database.selectStatement(query);
 			while (results.next()) {
-				Job temp = new Job(Integer.parseInt(results.getString("job_id")), results.getString("job_title"),
-						Float.parseFloat(results.getString("max_salary")),
-						Float.parseFloat(results.getString("min_salary")), results.getString("created_by"),
+				Job temp = new Job(results.getInt("job_id"), results.getString("job_title"),
+						results.getFloat("max_salary"), results.getFloat("min_salary"), results.getString("created_by"),
 						results.getString("updated_by"), results.getTimestamp("created_date").toLocalDateTime(),
 						results.getTimestamp("updated_date").toLocalDateTime());
 
@@ -124,9 +122,8 @@ public class JobAccessObject implements JobAccess {
 		try {
 			results = database.selectStatement(query);
 			while (results.next()) {
-				Job temp = new Job(Integer.parseInt(results.getString("job_id")), results.getString("job_title"),
-						Float.parseFloat(results.getString("max_salary")),
-						Float.parseFloat(results.getString("min_salary")), results.getString("created_by"),
+				Job temp = new Job(results.getInt("job_id"), results.getString("job_title"),
+						results.getFloat("max_salary"), results.getFloat("min_salary"), results.getString("created_by"),
 						results.getString("updated_by"), results.getTimestamp("created_date").toLocalDateTime(),
 						results.getTimestamp("updated_date").toLocalDateTime());
 
@@ -159,9 +156,8 @@ public class JobAccessObject implements JobAccess {
 		try {
 			results = database.selectStatement(query);
 			while (results.next()) {
-				temp = new Job(Integer.parseInt(results.getString("job_id")), results.getString("job_title"),
-						Float.parseFloat(results.getString("max_salary")),
-						Float.parseFloat(results.getString("min_salary")), results.getString("created_by"),
+				temp = new Job(results.getInt("job_id"), results.getString("job_title"), results.getFloat("max_salary"),
+						results.getFloat("min_salary"), results.getString("created_by"),
 						results.getString("updated_by"), results.getTimestamp("created_date").toLocalDateTime(),
 						results.getTimestamp("updated_date").toLocalDateTime());
 

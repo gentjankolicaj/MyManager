@@ -1,6 +1,6 @@
 package com.mymanager.data.models;
 
-import java.io.File;
+import java.sql.Blob;
 import java.time.LocalDateTime;
 
 /**
@@ -13,7 +13,7 @@ public class Document {
 	private int number;
 	private String name;
 	private String type; // type determines who gets to see it
-	private File file;
+	private Blob file;
 	private FileType fileType;
 	private String employeeId;
 	private String createdBy;
@@ -41,7 +41,7 @@ public class Document {
 	 * @param createdDate
 	 * @param updatedDate
 	 */
-	public Document(int number, String name, String type, File file, FileType fileType, String employeeId,
+	public Document(int number, String name, String type, Blob file, FileType fileType, String employeeId,
 			String createdBy, String updatedBy, LocalDateTime createdDate, LocalDateTime updatedDate) {
 		super();
 		this.number = number;
@@ -80,11 +80,11 @@ public class Document {
 		this.type = type;
 	}
 
-	public File getFile() {
+	public Blob getFile() {
 		return file;
 	}
 
-	public void setFile(File file) {
+	public void setFile(Blob file) {
 		this.file = file;
 	}
 
