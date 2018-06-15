@@ -40,9 +40,9 @@ public class ConsolePrinter {
 		Set<?> keySet = map.keySet();
 		Iterator<?> iter = keySet.iterator();
 		while (iter.hasNext()) {
-			String key = (String) iter.next();
-			String value = (String) map.get(key);
-			print("{ " + key + " : " + value + " }");
+			Object key = iter.next();
+			Object value = map.get(key);
+			print("{ " + key.toString() + " : " + value.toString() + " }");
 
 		}
 

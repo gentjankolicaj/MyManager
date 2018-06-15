@@ -31,13 +31,11 @@ public class DatabaseManager {
 		openConnection(temp);
 		instanceNumber++;
 		DatabasePool.putReference(new Integer(instanceNumber), temp);
-
 		return temp;
 	}
 
 	public static Database getDatabase(InstanceData instanceData) {
 		Database temp = null;
-
 		switch (instanceData.getRdbmsType()) {
 		case MySQL:
 			temp = new MySQLDatabase(instanceData.getDriverName(), instanceData.getApi(),
@@ -66,11 +64,11 @@ public class DatabaseManager {
 	}
 
 	public static void openConnection(Database database) {
-		database.open();
+		database.connect();
 	}
 
 	public static void closeConnection(Database database) {
-		database.close();
+		database.disconnect();
 	}
 
 	public static int getRecentInstanceNumber() {

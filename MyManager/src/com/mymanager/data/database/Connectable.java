@@ -13,8 +13,4 @@ public interface Connectable {
 
 	void disconnect();
 
-	void open();
-
-	void close();
-
 }

@@ -26,10 +26,4 @@ public class MySQLDatabaseTest {
 		temp.disconnect();
 	}
 
-	@Test
-	public final void open() {
-		temp = new MySQLDatabase();
-		temp.open();
-	}
-
 }

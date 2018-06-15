@@ -64,6 +64,7 @@ public class Database implements Connectable {
 
 	@Override
 	public void connect() {
+		initDriver();
 		try {
 			String url = new ConnectionUrlBuilder().setApi(api).setDatabase(databaseType).setServer(server)
 					.setPort(port).setSchema(schema).build();
@@ -89,19 +90,6 @@ public class Database implements Connectable {
 
 	}
 
-	@Override
-	public void open() {
-		initDriver();
-		connect();
-
-	}
-
-	@Override
-	public void close() {
-		disconnect();
-
-	}
-
 	public ResultSet selectStatement(String query) throws SQLException {
 		ResultSet resultSet = null;
 		statement = connection.createStatement();
@@ -109,19 +97,7 @@ public class Database implements Connectable {
 		return resultSet;
 	}
 
-	public PreparedStatement insertStatement(String query) throws SQLException {
-		preparedStatement = connection.prepareStatement(query);
-		return preparedStatement;
-
-	}
-
 	public PreparedStatement updateStatement(String query) throws SQLException {
-		preparedStatement = connection.prepareStatement(query);
-		return preparedStatement;
-
-	}
-
-	public PreparedStatement deleteStatement(String query) throws SQLException {
 		preparedStatement = connection.prepareStatement(query);
 		return preparedStatement;
 
