@@ -42,61 +42,61 @@ public class EmployeeAccessObject implements EmployeeAccess {
 	}
 
 	@Override
-	public List<Employee> readAllEmployees() {
+	public List<Employee> readAllEmployees() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Employee> readEmployeesByFirstName(String firstName) {
+	public List<Employee> readEmployeesByFirstName(String firstName) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Employee> readEmployeesByLastName(String lastName) {
+	public List<Employee> readEmployeesByLastName(String lastName) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Employee> readEmployeesByJobId(int jobId) {
+	public List<Employee> readEmployeesByJobId(int jobId) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Employee> readEmployeesByDepartmentId(int departmentId) {
+	public List<Employee> readEmployeesByDepartmentId(int departmentId) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Employee> readEmployeesByProjectName(String projectName) {
+	public List<Employee> readEmployeesByProjectName(String projectName) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Employee readEmployee(String employeeId) {
+	public Employee readEmployee(String employeeId) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int updateEmployee(Employee employee) {
+	public int updateEmployee(Employee employee) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int insertEmployee(Employee employee) {
+	public int insertEmployee(Employee employee) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int deleteEmployee(Employee employee) {
+	public int deleteEmployee(Employee employee) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}

@@ -11,18 +11,18 @@ import com.mymanager.data.models.Document;
  */
 public interface DocumentAccess {
 
-	public abstract List<Document> readAllDocuments();
+	public abstract List<Document> readAllDocuments() throws Exception;
 
-	public abstract List<Document> readDocuments(String documentName);
+	public abstract List<Document> readDocuments(String documentName) throws Exception;
 
-	public abstract List<Document> readDocumentByDocumentNumber(Document document);
+	public abstract List<Document> readDocumentByDocumentNumber(Document document) throws Exception;
 
-	public abstract List<Document> readDocumentByEmployeeId(Document document);
+	public abstract List<Document> readDocumentByEmployeeId(Document document) throws Exception;
 
-	public abstract int updateDocument(Document document);
+	public abstract int updateDocument(Document document) throws Exception;
 
-	public abstract int insertDocument(Document document);
+	public abstract int insertDocument(Document document) throws Exception;
 
-	public abstract int deleteDocument(Document document);
+	public abstract int deleteDocument(Document document) throws Exception;
 
 }

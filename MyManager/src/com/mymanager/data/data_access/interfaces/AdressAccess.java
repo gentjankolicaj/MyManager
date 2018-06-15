@@ -11,14 +11,14 @@ import com.mymanager.data.models.Adress;
  */
 public interface AdressAccess {
 
-	public abstract List<Adress> readAllAdresses();
+	public abstract List<Adress> readAllAdresses() throws Exception;
 
-	public abstract List<Adress> readAdress(Adress adress);
+	public abstract List<Adress> readAdress(Adress adress) throws Exception;
 
-	public abstract int updateAdress(Adress adress);
+	public abstract int updateAdress(Adress adress) throws Exception;
 
-	public abstract int insertAdress(Adress adress);
+	public abstract int insertAdress(Adress adress) throws Exception;
 
-	public abstract int deleteAdress(Adress adress);
+	public abstract int deleteAdress(Adress adress) throws Exception;
 
 }

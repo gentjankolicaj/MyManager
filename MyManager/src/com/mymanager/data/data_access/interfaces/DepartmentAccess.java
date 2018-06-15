@@ -11,16 +11,16 @@ import com.mymanager.data.models.Department;
  */
 public interface DepartmentAccess {
 
-	public abstract List<Department> readAllDepartments();
+	public abstract List<Department> readAllDepartments() throws Exception;
 
-	public abstract List<Department> readDepartments(String departmentName);
+	public abstract List<Department> readDepartments(String departmentName) throws Exception;
 
-	public abstract List<Department> readDepartment(Department department);
+	public abstract List<Department> readDepartment(Department department) throws Exception;
 
-	public abstract int updateDepartment(Department department);
+	public abstract int updateDepartment(Department department) throws Exception;
 
-	public abstract int insertDepartment(Department department);
+	public abstract int insertDepartment(Department department) throws Exception;
 
-	public abstract int deleteDepartment(Department department);
+	public abstract int deleteDepartment(Department department) throws Exception;
 
 }

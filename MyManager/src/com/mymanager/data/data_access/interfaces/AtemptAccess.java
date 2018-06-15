@@ -13,14 +13,14 @@ import com.mymanager.data.models.User;
  */
 public interface AtemptAccess {
 
-	public abstract List<Atempt> readAllAtempts();
+	public abstract List<Atempt> readAllAtempts() throws Exception;
 
-	public abstract List<Atempt> readAtempts(User user);
+	public abstract List<Atempt> readAtempts(User user) throws Exception;
 
-	public abstract List<Atempt> readAtempts(Status status);
+	public abstract List<Atempt> readAtempts(Status status) throws Exception;
 
-	public abstract int insertAtempt(Atempt atempt);
+	public abstract int insertAtempt(Atempt atempt) throws Exception;
 
-	public abstract int deleteAtempt(Atempt atempt);
+	public abstract int deleteAtempt(Atempt atempt) throws Exception;
 
 }

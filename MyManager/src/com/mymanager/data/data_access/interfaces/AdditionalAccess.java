@@ -11,14 +11,14 @@ import com.mymanager.data.models.Additional;
  */
 public interface AdditionalAccess {
 
-	public abstract List<Additional> readAllAdditionals();
+	public abstract List<Additional> readAllAdditionals() throws Exception;
 
-	public abstract List<Additional> readAdditional(Additional additional);
+	public abstract List<Additional> readAdditional(Additional additional) throws Exception;
 
-	public abstract int updateAdditional(Additional additional);
+	public abstract int updateAdditional(Additional additional) throws Exception;
 
-	public abstract int insertAdditional(Additional additional);
+	public abstract int insertAdditional(Additional additional) throws Exception;
 
-	public abstract int deleteAdditional(Additional additional);
+	public abstract int deleteAdditional(Additional additional) throws Exception;
 
 }

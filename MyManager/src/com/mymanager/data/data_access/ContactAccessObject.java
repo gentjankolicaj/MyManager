@@ -2,7 +2,6 @@ package com.mymanager.data.data_access;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,149 +60,90 @@ public class ContactAccessObject implements ContactAccess {
 	}
 
 	@Override
-	public List<Contact> readAllContacts() {
-
+	public List<Contact> readAllContacts() throws Exception {
 		List<Contact> contactList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
 
 		if (contactType.equals(ContactType.EMPLOYEE_CONTACT)) {
-
 			if (queryType.equals(QueryType.NORMAL))
 				query = "SELECT * FROM employee_contact";
 			else
 				query = "SELECT * FROM employee_contact_history";
 
-			try {
-				results = database.selectStatement(query);
-				while (results.next()) {
-
-					Contact temp = new Contact(results.getString("employee_id"), results.getInt("telephone"),
-							results.getInt("celular"), results.getString("email"), results.getString("fax"),
-							results.getString("created_by"), results.getString("updated_by"),
-							results.getTimestamp("created_date").toLocalDateTime(),
-							results.getTimestamp("updated_date").toLocalDateTime());
-
-					contactList.add(temp);
-
-				}
-
-			} catch (SQLException sql) {
-				PrintUtils.print(sql, PrintType.DATABASE_QUERY);
-
-			} catch (Exception e) {
-				PrintUtils.print(e, PrintType.OTHER);
-
+			results = database.selectStatement(query);
+			while (results.next()) {
+				Contact temp = new Contact(results.getString("employee_id"), results.getInt("telephone"),
+						results.getInt("celular"), results.getString("email"), results.getString("fax"),
+						results.getString("created_by"), results.getString("updated_by"),
+						results.getTimestamp("created_date").toLocalDateTime(),
+						results.getTimestamp("updated_date").toLocalDateTime());
+				contactList.add(temp);
 			}
 			PrintUtils.print(contactList, PrintType.QUERY_RESULTS);
-
 			return contactList;
 
 		} else {
-
 			if (queryType.equals(QueryType.NORMAL))
 				query = "SELECT * FROM user_contact";
 			else
 				query = "SELECT * FROM user_contact_history";
 
-			try {
-				results = database.selectStatement(query);
-				while (results.next()) {
-
-					Contact temp = new Contact(results.getString("user_id"), results.getInt("telephone"),
-							results.getInt("celular"), results.getString("email"), results.getString("fax"),
-							results.getString("created_by"), results.getString("updated_by"),
-							results.getTimestamp("created_date").toLocalDateTime(),
-							results.getTimestamp("updated_date").toLocalDateTime());
-
-					contactList.add(temp);
-
-				}
-
-			} catch (SQLException sql) {
-				PrintUtils.print(sql, PrintType.DATABASE_QUERY);
-
-			} catch (Exception e) {
-				PrintUtils.print(e, PrintType.OTHER);
-
+			results = database.selectStatement(query);
+			while (results.next()) {
+				Contact temp = new Contact(results.getString("user_id"), results.getInt("telephone"),
+						results.getInt("celular"), results.getString("email"), results.getString("fax"),
+						results.getString("created_by"), results.getString("updated_by"),
+						results.getTimestamp("created_date").toLocalDateTime(),
+						results.getTimestamp("updated_date").toLocalDateTime());
+				contactList.add(temp);
 			}
 			PrintUtils.print(contactList, PrintType.QUERY_RESULTS);
-
 			return contactList;
-
 		}
 
 	}
 
 	@Override
-	public List<Contact> readContacts(int celular) {
-
+	public List<Contact> readContacts(int celular) throws Exception {
 		List<Contact> contactList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
-
 		if (contactType.equals(ContactType.EMPLOYEE_CONTACT)) {
-
 			if (queryType.equals(QueryType.NORMAL))
-				query = "SELECT * FROM employee_contact WHERE celular=" + celular;
+				query = "SELECT * FROM employee_contact WHERE celular LIKE '" + celular + "%'";
 			else
-				query = "SELECT * FROM employee_contact_history WHERE celular=" + celular;
+				query = "SELECT * FROM employee_contact_history WHERE celular LIKE '" + celular + "%'";
 
-			try {
-				results = database.selectStatement(query);
-				while (results.next()) {
-
-					Contact temp = new Contact(results.getString("employee_id"), results.getInt("telephone"),
-							results.getInt("celular"), results.getString("email"), results.getString("fax"),
-							results.getString("created_by"), results.getString("updated_by"),
-							results.getTimestamp("created_date").toLocalDateTime(),
-							results.getTimestamp("updated_date").toLocalDateTime());
-
-					contactList.add(temp);
-
-				}
-
-			} catch (SQLException sql) {
-				PrintUtils.print(sql, PrintType.DATABASE_QUERY);
-
-			} catch (Exception e) {
-				PrintUtils.print(e, PrintType.OTHER);
-
+			results = database.selectStatement(query);
+			while (results.next()) {
+				Contact temp = new Contact(results.getString("employee_id"), results.getInt("telephone"),
+						results.getInt("celular"), results.getString("email"), results.getString("fax"),
+						results.getString("created_by"), results.getString("updated_by"),
+						results.getTimestamp("created_date").toLocalDateTime(),
+						results.getTimestamp("updated_date").toLocalDateTime());
+				contactList.add(temp);
 			}
 			PrintUtils.print(contactList, PrintType.QUERY_RESULTS);
-
 			return contactList;
 
 		} else {
 
 			if (queryType.equals(QueryType.NORMAL))
-				query = "SELECT * FROM user_contact WHERE celular=" + celular;
+				query = "SELECT * FROM user_contact WHERE celular LIKE'" + celular + "%'";
 			else
-				query = "SELECT * FROM user_contact_history WHERE celular=" + celular;
+				query = "SELECT * FROM user_contact_history WHERE celular LIKE'" + celular + "%'";
 
-			try {
-				results = database.selectStatement(query);
-				while (results.next()) {
-
-					Contact temp = new Contact(results.getString("user_id"), results.getInt("telephone"),
-							results.getInt("celular"), results.getString("email"), results.getString("fax"),
-							results.getString("created_by"), results.getString("updated_by"),
-							results.getTimestamp("created_date").toLocalDateTime(),
-							results.getTimestamp("updated_date").toLocalDateTime());
-
-					contactList.add(temp);
-
-				}
-
-			} catch (SQLException sql) {
-				PrintUtils.print(sql, PrintType.DATABASE_QUERY);
-
-			} catch (Exception e) {
-				PrintUtils.print(e, PrintType.OTHER);
-
+			results = database.selectStatement(query);
+			while (results.next()) {
+				Contact temp = new Contact(results.getString("user_id"), results.getInt("telephone"),
+						results.getInt("celular"), results.getString("email"), results.getString("fax"),
+						results.getString("created_by"), results.getString("updated_by"),
+						results.getTimestamp("created_date").toLocalDateTime(),
+						results.getTimestamp("updated_date").toLocalDateTime());
+				contactList.add(temp);
 			}
 			PrintUtils.print(contactList, PrintType.QUERY_RESULTS);
-
 			return contactList;
 
 		}
@@ -211,42 +151,26 @@ public class ContactAccessObject implements ContactAccess {
 	}
 
 	@Override
-	public List<Contact> readContacts(String email) {
-
+	public List<Contact> readContacts(String email) throws Exception {
 		List<Contact> contactList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
-
 		if (contactType.equals(ContactType.EMPLOYEE_CONTACT)) {
-
 			if (queryType.equals(QueryType.NORMAL))
 				query = "SELECT * FROM employee_contact WHERE email LIKE '" + email + "%'";
 			else
 				query = "SELECT * FROM employee_contact_history email LIKE '" + email + "%'";
 
-			try {
-				results = database.selectStatement(query);
-				while (results.next()) {
-
-					Contact temp = new Contact(results.getString("employee_id"), results.getInt("telephone"),
-							results.getInt("celular"), results.getString("email"), results.getString("fax"),
-							results.getString("created_by"), results.getString("updated_by"),
-							results.getTimestamp("created_date").toLocalDateTime(),
-							results.getTimestamp("updated_date").toLocalDateTime());
-
-					contactList.add(temp);
-
-				}
-
-			} catch (SQLException sql) {
-				PrintUtils.print(sql, PrintType.DATABASE_QUERY);
-
-			} catch (Exception e) {
-				PrintUtils.print(e, PrintType.OTHER);
-
+			results = database.selectStatement(query);
+			while (results.next()) {
+				Contact temp = new Contact(results.getString("employee_id"), results.getInt("telephone"),
+						results.getInt("celular"), results.getString("email"), results.getString("fax"),
+						results.getString("created_by"), results.getString("updated_by"),
+						results.getTimestamp("created_date").toLocalDateTime(),
+						results.getTimestamp("updated_date").toLocalDateTime());
+				contactList.add(temp);
 			}
 			PrintUtils.print(contactList, PrintType.QUERY_RESULTS);
-
 			return contactList;
 
 		} else {
@@ -256,110 +180,66 @@ public class ContactAccessObject implements ContactAccess {
 			else
 				query = "SELECT * FROM user_contact_history WHERE email LIKE '" + email + "%'";
 
-			try {
-				results = database.selectStatement(query);
-				while (results.next()) {
-
-					Contact temp = new Contact(results.getString("user_id"), results.getInt("telephone"),
-							results.getInt("celular"), results.getString("email"), results.getString("fax"),
-							results.getString("created_by"), results.getString("updated_by"),
-							results.getTimestamp("created_date").toLocalDateTime(),
-							results.getTimestamp("updated_date").toLocalDateTime());
-
-					contactList.add(temp);
-
-				}
-
-			} catch (SQLException sql) {
-				PrintUtils.print(sql, PrintType.DATABASE_QUERY);
-
-			} catch (Exception e) {
-				PrintUtils.print(e, PrintType.OTHER);
-
+			results = database.selectStatement(query);
+			while (results.next()) {
+				Contact temp = new Contact(results.getString("user_id"), results.getInt("telephone"),
+						results.getInt("celular"), results.getString("email"), results.getString("fax"),
+						results.getString("created_by"), results.getString("updated_by"),
+						results.getTimestamp("created_date").toLocalDateTime(),
+						results.getTimestamp("updated_date").toLocalDateTime());
+				contactList.add(temp);
 			}
 			PrintUtils.print(contactList, PrintType.QUERY_RESULTS);
-
 			return contactList;
-
 		}
 	}
 
 	@Override
-	public List<Contact> readContact(Contact contact) {
-
+	public List<Contact> readContact(Contact contact) throws Exception {
 		List<Contact> contactList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
 
 		if (contactType.equals(ContactType.EMPLOYEE_CONTACT)) {
-
 			if (queryType.equals(QueryType.NORMAL))
 				query = "SELECT * FROM employee_contact WHERE employee_id=" + contact.getId();
 			else
 				query = "SELECT * FROM employee_contact_history WHERE employee_id=" + contact.getId();
-			try {
-				results = database.selectStatement(query);
-				while (results.next()) {
 
-					Contact temp = new Contact(results.getString("employee_id"), results.getInt("telephone"),
-							results.getInt("celular"), results.getString("email"), results.getString("fax"),
-							results.getString("created_by"), results.getString("updated_by"),
-							results.getTimestamp("created_date").toLocalDateTime(),
-							results.getTimestamp("updated_date").toLocalDateTime());
-
-					contactList.add(temp);
-
-				}
-
-			} catch (SQLException sql) {
-				PrintUtils.print(sql, PrintType.DATABASE_QUERY);
-
-			} catch (Exception e) {
-				PrintUtils.print(e, PrintType.OTHER);
-
+			results = database.selectStatement(query);
+			while (results.next()) {
+				Contact temp = new Contact(results.getString("employee_id"), results.getInt("telephone"),
+						results.getInt("celular"), results.getString("email"), results.getString("fax"),
+						results.getString("created_by"), results.getString("updated_by"),
+						results.getTimestamp("created_date").toLocalDateTime(),
+						results.getTimestamp("updated_date").toLocalDateTime());
+				contactList.add(temp);
 			}
 			PrintUtils.print(contactList, PrintType.QUERY_RESULTS);
-
 			return contactList;
 
 		} else {
-
 			if (queryType.equals(QueryType.NORMAL))
 				query = "SELECT * FROM user_contact WHERE user_id=" + contact.getId();
 			else
 				query = "SELECT * FROM user_contact_history WHERE user_id=" + contact.getId();
 
-			try {
-				results = database.selectStatement(query);
-				while (results.next()) {
-
-					Contact temp = new Contact(results.getString("user_id"), results.getInt("telephone"),
-							results.getInt("celular"), results.getString("email"), results.getString("fax"),
-							results.getString("created_by"), results.getString("updated_by"),
-							results.getTimestamp("created_date").toLocalDateTime(),
-							results.getTimestamp("updated_date").toLocalDateTime());
-
-					contactList.add(temp);
-
-				}
-
-			} catch (SQLException sql) {
-				PrintUtils.print(sql, PrintType.DATABASE_QUERY);
-
-			} catch (Exception e) {
-				PrintUtils.print(e, PrintType.OTHER);
-
+			results = database.selectStatement(query);
+			while (results.next()) {
+				Contact temp = new Contact(results.getString("user_id"), results.getInt("telephone"),
+						results.getInt("celular"), results.getString("email"), results.getString("fax"),
+						results.getString("created_by"), results.getString("updated_by"),
+						results.getTimestamp("created_date").toLocalDateTime(),
+						results.getTimestamp("updated_date").toLocalDateTime());
+				contactList.add(temp);
 			}
 			PrintUtils.print(contactList, PrintType.QUERY_RESULTS);
-
 			return contactList;
-
 		}
 	}
 
 	@Override
-	public int updateContact(Contact contact) {
-
+	public int updateContact(Contact contact) throws Exception {
 		String query = null;
 		if (contactType.equals(ContactType.EMPLOYEE_CONTACT))
 			query = "UPDATE employee_contact SET telephone=?,celular=?,email=?,fax=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE employee_id=?";
@@ -370,135 +250,80 @@ public class ContactAccessObject implements ContactAccess {
 		List<Contact> temp = readContact(contact);
 		savePreviousRow(temp);
 
-		int i = 0;
-		try {
+		PreparedStatement pstmt = database.updateStatement(query);
+		pstmt.setInt(1, contact.getTelephone());
+		pstmt.setInt(2, contact.getCelular());
+		pstmt.setString(3, contact.getEmail());
+		pstmt.setString(4, contact.getFax());
+		pstmt.setString(5, contact.getCreatedBy());
+		pstmt.setObject(6, contact.getCreatedDate());
+		pstmt.setString(7, contact.getUpdatedBy());
+		pstmt.setObject(8, contact.getUpdatedDate());
+		pstmt.setString(9, contact.getId());
 
-			PreparedStatement pstmt = database.updateStatement(query);
-			pstmt.setInt(1, contact.getTelephone());
-			pstmt.setInt(2, contact.getCelular());
-			pstmt.setString(3, contact.getEmail());
-			pstmt.setString(4, contact.getFax());
-			pstmt.setString(5, contact.getCreatedBy());
-			pstmt.setObject(6, contact.getCreatedDate());
-			pstmt.setString(7, contact.getUpdatedBy());
-			pstmt.setObject(8, contact.getUpdatedDate());
-			pstmt.setString(9, contact.getId());
-
-			pstmt.executeUpdate();
-
-			i = 1;
-		} catch (SQLException sql) {
-			PrintUtils.print(sql, PrintType.DATABASE_QUERY);
-
-		} catch (Exception e) {
-			PrintUtils.print(e, PrintType.OTHER);
-
-		}
-
-		return i;
+		return pstmt.executeUpdate();
 
 	}
 
 	@Override
-	public int insertContact(Contact contact) {
-
+	public int insertContact(Contact contact) throws Exception {
 		String query = null;
-
 		if (contactType.equals(ContactType.EMPLOYEE_CONTACT))
 			query = "INSERT INTO employee_contact (employee_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?)";
 		else
 			query = "INSERT INTO user_contact (user_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?)";
 
-		int i = 0;
-		try {
+		PreparedStatement pstmt = database.updateStatement(query);
+		pstmt.setString(1, contact.getId());
+		pstmt.setInt(2, contact.getTelephone());
+		pstmt.setInt(3, contact.getCelular());
+		pstmt.setString(4, contact.getEmail());
+		pstmt.setString(5, contact.getFax());
+		pstmt.setString(6, contact.getCreatedBy());
+		pstmt.setObject(7, contact.getCreatedDate());
+		pstmt.setString(8, contact.getUpdatedBy());
+		pstmt.setObject(9, contact.getUpdatedDate());
 
-			PreparedStatement pstmt = database.updateStatement(query);
-			pstmt.setString(1, contact.getId());
-			pstmt.setInt(2, contact.getTelephone());
-			pstmt.setInt(3, contact.getCelular());
-			pstmt.setString(4, contact.getEmail());
-			pstmt.setString(5, contact.getFax());
-			pstmt.setString(6, contact.getCreatedBy());
-			pstmt.setObject(7, contact.getCreatedDate());
-			pstmt.setString(8, contact.getUpdatedBy());
-			pstmt.setObject(9, contact.getUpdatedDate());
+		return pstmt.executeUpdate();
 
-			pstmt.executeUpdate();
-			i = 1;
-		} catch (SQLException sql) {
-			PrintUtils.print(sql, PrintType.DATABASE_QUERY);
-
-		} catch (Exception e) {
-			PrintUtils.print(e, PrintType.OTHER);
-
-		}
-
-		return i;
 	}
 
 	@Override
-	public int deleteContact(Contact contact) {
-
+	public int deleteContact(Contact contact) throws Exception {
 		String query = null;
-
 		if (contactType.equals(ContactType.EMPLOYEE_CONTACT))
 			query = "DELETE FROM employee_contact WHERE employee_id=?" + contact.getId();
 		else
 			query = "DELETE FROM user_contact WHERE user_id=?" + contact.getId();
-		int i = 0;
-		try {
-			PreparedStatement pstmt = database.updateStatement(query);
-			pstmt.setString(1, contact.getId());
-			pstmt.executeUpdate();
 
-			i = 1;
-		} catch (SQLException sql) {
-			PrintUtils.print(sql, PrintType.DATABASE_QUERY);
+		PreparedStatement pstmt = database.updateStatement(query);
+		pstmt.setString(1, contact.getId());
 
-		} catch (Exception e) {
-			PrintUtils.print(e, PrintType.OTHER);
+		return pstmt.executeUpdate();
 
-		}
-
-		return i;
 	}
 
-	public int savePreviousRow(List<Contact> contactList) {
-
+	public int savePreviousRow(List<Contact> contactList) throws Exception {
 		String query = null;
-
 		if (contactType.equals(ContactType.EMPLOYEE_CONTACT))
 			query = "INSERT INTO employee_contact_history (employee_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?)";
 		else
 			query = "INSERT INTO user_contact_history (user_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?)";
-
 		Contact temp = contactList.get(0);
 
-		int i = 0;
-		try {
+		PreparedStatement pstmt = database.updateStatement(query);
+		pstmt.setString(1, temp.getId());
+		pstmt.setInt(2, temp.getTelephone());
+		pstmt.setInt(3, temp.getCelular());
+		pstmt.setString(4, temp.getEmail());
+		pstmt.setString(5, temp.getFax());
+		pstmt.setString(6, temp.getCreatedBy());
+		pstmt.setObject(7, temp.getCreatedDate());
+		pstmt.setString(8, temp.getUpdatedBy());
+		pstmt.setObject(9, temp.getUpdatedDate());
 
-			PreparedStatement pstmt = database.updateStatement(query);
-			pstmt.setString(1, temp.getId());
-			pstmt.setInt(2, temp.getTelephone());
-			pstmt.setInt(3, temp.getCelular());
-			pstmt.setString(4, temp.getEmail());
-			pstmt.setString(5, temp.getFax());
-			pstmt.setString(6, temp.getCreatedBy());
-			pstmt.setObject(7, temp.getCreatedDate());
-			pstmt.setString(8, temp.getUpdatedBy());
-			pstmt.setObject(9, temp.getUpdatedDate());
+		return pstmt.executeUpdate();
 
-			pstmt.executeUpdate();
-			i = 1;
-		} catch (SQLException sql) {
-			PrintUtils.print(sql, PrintType.DATABASE_QUERY);
-
-		} catch (Exception e) {
-			PrintUtils.print(e, PrintType.OTHER);
-
-		}
-
-		return i;
 	}
 
 }

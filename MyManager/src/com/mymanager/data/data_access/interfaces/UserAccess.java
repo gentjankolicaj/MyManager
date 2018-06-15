@@ -13,22 +13,22 @@ import com.mymanager.data.models.UserType;
  */
 public interface UserAccess {
 
-	public abstract List<User> readAllUsers();
+	public abstract List<User> readAllUsers() throws Exception;
 
-	public abstract List<User> readUsersByFirstName(String firstName);
+	public abstract List<User> readUsersByFirstName(String firstName) throws Exception;
 
-	public abstract List<User> readUsersByLastName(String lastName);
+	public abstract List<User> readUsersByLastName(String lastName) throws Exception;
 
-	public abstract List<User> readUsersByUserType(UserType userType);
+	public abstract List<User> readUsersByUserType(UserType userType) throws Exception;
 
-	public abstract List<User> readUsersByRights(Rights rights);
+	public abstract List<User> readUsersByRights(Rights rights) throws Exception;
 
-	public abstract User readUser(User user);
+	public abstract User readUser(User user) throws Exception;
 
-	public abstract int updateUser(User user);
+	public abstract int updateUser(User user) throws Exception;
 
-	public abstract int insertUser(User user);
+	public abstract int insertUser(User user) throws Exception;
 
-	public abstract int deleteUser(User user);
+	public abstract int deleteUser(User user) throws Exception;
 
 }

@@ -11,18 +11,18 @@ import com.mymanager.data.models.Job;
  */
 public interface JobAccess {
 
-	public abstract List<Job> readAllJobs();
+	public abstract List<Job> readAllJobs() throws Exception;
 
-	public abstract List<Job> readAllJobsBetweenSalary(float minSalary, float maxSalary);
+	public abstract List<Job> readAllJobsBetweenSalary(float minSalary, float maxSalary) throws Exception;
 
-	public abstract List<Job> readAllJobsByTitle(String jobTitle);
+	public abstract List<Job> readAllJobsByTitle(String jobTitle) throws Exception;
 
-	public abstract Job readJob(Job job);
+	public abstract Job readJob(Job job) throws Exception;
 
-	public abstract int updateJob(Job job);
+	public abstract int updateJob(Job job) throws Exception;
 
-	public abstract int insertJob(Job job);
+	public abstract int insertJob(Job job) throws Exception;
 
-	public abstract int deleteJob(Job job);
+	public abstract int deleteJob(Job job) throws Exception;
 
 }

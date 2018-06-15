@@ -2,7 +2,6 @@ package com.mymanager.data.data_access;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,8 +47,7 @@ public class DocumentAccessObject implements DocumentAccess {
 	}
 
 	@Override
-	public List<Document> readAllDocuments() {
-
+	public List<Document> readAllDocuments() throws Exception {
 		List<Document> documentList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -58,35 +56,23 @@ public class DocumentAccessObject implements DocumentAccess {
 		else
 			query = "SELECT * FROM employee_documents_history";
 
-		try {
-			results = database.selectStatement(query);
-			while (results.next()) {
-				Document temp = new Document(results.getInt("document_number"), results.getString("document_name"),
-						results.getString("document_type"), results.getBlob("document_file"),
-						new FileType(results.getString("file_type")), results.getString("employee_id"),
-						results.getString("created_by"), results.getString("updated_by"),
-						results.getTimestamp("created_date").toLocalDateTime(),
-						results.getTimestamp("updated_date").toLocalDateTime());
-
-				documentList.add(temp);
-
-			}
-
-		} catch (SQLException sql) {
-			PrintUtils.print(sql, PrintType.DATABASE_QUERY);
-
-		} catch (Exception e) {
-			PrintUtils.print(e, PrintType.OTHER);
+		results = database.selectStatement(query);
+		while (results.next()) {
+			Document temp = new Document(results.getInt("document_number"), results.getString("document_name"),
+					results.getString("document_type"), results.getBlob("document_file"),
+					new FileType(results.getString("file_type")), results.getString("employee_id"),
+					results.getString("created_by"), results.getString("updated_by"),
+					results.getTimestamp("created_date").toLocalDateTime(),
+					results.getTimestamp("updated_date").toLocalDateTime());
+			documentList.add(temp);
 
 		}
 		PrintUtils.print(documentList, PrintType.QUERY_RESULTS);
-
 		return documentList;
 	}
 
 	@Override
-	public List<Document> readDocuments(String documentName) {
-
+	public List<Document> readDocuments(String documentName) throws Exception {
 		List<Document> documentList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -95,37 +81,24 @@ public class DocumentAccessObject implements DocumentAccess {
 		else
 			query = "SELECT * FROM employee_documents_history WHERE document_name LIKE '" + documentName + "%'";
 
-		try {
-			results = database.selectStatement(query);
-			while (results.next()) {
-				Document temp = new Document(results.getInt("document_number"), results.getString("document_name"),
-						results.getString("document_type"), results.getBlob("document_file"),
-						new FileType(results.getString("file_type")), results.getString("employee_id"),
-						results.getString("created_by"), results.getString("updated_by"),
-						results.getTimestamp("created_date").toLocalDateTime(),
-						results.getTimestamp("updated_date").toLocalDateTime());
-
-				documentList.add(temp);
-
-			}
-
-		} catch (SQLException sql) {
-			PrintUtils.print(sql, PrintType.DATABASE_QUERY);
-
-		} catch (Exception e) {
-			PrintUtils.print(e, PrintType.OTHER);
+		results = database.selectStatement(query);
+		while (results.next()) {
+			Document temp = new Document(results.getInt("document_number"), results.getString("document_name"),
+					results.getString("document_type"), results.getBlob("document_file"),
+					new FileType(results.getString("file_type")), results.getString("employee_id"),
+					results.getString("created_by"), results.getString("updated_by"),
+					results.getTimestamp("created_date").toLocalDateTime(),
+					results.getTimestamp("updated_date").toLocalDateTime());
+			documentList.add(temp);
 
 		}
 		PrintUtils.print(documentList, PrintType.QUERY_RESULTS);
-
 		return documentList;
 	}
 
 	@Override
-	public List<Document> readDocumentByEmployeeId(Document document) {
-
+	public List<Document> readDocumentByEmployeeId(Document document) throws Exception {
 		List<Document> documentList = new ArrayList<>();
-
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
@@ -133,37 +106,24 @@ public class DocumentAccessObject implements DocumentAccess {
 		else
 			query = "SELECT * FROM employee_documents_history WHERE employee_id=" + document.getEmployeeId();
 
-		try {
-			results = database.selectStatement(query);
-			while (results.next()) {
-				Document temp = new Document(results.getInt("document_number"), results.getString("document_name"),
-						results.getString("document_type"), results.getBlob("document_file"),
-						new FileType(results.getString("file_type")), results.getString("employee_id"),
-						results.getString("created_by"), results.getString("updated_by"),
-						results.getTimestamp("created_date").toLocalDateTime(),
-						results.getTimestamp("updated_date").toLocalDateTime());
-
-				documentList.add(temp);
-
-			}
-
-		} catch (SQLException sql) {
-			PrintUtils.print(sql, PrintType.DATABASE_QUERY);
-
-		} catch (Exception e) {
-			PrintUtils.print(e, PrintType.OTHER);
+		results = database.selectStatement(query);
+		while (results.next()) {
+			Document temp = new Document(results.getInt("document_number"), results.getString("document_name"),
+					results.getString("document_type"), results.getBlob("document_file"),
+					new FileType(results.getString("file_type")), results.getString("employee_id"),
+					results.getString("created_by"), results.getString("updated_by"),
+					results.getTimestamp("created_date").toLocalDateTime(),
+					results.getTimestamp("updated_date").toLocalDateTime());
+			documentList.add(temp);
 
 		}
 		PrintUtils.print(documentList, PrintType.QUERY_RESULTS);
-
 		return documentList;
 	}
 
 	@Override
-	public List<Document> readDocumentByDocumentNumber(Document document) {
-
+	public List<Document> readDocumentByDocumentNumber(Document document) throws Exception {
 		List<Document> documentList = new ArrayList<>();
-
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
@@ -171,167 +131,105 @@ public class DocumentAccessObject implements DocumentAccess {
 		else
 			query = "SELECT * FROM employee_documents_history WHERE document_number=" + document.getNumber();
 
-		try {
-			results = database.selectStatement(query);
-			while (results.next()) {
-				Document temp = new Document(results.getInt("document_number"), results.getString("document_name"),
-						results.getString("document_type"), results.getBlob("document_file"),
-						new FileType(results.getString("file_type")), results.getString("employee_id"),
-						results.getString("created_by"), results.getString("updated_by"),
-						results.getTimestamp("created_date").toLocalDateTime(),
-						results.getTimestamp("updated_date").toLocalDateTime());
-
-				documentList.add(temp);
-
-			}
-
-		} catch (SQLException sql) {
-			PrintUtils.print(sql, PrintType.DATABASE_QUERY);
-
-		} catch (Exception e) {
-			PrintUtils.print(e, PrintType.OTHER);
+		results = database.selectStatement(query);
+		while (results.next()) {
+			Document temp = new Document(results.getInt("document_number"), results.getString("document_name"),
+					results.getString("document_type"), results.getBlob("document_file"),
+					new FileType(results.getString("file_type")), results.getString("employee_id"),
+					results.getString("created_by"), results.getString("updated_by"),
+					results.getTimestamp("created_date").toLocalDateTime(),
+					results.getTimestamp("updated_date").toLocalDateTime());
+			documentList.add(temp);
 
 		}
 		PrintUtils.print(documentList, PrintType.QUERY_RESULTS);
-
 		return documentList;
 	}
 
 	@Override
-	public int updateDocument(Document document) {
+	public int updateDocument(Document document) throws Exception {
 		String query = "UPDATE employee_documents SET document_name=?,document_type=?,document_file=?,file_type=?,employee_id=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE document_number=?";
 		setQueryType(QueryType.NORMAL);
-
 		List<Document> temp = readDocumentByDocumentNumber(document);
 		savePreviousRow(temp);
 
-		int i = 0;
+		PreparedStatement pstmt = database.updateStatement(query);
+		pstmt.setString(1, document.getName());
+		pstmt.setString(2, document.getType());
+		pstmt.setBlob(3, document.getFile());
+		pstmt.setString(4, document.getFileType().getFile());
+		pstmt.setString(5, document.getEmployeeId());
+		pstmt.setString(6, document.getCreatedBy());
+		pstmt.setObject(7, document.getCreatedDate());
+		pstmt.setString(8, document.getUpdatedBy());
+		pstmt.setObject(9, document.getUpdatedDate());
+		pstmt.setInt(10, document.getNumber());
 
-		try {
-			PreparedStatement pstmt = database.updateStatement(query);
-			pstmt.setString(1, document.getName());
-			pstmt.setString(2, document.getType());
-			pstmt.setBlob(3, document.getFile());
-			pstmt.setString(4, document.getFileType().getFile());
-			pstmt.setString(5, document.getEmployeeId());
-			pstmt.setString(6, document.getCreatedBy());
-			pstmt.setObject(7, document.getCreatedDate());
-			pstmt.setString(8, document.getUpdatedBy());
-			pstmt.setObject(9, document.getUpdatedDate());
-			pstmt.setInt(10, document.getNumber());
-
-			pstmt.executeUpdate();
-			i = 1;
-		} catch (SQLException sql) {
-			PrintUtils.print(sql, PrintType.DATABASE_QUERY);
-
-		} catch (Exception e) {
-			PrintUtils.print(e, PrintType.OTHER);
-
-		}
-
-		return i;
+		return pstmt.executeUpdate();
 
 	}
 
 	@Override
-	public int insertDocument(Document document) {
+	public int insertDocument(Document document) throws Exception {
 		String query = "INSERT INTO employee_documents (document_name,document_type,document_file,file_type,document_number,employee_id,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
-		int i = 0;
-		try {
-			PreparedStatement pstmt = database.updateStatement(query);
-			pstmt.setString(1, document.getName());
-			pstmt.setString(2, document.getType());
-			pstmt.setBlob(3, document.getFile());
-			pstmt.setString(4, document.getFileType().getFile());
-			pstmt.setInt(5, document.getNumber());
-			pstmt.setString(6, document.getEmployeeId());
-			pstmt.setString(7, document.getCreatedBy());
-			pstmt.setObject(8, document.getCreatedDate());
-			pstmt.setString(9, document.getUpdatedBy());
-			pstmt.setObject(10, document.getUpdatedDate());
 
-			pstmt.executeUpdate();
-			i = 1;
-		} catch (SQLException sql) {
-			PrintUtils.print(sql, PrintType.DATABASE_QUERY);
+		PreparedStatement pstmt = database.updateStatement(query);
+		pstmt.setString(1, document.getName());
+		pstmt.setString(2, document.getType());
+		pstmt.setBlob(3, document.getFile());
+		pstmt.setString(4, document.getFileType().getFile());
+		pstmt.setInt(5, document.getNumber());
+		pstmt.setString(6, document.getEmployeeId());
+		pstmt.setString(7, document.getCreatedBy());
+		pstmt.setObject(8, document.getCreatedDate());
+		pstmt.setString(9, document.getUpdatedBy());
+		pstmt.setObject(10, document.getUpdatedDate());
 
-		} catch (Exception e) {
-			PrintUtils.print(e, PrintType.OTHER);
+		return pstmt.executeUpdate();
 
-		}
-
-		return i;
 	}
 
 	@Override
-	public int deleteDocument(Document document) {
+	public int deleteDocument(Document document) throws Exception {
 		String query = null;
 		Object obj = null;
 		if (document.getNumber() != 0) {
-
 			query = "DELETE FROM employee_documents WHERE document_number=?";
 			obj = document.getNumber();
 
 		} else if (document.getName() != null) {
-
 			query = "DELETE FROM employee_documents WHERE document_name=?";
 			obj = document.getName();
 
 		} else {
-
 			query = "DELETE FROM employee_documents WHERE employee_id=?";
 			obj = document.getEmployeeId();
 		}
 
-		int i = 0;
-		try {
-			PreparedStatement pstmt = database.updateStatement(query);
-			pstmt.setObject(1, obj);
-			pstmt.executeUpdate();
+		PreparedStatement pstmt = database.updateStatement(query);
+		pstmt.setObject(1, obj);
 
-			i = 1;
-		} catch (SQLException sql) {
-			PrintUtils.print(sql, PrintType.DATABASE_QUERY);
+		return pstmt.executeUpdate();
 
-		} catch (Exception e) {
-			PrintUtils.print(e, PrintType.OTHER);
-
-		}
-
-		return i;
 	}
 
-	public int savePreviousRow(List<Document> documents) {
+	public int savePreviousRow(List<Document> documents) throws Exception {
 		String query = "INSERT INTO employee_documents_history (document_name,document_type,document_file,file_type,document_number,employee_id,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
-
 		Document document = documents.get(0);
 
-		int i = 0;
-		try {
-			PreparedStatement pstmt = database.updateStatement(query);
-			pstmt.setString(1, document.getName());
-			pstmt.setString(2, document.getType());
-			pstmt.setBlob(3, document.getFile());
-			pstmt.setString(4, document.getFileType().getFile());
-			pstmt.setInt(5, document.getNumber());
-			pstmt.setString(6, document.getEmployeeId());
-			pstmt.setString(7, document.getCreatedBy());
-			pstmt.setObject(8, document.getCreatedDate());
-			pstmt.setString(9, document.getUpdatedBy());
-			pstmt.setObject(10, document.getUpdatedDate());
+		PreparedStatement pstmt = database.updateStatement(query);
+		pstmt.setString(1, document.getName());
+		pstmt.setString(2, document.getType());
+		pstmt.setBlob(3, document.getFile());
+		pstmt.setString(4, document.getFileType().getFile());
+		pstmt.setInt(5, document.getNumber());
+		pstmt.setString(6, document.getEmployeeId());
+		pstmt.setString(7, document.getCreatedBy());
+		pstmt.setObject(8, document.getCreatedDate());
+		pstmt.setString(9, document.getUpdatedBy());
+		pstmt.setObject(10, document.getUpdatedDate());
 
-			pstmt.executeUpdate();
-			i = 1;
-		} catch (SQLException sql) {
-			PrintUtils.print(sql, PrintType.DATABASE_QUERY);
-
-		} catch (Exception e) {
-			PrintUtils.print(e, PrintType.OTHER);
-
-		}
-
-		return i;
+		return pstmt.executeUpdate();
 	}
 
 }

@@ -11,14 +11,14 @@ import com.mymanager.data.models.Country;
  */
 public interface CountryAccess {
 
-	public abstract List<Country> readAllCountries();
+	public abstract List<Country> readAllCountries() throws Exception;
 
-	public abstract List<Country> readCountries(String countryName);
+	public abstract List<Country> readCountries(String countryName) throws Exception;
 
-	public abstract int updateCountry(Country country);
+	public abstract int updateCountry(Country country) throws Exception;
 
-	public abstract int insertCountry(Country country);
+	public abstract int insertCountry(Country country) throws Exception;
 
-	public abstract int deleteCountry(Country country);
+	public abstract int deleteCountry(Country country) throws Exception;
 
 }

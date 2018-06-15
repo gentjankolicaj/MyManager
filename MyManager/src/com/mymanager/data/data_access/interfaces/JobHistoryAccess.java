@@ -12,20 +12,21 @@ import com.mymanager.data.models.JobHistory;
  */
 public interface JobHistoryAccess {
 
-	public abstract List<JobHistory> readAllJobHistories();
+	public abstract List<JobHistory> readAllJobHistories() throws Exception;
 
-	public abstract List<JobHistory> readAllJobHistoryBetweenDates(LocalDate startDate, LocalDate endDate);
+	public abstract List<JobHistory> readAllJobHistoryBetweenDates(LocalDate startDate, LocalDate endDate)
+			throws Exception;
 
-	public abstract List<JobHistory> readAllJobHistoryByJobId(String jobId);
+	public abstract List<JobHistory> readAllJobHistoryByJobId(String jobId) throws Exception;
 
-	public abstract List<JobHistory> readAllJobHistoryByDepartmentId(String departmentId);
+	public abstract List<JobHistory> readAllJobHistoryByDepartmentId(String departmentId) throws Exception;
 
-	public abstract List<JobHistory> readAllJobHistoryByEmployeeId(String employeeId);
+	public abstract List<JobHistory> readAllJobHistoryByEmployeeId(String employeeId) throws Exception;
 
-	public abstract int updateJobHistory(JobHistory jobHistory);
+	public abstract int updateJobHistory(JobHistory jobHistory) throws Exception;
 
-	public abstract int insertJobHistory(JobHistory jobHistory);
+	public abstract int insertJobHistory(JobHistory jobHistory) throws Exception;
 
-	public abstract int deleteJobHistory(JobHistory jobHistory);
+	public abstract int deleteJobHistory(JobHistory jobHistory) throws Exception;
 
 }

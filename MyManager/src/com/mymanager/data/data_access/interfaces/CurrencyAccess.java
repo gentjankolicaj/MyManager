@@ -11,14 +11,14 @@ import com.mymanager.data.models.Currency;
  */
 public interface CurrencyAccess {
 
-	public abstract List<Currency> readAllCurrencies();
+	public abstract List<Currency> readAllCurrencies() throws Exception;
 
-	public abstract List<Currency> readCurrencies(String currencyName);
+	public abstract List<Currency> readCurrencies(String currencyName) throws Exception;
 
-	public abstract int updateCurrency(Currency currency);
+	public abstract int updateCurrency(Currency currency) throws Exception;
 
-	public abstract int insertCurrency(Currency currency);
+	public abstract int insertCurrency(Currency currency) throws Exception;
 
-	public abstract int deleteCurrency(Currency currency);
+	public abstract int deleteCurrency(Currency currency) throws Exception;
 
 }

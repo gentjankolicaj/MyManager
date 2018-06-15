@@ -11,18 +11,18 @@ import com.mymanager.data.models.Project;
  */
 public interface ProjectAccess {
 
-	public abstract List<Project> readAllProjects();
+	public abstract List<Project> readAllProjects() throws Exception;
 
-	public abstract List<Project> readAllProjectsByCustomer(String customer);
+	public abstract List<Project> readAllProjectsByCustomer(String customer) throws Exception;
 
-	public abstract List<Project> readAllProjectsByDescription(String projectDescription);
+	public abstract List<Project> readAllProjectsByDescription(String projectDescription) throws Exception;
 
-	public abstract List<Project> readAllProjectsByName(String projectName);
+	public abstract List<Project> readAllProjectsByName(String projectName) throws Exception;
 
-	public abstract int updateProject(Project project);
+	public abstract int updateProject(Project project) throws Exception;
 
-	public abstract int insertProject(Project project);
+	public abstract int insertProject(Project project) throws Exception;
 
-	public abstract int deleteProject(Project project);
+	public abstract int deleteProject(Project project) throws Exception;
 
 }

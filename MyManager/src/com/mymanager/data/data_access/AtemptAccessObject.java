@@ -2,7 +2,6 @@ package com.mymanager.data.data_access;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,144 +30,86 @@ public class AtemptAccessObject implements AtemptAccess {
 	}
 
 	@Override
-	public List<Atempt> readAllAtempts() {
-
+	public List<Atempt> readAllAtempts() throws Exception {
 		List<Atempt> atemptList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
 		query = "SELECT * FROM atempts";
-		try {
-			results = database.selectStatement(query);
-			while (results.next()) {
-				Atempt temp = new Atempt(results.getInt("index"), results.getString("user"),
-						results.getString("password"), Status.valueOf(results.getString("status")),
-						results.getString("description"), results.getTimestamp("date_time").toLocalDateTime());
 
-				atemptList.add(temp);
-
-			}
-
-		} catch (SQLException sql) {
-			PrintUtils.print(sql, PrintType.DATABASE_QUERY);
-
-		} catch (Exception e) {
-			PrintUtils.print(e, PrintType.OTHER);
+		results = database.selectStatement(query);
+		while (results.next()) {
+			Atempt temp = new Atempt(results.getInt("index"), results.getString("user"), results.getString("password"),
+					Status.valueOf(results.getString("status")), results.getString("description"),
+					results.getTimestamp("date_time").toLocalDateTime());
+			atemptList.add(temp);
 
 		}
+
 		PrintUtils.print(atemptList, PrintType.QUERY_RESULTS);
 
 		return atemptList;
 	}
 
 	@Override
-	public List<Atempt> readAtempts(User user) {
-
+	public List<Atempt> readAtempts(User user) throws Exception {
 		List<Atempt> atemptList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
-		query = "SELECT * FROM atempts where user=" + user.getUserId();
-		try {
-			results = database.selectStatement(query);
-			while (results.next()) {
-				Atempt temp = new Atempt(results.getInt("index"), results.getString("user"),
-						results.getString("password"), Status.valueOf(results.getString("status")),
-						results.getString("description"), results.getTimestamp("date_time").toLocalDateTime());
+		query = "SELECT * FROM atempts where user LIKE'%" + user.getUserId() + "%'";
 
-				atemptList.add(temp);
-
-			}
-
-		} catch (SQLException sql) {
-			PrintUtils.print(sql, PrintType.DATABASE_QUERY);
-
-		} catch (Exception e) {
-			PrintUtils.print(e, PrintType.OTHER);
+		results = database.selectStatement(query);
+		while (results.next()) {
+			Atempt temp = new Atempt(results.getInt("index"), results.getString("user"), results.getString("password"),
+					Status.valueOf(results.getString("status")), results.getString("description"),
+					results.getTimestamp("date_time").toLocalDateTime());
+			atemptList.add(temp);
 
 		}
 		PrintUtils.print(atemptList, PrintType.QUERY_RESULTS);
-
 		return atemptList;
 	}
 
 	@Override
-	public List<Atempt> readAtempts(Status status) {
-
+	public List<Atempt> readAtempts(Status status) throws Exception {
 		List<Atempt> atemptList = new ArrayList<>();
-
 		ResultSet results = null;
 		String query = null;
 		query = "SELECT * FROM atempts where status=" + status.name();
-		try {
-			results = database.selectStatement(query);
-			while (results.next()) {
-				Atempt temp = new Atempt(results.getInt("index"), results.getString("user"),
-						results.getString("password"), Status.valueOf(results.getString("status")),
-						results.getString("description"), results.getTimestamp("date_time").toLocalDateTime());
 
-				atemptList.add(temp);
-
-			}
-
-		} catch (SQLException sql) {
-			PrintUtils.print(sql, PrintType.DATABASE_QUERY);
-
-		} catch (Exception e) {
-			PrintUtils.print(e, PrintType.OTHER);
-
+		results = database.selectStatement(query);
+		while (results.next()) {
+			Atempt temp = new Atempt(results.getInt("index"), results.getString("user"), results.getString("password"),
+					Status.valueOf(results.getString("status")), results.getString("description"),
+					results.getTimestamp("date_time").toLocalDateTime());
+			atemptList.add(temp);
 		}
 		PrintUtils.print(atemptList, PrintType.QUERY_RESULTS);
-
 		return atemptList;
 	}
 
 	@Override
-	public int insertAtempt(Atempt atempt) {
-
+	public int insertAtempt(Atempt atempt) throws Exception {
 		String query = "INSERT INTO atempts (user,password,status,description,date_time) VALUES (?,?,?,?,?)";
+		PreparedStatement pstmt = database.updateStatement(query);
+		pstmt.setString(1, atempt.getUser());
+		pstmt.setString(2, atempt.getPassword());
+		pstmt.setString(3, atempt.getStatus().name());
+		pstmt.setString(4, atempt.getDescription());
+		pstmt.setObject(5, atempt.getDateTime());
 
-		int i = 0;
-		try {
-			PreparedStatement pstmt = database.updateStatement(query);
-			pstmt.setString(1, atempt.getUser());
-			pstmt.setString(2, atempt.getPassword());
-			pstmt.setString(3, atempt.getStatus().name());
-			pstmt.setString(4, atempt.getDescription());
-			pstmt.setObject(5, atempt.getDateTime());
+		return pstmt.executeUpdate();
 
-			pstmt.executeUpdate();
-			i = 1;
-		} catch (SQLException sql) {
-			PrintUtils.print(sql, PrintType.DATABASE_QUERY);
-
-		} catch (Exception e) {
-			PrintUtils.print(e, PrintType.OTHER);
-
-		}
-
-		return i;
 	}
 
 	@Override
-	public int deleteAtempt(Atempt atempt) {
-
+	public int deleteAtempt(Atempt atempt) throws Exception {
 		String query = "DELETE FROM atempts WHERE index=?";
 
-		int i = 0;
-		try {
-			PreparedStatement pstmt = database.updateStatement(query);
-			pstmt.setInt(1, atempt.getIndex());
-			pstmt.executeUpdate();
+		PreparedStatement pstmt = database.updateStatement(query);
+		pstmt.setInt(1, atempt.getIndex());
 
-			i = 1;
-		} catch (SQLException sql) {
-			PrintUtils.print(sql, PrintType.DATABASE_QUERY);
+		return pstmt.executeUpdate();
 
-		} catch (Exception e) {
-			PrintUtils.print(e, PrintType.OTHER);
-
-		}
-
-		return i;
 	}
 
 }
