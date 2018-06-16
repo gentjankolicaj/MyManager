@@ -34,7 +34,7 @@ public class CountryAccessObject implements CountryAccess {
 		List<Country> countryList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
-		query = "SELECT * FROM countries";
+		query = "SELECT * FROM mymanager.countries";
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -51,7 +51,7 @@ public class CountryAccessObject implements CountryAccess {
 		List<Country> countryList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
-		query = "SELECT * FROM countries WHERE country LIKE'" + countryName + "%'";
+		query = "SELECT * FROM mymanager.countries WHERE country LIKE'" + countryName + "%'";
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -65,7 +65,7 @@ public class CountryAccessObject implements CountryAccess {
 
 	@Override
 	public int updateCountry(Country country) throws Exception {
-		String query = "UPDATE countries SET country=? WHERE country=?";
+		String query = "UPDATE mymanager.countries SET country=? WHERE country=?";
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, country.getUpdatedCountryName());
@@ -77,7 +77,7 @@ public class CountryAccessObject implements CountryAccess {
 
 	@Override
 	public int insertCountry(Country country) throws Exception {
-		String query = "INSERT INTO countries (country) VALUES (?)";
+		String query = "INSERT INTO mymanager.countries (country) VALUES (?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, country.getCountryName());
@@ -88,7 +88,7 @@ public class CountryAccessObject implements CountryAccess {
 
 	@Override
 	public int deleteCountry(Country country) throws Exception {
-		String query = "DELETE FROM countries WHERE country=?";
+		String query = "DELETE FROM mymanager.countries WHERE country=?";
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, country.getCountryName());

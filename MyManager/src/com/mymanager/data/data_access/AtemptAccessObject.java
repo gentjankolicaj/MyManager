@@ -34,7 +34,7 @@ public class AtemptAccessObject implements AtemptAccess {
 		List<Atempt> atemptList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
-		query = "SELECT * FROM atempts";
+		query = "SELECT * FROM mymanager.atempts";
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -55,7 +55,7 @@ public class AtemptAccessObject implements AtemptAccess {
 		List<Atempt> atemptList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
-		query = "SELECT * FROM atempts where user LIKE'%" + user.getUserId() + "%'";
+		query = "SELECT * FROM mymanager.atempts where user LIKE'%" + user.getUserId() + "%'";
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -74,7 +74,7 @@ public class AtemptAccessObject implements AtemptAccess {
 		List<Atempt> atemptList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
-		query = "SELECT * FROM atempts where status=" + status.name();
+		query = "SELECT * FROM mymanager.atempts where status=" + status.name();
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -89,7 +89,7 @@ public class AtemptAccessObject implements AtemptAccess {
 
 	@Override
 	public int insertAtempt(Atempt atempt) throws Exception {
-		String query = "INSERT INTO atempts (user,password,status,description,date_time) VALUES (?,?,?,?,?)";
+		String query = "INSERT INTO mymanager.atempts (user,password,status,description,date_time) VALUES (?,?,?,?,?)";
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, atempt.getUser());
 		pstmt.setString(2, atempt.getPassword());
@@ -103,7 +103,7 @@ public class AtemptAccessObject implements AtemptAccess {
 
 	@Override
 	public int deleteAtempt(Atempt atempt) throws Exception {
-		String query = "DELETE FROM atempts WHERE index=?";
+		String query = "DELETE FROM mymanager.atempts WHERE index=?";
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setInt(1, atempt.getIndex());

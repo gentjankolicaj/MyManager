@@ -25,11 +25,6 @@ public class DatabaseConnectionsTest {
 	public void testMySQLConnect() {
 		temp = new MySQLDatabase();
 		temp.connect();
-	}
-
-	@Test
-	public void testMySQLDisconnect() {
-		temp = new MySQLDatabase();
 		temp.disconnect();
 	}
 
@@ -37,11 +32,6 @@ public class DatabaseConnectionsTest {
 	public void testPostgreSQLConnect() {
 		temp = new PostgresDatabase();
 		temp.connect();
-	}
-
-	@Test
-	public void testPostgreSQLDisconnect() {
-		temp = new PostgresDatabase();
 		temp.disconnect();
 	}
 
@@ -49,11 +39,6 @@ public class DatabaseConnectionsTest {
 	public void tesOracleConnect() {
 		temp = new OracleDatabase();
 		temp.connect();
-	}
-
-	@Test
-	public void testOracleDisconnect() {
-		temp = new OracleDatabase();
 		temp.disconnect();
 	}
 

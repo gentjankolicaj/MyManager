@@ -18,12 +18,12 @@ public class DatabaseManager {
 		case MySQL:
 			temp = new MySQLDatabase();
 			break;
-
 		case ORACLE:
 			temp = new OracleDatabase();
 			break;
 		case PostgreSQL:
 			temp = new PostgresDatabase();
+			break;
 		default:
 			temp = new MySQLDatabase();
 

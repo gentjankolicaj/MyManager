@@ -25,6 +25,7 @@ public class Database implements Connectable {
 	private String user;
 	private String password;
 	private String schema;
+	private String url;
 
 	private Connection connection;
 	private Statement statement;
@@ -66,11 +67,11 @@ public class Database implements Connectable {
 	public void connect() {
 		initDriver();
 		try {
-			String url = new ConnectionUrlBuilder().setApi(api).setDatabase(databaseType).setServer(server)
-					.setPort(port).setSchema(schema).build();
+			url = new ConnectionUrlBuilder().setApi(api).setDatabase(databaseType).setServer(server).setPort(port)
+					.setSchema(schema).build();
 			PrintUtils.print(url, PrintType.LOG);
 			connection = DriverManager.getConnection(url, user, password);
-
+			PrintUtils.print("--- CONNECTED ---- ".concat(databaseType), PrintType.DATABASE_IO);
 		} catch (SQLException sqle) {
 			PrintUtils.print(sqle, PrintType.EXCEPTION);
 		}
@@ -82,6 +83,7 @@ public class Database implements Connectable {
 		if (connection != null) {
 			try {
 				connection.close();
+				PrintUtils.print("--- DISCONNECTED --- ".concat(databaseType), PrintType.DATABASE_IO);
 			} catch (SQLException sqle) {
 				PrintUtils.print(sqle, PrintType.EXCEPTION);
 

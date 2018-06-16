@@ -46,9 +46,9 @@ public class JobAccessObject implements JobAccess {
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM jobs";
+			query = "SELECT * FROM mymanager.jobs";
 		else
-			query = "SELECT * FROM jobs_history";
+			query = "SELECT * FROM mymanager.jobs_history";
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -70,7 +70,7 @@ public class JobAccessObject implements JobAccess {
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM jobs WHERE min_salary>" + minSalary + " AND max_salary<" + maxSalary;
+			query = "SELECT * FROM mymanager.jobs WHERE min_salary>" + minSalary + " AND max_salary<" + maxSalary;
 		else
 			query = "SELECT * FROM jobs_history WHERE min_salary>" + minSalary + " AND max_salary<" + maxSalary;
 
@@ -93,9 +93,9 @@ public class JobAccessObject implements JobAccess {
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM jobs WHERE job_title LIKE '" + jobTitle + "%'";
+			query = "SELECT * FROM mymanager.jobs WHERE job_title LIKE '" + jobTitle + "%'";
 		else
-			query = "SELECT * FROM jobs_history WHERE job_title LIKE '" + jobTitle + "%'";
+			query = "SELECT * FROM mymanager.jobs_history WHERE job_title LIKE '" + jobTitle + "%'";
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -117,9 +117,9 @@ public class JobAccessObject implements JobAccess {
 		String query = null;
 
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM jobs WHERE job_id=" + job.getJobId();
+			query = "SELECT * FROM mymanager.jobs WHERE job_id=" + job.getJobId();
 		else
-			query = "SELECT * FROM jobs_history WHERE job_id=" + job.getJobId();
+			query = "SELECT * FROM mymanager.jobs_history WHERE job_id=" + job.getJobId();
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -135,7 +135,7 @@ public class JobAccessObject implements JobAccess {
 
 	@Override
 	public int updateJob(Job job) throws Exception {
-		String query = "UPDATE jobs SET " + "job_title=?," + "min_salary=?," + "max_salary=?,created_by=?,"
+		String query = "UPDATE mymanager.jobs SET " + "job_title=?," + "min_salary=?," + "max_salary=?,created_by=?,"
 				+ "created_date=?," + "updated_by=?," + "updated_date=? WHERE job_id=?";
 		setQueryType(QueryType.NORMAL);
 		Job temp = readJob(job);
@@ -157,7 +157,7 @@ public class JobAccessObject implements JobAccess {
 
 	@Override
 	public int insertJob(Job job) throws Exception {
-		String query = "INSERT INTO jobs (job_id,job_title,min_salary,max_salary,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?)";
+		String query = "INSERT INTO mymanager.jobs (job_id,job_title,min_salary,max_salary,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setInt(1, job.getJobId());
@@ -175,7 +175,7 @@ public class JobAccessObject implements JobAccess {
 
 	@Override
 	public int deleteJob(Job job) throws Exception {
-		String query = "DELETE FROM jobs WHERE job_id=?";
+		String query = "DELETE FROM mymanager.jobs WHERE job_id=?";
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setInt(1, job.getJobId());
@@ -185,7 +185,7 @@ public class JobAccessObject implements JobAccess {
 	}
 
 	public int savePreviousRow(Job job) throws Exception {
-		String query = "INSERT INTO jobs_history (job_id,job_title,min_salary,max_salary,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?)";
+		String query = "INSERT INTO mymanager.jobs_history (job_id,job_title,min_salary,max_salary,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setInt(1, job.getJobId());

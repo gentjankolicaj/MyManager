@@ -52,9 +52,9 @@ public class DocumentAccessObject implements DocumentAccess {
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM employee_documents";
+			query = "SELECT * FROM mymanager.employee_documents";
 		else
-			query = "SELECT * FROM employee_documents_history";
+			query = "SELECT * FROM mymanager.employee_documents_history";
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -77,9 +77,10 @@ public class DocumentAccessObject implements DocumentAccess {
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM employee_documents WHERE document_name LIKE '" + documentName + "%'";
+			query = "SELECT * FROM mymanager.employee_documents WHERE document_name LIKE '" + documentName + "%'";
 		else
-			query = "SELECT * FROM employee_documents_history WHERE document_name LIKE '" + documentName + "%'";
+			query = "SELECT * FROM mymanager.employee_documents_history WHERE document_name LIKE '" + documentName
+					+ "%'";
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -102,9 +103,9 @@ public class DocumentAccessObject implements DocumentAccess {
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM employee_documents WHERE employee_id=" + document.getEmployeeId();
+			query = "SELECT * FROM mymanager.employee_documents WHERE employee_id=" + document.getEmployeeId();
 		else
-			query = "SELECT * FROM employee_documents_history WHERE employee_id=" + document.getEmployeeId();
+			query = "SELECT * FROM mymanager.employee_documents_history WHERE employee_id=" + document.getEmployeeId();
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -127,9 +128,9 @@ public class DocumentAccessObject implements DocumentAccess {
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM employee_documents WHERE document_number=" + document.getNumber();
+			query = "SELECT * FROM mymanager.employee_documents WHERE document_number=" + document.getNumber();
 		else
-			query = "SELECT * FROM employee_documents_history WHERE document_number=" + document.getNumber();
+			query = "SELECT * FROM mymanager.employee_documents_history WHERE document_number=" + document.getNumber();
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -148,7 +149,7 @@ public class DocumentAccessObject implements DocumentAccess {
 
 	@Override
 	public int updateDocument(Document document) throws Exception {
-		String query = "UPDATE employee_documents SET document_name=?,document_type=?,document_file=?,file_type=?,employee_id=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE document_number=?";
+		String query = "UPDATE mymanager.employee_documents SET document_name=?,document_type=?,document_file=?,file_type=?,employee_id=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE document_number=?";
 		setQueryType(QueryType.NORMAL);
 		List<Document> temp = readDocumentByDocumentNumber(document);
 		savePreviousRow(temp);
@@ -171,7 +172,7 @@ public class DocumentAccessObject implements DocumentAccess {
 
 	@Override
 	public int insertDocument(Document document) throws Exception {
-		String query = "INSERT INTO employee_documents (document_name,document_type,document_file,file_type,document_number,employee_id,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
+		String query = "INSERT INTO mymanager.employee_documents (document_name,document_type,document_file,file_type,document_number,employee_id,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, document.getName());
@@ -194,15 +195,15 @@ public class DocumentAccessObject implements DocumentAccess {
 		String query = null;
 		Object obj = null;
 		if (document.getNumber() != 0) {
-			query = "DELETE FROM employee_documents WHERE document_number=?";
+			query = "DELETE FROM mymanager.employee_documents WHERE document_number=?";
 			obj = document.getNumber();
 
 		} else if (document.getName() != null) {
-			query = "DELETE FROM employee_documents WHERE document_name=?";
+			query = "DELETE FROM mymanager.employee_documents WHERE document_name=?";
 			obj = document.getName();
 
 		} else {
-			query = "DELETE FROM employee_documents WHERE employee_id=?";
+			query = "DELETE FROM mymanager.employee_documents WHERE employee_id=?";
 			obj = document.getEmployeeId();
 		}
 
@@ -214,7 +215,7 @@ public class DocumentAccessObject implements DocumentAccess {
 	}
 
 	public int savePreviousRow(List<Document> documents) throws Exception {
-		String query = "INSERT INTO employee_documents_history (document_name,document_type,document_file,file_type,document_number,employee_id,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
+		String query = "INSERT INTO mymanager.employee_documents_history (document_name,document_type,document_file,file_type,document_number,employee_id,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
 		Document document = documents.get(0);
 
 		PreparedStatement pstmt = database.updateStatement(query);

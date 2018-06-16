@@ -44,9 +44,9 @@ public class AdditionalAccessObject implements AdditionalAccess {
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM employee_additional";
+			query = "SELECT * FROM mymanager.employee_additional";
 		else
-			query = "SELECT * FROM employee_additional_history";
+			query = "SELECT * FROM mymanager.employee_additional_history";
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -68,9 +68,10 @@ public class AdditionalAccessObject implements AdditionalAccess {
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM employee_additional WHERE employee_id=" + additional.getEmployeeId();
+			query = "SELECT * FROM mymanager.employee_additional WHERE employee_id=" + additional.getEmployeeId();
 		else
-			query = "SELECT * FROM employee_additional_history WHERE employee_id=" + additional.getEmployeeId();
+			query = "SELECT * FROM mymanager.employee_additional_history WHERE employee_id="
+					+ additional.getEmployeeId();
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -86,7 +87,7 @@ public class AdditionalAccessObject implements AdditionalAccess {
 
 	@Override
 	public int updateAdditional(Additional additional) throws Exception {
-		String query = "UPDATE employee_additional SET" + "salary_amount=?,hire_date=?,created_by=?,"
+		String query = "UPDATE mymanager.employee_additional SET" + "salary_amount=?,hire_date=?,created_by=?,"
 				+ "created_date=?," + "updated_by=?," + "updated_date=? WHERE employee_id=?";
 
 		setQueryType(QueryType.NORMAL);
@@ -108,7 +109,7 @@ public class AdditionalAccessObject implements AdditionalAccess {
 
 	@Override
 	public int insertAdditional(Additional additional) throws Exception {
-		String query = "INSERT INTO employee_additional (employee_id,salary_amount,hire_date,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?)";
+		String query = "INSERT INTO mymanager.employee_additional (employee_id,salary_amount,hire_date,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, additional.getEmployeeId());
@@ -125,7 +126,7 @@ public class AdditionalAccessObject implements AdditionalAccess {
 
 	@Override
 	public int deleteAdditional(Additional additional) throws Exception {
-		String query = "DELETE FROM employee_additional WHERE employee_id=?";
+		String query = "DELETE FROM mymanager.employee_additional WHERE employee_id=?";
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, additional.getEmployeeId());
@@ -135,7 +136,7 @@ public class AdditionalAccessObject implements AdditionalAccess {
 	}
 
 	public int savePreviousRow(List<Additional> additionalList) throws Exception {
-		String query = "INSERT INTO employee_additional_history (employee_id,salary_amount,hire_date,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?)";
+		String query = "INSERT INTO mymanager.employee_additional_history (employee_id,salary_amount,hire_date,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?)";
 		Additional additional = additionalList.get(0);
 
 		PreparedStatement pstmt = database.updateStatement(query);

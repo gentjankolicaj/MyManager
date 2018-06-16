@@ -51,9 +51,9 @@ public class DepartmentAccessObject implements DepartmentAccess {
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM departments";
+			query = "SELECT * FROM mymanager.departments";
 		else
-			query = "SELECT * FROM departments_history";
+			query = "SELECT * FROM mymanager.departments_history";
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -74,9 +74,9 @@ public class DepartmentAccessObject implements DepartmentAccess {
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM departments WHERE department_name LIKE '" + departmentName + "%'";
+			query = "SELECT * FROM mymanager.departments WHERE department_name LIKE '" + departmentName + "%'";
 		else
-			query = "SELECT * FROM departments_history WHERE department_name LIKE '" + departmentName + "%'";
+			query = "SELECT * FROM mymanager.departments_history WHERE department_name LIKE '" + departmentName + "%'";
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -97,9 +97,9 @@ public class DepartmentAccessObject implements DepartmentAccess {
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM departments WHERE department_id=" + department.getDepartmentId();
+			query = "SELECT * FROM mymanager.departments WHERE department_id=" + department.getDepartmentId();
 		else
-			query = "SELECT * FROM departments_history WHERE department_id=" + department.getDepartmentId();
+			query = "SELECT * FROM mymanager.departments_history WHERE department_id=" + department.getDepartmentId();
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -115,8 +115,8 @@ public class DepartmentAccessObject implements DepartmentAccess {
 
 	@Override
 	public int updateDepartment(Department department) throws Exception {
-		String query = "UPDATE departments SET" + "department_name=?,manager_id=?,created_by=?," + "created_date=?,"
-				+ "updated_by=?," + "updated_date=? WHERE department_id=?";
+		String query = "UPDATE mymanager.departments SET" + "department_name=?,manager_id=?,created_by=?,"
+				+ "created_date=?," + "updated_by=?," + "updated_date=? WHERE department_id=?";
 		setQueryType(QueryType.NORMAL);
 		List<Department> temp = readDepartment(department);
 		savePreviousRow(temp);
@@ -136,7 +136,7 @@ public class DepartmentAccessObject implements DepartmentAccess {
 
 	@Override
 	public int insertDepartment(Department department) throws Exception {
-		String query = "INSERT INTO departments (department_id,department_name,manager_id,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?)";
+		String query = "INSERT INTO mymanager.departments (department_id,department_name,manager_id,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setInt(1, department.getDepartmentId());
@@ -153,7 +153,7 @@ public class DepartmentAccessObject implements DepartmentAccess {
 
 	@Override
 	public int deleteDepartment(Department department) throws Exception {
-		String query = "DELETE FROM departments WHERE department_id=?";
+		String query = "DELETE FROM mymanager.departments WHERE department_id=?";
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setInt(1, department.getDepartmentId());
@@ -163,7 +163,7 @@ public class DepartmentAccessObject implements DepartmentAccess {
 	}
 
 	public int savePreviousRow(List<Department> departments) throws Exception {
-		String query = "INSERT INTO departments_history (department_id,department_name,manager_id,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?)";
+		String query = "INSERT INTO mymanager.departments_history (department_id,department_name,manager_id,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?)";
 		Department department = departments.get(0);
 
 		PreparedStatement pstmt = database.updateStatement(query);

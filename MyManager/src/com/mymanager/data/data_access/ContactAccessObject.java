@@ -67,9 +67,9 @@ public class ContactAccessObject implements ContactAccess {
 
 		if (contactType.equals(ContactType.EMPLOYEE_CONTACT)) {
 			if (queryType.equals(QueryType.NORMAL))
-				query = "SELECT * FROM employee_contact";
+				query = "SELECT * FROM mymanager.employee_contact";
 			else
-				query = "SELECT * FROM employee_contact_history";
+				query = "SELECT * FROM mymanager.employee_contact_history";
 
 			results = database.selectStatement(query);
 			while (results.next()) {
@@ -85,9 +85,9 @@ public class ContactAccessObject implements ContactAccess {
 
 		} else {
 			if (queryType.equals(QueryType.NORMAL))
-				query = "SELECT * FROM user_contact";
+				query = "SELECT * FROM mymanager.user_contact";
 			else
-				query = "SELECT * FROM user_contact_history";
+				query = "SELECT * FROM mymanager.user_contact_history";
 
 			results = database.selectStatement(query);
 			while (results.next()) {
@@ -111,9 +111,9 @@ public class ContactAccessObject implements ContactAccess {
 		String query = null;
 		if (contactType.equals(ContactType.EMPLOYEE_CONTACT)) {
 			if (queryType.equals(QueryType.NORMAL))
-				query = "SELECT * FROM employee_contact WHERE celular LIKE '" + celular + "%'";
+				query = "SELECT * FROM mymanager.employee_contact WHERE celular LIKE '" + celular + "%'";
 			else
-				query = "SELECT * FROM employee_contact_history WHERE celular LIKE '" + celular + "%'";
+				query = "SELECT * FROM mymanager.employee_contact_history WHERE celular LIKE '" + celular + "%'";
 
 			results = database.selectStatement(query);
 			while (results.next()) {
@@ -130,9 +130,9 @@ public class ContactAccessObject implements ContactAccess {
 		} else {
 
 			if (queryType.equals(QueryType.NORMAL))
-				query = "SELECT * FROM user_contact WHERE celular LIKE'" + celular + "%'";
+				query = "SELECT * FROM mymanager.user_contact WHERE celular LIKE'" + celular + "%'";
 			else
-				query = "SELECT * FROM user_contact_history WHERE celular LIKE'" + celular + "%'";
+				query = "SELECT * FROM mymanager.user_contact_history WHERE celular LIKE'" + celular + "%'";
 
 			results = database.selectStatement(query);
 			while (results.next()) {
@@ -157,9 +157,9 @@ public class ContactAccessObject implements ContactAccess {
 		String query = null;
 		if (contactType.equals(ContactType.EMPLOYEE_CONTACT)) {
 			if (queryType.equals(QueryType.NORMAL))
-				query = "SELECT * FROM employee_contact WHERE email LIKE '" + email + "%'";
+				query = "SELECT * FROM mymanager.employee_contact WHERE email LIKE '" + email + "%'";
 			else
-				query = "SELECT * FROM employee_contact_history email LIKE '" + email + "%'";
+				query = "SELECT * FROM mymanager.employee_contact_history email LIKE '" + email + "%'";
 
 			results = database.selectStatement(query);
 			while (results.next()) {
@@ -176,9 +176,9 @@ public class ContactAccessObject implements ContactAccess {
 		} else {
 
 			if (queryType.equals(QueryType.NORMAL))
-				query = "SELECT * FROM user_contact WHERE email LIKE '" + email + "%'";
+				query = "SELECT * FROM mymanager.user_contact WHERE email LIKE '" + email + "%'";
 			else
-				query = "SELECT * FROM user_contact_history WHERE email LIKE '" + email + "%'";
+				query = "SELECT * FROM mymanager.user_contact_history WHERE email LIKE '" + email + "%'";
 
 			results = database.selectStatement(query);
 			while (results.next()) {
@@ -202,9 +202,9 @@ public class ContactAccessObject implements ContactAccess {
 
 		if (contactType.equals(ContactType.EMPLOYEE_CONTACT)) {
 			if (queryType.equals(QueryType.NORMAL))
-				query = "SELECT * FROM employee_contact WHERE employee_id=" + contact.getId();
+				query = "SELECT * FROM mymanager.employee_contact WHERE employee_id=" + contact.getId();
 			else
-				query = "SELECT * FROM employee_contact_history WHERE employee_id=" + contact.getId();
+				query = "SELECT * FROM mymanager.employee_contact_history WHERE employee_id=" + contact.getId();
 
 			results = database.selectStatement(query);
 			while (results.next()) {
@@ -220,9 +220,9 @@ public class ContactAccessObject implements ContactAccess {
 
 		} else {
 			if (queryType.equals(QueryType.NORMAL))
-				query = "SELECT * FROM user_contact WHERE user_id=" + contact.getId();
+				query = "SELECT * FROM mymanager.user_contact WHERE user_id=" + contact.getId();
 			else
-				query = "SELECT * FROM user_contact_history WHERE user_id=" + contact.getId();
+				query = "SELECT * FROM mymanager.user_contact_history WHERE user_id=" + contact.getId();
 
 			results = database.selectStatement(query);
 			while (results.next()) {
@@ -242,9 +242,9 @@ public class ContactAccessObject implements ContactAccess {
 	public int updateContact(Contact contact) throws Exception {
 		String query = null;
 		if (contactType.equals(ContactType.EMPLOYEE_CONTACT))
-			query = "UPDATE employee_contact SET telephone=?,celular=?,email=?,fax=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE employee_id=?";
+			query = "UPDATE mymanager.employee_contact SET telephone=?,celular=?,email=?,fax=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE employee_id=?";
 		else
-			query = "UPDATE user_contact SET telephone=?,celular=?,email=?,fax=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE user_id=?";
+			query = "UPDATE mymanager.user_contact SET telephone=?,celular=?,email=?,fax=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE user_id=?";
 
 		setQueryType(QueryType.NORMAL);
 		List<Contact> temp = readContact(contact);
@@ -269,9 +269,9 @@ public class ContactAccessObject implements ContactAccess {
 	public int insertContact(Contact contact) throws Exception {
 		String query = null;
 		if (contactType.equals(ContactType.EMPLOYEE_CONTACT))
-			query = "INSERT INTO employee_contact (employee_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?)";
+			query = "INSERT INTO mymanager.employee_contact (employee_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?)";
 		else
-			query = "INSERT INTO user_contact (user_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?)";
+			query = "INSERT INTO mymanager.user_contact (user_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, contact.getId());
@@ -292,9 +292,9 @@ public class ContactAccessObject implements ContactAccess {
 	public int deleteContact(Contact contact) throws Exception {
 		String query = null;
 		if (contactType.equals(ContactType.EMPLOYEE_CONTACT))
-			query = "DELETE FROM employee_contact WHERE employee_id=?" + contact.getId();
+			query = "DELETE FROM mymanager.employee_contact WHERE employee_id=?" + contact.getId();
 		else
-			query = "DELETE FROM user_contact WHERE user_id=?" + contact.getId();
+			query = "DELETE FROM mymanager.user_contact WHERE user_id=?" + contact.getId();
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, contact.getId());
@@ -306,9 +306,9 @@ public class ContactAccessObject implements ContactAccess {
 	public int savePreviousRow(List<Contact> contactList) throws Exception {
 		String query = null;
 		if (contactType.equals(ContactType.EMPLOYEE_CONTACT))
-			query = "INSERT INTO employee_contact_history (employee_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?)";
+			query = "INSERT INTO mymanager.employee_contact_history (employee_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?)";
 		else
-			query = "INSERT INTO user_contact_history (user_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?)";
+			query = "INSERT INTO mymanager.user_contact_history (user_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?)";
 		Contact temp = contactList.get(0);
 
 		PreparedStatement pstmt = database.updateStatement(query);

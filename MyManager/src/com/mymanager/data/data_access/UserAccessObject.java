@@ -54,9 +54,9 @@ public class UserAccessObject implements UserAccess {
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM users";
+			query = "SELECT * FROM mymanager.users";
 		else
-			query = "SELECT * FROM users_history";
+			query = "SELECT * FROM mymanager.users_history";
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -81,9 +81,9 @@ public class UserAccessObject implements UserAccess {
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM users WHERE first_name LIKE '" + firstName + "%'";
+			query = "SELECT * FROM mymanager.users WHERE first_name LIKE '" + firstName + "%'";
 		else
-			query = "SELECT * FROM users_history WHERE first_name LIKE '" + firstName + "%'";
+			query = "SELECT * FROM mymanager.users_history WHERE first_name LIKE '" + firstName + "%'";
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -107,9 +107,9 @@ public class UserAccessObject implements UserAccess {
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM users WHERE last_name LIKE '" + lastName + "%'";
+			query = "SELECT * FROM mymanager.users WHERE last_name LIKE '" + lastName + "%'";
 		else
-			query = "SELECT * FROM users_history WHERE last_name LIKE '" + lastName + "%'";
+			query = "SELECT * FROM mymanager.users_history WHERE last_name LIKE '" + lastName + "%'";
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -133,9 +133,9 @@ public class UserAccessObject implements UserAccess {
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM users WHERE user_type=" + userType.name();
+			query = "SELECT * FROM mymanager.users WHERE user_type=" + userType.name();
 		else
-			query = "SELECT * FROM users_history WHERE user_type=" + userType.name();
+			query = "SELECT * FROM mymanager.users_history WHERE user_type=" + userType.name();
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -159,9 +159,9 @@ public class UserAccessObject implements UserAccess {
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM users WHERE rights=" + rights.name();
+			query = "SELECT * FROM mymanager.users WHERE rights=" + rights.name();
 		else
-			query = "SELECT * FROM users_history WHERE rights=" + rights.name();
+			query = "SELECT * FROM mymanager.users_history WHERE rights=" + rights.name();
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -187,9 +187,9 @@ public class UserAccessObject implements UserAccess {
 		User temp = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM users WHERE user_id=" + user.getUserId();
+			query = "SELECT * FROM mymanager.users WHERE user_id=" + user.getUserId();
 		else
-			query = "SELECT * FROM users_history WHERE user_id=" + user.getUserId();
+			query = "SELECT * FROM mymanager.users_history WHERE user_id=" + user.getUserId();
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -210,9 +210,9 @@ public class UserAccessObject implements UserAccess {
 
 	@Override
 	public int updateUser(User user) throws Exception {
-		String query = "UPDATE users SET" + " user_type =?," + "first_name=?," + "last_name=?," + "password=?,"
-				+ "birthday=?," + "birthplace=?," + "gender=?," + "rights=?," + "created_by=?," + "created_date=?,"
-				+ "updated_by=?," + "updated_date=? WHERE user_id=?";
+		String query = "UPDATE mymanager.users SET" + " user_type =?," + "first_name=?," + "last_name=?,"
+				+ "password=?," + "birthday=?," + "birthplace=?," + "gender=?," + "rights=?," + "created_by=?,"
+				+ "created_date=?," + "updated_by=?," + "updated_date=? WHERE user_id=?";
 		setQueryType(QueryType.NORMAL);
 		User temp = readUser(user);
 		savePreviousRow(temp);
@@ -237,8 +237,8 @@ public class UserAccessObject implements UserAccess {
 
 	@Override
 	public int insertUser(User user) throws Exception {
-		String query = "INSERT INTO users (user_id,user_type,first_name,last_name,password,"
-				+ "birthday,birthplace,gender,rights,created_by,created_date) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+		String query = "INSERT INTO mymanager.users (user_id,user_type,first_name,last_name,password,"
+				+ "birthday,birthplace,gender,rights,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, user.getUserId());
@@ -252,13 +252,15 @@ public class UserAccessObject implements UserAccess {
 		pstmt.setString(9, user.getRights().name());
 		pstmt.setString(10, user.getCreatedBy());
 		pstmt.setObject(11, user.getCreatedDate());
+		pstmt.setString(12, user.getUpdatedBy());
+		pstmt.setObject(13, user.getUpdatedDate());
 
 		return pstmt.executeUpdate();
 	}
 
 	@Override
 	public int deleteUser(User user) throws Exception {
-		String query = "DELETE FROM users WHERE user_id=?";
+		String query = "DELETE FROM mymanager.users WHERE user_id=?";
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, user.getUserId());
 		pstmt.executeUpdate();
@@ -267,7 +269,7 @@ public class UserAccessObject implements UserAccess {
 	}
 
 	public int savePreviousRow(User user) throws Exception {
-		String query = "INSERT INTO users_history (user_id,user_type,first_name,last_name,password,"
+		String query = "INSERT INTO mymanager.users_history (user_id,user_type,first_name,last_name,password,"
 				+ "birthday,birthplace,gender,rights,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);

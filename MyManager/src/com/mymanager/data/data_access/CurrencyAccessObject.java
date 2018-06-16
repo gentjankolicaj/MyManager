@@ -32,7 +32,7 @@ public class CurrencyAccessObject implements CurrencyAccess {
 		List<Currency> currencyList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
-		query = "SELECT * FROM currencies";
+		query = "SELECT * FROM mymanager.currencies";
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -49,7 +49,7 @@ public class CurrencyAccessObject implements CurrencyAccess {
 		List<Currency> currencyList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
-		query = "SELECT * FROM currencies WHERE currency LIKE'" + currencyName + "%'";
+		query = "SELECT * FROM mymanager.currencies WHERE currency LIKE'" + currencyName + "%'";
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -63,7 +63,7 @@ public class CurrencyAccessObject implements CurrencyAccess {
 
 	@Override
 	public int updateCurrency(Currency currency) throws Exception {
-		String query = "UPDATE currencies SET currency=? WHERE currency=?";
+		String query = "UPDATE mymanager.currencies SET currency=? WHERE currency=?";
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, currency.getUpdatedCurrencyName());
@@ -75,7 +75,7 @@ public class CurrencyAccessObject implements CurrencyAccess {
 
 	@Override
 	public int insertCurrency(Currency currency) throws Exception {
-		String query = "INSERT INTO currencies (currency) VALUES (?)";
+		String query = "INSERT INTO mymanager.currencies (currency) VALUES (?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, currency.getCurrencyName());
@@ -86,7 +86,7 @@ public class CurrencyAccessObject implements CurrencyAccess {
 
 	@Override
 	public int deleteCurrency(Currency currency) throws Exception {
-		String query = "DELETE FROM currencies WHERE currency=?";
+		String query = "DELETE FROM mymanager.currencies WHERE currency=?";
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, currency.getCurrencyName());

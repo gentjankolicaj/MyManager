@@ -74,9 +74,9 @@ public class AdressAccessObject implements AdressAccess {
 
 		if (adressType.equals(AdressType.EMPLOYEE_ADRESS)) {
 			if (queryType.equals(QueryType.NORMAL))
-				query = "SELECT * FROM employee_adress";
+				query = "SELECT * FROM mymanager.employee_adress";
 			else
-				query = "SELECT * FROM employee_adress_history";
+				query = "SELECT * FROM mymanager.employee_adress_history";
 
 			results = database.selectStatement(query);
 			while (results.next()) {
@@ -94,9 +94,9 @@ public class AdressAccessObject implements AdressAccess {
 		} else {
 
 			if (queryType.equals(QueryType.NORMAL))
-				query = "SELECT * FROM user_adress";
+				query = "SELECT * FROM mymanager.user_adress";
 			else
-				query = "SELECT * FROM user_adress_history";
+				query = "SELECT * FROM mymanager.user_adress_history";
 
 			results = database.selectStatement(query);
 			while (results.next()) {
@@ -121,9 +121,9 @@ public class AdressAccessObject implements AdressAccess {
 
 		if (adressType.equals(AdressType.EMPLOYEE_ADRESS)) {
 			if (queryType.equals(QueryType.NORMAL))
-				query = "SELECT * FROM employee_adress WHERE employee_id=" + adress.getId();
+				query = "SELECT * FROM mymanager.employee_adress WHERE employee_id=" + adress.getId();
 			else
-				query = "SELECT * FROM employee_adress_history WHERE employee_id=" + adress.getId();
+				query = "SELECT * FROM mymanager.employee_adress_history WHERE employee_id=" + adress.getId();
 
 			results = database.selectStatement(query);
 			while (results.next()) {
@@ -140,9 +140,9 @@ public class AdressAccessObject implements AdressAccess {
 		} else {
 
 			if (queryType.equals(QueryType.NORMAL))
-				query = "SELECT * FROM user_adress WHERE user_id=" + adress.getId();
+				query = "SELECT * FROM mymanager.user_adress WHERE user_id=" + adress.getId();
 			else
-				query = "SELECT * FROM user_adress_history WHERE user_id=" + adress.getId();
+				query = "SELECT * FROM mymanager.user_adress_history WHERE user_id=" + adress.getId();
 
 			results = database.selectStatement(query);
 			while (results.next()) {
@@ -163,9 +163,9 @@ public class AdressAccessObject implements AdressAccess {
 	public int updateAdress(Adress adress) throws Exception {
 		String query = null;
 		if (adressType.equals(AdressType.EMPLOYEE_ADRESS))
-			query = "UPDATE employee_adress SET country=?,city=?,street_name=?,zipcode=?,building=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE employee_id=?";
+			query = "UPDATE mymanager.employee_adress SET country=?,city=?,street_name=?,zipcode=?,building=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE employee_id=?";
 		else
-			query = "UPDATE user_adress SET country=?,city=?,street_name=?,zipcode=?,building=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE user_id=?";
+			query = "UPDATE mymanager.user_adress SET country=?,city=?,street_name=?,zipcode=?,building=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE user_id=?";
 		setQueryType(QueryType.NORMAL);
 		List<Adress> temp = readAdress(adress);
 		savePreviousRow(temp);
@@ -190,9 +190,9 @@ public class AdressAccessObject implements AdressAccess {
 	public int insertAdress(Adress adress) throws Exception {
 		String query = null;
 		if (adressType.equals(AdressType.EMPLOYEE_ADRESS))
-			query = "INSERT INTO employee_adress (employee_id,country,city,street_name,zipcode,building,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
+			query = "INSERT INTO mymanager.employee_adress (employee_id,country,city,street_name,zipcode,building,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
 		else
-			query = "INSERT INTO user_adress (user_id,country,city,street_name,zipcode,building,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
+			query = "INSERT INTO mymanager.user_adress (user_id,country,city,street_name,zipcode,building,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, adress.getId());
@@ -214,9 +214,9 @@ public class AdressAccessObject implements AdressAccess {
 	public int deleteAdress(Adress adress) throws Exception {
 		String query = null;
 		if (adressType.equals(AdressType.EMPLOYEE_ADRESS))
-			query = "DELETE FROM employee_adress WHERE employee_id=?" + adress.getId();
+			query = "DELETE FROM mymanager.employee_adress WHERE employee_id=?" + adress.getId();
 		else
-			query = "DELETE FROM user_adress WHERE user_id=?" + adress.getId();
+			query = "DELETE FROM mymanager.user_adress WHERE user_id=?" + adress.getId();
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, adress.getId());
@@ -228,9 +228,9 @@ public class AdressAccessObject implements AdressAccess {
 	public int savePreviousRow(List<Adress> adressList) throws Exception {
 		String query = null;
 		if (adressType.equals(AdressType.EMPLOYEE_ADRESS))
-			query = "INSERT INTO employee_adress_history (employee_id,country,city,street_name,zipcode,building,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
+			query = "INSERT INTO mymanager.employee_adress_history (employee_id,country,city,street_name,zipcode,building,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
 		else
-			query = "INSERT INTO user_adress_history (user_id,country,city,street_name,zipcode,building,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
+			query = "INSERT INTO mymanager.user_adress_history (user_id,country,city,street_name,zipcode,building,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
 		Adress temp = adressList.get(0);
 
