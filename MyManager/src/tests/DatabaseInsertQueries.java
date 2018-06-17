@@ -67,7 +67,7 @@ public class DatabaseInsertQueries {
 	private UserAccess userAccess;
 	private WorkingHourAccess workingHourAccess;
 
-	private static QueryType queryType = QueryType.AUDIT;
+	private static QueryType queryType = QueryType.NORMAL;
 	private int randomId;
 	private Random random;
 
@@ -93,7 +93,7 @@ public class DatabaseInsertQueries {
 		workingHourAccess = new WorkingHourAccessObject(queryType);
 
 		random = new Random();
-		randomId = random.nextInt(1000);
+		randomId = random.nextInt(6000);
 	}
 
 	@After
@@ -102,9 +102,15 @@ public class DatabaseInsertQueries {
 
 	@Test
 	public void insertUser() throws Exception {
-		userAccess.insertUser(new User(String.valueOf(randomId), UserType.ADMIN, "name", "last", "password",
-				LocalDate.now(), "Tirane", Gender.M, Rights.DELETE, "created Gentjan", "modified gentjan",
-				LocalDateTime.now(), LocalDateTime.now()));
+		int i = 15;
+		while (0 < i) {
+			randomId = random.nextInt(2000);
+			userAccess.insertUser(new User(String.valueOf(randomId), UserType.ADMIN, "name", "last", "password",
+					LocalDate.now(), "Tirane", Gender.M, Rights.DELETE, "created Gentjan", "modified gentjan",
+					LocalDateTime.now(), LocalDateTime.now()));
+
+			i--;
+		}
 
 	}
 

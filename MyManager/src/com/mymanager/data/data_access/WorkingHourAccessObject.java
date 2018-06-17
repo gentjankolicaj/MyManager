@@ -42,43 +42,43 @@ public class WorkingHourAccessObject implements WorkingHourAccess {
 	}
 
 	@Override
-	public List<WorkingHour> readAllWorkingHour() {
+	public List<WorkingHour> readAllWorkingHour() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<WorkingHour> readWorkingHourByEmplyeeId(String employeeId) {
+	public List<WorkingHour> readWorkingHourByEmplyeeId(String employeeId) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<WorkingHour> readWorkingHourByDate(LocalDate date) {
+	public List<WorkingHour> readWorkingHourByDate(LocalDate date) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<WorkingHour> readWorkingHourByBetween(float minHours, float maxHours) {
+	public List<WorkingHour> readWorkingHourByBetween(float minHours, float maxHours) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int updateWorkingHour(WorkingHour workingHour) {
+	public int updateWorkingHour(WorkingHour workingHour) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int insertWorkingHour(WorkingHour workingHour) {
+	public int insertWorkingHour(WorkingHour workingHour) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int deleteWorkingHour(WorkingHour workingHour) {
+	public int deleteWorkingHour(WorkingHour workingHour) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}

@@ -72,7 +72,8 @@ public class JobAccessObject implements JobAccess {
 		if (queryType.equals(QueryType.NORMAL))
 			query = "SELECT * FROM mymanager.jobs WHERE min_salary>" + minSalary + " AND max_salary<" + maxSalary;
 		else
-			query = "SELECT * FROM jobs_history WHERE min_salary>" + minSalary + " AND max_salary<" + maxSalary;
+			query = "SELECT * FROM mymanager.jobs_history WHERE min_salary>" + minSalary + " AND max_salary<"
+					+ maxSalary;
 
 		results = database.selectStatement(query);
 		while (results.next()) {

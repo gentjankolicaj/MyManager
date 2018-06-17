@@ -41,43 +41,43 @@ public class ProjectAccessObject implements ProjectAccess {
 	}
 
 	@Override
-	public List<Project> readAllProjects() {
+	public List<Project> readAllProjects() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Project> readAllProjectsByCustomer(String customer) {
+	public List<Project> readAllProjectsByCustomer(String customer) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Project> readAllProjectsByDescription(String projectDescription) {
+	public List<Project> readAllProjectsByDescription(String projectDescription) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Project> readAllProjectsByName(String projectName) {
+	public List<Project> readAllProjectsByName(String projectName) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int updateProject(Project project) {
+	public int updateProject(Project project) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int insertProject(Project project) {
+	public int insertProject(Project project) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int deleteProject(Project project) {
+	public int deleteProject(Project project) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}

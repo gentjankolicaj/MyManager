@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import com.mymanager.utils.PrintType;
 import com.mymanager.utils.PrintUtils;
@@ -103,6 +104,16 @@ public class Database implements Connectable {
 		preparedStatement = connection.prepareStatement(query);
 		return preparedStatement;
 
+	}
+
+	public ResultSet selectStatement(String query, List<Object> objectList) throws SQLException {
+		ResultSet resultSet = null;
+		preparedStatement = connection.prepareStatement(query);
+		for (int i = 0; i < objectList.size(); i++) {
+			preparedStatement.setObject(i, objectList.get(i));
+		}
+		resultSet = preparedStatement.executeQuery();
+		return resultSet;
 	}
 
 }

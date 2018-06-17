@@ -560,3 +560,9 @@ CREATE TABLE IF NOT EXISTS   mymanager  .  employee_additional_history   (
     updated_date   DATE NULL)  ;
 
 
+INSERT INTO  mymanager.user_type (user_type) VALUES ('ADMIN');
+INSERT INTO  mymanager.user_type (user_type) VALUES ('HR');
+INSERT INTO  mymanager.user_type (user_type) VALUES ('ASSISTANT');
+INSERT INTO  mymanager.user_type (user_type) VALUES ('MANAGER');
+INSERT INTO  mymanager.user_type (user_type) VALUES ('FINANCE');
+
