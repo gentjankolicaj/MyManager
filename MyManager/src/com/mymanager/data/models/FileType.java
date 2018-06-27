@@ -5,7 +5,7 @@ package com.mymanager.data.models;
  * @author gentjan koliçaj
  *
  */
-public class FileType {
+public class FileType extends MyModel {
 
 	private String file;
 
@@ -31,6 +31,24 @@ public class FileType {
 
 	public void setFile(String file) {
 		this.file = file;
+	}
+
+	@Override
+	public String toNormal() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toJson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toXml() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

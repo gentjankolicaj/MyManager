@@ -70,9 +70,9 @@ public class JobAccessObject implements JobAccess {
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM mymanager.jobs WHERE min_salary>" + minSalary + " AND max_salary<" + maxSalary;
+			query = "SELECT * FROM mymanager.jobs WHERE min_salary > " + minSalary + " AND max_salary < " + maxSalary;
 		else
-			query = "SELECT * FROM mymanager.jobs_history WHERE min_salary>" + minSalary + " AND max_salary<"
+			query = "SELECT * FROM mymanager.jobs_history WHERE min_salary > " + minSalary + " AND max_salary < "
 					+ maxSalary;
 
 		results = database.selectStatement(query);
@@ -115,12 +115,7 @@ public class JobAccessObject implements JobAccess {
 	public Job readJob(Job job) throws Exception {
 		ResultSet results = null;
 		Job temp = null;
-		String query = null;
-
-		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM mymanager.jobs WHERE job_id=" + job.getJobId();
-		else
-			query = "SELECT * FROM mymanager.jobs_history WHERE job_id=" + job.getJobId();
+		String query = "SELECT * FROM mymanager.jobs WHERE job_id=" + job.getJobId();
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -135,22 +130,23 @@ public class JobAccessObject implements JobAccess {
 	}
 
 	@Override
-	public int updateJob(Job job) throws Exception {
-		String query = "UPDATE mymanager.jobs SET " + "job_title=?," + "min_salary=?," + "max_salary=?,created_by=?,"
-				+ "created_date=?," + "updated_by=?," + "updated_date=? WHERE job_id=?";
+	public int updateJob(Job oldJob, Job newJob) throws Exception {
+		String query = "UPDATE mymanager.jobs SET job_id=?,job_title=?,min_salary=?,max_salary=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE job_id=?";
+
 		setQueryType(QueryType.NORMAL);
-		Job temp = readJob(job);
+		Job temp = readJob(oldJob);
 		savePreviousRow(temp);
 
 		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setString(1, job.getJobTitle());
-		pstmt.setFloat(2, job.getMinSalary());
-		pstmt.setFloat(3, job.getMaxSalary());
-		pstmt.setString(4, job.getCreatedBy());
-		pstmt.setObject(5, job.getCreatedDate());
-		pstmt.setString(6, job.getUpdatedBy());
-		pstmt.setObject(7, job.getUpdatedDate());
-		pstmt.setInt(8, job.getJobId());
+		pstmt.setInt(1, newJob.getJobId());
+		pstmt.setString(2, newJob.getJobTitle());
+		pstmt.setFloat(3, newJob.getMinSalary());
+		pstmt.setFloat(4, newJob.getMaxSalary());
+		pstmt.setString(5, newJob.getCreatedBy());
+		pstmt.setObject(6, newJob.getCreatedDate());
+		pstmt.setString(7, newJob.getUpdatedBy());
+		pstmt.setObject(8, newJob.getUpdatedDate());
+		pstmt.setInt(9, oldJob.getJobId());
 
 		return pstmt.executeUpdate();
 

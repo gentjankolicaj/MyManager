@@ -19,7 +19,7 @@ public interface JobAccess {
 
 	public abstract Job readJob(Job job) throws Exception;
 
-	public abstract int updateJob(Job job) throws Exception;
+	public abstract int updateJob(Job oldJob, Job newJob) throws Exception;
 
 	public abstract int insertJob(Job job) throws Exception;
 

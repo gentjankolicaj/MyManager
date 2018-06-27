@@ -15,7 +15,7 @@ public interface CurrencyAccess {
 
 	public abstract List<Currency> readCurrencies(String currencyName) throws Exception;
 
-	public abstract int updateCurrency(Currency currency) throws Exception;
+	public abstract int updateCurrency(Currency oldCurrency, Currency newCurrency) throws Exception;
 
 	public abstract int insertCurrency(Currency currency) throws Exception;
 

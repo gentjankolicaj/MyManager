@@ -5,7 +5,7 @@ package com.mymanager.data.models;
  * @author gentjan koliçaj
  *
  */
-public class PaymentType {
+public class PaymentType extends MyModel {
 
 	private String payment;
 
@@ -31,6 +31,24 @@ public class PaymentType {
 
 	public void setPayment(String payment) {
 		this.payment = payment;
+	}
+
+	@Override
+	public String toNormal() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toJson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toXml() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

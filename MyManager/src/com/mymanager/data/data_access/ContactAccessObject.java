@@ -73,9 +73,9 @@ public class ContactAccessObject implements ContactAccess {
 
 			results = database.selectStatement(query);
 			while (results.next()) {
-				Contact temp = new Contact(results.getString("employee_id"), results.getInt("telephone"),
-						results.getInt("celular"), results.getString("email"), results.getString("fax"),
-						results.getString("created_by"), results.getString("updated_by"),
+				Contact temp = new Contact(results.getInt("contact_id"), results.getString("employee_id"),
+						results.getInt("telephone"), results.getInt("celular"), results.getString("email"),
+						results.getString("fax"), results.getString("created_by"), results.getString("updated_by"),
 						results.getTimestamp("created_date").toLocalDateTime(),
 						results.getTimestamp("updated_date").toLocalDateTime());
 				contactList.add(temp);
@@ -91,9 +91,9 @@ public class ContactAccessObject implements ContactAccess {
 
 			results = database.selectStatement(query);
 			while (results.next()) {
-				Contact temp = new Contact(results.getString("user_id"), results.getInt("telephone"),
-						results.getInt("celular"), results.getString("email"), results.getString("fax"),
-						results.getString("created_by"), results.getString("updated_by"),
+				Contact temp = new Contact(results.getInt("contact_id"), results.getString("user_id"),
+						results.getInt("telephone"), results.getInt("celular"), results.getString("email"),
+						results.getString("fax"), results.getString("created_by"), results.getString("updated_by"),
 						results.getTimestamp("created_date").toLocalDateTime(),
 						results.getTimestamp("updated_date").toLocalDateTime());
 				contactList.add(temp);
@@ -105,7 +105,7 @@ public class ContactAccessObject implements ContactAccess {
 	}
 
 	@Override
-	public List<Contact> readContacts(int celular) throws Exception {
+	public List<Contact> readContactsByCelular(int celular) throws Exception {
 		List<Contact> contactList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -117,9 +117,9 @@ public class ContactAccessObject implements ContactAccess {
 
 			results = database.selectStatement(query);
 			while (results.next()) {
-				Contact temp = new Contact(results.getString("employee_id"), results.getInt("telephone"),
-						results.getInt("celular"), results.getString("email"), results.getString("fax"),
-						results.getString("created_by"), results.getString("updated_by"),
+				Contact temp = new Contact(results.getInt("contact_id"), results.getString("employee_id"),
+						results.getInt("telephone"), results.getInt("celular"), results.getString("email"),
+						results.getString("fax"), results.getString("created_by"), results.getString("updated_by"),
 						results.getTimestamp("created_date").toLocalDateTime(),
 						results.getTimestamp("updated_date").toLocalDateTime());
 				contactList.add(temp);
@@ -136,9 +136,9 @@ public class ContactAccessObject implements ContactAccess {
 
 			results = database.selectStatement(query);
 			while (results.next()) {
-				Contact temp = new Contact(results.getString("user_id"), results.getInt("telephone"),
-						results.getInt("celular"), results.getString("email"), results.getString("fax"),
-						results.getString("created_by"), results.getString("updated_by"),
+				Contact temp = new Contact(results.getInt("contact_id"), results.getString("user_id"),
+						results.getInt("telephone"), results.getInt("celular"), results.getString("email"),
+						results.getString("fax"), results.getString("created_by"), results.getString("updated_by"),
 						results.getTimestamp("created_date").toLocalDateTime(),
 						results.getTimestamp("updated_date").toLocalDateTime());
 				contactList.add(temp);
@@ -151,7 +151,7 @@ public class ContactAccessObject implements ContactAccess {
 	}
 
 	@Override
-	public List<Contact> readContacts(String email) throws Exception {
+	public List<Contact> readContactsByEmail(String email) throws Exception {
 		List<Contact> contactList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -163,9 +163,9 @@ public class ContactAccessObject implements ContactAccess {
 
 			results = database.selectStatement(query);
 			while (results.next()) {
-				Contact temp = new Contact(results.getString("employee_id"), results.getInt("telephone"),
-						results.getInt("celular"), results.getString("email"), results.getString("fax"),
-						results.getString("created_by"), results.getString("updated_by"),
+				Contact temp = new Contact(results.getInt("contact_id"), results.getString("employee_id"),
+						results.getInt("telephone"), results.getInt("celular"), results.getString("email"),
+						results.getString("fax"), results.getString("created_by"), results.getString("updated_by"),
 						results.getTimestamp("created_date").toLocalDateTime(),
 						results.getTimestamp("updated_date").toLocalDateTime());
 				contactList.add(temp);
@@ -182,9 +182,9 @@ public class ContactAccessObject implements ContactAccess {
 
 			results = database.selectStatement(query);
 			while (results.next()) {
-				Contact temp = new Contact(results.getString("user_id"), results.getInt("telephone"),
-						results.getInt("celular"), results.getString("email"), results.getString("fax"),
-						results.getString("created_by"), results.getString("updated_by"),
+				Contact temp = new Contact(results.getInt("contact_id"), results.getString("user_id"),
+						results.getInt("telephone"), results.getInt("celular"), results.getString("email"),
+						results.getString("fax"), results.getString("created_by"), results.getString("updated_by"),
 						results.getTimestamp("created_date").toLocalDateTime(),
 						results.getTimestamp("updated_date").toLocalDateTime());
 				contactList.add(temp);
@@ -195,22 +195,22 @@ public class ContactAccessObject implements ContactAccess {
 	}
 
 	@Override
-	public List<Contact> readContact(Contact contact) throws Exception {
+	public List<Contact> readContactByPersonId(String personId) throws Exception {
 		List<Contact> contactList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
 
 		if (contactType.equals(ContactType.EMPLOYEE_CONTACT)) {
 			if (queryType.equals(QueryType.NORMAL))
-				query = "SELECT * FROM mymanager.employee_contact WHERE employee_id=" + contact.getId();
+				query = "SELECT * FROM mymanager.employee_contact WHERE employee_id=" + personId;
 			else
-				query = "SELECT * FROM mymanager.employee_contact_history WHERE employee_id=" + contact.getId();
+				query = "SELECT * FROM mymanager.employee_contact_history WHERE employee_id=" + personId;
 
 			results = database.selectStatement(query);
 			while (results.next()) {
-				Contact temp = new Contact(results.getString("employee_id"), results.getInt("telephone"),
-						results.getInt("celular"), results.getString("email"), results.getString("fax"),
-						results.getString("created_by"), results.getString("updated_by"),
+				Contact temp = new Contact(results.getInt("contact_id"), results.getString("employee_id"),
+						results.getInt("telephone"), results.getInt("celular"), results.getString("email"),
+						results.getString("fax"), results.getString("created_by"), results.getString("updated_by"),
 						results.getTimestamp("created_date").toLocalDateTime(),
 						results.getTimestamp("updated_date").toLocalDateTime());
 				contactList.add(temp);
@@ -220,15 +220,15 @@ public class ContactAccessObject implements ContactAccess {
 
 		} else {
 			if (queryType.equals(QueryType.NORMAL))
-				query = "SELECT * FROM mymanager.user_contact WHERE user_id=" + contact.getId();
+				query = "SELECT * FROM mymanager.user_contact WHERE user_id=" + personId;
 			else
-				query = "SELECT * FROM mymanager.user_contact_history WHERE user_id=" + contact.getId();
+				query = "SELECT * FROM mymanager.user_contact_history WHERE user_id=" + personId;
 
 			results = database.selectStatement(query);
 			while (results.next()) {
-				Contact temp = new Contact(results.getString("user_id"), results.getInt("telephone"),
-						results.getInt("celular"), results.getString("email"), results.getString("fax"),
-						results.getString("created_by"), results.getString("updated_by"),
+				Contact temp = new Contact(results.getInt("contact_id"), results.getString("user_id"),
+						results.getInt("telephone"), results.getInt("celular"), results.getString("email"),
+						results.getString("fax"), results.getString("created_by"), results.getString("updated_by"),
 						results.getTimestamp("created_date").toLocalDateTime(),
 						results.getTimestamp("updated_date").toLocalDateTime());
 				contactList.add(temp);
@@ -239,27 +239,65 @@ public class ContactAccessObject implements ContactAccess {
 	}
 
 	@Override
-	public int updateContact(Contact contact) throws Exception {
+	public Contact readContact(int contactId) throws Exception {
+		Contact contact = null;
+		ResultSet results = null;
+		String query = null;
+
+		if (contactType.equals(ContactType.EMPLOYEE_CONTACT)) {
+			query = "SELECT * FROM mymanager.employee_contact WHERE contact_id=" + contactId;
+
+			results = database.selectStatement(query);
+			while (results.next()) {
+				contact = new Contact(results.getInt("contact_id"), results.getString("employee_id"),
+						results.getInt("telephone"), results.getInt("celular"), results.getString("email"),
+						results.getString("fax"), results.getString("created_by"), results.getString("updated_by"),
+						results.getTimestamp("created_date").toLocalDateTime(),
+						results.getTimestamp("updated_date").toLocalDateTime());
+			}
+			PrintUtils.print(contact, PrintType.QUERY_RESULTS);
+			return contact;
+
+		} else {
+
+			query = "SELECT * FROM mymanager.user_contact WHERE contact_id=" + contactId;
+			results = database.selectStatement(query);
+			while (results.next()) {
+				contact = new Contact(results.getInt("contact_id"), results.getString("user_id"),
+						results.getInt("telephone"), results.getInt("celular"), results.getString("email"),
+						results.getString("fax"), results.getString("created_by"), results.getString("updated_by"),
+						results.getTimestamp("created_date").toLocalDateTime(),
+						results.getTimestamp("updated_date").toLocalDateTime());
+			}
+			PrintUtils.print(contact, PrintType.QUERY_RESULTS);
+			return contact;
+		}
+	}
+
+	@Override
+	public int updateContact(Contact oldContact, Contact newContact) throws Exception {
 		String query = null;
 		if (contactType.equals(ContactType.EMPLOYEE_CONTACT))
-			query = "UPDATE mymanager.employee_contact SET telephone=?,celular=?,email=?,fax=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE employee_id=?";
+			query = "UPDATE mymanager.employee_contact SET contact_id=?,employee_id=?,telephone=?,celular=?,email=?,fax=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE contact_id=?";
 		else
-			query = "UPDATE mymanager.user_contact SET telephone=?,celular=?,email=?,fax=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE user_id=?";
+			query = "UPDATE mymanager.user_contact SET contact_id=?,user_id=?,telephone=?,celular=?,email=?,fax=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE contact_id=?";
 
 		setQueryType(QueryType.NORMAL);
-		List<Contact> temp = readContact(contact);
+		Contact temp = readContact(oldContact.getContactId());
 		savePreviousRow(temp);
 
 		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setInt(1, contact.getTelephone());
-		pstmt.setInt(2, contact.getCelular());
-		pstmt.setString(3, contact.getEmail());
-		pstmt.setString(4, contact.getFax());
-		pstmt.setString(5, contact.getCreatedBy());
-		pstmt.setObject(6, contact.getCreatedDate());
-		pstmt.setString(7, contact.getUpdatedBy());
-		pstmt.setObject(8, contact.getUpdatedDate());
-		pstmt.setString(9, contact.getId());
+		pstmt.setInt(1, newContact.getContactId());
+		pstmt.setString(2, newContact.getPersonId());
+		pstmt.setInt(3, newContact.getTelephone());
+		pstmt.setInt(4, newContact.getCelular());
+		pstmt.setString(5, newContact.getEmail());
+		pstmt.setString(6, newContact.getFax());
+		pstmt.setString(7, newContact.getCreatedBy());
+		pstmt.setObject(8, newContact.getCreatedDate());
+		pstmt.setString(9, newContact.getUpdatedBy());
+		pstmt.setObject(10, newContact.getUpdatedDate());
+		pstmt.setInt(11, oldContact.getContactId());
 
 		return pstmt.executeUpdate();
 
@@ -269,20 +307,21 @@ public class ContactAccessObject implements ContactAccess {
 	public int insertContact(Contact contact) throws Exception {
 		String query = null;
 		if (contactType.equals(ContactType.EMPLOYEE_CONTACT))
-			query = "INSERT INTO mymanager.employee_contact (employee_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?)";
+			query = "INSERT INTO mymanager.employee_contact (contact_id,employee_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
 		else
-			query = "INSERT INTO mymanager.user_contact (user_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?)";
+			query = "INSERT INTO mymanager.user_contact (contact_id,user_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setString(1, contact.getId());
-		pstmt.setInt(2, contact.getTelephone());
-		pstmt.setInt(3, contact.getCelular());
-		pstmt.setString(4, contact.getEmail());
-		pstmt.setString(5, contact.getFax());
-		pstmt.setString(6, contact.getCreatedBy());
-		pstmt.setObject(7, contact.getCreatedDate());
-		pstmt.setString(8, contact.getUpdatedBy());
-		pstmt.setObject(9, contact.getUpdatedDate());
+		pstmt.setInt(1, contact.getContactId());
+		pstmt.setString(2, contact.getPersonId());
+		pstmt.setInt(3, contact.getTelephone());
+		pstmt.setInt(4, contact.getCelular());
+		pstmt.setString(5, contact.getEmail());
+		pstmt.setString(6, contact.getFax());
+		pstmt.setString(7, contact.getCreatedBy());
+		pstmt.setObject(8, contact.getCreatedDate());
+		pstmt.setString(9, contact.getUpdatedBy());
+		pstmt.setObject(10, contact.getUpdatedDate());
 
 		return pstmt.executeUpdate();
 
@@ -292,35 +331,35 @@ public class ContactAccessObject implements ContactAccess {
 	public int deleteContact(Contact contact) throws Exception {
 		String query = null;
 		if (contactType.equals(ContactType.EMPLOYEE_CONTACT))
-			query = "DELETE FROM mymanager.employee_contact WHERE employee_id=?" + contact.getId();
+			query = "DELETE FROM mymanager.employee_contact WHERE contact_id=?";
 		else
-			query = "DELETE FROM mymanager.user_contact WHERE user_id=?" + contact.getId();
+			query = "DELETE FROM mymanager.user_contact WHERE contact_id=?";
 
 		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setString(1, contact.getId());
+		pstmt.setInt(1, contact.getContactId());
 
 		return pstmt.executeUpdate();
 
 	}
 
-	public int savePreviousRow(List<Contact> contactList) throws Exception {
+	public int savePreviousRow(Contact contact) throws Exception {
 		String query = null;
 		if (contactType.equals(ContactType.EMPLOYEE_CONTACT))
-			query = "INSERT INTO mymanager.employee_contact_history (employee_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?)";
+			query = "INSERT INTO mymanager.employee_contact_history (contact_id,employee_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
 		else
-			query = "INSERT INTO mymanager.user_contact_history (user_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?)";
-		Contact temp = contactList.get(0);
+			query = "INSERT INTO mymanager.user_contact_history (contact_id,user_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setString(1, temp.getId());
-		pstmt.setInt(2, temp.getTelephone());
-		pstmt.setInt(3, temp.getCelular());
-		pstmt.setString(4, temp.getEmail());
-		pstmt.setString(5, temp.getFax());
-		pstmt.setString(6, temp.getCreatedBy());
-		pstmt.setObject(7, temp.getCreatedDate());
-		pstmt.setString(8, temp.getUpdatedBy());
-		pstmt.setObject(9, temp.getUpdatedDate());
+		pstmt.setInt(1, contact.getContactId());
+		pstmt.setString(2, contact.getPersonId());
+		pstmt.setInt(3, contact.getTelephone());
+		pstmt.setInt(4, contact.getCelular());
+		pstmt.setString(5, contact.getEmail());
+		pstmt.setString(6, contact.getFax());
+		pstmt.setString(7, contact.getCreatedBy());
+		pstmt.setObject(8, contact.getCreatedDate());
+		pstmt.setString(9, contact.getUpdatedBy());
+		pstmt.setObject(10, contact.getUpdatedDate());
 
 		return pstmt.executeUpdate();
 

@@ -72,7 +72,6 @@ public class UserAccessObject implements UserAccess {
 		}
 		PrintUtils.print(userList, PrintType.QUERY_RESULTS);
 		return userList;
-
 	}
 
 	@Override
@@ -159,9 +158,9 @@ public class UserAccessObject implements UserAccess {
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM mymanager.users WHERE rights=" + rights.name();
+			query = "SELECT * FROM mymanager.users WHERE rights LIKE '%" + rights.name() + "%'";
 		else
-			query = "SELECT * FROM mymanager.users_history WHERE rights=" + rights.name();
+			query = "SELECT * FROM mymanager.users_history WHERE rights LIKE '%" + rights.name() + "%'";
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -176,7 +175,6 @@ public class UserAccessObject implements UserAccess {
 			userList.add(temp);
 
 		}
-
 		PrintUtils.print(userList, PrintType.QUERY_RESULTS);
 		return userList;
 	}
@@ -184,16 +182,12 @@ public class UserAccessObject implements UserAccess {
 	@Override
 	public User readUser(User user) throws Exception {
 		ResultSet results = null;
-		User temp = null;
-		String query = null;
-		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM mymanager.users WHERE user_id=" + user.getUserId();
-		else
-			query = "SELECT * FROM mymanager.users_history WHERE user_id=" + user.getUserId();
+		User userLocal = null;
+		String query = "SELECT * FROM mymanager.users WHERE user_id=" + user.getUserId();
 
 		results = database.selectStatement(query);
 		while (results.next()) {
-			temp = new User(results.getString("user_id"), UserType.valueOf(results.getString("user_type")),
+			userLocal = new User(results.getString("user_id"), UserType.valueOf(results.getString("user_type")),
 					results.getString("first_name"), results.getString("last_name"), results.getString("password"),
 					results.getDate("birthday").toLocalDate(), results.getString("birthplace"),
 					Gender.valueOf(results.getString("gender")), Rights.valueOf(results.getString("rights")),
@@ -202,35 +196,34 @@ public class UserAccessObject implements UserAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 
 		}
-
-		PrintUtils.print(temp, PrintType.QUERY_RESULTS);
-		return temp;
-
+		PrintUtils.print(user, PrintType.QUERY_RESULTS);
+		return userLocal;
 	}
 
 	@Override
-	public int updateUser(User user) throws Exception {
-		String query = "UPDATE mymanager.users SET" + " user_type =?," + "first_name=?," + "last_name=?,"
-				+ "password=?," + "birthday=?," + "birthplace=?," + "gender=?," + "rights=?," + "created_by=?,"
-				+ "created_date=?," + "updated_by=?," + "updated_date=? WHERE user_id=?";
+	public int updateUser(User oldUser, User newUser) throws Exception {
+		String query = "UPDATE mymanager.users SET user_id=?,user_type =?,first_name=?,last_name=?,password=?,birthday=?,"
+				+ "birthplace=?,gender=?,rights=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE user_id=?";
+
 		setQueryType(QueryType.NORMAL);
-		User temp = readUser(user);
+		User temp = readUser(oldUser);
 		savePreviousRow(temp);
 
 		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setString(1, user.getUserType().name());
-		pstmt.setString(2, user.getFirstName());
-		pstmt.setString(3, user.getLastName());
-		pstmt.setString(4, user.getPassword());
-		pstmt.setObject(5, user.getBirthday());
-		pstmt.setString(6, user.getBirthplace());
-		pstmt.setString(7, user.getGender().name());
-		pstmt.setString(8, user.getRights().name());
-		pstmt.setString(9, user.getCreatedBy());
-		pstmt.setObject(10, user.getCreatedDate());
-		pstmt.setString(11, user.getUpdatedBy());
-		pstmt.setObject(12, user.getUpdatedDate());
-		pstmt.setString(13, user.getUserId());
+		pstmt.setString(1, newUser.getUserId());
+		pstmt.setString(2, newUser.getUserType().name());
+		pstmt.setString(3, newUser.getFirstName());
+		pstmt.setString(4, newUser.getLastName());
+		pstmt.setString(5, newUser.getPassword());
+		pstmt.setObject(6, newUser.getBirthday());
+		pstmt.setString(7, newUser.getBirthplace());
+		pstmt.setString(8, newUser.getGender().name());
+		pstmt.setString(9, newUser.getRights().name());
+		pstmt.setString(10, newUser.getCreatedBy());
+		pstmt.setObject(11, newUser.getCreatedDate());
+		pstmt.setString(12, newUser.getUpdatedBy());
+		pstmt.setObject(13, newUser.getUpdatedDate());
+		pstmt.setString(14, oldUser.getUserId());
 
 		return pstmt.executeUpdate();
 	}
@@ -261,6 +254,7 @@ public class UserAccessObject implements UserAccess {
 	@Override
 	public int deleteUser(User user) throws Exception {
 		String query = "DELETE FROM mymanager.users WHERE user_id=?";
+
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, user.getUserId());
 		pstmt.executeUpdate();
@@ -288,7 +282,6 @@ public class UserAccessObject implements UserAccess {
 		pstmt.setObject(13, user.getUpdatedDate());
 
 		return pstmt.executeUpdate();
-
 	}
 
 }

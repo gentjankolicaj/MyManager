@@ -13,13 +13,15 @@ public interface ContactAccess {
 
 	public abstract List<Contact> readAllContacts() throws Exception;
 
-	public abstract List<Contact> readContacts(int celular) throws Exception;
+	public abstract List<Contact> readContactsByCelular(int celular) throws Exception;
 
-	public abstract List<Contact> readContacts(String email) throws Exception;
+	public abstract List<Contact> readContactsByEmail(String email) throws Exception;
 
-	public abstract List<Contact> readContact(Contact contact) throws Exception;
+	public abstract List<Contact> readContactByPersonId(String personId) throws Exception;
 
-	public abstract int updateContact(Contact contact) throws Exception;
+	public abstract Contact readContact(int contactId) throws Exception;
+
+	public abstract int updateContact(Contact oldContact, Contact newContact) throws Exception;
 
 	public abstract int insertContact(Contact contact) throws Exception;
 

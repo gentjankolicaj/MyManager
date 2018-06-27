@@ -85,7 +85,7 @@ public class DatabaseUpdateQueries {
 		jobAccess = new JobAccessObject(queryType);
 		jobHistoryAccess = new JobHistoryAccessObject(queryType);
 		paymentAccess = new PaymentAccessObject(queryType);
-		projectAccess = new ProjectAccessObject(queryType);
+		projectAccess = new ProjectAccessObject();
 		userAccess = new UserAccessObject(queryType);
 		workingHourAccess = new WorkingHourAccessObject(queryType);
 	}
@@ -96,9 +96,12 @@ public class DatabaseUpdateQueries {
 
 	@Test
 	public void updateUser() throws Exception {
-		userAccess.updateUser(new User("75", UserType.MANAGER, "name", "last", "password", LocalDate.now(), "Tirane",
-				Gender.M, Rights.DELETE, "created Gentjan", "modified gentjan", LocalDateTime.now(),
-				LocalDateTime.now()));
+		User oldUser = new User();
+		oldUser.setUserId("75");
+		userAccess.updateUser(oldUser,
+				new User("75", UserType.MANAGER, "Name", "Last", "password_updated", LocalDate.now(), "Tirane",
+						Gender.M, Rights.DELETE, "created Gentjan", "modified gentjan", LocalDateTime.now(),
+						LocalDateTime.now()));
 	}
 
 }

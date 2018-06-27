@@ -52,6 +52,7 @@ public class EmployeeAccessObject implements EmployeeAccess {
 		List<Employee> employeeList = new ArrayList<>();
 		String query = null;
 		ResultSet results = null;
+
 		if (queryType.equals(QueryType.NORMAL))
 			query = "Select * from mymanager.employees";
 		else
@@ -200,12 +201,8 @@ public class EmployeeAccessObject implements EmployeeAccess {
 	@Override
 	public Employee readEmployee(String employeeId) throws Exception {
 		Employee employee = null;
-		String query = null;
+		String query = "Select * from mymanager.employees WHERE employee_id=" + employeeId;
 		ResultSet results = null;
-		if (queryType.equals(QueryType.NORMAL))
-			query = "Select * from mymanager.employees WHERE employee_id=" + employeeId;
-		else
-			query = "Select * from mymanager.employees_history WHERE employee_id=" + employeeId;
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -222,30 +219,31 @@ public class EmployeeAccessObject implements EmployeeAccess {
 	}
 
 	@Override
-	public int updateEmployee(Employee employee) throws Exception {
-		String query = "UPDATE mymanager.employees SET" + " first_name=?," + "last_name=?," + "middle_name=?,"
+	public int updateEmployee(Employee oldEmployee, Employee newEmployee) throws Exception {
+		String query = "UPDATE mymanager.employees SET employee_id=?,first_name=?," + "last_name=?," + "middle_name=?,"
 				+ "birthday=?," + "birthplace=?," + "gender=?," + "job_id=?,department_id=?,project_name=?,"
 				+ "created_by=?," + "created_date=?," + "updated_by=?," + "updated_date=? WHERE employee_id=?";
 
 		setQueryType(QueryType.NORMAL);
-		Employee temp = readEmployee(employee.getEmployeeId());
+		Employee temp = readEmployee(oldEmployee.getEmployeeId());
 		savePreviousRow(temp);
 
 		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setString(1, employee.getFirstName());
-		pstmt.setString(2, employee.getLastName());
-		pstmt.setString(3, employee.getMiddleName());
-		pstmt.setObject(4, employee.getBirthday());
-		pstmt.setString(5, employee.getBirthplace());
-		pstmt.setString(6, employee.getGender().name());
-		pstmt.setInt(7, employee.getJobId());
-		pstmt.setInt(8, employee.getDepartmentId());
-		pstmt.setString(9, employee.getProjectName());
-		pstmt.setString(10, employee.getCreatedBy());
-		pstmt.setObject(11, employee.getCreatedDate());
-		pstmt.setString(12, employee.getUpdatedBy());
-		pstmt.setObject(13, employee.getUpdatedDate());
-		pstmt.setString(14, employee.getEmployeeId());
+		pstmt.setString(1, newEmployee.getEmployeeId());
+		pstmt.setString(2, newEmployee.getFirstName());
+		pstmt.setString(3, newEmployee.getLastName());
+		pstmt.setString(4, newEmployee.getMiddleName());
+		pstmt.setObject(5, newEmployee.getBirthday());
+		pstmt.setString(6, newEmployee.getBirthplace());
+		pstmt.setString(7, newEmployee.getGender().name());
+		pstmt.setInt(8, newEmployee.getJobId());
+		pstmt.setInt(9, newEmployee.getDepartmentId());
+		pstmt.setString(10, newEmployee.getProjectName());
+		pstmt.setString(11, newEmployee.getCreatedBy());
+		pstmt.setObject(12, newEmployee.getCreatedDate());
+		pstmt.setString(13, newEmployee.getUpdatedBy());
+		pstmt.setObject(14, newEmployee.getUpdatedDate());
+		pstmt.setString(15, oldEmployee.getEmployeeId());
 
 		return pstmt.executeUpdate();
 	}
@@ -303,7 +301,6 @@ public class EmployeeAccessObject implements EmployeeAccess {
 		pstmt.setObject(14, employee.getUpdatedDate());
 
 		return pstmt.executeUpdate();
-
 	}
 
 }

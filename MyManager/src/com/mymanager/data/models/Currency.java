@@ -5,10 +5,9 @@ package com.mymanager.data.models;
  * @author gentjan koliçaj
  *
  */
-public class Currency {
+public class Currency extends MyModel {
 
 	private String currencyName;
-	private String updatedCurrencyName;
 
 	/**
 	 * 
@@ -31,26 +30,26 @@ public class Currency {
 		this.currencyName = currencyName;
 	}
 
-	/**
-	 * @param currencyName
-	 * @param updatedCurrencyName
-	 */
-	public Currency(String currencyName, String updatedCurrencyName) {
-		super();
-		this.currencyName = currencyName;
-		this.updatedCurrencyName = updatedCurrencyName;
-	}
-
 	public void setCurrencyName(String currencyName) {
 		this.currencyName = currencyName;
 	}
 
-	public String getUpdatedCurrencyName() {
-		return updatedCurrencyName;
+	@Override
+	public String toNormal() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	public void setUpdatedCurrencyName(String updatedCurrencyName) {
-		this.updatedCurrencyName = updatedCurrencyName;
+	@Override
+	public String toJson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toXml() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -77,7 +77,7 @@ public class DatabaseSelectQueries {
 		jobAccess = new JobAccessObject(queryType);
 		jobHistoryAccess = new JobHistoryAccessObject(queryType);
 		paymentAccess = new PaymentAccessObject(queryType);
-		projectAccess = new ProjectAccessObject(queryType);
+		projectAccess = new ProjectAccessObject();
 		userAccess = new UserAccessObject(queryType);
 		workingHourAccess = new WorkingHourAccessObject(queryType);
 	}

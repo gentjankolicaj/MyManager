@@ -15,11 +15,11 @@ public interface DocumentAccess {
 
 	public abstract List<Document> readDocuments(String documentName) throws Exception;
 
-	public abstract List<Document> readDocumentByDocumentNumber(Document document) throws Exception;
+	public abstract Document readDocument(int documentNumber) throws Exception;
 
 	public abstract List<Document> readDocumentByEmployeeId(Document document) throws Exception;
 
-	public abstract int updateDocument(Document document) throws Exception;
+	public abstract int updateDocument(Document oldDocument, Document newDocument) throws Exception;
 
 	public abstract int insertDocument(Document document) throws Exception;
 

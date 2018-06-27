@@ -3,6 +3,7 @@ package com.mymanager.data.data_access;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -82,7 +83,6 @@ public class JobHistoryAccessObject implements JobHistoryAccess {
 			query = "SELECT * FROM mymanager.job_history_history WHERE start_date > ? AND end_date < ?";
 
 		List<Object> list = Arrays.asList(startDate, endDate);
-
 		results = database.selectStatement(query, list);
 		while (results.next()) {
 			JobHistory temp = new JobHistory(results.getString("employee_id"),
@@ -170,23 +170,44 @@ public class JobHistoryAccessObject implements JobHistoryAccess {
 	}
 
 	@Override
-	public int updateJobHistory(JobHistory jobHistory) throws Exception {
-		String query = "UPDATE mymanager.job_history SET " + "start_date=?,end_date=?," + "job_id=?,department_id=?,"
-				+ "created_date=?,updated_by=?,updated_date=? WHERE employee_id=? AND created_date=?";
+	public JobHistory readJobHistoryByEmployeeId(String employeeId, LocalDateTime createdDateTime) throws Exception {
+		JobHistory jobHistory = null;
+		ResultSet results = null;
+		String query = "SELECT * FROM mymanager.job_history WHERE employee_id=? AND created_date=?";
+
+		results = database.selectStatement(query, Arrays.asList(employeeId, createdDateTime));
+		while (results.next()) {
+			jobHistory = new JobHistory(results.getString("employee_id"), results.getDate("start_date").toLocalDate(),
+					results.getDate("end_date").toLocalDate(), results.getString("job_id"),
+					results.getString("department_id"), results.getString("created_by"),
+					results.getString("updated_by"), results.getTimestamp("created_date").toLocalDateTime(),
+					results.getTimestamp("updated_date").toLocalDateTime());
+		}
+		PrintUtils.print(jobHistory, PrintType.QUERY_RESULTS);
+		return jobHistory;
+	}
+
+	@Override
+	public int updateJobHistory(JobHistory oldJobHistory, JobHistory newJobHistory) throws Exception {
+		String query = "UPDATE mymanager.job_history SET employee_id=?,start_date=?,end_date=?,job_id=?,department_id=?,"
+				+ "created_by=?,created_date=?,updated_by=?,updated_date=? WHERE employee_id=? AND created_date=?";
+
 		setQueryType(QueryType.NORMAL);
-		JobHistory temp = readAllJobHistoryByEmployeeId(jobHistory.getDepartmentId()).get(0);
+		JobHistory temp = readJobHistoryByEmployeeId(oldJobHistory.getDepartmentId(), oldJobHistory.getCreatedDate());
 		savePreviousRow(temp);
 
 		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setObject(1, jobHistory.getStartDate());
-		pstmt.setObject(2, jobHistory.getEmployeeId());
-		pstmt.setString(3, jobHistory.getJobId());
-		pstmt.setString(4, jobHistory.getDepartmentId());
-		pstmt.setString(5, jobHistory.getCreatedBy());
-		pstmt.setString(6, jobHistory.getUpdatedBy());
-		pstmt.setObject(7, jobHistory.getUpdatedDate());
-		pstmt.setString(8, jobHistory.getEmployeeId());
-		pstmt.setObject(9, jobHistory.getCreatedDate());
+		pstmt.setString(1, newJobHistory.getEmployeeId());
+		pstmt.setObject(2, newJobHistory.getStartDate());
+		pstmt.setObject(3, newJobHistory.getEndDate());
+		pstmt.setString(4, newJobHistory.getJobId());
+		pstmt.setString(5, newJobHistory.getDepartmentId());
+		pstmt.setString(6, newJobHistory.getCreatedBy());
+		pstmt.setObject(7, newJobHistory.getCreatedDate());
+		pstmt.setString(8, newJobHistory.getUpdatedBy());
+		pstmt.setObject(9, newJobHistory.getUpdatedDate());
+		pstmt.setString(10, oldJobHistory.getEmployeeId());
+		pstmt.setObject(11, oldJobHistory.getCreatedDate());
 
 		return pstmt.executeUpdate();
 

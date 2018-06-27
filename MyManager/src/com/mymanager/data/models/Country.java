@@ -5,10 +5,9 @@ package com.mymanager.data.models;
  * @author gentjan koliçaj
  *
  */
-public class Country {
+public class Country extends MyModel {
 
 	private String countryName;
-	private String updatedCountryName;
 
 	/**
 	 * 
@@ -23,16 +22,6 @@ public class Country {
 		this.countryName = countryName;
 	}
 
-	/**
-	 * @param countryName
-	 * @param updatedCountryName
-	 */
-	public Country(String countryName, String updatedCountryName) {
-		super();
-		this.countryName = countryName;
-		this.updatedCountryName = updatedCountryName;
-	}
-
 	public String getCountryName() {
 		return countryName;
 	}
@@ -41,12 +30,22 @@ public class Country {
 		this.countryName = countryName;
 	}
 
-	public String getUpdatedCountryName() {
-		return updatedCountryName;
+	@Override
+	public String toNormal() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	public void setUpdatedCountryName(String updatedCountryName) {
-		this.updatedCountryName = updatedCountryName;
+	@Override
+	public String toJson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toXml() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

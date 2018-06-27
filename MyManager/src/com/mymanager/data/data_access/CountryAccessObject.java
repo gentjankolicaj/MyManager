@@ -50,26 +50,38 @@ public class CountryAccessObject implements CountryAccess {
 	public List<Country> readCountries(String countryName) throws Exception {
 		List<Country> countryList = new ArrayList<>();
 		ResultSet results = null;
-		String query = null;
-		query = "SELECT * FROM mymanager.countries WHERE country LIKE'" + countryName + "%'";
+		String query = "SELECT * FROM mymanager.countries WHERE country LIKE'" + countryName + "%'";
 
 		results = database.selectStatement(query);
 		while (results.next()) {
 			Country temp = new Country(results.getString("country"));
 			countryList.add(temp);
-
 		}
 		PrintUtils.print(countryList, PrintType.QUERY_RESULTS);
 		return countryList;
 	}
 
 	@Override
-	public int updateCountry(Country country) throws Exception {
+	public Country readCountry(String countryName) throws Exception {
+		Country country = null;
+		ResultSet results = null;
+		String query = "SELECT * FROM mymanager.countries WHERE country=" + countryName;
+
+		results = database.selectStatement(query);
+		while (results.next()) {
+			country = new Country(results.getString("country"));
+		}
+		PrintUtils.print(country, PrintType.QUERY_RESULTS);
+		return country;
+	}
+
+	@Override
+	public int updateCountry(Country oldCountry, Country newCountry) throws Exception {
 		String query = "UPDATE mymanager.countries SET country=? WHERE country=?";
 
 		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setString(1, country.getUpdatedCountryName());
-		pstmt.setString(2, country.getCountryName());
+		pstmt.setString(1, newCountry.getCountryName());
+		pstmt.setString(2, oldCountry.getCountryName());
 
 		return pstmt.executeUpdate();
 

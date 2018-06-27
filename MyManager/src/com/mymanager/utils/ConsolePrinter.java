@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.mymanager.config.Config;
+import com.mymanager.data.models.MyModel;
 
 /**
  * 
@@ -17,17 +18,17 @@ public class ConsolePrinter {
 	public static final PrintFormat FORMAT = Config.PRINT_FORMAT;
 
 	public static void print(String source) {
-		System.out.println(" -> " + source);
+		System.out.println("-  " + source);
 
 	}
 
 	public static void print(Object object) {
-		System.out.println(" -> " + object.toString());
+		System.out.println("-  " + object.toString());
 
 	}
 
 	public static void print(Class<?> cls) {
-		System.out.println(" -> " + cls.getName());
+		System.out.println("-  " + cls.getName());
 
 	}
 
@@ -52,7 +53,11 @@ public class ConsolePrinter {
 		int i = 0;
 		for (Object object : list) {
 			i++;
-			print(i + "." + object.toString());
+			if (object instanceof MyModel) {
+				MyModel model = (MyModel) object;
+				print(i + "-|" + model.toNormal() + "|");
+			} else
+				print(i + "." + object.toString());
 		}
 	}
 

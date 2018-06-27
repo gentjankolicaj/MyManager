@@ -25,7 +25,7 @@ public interface UserAccess {
 
 	public abstract User readUser(User user) throws Exception;
 
-	public abstract int updateUser(User user) throws Exception;
+	public abstract int updateUser(User oldUser, User newUser) throws Exception;
 
 	public abstract int insertUser(User user) throws Exception;
 

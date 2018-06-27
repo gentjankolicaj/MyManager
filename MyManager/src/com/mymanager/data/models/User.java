@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
  * @author gentjan koliçaj
  *
  */
-public class User {
+public class User extends MyModel {
 
 	private String userId;
 	private UserType userType;
@@ -37,13 +37,10 @@ public class User {
 	 * @param userType
 	 * @param firstName
 	 * @param lastName
-	 * @param middleName
 	 * @param password
 	 * @param birthday
 	 * @param birthplace
 	 * @param gender
-	 * @param contact
-	 * @param adress
 	 * @param rights
 	 * @param createdBy
 	 * @param updatedBy
@@ -171,6 +168,29 @@ public class User {
 
 	public void setUpdatedDate(LocalDateTime updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	@Override
+	public String toNormal() {
+		String cls = getClass().getSimpleName();
+		String text = cls + ": userId:" + userId + ", userType:" + userType + ", firstName:" + firstName + ", lastName:"
+				+ lastName + ", password:" + password + " , birthday:" + birthday.toString() + ", birthplace:"
+				+ birthplace + ", gender:" + gender + ", rights:" + rights + ", createdBy:" + createdBy
+				+ ", createDate:" + createdDate.toString() + ", updateBy:" + updatedBy + ", updateDate:" + updatedDate;
+
+		return text;
+	}
+
+	@Override
+	public String toJson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toXml() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

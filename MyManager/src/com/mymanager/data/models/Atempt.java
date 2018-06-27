@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
  * @author gentjan koliçaj
  *
  */
-public class Atempt {
+public class Atempt extends MyModel {
 
 	private int index;
 	private String user;
@@ -88,6 +88,24 @@ public class Atempt {
 
 	public void setDateTime(LocalDateTime dateTime) {
 		this.dateTime = dateTime;
+	}
+
+	@Override
+	public String toNormal() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toJson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toXml() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

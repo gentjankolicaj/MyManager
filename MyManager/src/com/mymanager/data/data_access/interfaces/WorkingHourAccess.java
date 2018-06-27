@@ -20,7 +20,9 @@ public interface WorkingHourAccess {
 
 	public abstract List<WorkingHour> readWorkingHourByBetween(float minHours, float maxHours) throws Exception;
 
-	public abstract int updateWorkingHour(WorkingHour workingHour) throws Exception;
+	public abstract WorkingHour readWorkingHourByIndex(int index) throws Exception;
+
+	public abstract int updateWorkingHour(WorkingHour oldWorkingHour, WorkingHour newWorkingHour) throws Exception;
 
 	public abstract int insertWorkingHour(WorkingHour workingHour) throws Exception;
 

@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
  * @author gentjan koliçaj
  *
  */
-public class Payment {
+public class Payment extends MyModel {
 
 	private int paymentId;
 	private PaymentType paymentType;
@@ -134,6 +134,24 @@ public class Payment {
 
 	public void setUpdatedDate(LocalDateTime updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	@Override
+	public String toNormal() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toJson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toXml() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
  * @author gentjan koliçaj
  *
  */
-public class Document {
+public class Document extends MyModel {
 
 	private int number;
 	private String name;
@@ -134,6 +134,24 @@ public class Document {
 
 	public void setUpdatedDate(LocalDateTime updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	@Override
+	public String toNormal() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toJson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toXml() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

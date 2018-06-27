@@ -7,9 +7,10 @@ import java.time.LocalDateTime;
  * @author gentjan koliçaj
  *
  */
-public class Contact {
+public class Contact extends MyModel {
 
-	private String id;
+	private int contactId;
+	private String personId;
 	private int telephone;
 	private int celular;
 	private String email;
@@ -28,7 +29,8 @@ public class Contact {
 	}
 
 	/**
-	 * @param id
+	 * @param contactId
+	 * @param personId
 	 * @param telephone
 	 * @param celular
 	 * @param email
@@ -38,10 +40,11 @@ public class Contact {
 	 * @param createdDate
 	 * @param updatedDate
 	 */
-	public Contact(String id, int telephone, int celular, String email, String fax, String createdBy, String updatedBy,
-			LocalDateTime createdDate, LocalDateTime updatedDate) {
+	public Contact(int contactId, String personId, int telephone, int celular, String email, String fax,
+			String createdBy, String updatedBy, LocalDateTime createdDate, LocalDateTime updatedDate) {
 		super();
-		this.id = id;
+		this.contactId = contactId;
+		this.personId = personId;
 		this.telephone = telephone;
 		this.celular = celular;
 		this.email = email;
@@ -52,12 +55,20 @@ public class Contact {
 		this.updatedDate = updatedDate;
 	}
 
-	public String getId() {
-		return id;
+	public int getContactId() {
+		return contactId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setContactId(int contactId) {
+		this.contactId = contactId;
+	}
+
+	public String getPersonId() {
+		return personId;
+	}
+
+	public void setPersonId(String personId) {
+		this.personId = personId;
 	}
 
 	public int getTelephone() {
@@ -122,6 +133,24 @@ public class Contact {
 
 	public void setUpdatedDate(LocalDateTime updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	@Override
+	public String toNormal() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toJson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toXml() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

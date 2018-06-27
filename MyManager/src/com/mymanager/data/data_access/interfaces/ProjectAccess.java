@@ -17,9 +17,9 @@ public interface ProjectAccess {
 
 	public abstract List<Project> readAllProjectsByDescription(String projectDescription) throws Exception;
 
-	public abstract List<Project> readAllProjectsByName(String projectName) throws Exception;
+	public abstract Project readProjectByName(String projectName) throws Exception;
 
-	public abstract int updateProject(Project project) throws Exception;
+	public abstract int updateProject(Project oldProject, Project newProject) throws Exception;
 
 	public abstract int insertProject(Project project) throws Exception;
 

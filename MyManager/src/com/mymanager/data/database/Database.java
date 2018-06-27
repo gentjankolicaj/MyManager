@@ -109,7 +109,7 @@ public class Database implements Connectable {
 	public ResultSet selectStatement(String query, List<Object> objectList) throws SQLException {
 		ResultSet resultSet = null;
 		preparedStatement = connection.prepareStatement(query);
-		for (int i = 0; i < objectList.size(); i++) {
+		for (int i = 1; i < objectList.size() + 1; i++) {
 			preparedStatement.setObject(i, objectList.get(i));
 		}
 		resultSet = preparedStatement.executeQuery();

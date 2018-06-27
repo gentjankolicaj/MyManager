@@ -55,7 +55,7 @@ public class AtemptAccessObject implements AtemptAccess {
 		List<Atempt> atemptList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
-		query = "SELECT * FROM mymanager.atempts where user LIKE'%" + user.getUserId() + "%'";
+		query = "SELECT * FROM mymanager.atempts where user LIKE '" + user.getUserId() + "%'";
 
 		results = database.selectStatement(query);
 		while (results.next()) {

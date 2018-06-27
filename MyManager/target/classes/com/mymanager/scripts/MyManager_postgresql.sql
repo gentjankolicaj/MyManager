@@ -103,6 +103,7 @@ CREATE TABLE IF NOT EXISTS   mymanager  .  employees   (
 -- Table   mymanager  .  employee_adress  
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS   mymanager  .  employee_adress   (
+    adress_id INT NOT NULL,
     employee_id   VARCHAR(60) NOT NULL,
     country   VARCHAR(20) NOT NULL,
     city   VARCHAR(60) NOT NULL,
@@ -113,7 +114,7 @@ CREATE TABLE IF NOT EXISTS   mymanager  .  employee_adress   (
     created_date   DATE NOT NULL,
     updated_by   VARCHAR(60) NULL,
     updated_date   DATE NULL,
-  PRIMARY KEY (  employee_id  ),
+  PRIMARY KEY (  adress_id ),
     FOREIGN KEY (  employee_id  )
     REFERENCES   mymanager  .  employees   (  employee_id  ),
     FOREIGN KEY (  country  )
@@ -124,6 +125,7 @@ CREATE TABLE IF NOT EXISTS   mymanager  .  employee_adress   (
 -- Table   mymanager  .  employee_contact  
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS   mymanager  .  employee_contact   (
+     contact_id INT NOT NULL,
     employee_id   VARCHAR(60) NOT NULL,
     telephone   INT NULL,
     celular     INT NOT NULL,
@@ -133,7 +135,7 @@ CREATE TABLE IF NOT EXISTS   mymanager  .  employee_contact   (
     created_date   DATE NOT NULL,
     updated_by   VARCHAR(60) NULL,
     updated_date   DATE NULL,
-  PRIMARY KEY (  employee_id  ),
+  PRIMARY KEY (  contact_id  ),
    FOREIGN KEY (  employee_id  )
     REFERENCES   mymanager  .  employees   (  employee_id  )
     ON DELETE NO ACTION
@@ -240,6 +242,7 @@ CREATE TABLE IF NOT EXISTS   mymanager  .  users   (
 -- Table   mymanager  .  user_contact  
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS   mymanager  .  user_contact   (
+    contact_id INT NOT NULL,
     user_id   VARCHAR(60) NOT NULL,
     telephone   INT NULL,
     celular   INT NOT NULL,
@@ -249,7 +252,7 @@ CREATE TABLE IF NOT EXISTS   mymanager  .  user_contact   (
     created_date   DATE NOT NULL,
     updated_by   VARCHAR(60) NULL,
     updated_date   DATE NULL,
-    PRIMARY KEY (  user_id  ),
+    PRIMARY KEY ( contact_id  ),
     FOREIGN KEY (  user_id  )
     REFERENCES   mymanager  .  users   (  user_id  )) ;
 
@@ -258,6 +261,7 @@ CREATE TABLE IF NOT EXISTS   mymanager  .  user_contact   (
 -- Table   mymanager  .  user_adress  
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS   mymanager  .  user_adress   (
+    adress_id INT NOT NULL,
     user_id   VARCHAR(60) NOT NULL,
     country   VARCHAR(20) NOT NULL,
     city   VARCHAR(60) NOT NULL,
@@ -268,7 +272,7 @@ CREATE TABLE IF NOT EXISTS   mymanager  .  user_adress   (
     created_date   DATE NOT NULL,
     updated_by   VARCHAR(60) NULL,
     updated_date   DATE NULL,
-  PRIMARY KEY (  user_id  ),
+  PRIMARY KEY ( adress_id  ),
      FOREIGN KEY (  user_id  )
     REFERENCES   mymanager  .  users   (  user_id  )   ,
      FOREIGN KEY (  country  )
@@ -311,6 +315,7 @@ CREATE TABLE IF NOT EXISTS   mymanager  .  users_history   (
 -- Table   mymanager  .  user_contact_history  
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS   mymanager  .  user_contact_history   (
+    contact_id INT NOT NULL,
     user_id   VARCHAR(60) NOT NULL,
     telephone   INT NULL,
     celular   INT NOT NULL,
@@ -326,6 +331,7 @@ CREATE TABLE IF NOT EXISTS   mymanager  .  user_contact_history   (
 -- Table   mymanager  .  user_adress_history  
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS   mymanager  .  user_adress_history   (
+    adress_id INT NOT NULL,
     user_id   VARCHAR(60) NOT NULL,
     country   VARCHAR(20) NOT NULL,
     city   VARCHAR(60) NOT NULL,
@@ -427,6 +433,7 @@ CREATE TABLE IF NOT EXISTS   mymanager  .  job_history_history   (
 -- Table   mymanager  .  employee_adress_history  
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS   mymanager  .  employee_adress_history   (
+    adress_id INT NOT NULL,
     employee_id   VARCHAR(60) NOT NULL,
     country   VARCHAR(20) NOT NULL,
     city   VARCHAR(60) NOT NULL,
@@ -443,6 +450,7 @@ CREATE TABLE IF NOT EXISTS   mymanager  .  employee_adress_history   (
 -- Table   mymanager  .  employee_contact_history  
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS   mymanager  .  employee_contact_history   (
+    contact_id INT NOT NULL,
     employee_id   VARCHAR(60) NOT NULL,
     telephone   INT NULL,
     celular   INT NOT NULL,

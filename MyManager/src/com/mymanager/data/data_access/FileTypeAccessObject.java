@@ -21,7 +21,8 @@ public class FileTypeAccessObject implements FileTypeAccess {
 	public List<FileType> readAllFileTypes() throws Exception {
 		List<FileType> fileTypeList = new ArrayList<>();
 		ResultSet results = null;
-		String query = "Select * from mymanager.file_types";
+		String query = "Select * FROM mymanager.file_types";
+
 		results = database.selectStatement(query);
 		while (results.next()) {
 			FileType temp = new FileType(results.getString("file_type"));
@@ -43,7 +44,7 @@ public class FileTypeAccessObject implements FileTypeAccess {
 	}
 
 	@Override
-	public int updateFileType(FileType newFileType, FileType oldFileType) throws Exception {
+	public int updateFileType(FileType oldFileType, FileType newFileType) throws Exception {
 		String query = "UPDATE mymanager.file_types SET file_type=? WHERE file_type=?";
 
 		PreparedStatement pstmt = database.updateStatement(query);

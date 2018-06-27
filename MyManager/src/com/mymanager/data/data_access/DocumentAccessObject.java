@@ -91,7 +91,6 @@ public class DocumentAccessObject implements DocumentAccess {
 					results.getTimestamp("created_date").toLocalDateTime(),
 					results.getTimestamp("updated_date").toLocalDateTime());
 			documentList.add(temp);
-
 		}
 		PrintUtils.print(documentList, PrintType.QUERY_RESULTS);
 		return documentList;
@@ -123,48 +122,43 @@ public class DocumentAccessObject implements DocumentAccess {
 	}
 
 	@Override
-	public List<Document> readDocumentByDocumentNumber(Document document) throws Exception {
-		List<Document> documentList = new ArrayList<>();
+	public Document readDocument(int documentNumber) throws Exception {
+		Document document = null;
 		ResultSet results = null;
-		String query = null;
-		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM mymanager.employee_documents WHERE document_number=" + document.getNumber();
-		else
-			query = "SELECT * FROM mymanager.employee_documents_history WHERE document_number=" + document.getNumber();
-
+		String query = "SELECT * FROM mymanager.employee_documents WHERE document_number=" + documentNumber;
 		results = database.selectStatement(query);
 		while (results.next()) {
-			Document temp = new Document(results.getInt("document_number"), results.getString("document_name"),
+			document = new Document(results.getInt("document_number"), results.getString("document_name"),
 					results.getString("document_type"), results.getBlob("document_file"),
 					new FileType(results.getString("file_type")), results.getString("employee_id"),
 					results.getString("created_by"), results.getString("updated_by"),
 					results.getTimestamp("created_date").toLocalDateTime(),
 					results.getTimestamp("updated_date").toLocalDateTime());
-			documentList.add(temp);
 
 		}
-		PrintUtils.print(documentList, PrintType.QUERY_RESULTS);
-		return documentList;
+		PrintUtils.print(document, PrintType.QUERY_RESULTS);
+		return document;
 	}
 
 	@Override
-	public int updateDocument(Document document) throws Exception {
-		String query = "UPDATE mymanager.employee_documents SET document_name=?,document_type=?,document_file=?,file_type=?,employee_id=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE document_number=?";
+	public int updateDocument(Document oldDocument, Document newDocument) throws Exception {
+		String query = "UPDATE mymanager.employee_documents SET document_number=?,document_name=?,document_type=?,document_file=?,file_type=?,employee_id=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE document_number=?";
 		setQueryType(QueryType.NORMAL);
-		List<Document> temp = readDocumentByDocumentNumber(document);
+		Document temp = readDocument(oldDocument.getNumber());
 		savePreviousRow(temp);
 
 		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setString(1, document.getName());
-		pstmt.setString(2, document.getType());
-		pstmt.setBlob(3, document.getFile());
-		pstmt.setString(4, document.getFileType().getFile());
-		pstmt.setString(5, document.getEmployeeId());
-		pstmt.setString(6, document.getCreatedBy());
-		pstmt.setObject(7, document.getCreatedDate());
-		pstmt.setString(8, document.getUpdatedBy());
-		pstmt.setObject(9, document.getUpdatedDate());
-		pstmt.setInt(10, document.getNumber());
+		pstmt.setInt(1, newDocument.getNumber());
+		pstmt.setString(2, newDocument.getName());
+		pstmt.setString(3, newDocument.getType());
+		pstmt.setBlob(4, newDocument.getFile());
+		pstmt.setString(5, newDocument.getFileType().getFile());
+		pstmt.setString(6, newDocument.getEmployeeId());
+		pstmt.setString(7, newDocument.getCreatedBy());
+		pstmt.setObject(8, newDocument.getCreatedDate());
+		pstmt.setString(9, newDocument.getUpdatedBy());
+		pstmt.setObject(10, newDocument.getUpdatedDate());
+		pstmt.setInt(11, oldDocument.getNumber());
 
 		return pstmt.executeUpdate();
 
@@ -214,9 +208,8 @@ public class DocumentAccessObject implements DocumentAccess {
 
 	}
 
-	public int savePreviousRow(List<Document> documents) throws Exception {
+	public int savePreviousRow(Document document) throws Exception {
 		String query = "INSERT INTO mymanager.employee_documents_history (document_name,document_type,document_file,file_type,document_number,employee_id,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
-		Document document = documents.get(0);
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, document.getName());

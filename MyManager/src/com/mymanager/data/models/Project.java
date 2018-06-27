@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
  * @author gentjan koliçaj
  *
  */
-public class Project {
+public class Project extends MyModel {
 
 	private String projectName;
 	private String description;
@@ -111,6 +111,28 @@ public class Project {
 
 	public void setUpdatedDate(LocalDateTime updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	@Override
+	public String toNormal() {
+		String cls = getClass().getSimpleName();
+		String text = cls + ": projectName:" + projectName + ", projectDescription:" + description + ", customer:"
+				+ customer + ", country:" + country + ", createdBy:" + createdBy + ", createDate:"
+				+ createdDate.toString() + ", updateBy:" + updatedBy + ", updateDate:" + updatedDate.toString();
+
+		return text;
+	}
+
+	@Override
+	public String toJson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toXml() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -25,7 +25,7 @@ public interface EmployeeAccess {
 
 	public abstract Employee readEmployee(String employeeId) throws Exception;
 
-	public abstract int updateEmployee(Employee employee) throws Exception;
+	public abstract int updateEmployee(Employee oldEmployee, Employee newEmployee) throws Exception;
 
 	public abstract int insertEmployee(Employee employee) throws Exception;
 

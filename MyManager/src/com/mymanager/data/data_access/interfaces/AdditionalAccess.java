@@ -13,9 +13,9 @@ public interface AdditionalAccess {
 
 	public abstract List<Additional> readAllAdditionals() throws Exception;
 
-	public abstract List<Additional> readAdditional(Additional additional) throws Exception;
+	public abstract Additional readAdditional(String employeeId) throws Exception;
 
-	public abstract int updateAdditional(Additional additional) throws Exception;
+	public abstract int updateAdditional(Additional oldAdditional, Additional newAdditional) throws Exception;
 
 	public abstract int insertAdditional(Additional additional) throws Exception;
 

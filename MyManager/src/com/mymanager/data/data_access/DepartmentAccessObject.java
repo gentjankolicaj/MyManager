@@ -92,43 +92,39 @@ public class DepartmentAccessObject implements DepartmentAccess {
 	}
 
 	@Override
-	public List<Department> readDepartment(Department department) throws Exception {
-		List<Department> departmentList = new ArrayList<>();
+	public Department readDepartment(int departmentId) throws Exception {
+		Department department = null;
 		ResultSet results = null;
-		String query = null;
-		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM mymanager.departments WHERE department_id=" + department.getDepartmentId();
-		else
-			query = "SELECT * FROM mymanager.departments_history WHERE department_id=" + department.getDepartmentId();
+		String query = "SELECT * FROM mymanager.departments WHERE department_id=" + departmentId;
 
 		results = database.selectStatement(query);
 		while (results.next()) {
-			Department temp = new Department(results.getInt("department_id"), results.getString("department_name"),
+			department = new Department(results.getInt("department_id"), results.getString("department_name"),
 					results.getString("manager_id"), results.getString("created_by"), results.getString("updated_by"),
 					results.getTimestamp("created_date").toLocalDateTime(),
 					results.getTimestamp("updated_date").toLocalDateTime());
-			departmentList.add(temp);
 		}
-		PrintUtils.print(departmentList, PrintType.QUERY_RESULTS);
-		return departmentList;
+		PrintUtils.print(department, PrintType.QUERY_RESULTS);
+		return department;
 	}
 
 	@Override
-	public int updateDepartment(Department department) throws Exception {
-		String query = "UPDATE mymanager.departments SET" + "department_name=?,manager_id=?,created_by=?,"
+	public int updateDepartment(Department oldDepartment, Department newDepartment) throws Exception {
+		String query = "UPDATE mymanager.departments SET department_id=?,department_name=?,manager_id=?,created_by=?,"
 				+ "created_date=?," + "updated_by=?," + "updated_date=? WHERE department_id=?";
 		setQueryType(QueryType.NORMAL);
-		List<Department> temp = readDepartment(department);
+		Department temp = readDepartment(oldDepartment.getDepartmentId());
 		savePreviousRow(temp);
 
 		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setString(1, department.getDepartmentName());
-		pstmt.setString(2, department.getManagerId());
-		pstmt.setString(3, department.getCreatedBy());
-		pstmt.setObject(4, department.getCreatedDate());
-		pstmt.setString(5, department.getUpdatedBy());
-		pstmt.setObject(6, department.getUpdatedDate());
-		pstmt.setInt(7, department.getDepartmentId());
+		pstmt.setInt(1, newDepartment.getDepartmentId());
+		pstmt.setString(2, newDepartment.getDepartmentName());
+		pstmt.setString(3, newDepartment.getManagerId());
+		pstmt.setString(4, newDepartment.getCreatedBy());
+		pstmt.setObject(5, newDepartment.getCreatedDate());
+		pstmt.setString(6, newDepartment.getUpdatedBy());
+		pstmt.setObject(7, newDepartment.getUpdatedDate());
+		pstmt.setInt(8, oldDepartment.getDepartmentId());
 
 		return pstmt.executeUpdate();
 
@@ -162,9 +158,8 @@ public class DepartmentAccessObject implements DepartmentAccess {
 
 	}
 
-	public int savePreviousRow(List<Department> departments) throws Exception {
+	public int savePreviousRow(Department department) throws Exception {
 		String query = "INSERT INTO mymanager.departments_history (department_id,department_name,manager_id,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?)";
-		Department department = departments.get(0);
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setInt(1, department.getDepartmentId());

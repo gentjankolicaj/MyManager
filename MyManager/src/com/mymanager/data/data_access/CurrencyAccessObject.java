@@ -62,12 +62,12 @@ public class CurrencyAccessObject implements CurrencyAccess {
 	}
 
 	@Override
-	public int updateCurrency(Currency currency) throws Exception {
+	public int updateCurrency(Currency oldCurrency, Currency newCurrency) throws Exception {
 		String query = "UPDATE mymanager.currencies SET currency=? WHERE currency=?";
 
 		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setString(1, currency.getUpdatedCurrencyName());
-		pstmt.setString(2, currency.getCurrencyName());
+		pstmt.setString(1, newCurrency.getCurrencyName());
+		pstmt.setString(2, oldCurrency.getCurrencyName());
 
 		return pstmt.executeUpdate();
 

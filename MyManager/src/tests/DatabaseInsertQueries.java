@@ -88,7 +88,7 @@ public class DatabaseInsertQueries {
 		jobAccess = new JobAccessObject(queryType);
 		jobHistoryAccess = new JobHistoryAccessObject(queryType);
 		paymentAccess = new PaymentAccessObject(queryType);
-		projectAccess = new ProjectAccessObject(queryType);
+		projectAccess = new ProjectAccessObject();
 		userAccess = new UserAccessObject(queryType);
 		workingHourAccess = new WorkingHourAccessObject(queryType);
 
@@ -116,7 +116,7 @@ public class DatabaseInsertQueries {
 
 	@Test
 	public void insertEmployee() throws Exception {
-		employeeAccess.readAllEmployees();
+
 	}
 
 	@Test

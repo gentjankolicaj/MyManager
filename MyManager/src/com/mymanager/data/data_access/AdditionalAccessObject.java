@@ -63,45 +63,43 @@ public class AdditionalAccessObject implements AdditionalAccess {
 	}
 
 	@Override
-	public List<Additional> readAdditional(Additional additional) throws Exception {
-		List<Additional> additionalList = new ArrayList<>();
+	public Additional readAdditional(String employeeId) throws Exception {
+		Additional additional = null;
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM mymanager.employee_additional WHERE employee_id=" + additional.getEmployeeId();
+			query = "SELECT * FROM mymanager.employee_additional WHERE employee_id=" + employeeId;
 		else
-			query = "SELECT * FROM mymanager.employee_additional_history WHERE employee_id="
-					+ additional.getEmployeeId();
+			query = "SELECT * FROM mymanager.employee_additional_history WHERE employee_id=" + employeeId;
 
 		results = database.selectStatement(query);
 		while (results.next()) {
-			Additional temp = new Additional(results.getString("employee_id"), results.getFloat("salary_amount"),
+			additional = new Additional(results.getString("employee_id"), results.getFloat("salary_amount"),
 					results.getDate("hire_date").toLocalDate(), results.getString("created_by"),
 					results.getString("updated_by"), results.getTimestamp("created_date").toLocalDateTime(),
 					results.getTimestamp("updated_date").toLocalDateTime());
-			additionalList.add(temp);
 		}
-		PrintUtils.print(additionalList, PrintType.QUERY_RESULTS);
-		return additionalList;
+		PrintUtils.print(additional, PrintType.QUERY_RESULTS);
+		return additional;
 	}
 
 	@Override
-	public int updateAdditional(Additional additional) throws Exception {
-		String query = "UPDATE mymanager.employee_additional SET" + "salary_amount=?,hire_date=?,created_by=?,"
-				+ "created_date=?," + "updated_by=?," + "updated_date=? WHERE employee_id=?";
+	public int updateAdditional(Additional oldAdditional, Additional newAdditional) throws Exception {
+		String query = "UPDATE mymanager.employee_additional SET employee_id=?,salary_amount=?,hire_date=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE employee_id=?";
 
 		setQueryType(QueryType.NORMAL);
-		List<Additional> temp = readAdditional(additional);
+		Additional temp = readAdditional(oldAdditional.getEmployeeId());
 		savePreviousRow(temp);
 
 		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setFloat(1, additional.getSalaryAmount());
-		pstmt.setObject(2, additional.getHireDate());
-		pstmt.setString(3, additional.getCreatedBy());
-		pstmt.setObject(4, additional.getCreatedDate());
-		pstmt.setString(5, additional.getUpdatedBy());
-		pstmt.setObject(6, additional.getUpdatedDate());
-		pstmt.setString(7, additional.getEmployeeId());
+		pstmt.setString(1, newAdditional.getEmployeeId());
+		pstmt.setFloat(2, newAdditional.getSalaryAmount());
+		pstmt.setObject(3, newAdditional.getHireDate());
+		pstmt.setString(4, newAdditional.getCreatedBy());
+		pstmt.setObject(5, newAdditional.getCreatedDate());
+		pstmt.setString(6, newAdditional.getUpdatedBy());
+		pstmt.setObject(7, newAdditional.getUpdatedDate());
+		pstmt.setString(8, oldAdditional.getEmployeeId());
 
 		return pstmt.executeUpdate();
 
@@ -135,9 +133,8 @@ public class AdditionalAccessObject implements AdditionalAccess {
 
 	}
 
-	public int savePreviousRow(List<Additional> additionalList) throws Exception {
+	public int savePreviousRow(Additional additional) throws Exception {
 		String query = "INSERT INTO mymanager.employee_additional_history (employee_id,salary_amount,hire_date,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?)";
-		Additional additional = additionalList.get(0);
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, additional.getEmployeeId());

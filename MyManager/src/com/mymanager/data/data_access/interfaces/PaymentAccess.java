@@ -22,7 +22,7 @@ public interface PaymentAccess {
 
 	public abstract Payment readPayment(int paymentId) throws Exception;
 
-	public abstract int updatePayment(Payment payment) throws Exception;
+	public abstract int updatePayment(Payment oldPayment, Payment newPayment) throws Exception;
 
 	public abstract int insertPayment(Payment payment) throws Exception;
 
