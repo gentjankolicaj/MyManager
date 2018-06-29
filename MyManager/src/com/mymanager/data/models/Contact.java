@@ -137,8 +137,13 @@ public class Contact extends MyModel {
 
 	@Override
 	public String toNormal() {
-		// TODO Auto-generated method stub
-		return null;
+		String cls = getClass().getSimpleName();
+		String text = cls + ": contactId:" + contactId + ", personId:" + personId + ", telephone:" + telephone
+				+ ", celular:" + celular + ", email:" + email + " , fax:" + fax + ", createdBy:" + createdBy
+				+ ", createdDate:" + createdDate.toString() + ", updatedBy:" + updatedBy + ", updatedDate:"
+				+ updatedDate.toString();
+
+		return text;
 	}
 
 	@Override

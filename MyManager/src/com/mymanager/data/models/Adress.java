@@ -148,8 +148,13 @@ public class Adress extends MyModel {
 
 	@Override
 	public String toNormal() {
-		// TODO Auto-generated method stub
-		return null;
+		String cls = getClass().getSimpleName();
+		String text = cls + ": adressId:" + adressId + ", personId:" + personId + ", country:"
+				+ country.getCountryName() + ", city:" + city + ", streetName:" + streetName + " , zipCode:" + zipCode
+				+ ", building:" + building + ", createdBy:" + createdBy + ", createdDate:" + createdDate.toString()
+				+ ", updatedBy:" + updatedBy + ", updatedDate:" + updatedDate.toString();
+
+		return text;
 	}
 
 	@Override

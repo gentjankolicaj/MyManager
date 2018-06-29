@@ -176,7 +176,8 @@ public class User extends MyModel {
 		String text = cls + ": userId:" + userId + ", userType:" + userType + ", firstName:" + firstName + ", lastName:"
 				+ lastName + ", password:" + password + " , birthday:" + birthday.toString() + ", birthplace:"
 				+ birthplace + ", gender:" + gender + ", rights:" + rights + ", createdBy:" + createdBy
-				+ ", createDate:" + createdDate.toString() + ", updateBy:" + updatedBy + ", updateDate:" + updatedDate;
+				+ ", createdDate:" + createdDate.toString() + ", updatedBy:" + updatedBy + ", updatedDate:"
+				+ updatedDate.toString();
 
 		return text;
 	}

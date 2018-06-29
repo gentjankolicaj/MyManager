@@ -127,8 +127,12 @@ public class JobHistory extends MyModel {
 
 	@Override
 	public String toNormal() {
-		// TODO Auto-generated method stub
-		return null;
+		String cls = getClass().getSimpleName();
+		String text = cls + ": employeeId:" + employeeId + ", startDate:" + startDate + ", endDate:" + endDate
+				+ ", jobId:" + jobId + ", departmentId:" + departmentId + ", createdBy:" + createdBy + ", createdDate:"
+				+ createdDate.toString() + ", updatedBy:" + updatedBy + ", updatedDate:" + updatedDate.toString();
+
+		return text;
 	}
 
 	@Override

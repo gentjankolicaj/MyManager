@@ -105,8 +105,21 @@ public class Additional extends MyModel {
 
 	@Override
 	public String toNormal() {
-		// TODO Auto-generated method stub
-		return null;
+		/**
+		 * @param employeeId
+		 * @param salaryAmount
+		 * @param hireDate
+		 * @param createdBy
+		 * @param updatedBy
+		 * @param createdDate
+		 * @param updatedDate
+		 */
+		String cls = getClass().getSimpleName();
+		String text = cls + ": employeeId:" + employeeId + ", salaryAmount:" + salaryAmount + ", hireDate:"
+				+ hireDate.toString() + ", createdBy:" + createdBy + ", createdDate:" + createdDate.toString()
+				+ ", updatedBy:" + updatedBy + ", updatedDate:" + updatedDate.toString();
+
+		return text;
 	}
 
 	@Override

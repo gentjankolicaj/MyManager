@@ -115,8 +115,12 @@ public class Job extends MyModel {
 
 	@Override
 	public String toNormal() {
-		// TODO Auto-generated method stub
-		return null;
+		String cls = getClass().getSimpleName();
+		String text = cls + ": jobId:" + jobId + ", jobTitle:" + jobTitle + ", maxSalary:" + maxSalary + ", minSalary:"
+				+ minSalary + ", createdBy:" + createdBy + ", createdDate:" + createdDate.toString() + ", updatedBy:"
+				+ updatedBy + ", updatedDate:" + updatedDate.toString();
+
+		return text;
 	}
 
 	@Override

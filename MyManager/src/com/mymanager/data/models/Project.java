@@ -117,8 +117,8 @@ public class Project extends MyModel {
 	public String toNormal() {
 		String cls = getClass().getSimpleName();
 		String text = cls + ": projectName:" + projectName + ", projectDescription:" + description + ", customer:"
-				+ customer + ", country:" + country + ", createdBy:" + createdBy + ", createDate:"
-				+ createdDate.toString() + ", updateBy:" + updatedBy + ", updateDate:" + updatedDate.toString();
+				+ customer + ", country:" + country + ", createdBy:" + createdBy + ", createdDate:"
+				+ createdDate.toString() + ", updatedBy:" + updatedBy + ", updatedDate:" + updatedDate.toString();
 
 		return text;
 	}

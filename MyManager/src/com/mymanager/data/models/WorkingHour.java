@@ -118,8 +118,8 @@ public class WorkingHour extends MyModel {
 	public String toNormal() {
 		String cls = getClass().getSimpleName();
 		String text = cls + ": index:" + index + ", employeeId:" + employeeId + ", date:" + date + ", amount:" + amount
-				+ ", createdBy:" + createdBy + ", createDate:" + createdDate.toString() + ", updateBy:" + updatedBy
-				+ ", updateDate:" + updatedDate;
+				+ ", createdBy:" + createdBy + ", createdDate:" + createdDate.toString() + ", updatedBy:" + updatedBy
+				+ ", updatedDate:" + updatedDate;
 
 		return text;
 	}

@@ -36,8 +36,10 @@ public class Currency extends MyModel {
 
 	@Override
 	public String toNormal() {
-		// TODO Auto-generated method stub
-		return null;
+		String cls = getClass().getSimpleName();
+		String text = cls + ": currencyName:" + currencyName;
+
+		return text;
 	}
 
 	@Override

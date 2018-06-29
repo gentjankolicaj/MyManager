@@ -35,8 +35,9 @@ public class PaymentType extends MyModel {
 
 	@Override
 	public String toNormal() {
-		// TODO Auto-generated method stub
-		return null;
+		String cls = getClass().getSimpleName();
+		String text = cls + ": paymentType:" + payment;
+		return text;
 	}
 
 	@Override

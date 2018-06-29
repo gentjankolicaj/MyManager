@@ -138,8 +138,14 @@ public class Payment extends MyModel {
 
 	@Override
 	public String toNormal() {
-		// TODO Auto-generated method stub
-		return null;
+		String cls = getClass().getSimpleName();
+		String text = cls + ": paymentId:" + paymentId + ", paymentType:" + paymentType + ", employeeId:" + employeeId
+				+ ", currency:" + currency.getCurrencyName() + ", paymentAmount:" + paymentAmount
+				+ " , paymentDescription:" + paymentDescription + ", createdBy:" + createdBy + ", createdDate:"
+				+ createdDate.toString() + ", updatedBy:" + updatedBy + ", updatedDate:" + updatedDate.toString();
+
+		return text;
+
 	}
 
 	@Override

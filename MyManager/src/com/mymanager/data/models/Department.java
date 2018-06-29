@@ -104,8 +104,12 @@ public class Department extends MyModel {
 
 	@Override
 	public String toNormal() {
-		// TODO Auto-generated method stub
-		return null;
+		String cls = getClass().getSimpleName();
+		String text = cls + ": departmentId:" + departmentId + ", departmentName:" + departmentName + ", managerId:"
+				+ managerId + ", createdBy:" + createdBy + ", createdDate:" + createdDate.toString() + ", updatedBy:"
+				+ updatedBy + ", updatedDate:" + updatedDate.toString();
+
+		return text;
 	}
 
 	@Override

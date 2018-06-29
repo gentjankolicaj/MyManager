@@ -32,8 +32,10 @@ public class Country extends MyModel {
 
 	@Override
 	public String toNormal() {
-		// TODO Auto-generated method stub
-		return null;
+		String cls = getClass().getSimpleName();
+		String text = cls + ": countryName:" + countryName;
+
+		return text;
 	}
 
 	@Override

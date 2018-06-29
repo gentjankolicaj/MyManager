@@ -138,8 +138,13 @@ public class Document extends MyModel {
 
 	@Override
 	public String toNormal() {
-		// TODO Auto-generated method stub
-		return null;
+		String cls = getClass().getSimpleName();
+		String text = cls + ": number:" + number + ", name:" + name + ", type:" + type + ", file:" + file
+				+ ", fileType:" + fileType + " ,  employeeId:" + employeeId + ", createdBy:" + createdBy
+				+ ", createdDate:" + createdDate.toString() + ", updatedBy:" + updatedBy + ", updatedDate:"
+				+ updatedDate.toString();
+
+		return text;
 	}
 
 	@Override

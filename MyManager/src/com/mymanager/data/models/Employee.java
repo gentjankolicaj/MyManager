@@ -183,8 +183,14 @@ public class Employee extends MyModel {
 
 	@Override
 	public String toNormal() {
-		// TODO Auto-generated method stub
-		return null;
+		String cls = getClass().getSimpleName();
+		String text = cls + ": employeeId:" + employeeId + ", firstName:" + firstName + ", lastName:" + lastName
+				+ ", middleName:" + middleName + ", birthday:" + birthday.toString() + " , birthplace:" + birthplace
+				+ ", gender:" + gender + ", jobId:" + jobId + ", departmentId:" + departmentId + ", projectName:"
+				+ projectName + ", createdBy:" + createdBy + ", createdDate:" + createdDate.toString() + ", updatedBy:"
+				+ updatedBy + ", updatedDate:" + updatedDate.toString();
+
+		return text;
 	}
 
 	@Override

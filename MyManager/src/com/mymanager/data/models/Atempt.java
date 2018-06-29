@@ -92,8 +92,11 @@ public class Atempt extends MyModel {
 
 	@Override
 	public String toNormal() {
-		// TODO Auto-generated method stub
-		return null;
+		String cls = getClass().getSimpleName();
+		String text = cls + ": index:" + index + ", user:" + user + ", password:" + password + ", status:" + status
+				+ ", description:" + description + " , dateTime:" + dateTime;
+
+		return text;
 	}
 
 	@Override
