@@ -34,6 +34,7 @@ public class AdressAccessObject implements AdressAccess {
 	public AdressAccessObject(QueryType queryType) {
 		super();
 		this.queryType = queryType;
+		this.adressType = AdressType.USER_ADRESS;
 	}
 
 	/**

@@ -49,6 +49,7 @@ public class ContactAccessObject implements ContactAccess {
 	public ContactAccessObject(QueryType queryType) {
 		super();
 		this.queryType = queryType;
+		contactType = ContactType.USER_CONTACT;
 	}
 
 	public void setContactType(ContactType contactType) {
