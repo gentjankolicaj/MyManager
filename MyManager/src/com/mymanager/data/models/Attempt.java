@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
  * @author gentjan koliçaj
  *
  */
-public class Atempt extends MyModel {
+public class Attempt extends MyModel {
 
 	private int index;
 	private String user;
@@ -19,7 +19,7 @@ public class Atempt extends MyModel {
 	/**
 	 * 
 	 */
-	public Atempt() {
+	public Attempt() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -32,7 +32,7 @@ public class Atempt extends MyModel {
 	 * @param description
 	 * @param dateTime
 	 */
-	public Atempt(int index, String user, String password, Status status, String description, LocalDateTime dateTime) {
+	public Attempt(int index, String user, String password, Status status, String description, LocalDateTime dateTime) {
 		super();
 		this.index = index;
 		this.user = user;
