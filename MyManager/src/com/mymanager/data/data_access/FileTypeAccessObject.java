@@ -34,6 +34,21 @@ public class FileTypeAccessObject implements FileTypeAccess {
 	}
 
 	@Override
+	public FileType readFileType(String fileType) throws Exception {
+		FileType fileTypeObj = null;
+		ResultSet results = null;
+		String query = "Select * FROM mymanager.file_types WHERE file_type=" + fileType;
+
+		results = database.selectStatement(query);
+		while (results.next()) {
+			fileTypeObj = new FileType(results.getString("file_type"));
+		}
+		PrintUtils.print(fileTypeObj, PrintType.QUERY_RESULTS);
+		return fileTypeObj;
+
+	}
+
+	@Override
 	public int insertFileType(FileType fileType) throws Exception {
 		String query = "INSERT INTO mymanager.file_types (file_type) VALUES (?)";
 

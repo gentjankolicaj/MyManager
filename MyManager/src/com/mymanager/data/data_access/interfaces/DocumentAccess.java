@@ -17,7 +17,7 @@ public interface DocumentAccess {
 
 	public abstract Document readDocument(int documentNumber) throws Exception;
 
-	public abstract List<Document> readDocumentByEmployeeId(Document document) throws Exception;
+	public abstract List<Document> readDocumentByEmployeeId(String employeeId) throws Exception;
 
 	public abstract int updateDocument(Document oldDocument, Document newDocument) throws Exception;
 

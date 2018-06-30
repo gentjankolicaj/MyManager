@@ -97,14 +97,14 @@ public class DocumentAccessObject implements DocumentAccess {
 	}
 
 	@Override
-	public List<Document> readDocumentByEmployeeId(Document document) throws Exception {
+	public List<Document> readDocumentByEmployeeId(String employeeId) throws Exception {
 		List<Document> documentList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM mymanager.employee_documents WHERE employee_id=" + document.getEmployeeId();
+			query = "SELECT * FROM mymanager.employee_documents WHERE employee_id=" + employeeId;
 		else
-			query = "SELECT * FROM mymanager.employee_documents_history WHERE employee_id=" + document.getEmployeeId();
+			query = "SELECT * FROM mymanager.employee_documents_history WHERE employee_id=" + employeeId;
 
 		results = database.selectStatement(query);
 		while (results.next()) {

@@ -8,6 +8,8 @@ public interface FileTypeAccess {
 
 	public abstract List<FileType> readAllFileTypes() throws Exception;
 
+	public abstract FileType readFileType(String fileType) throws Exception;
+
 	public abstract int insertFileType(FileType fileType) throws Exception;
 
 	public abstract int updateFileType(FileType oldFileType, FileType newFileType) throws Exception;

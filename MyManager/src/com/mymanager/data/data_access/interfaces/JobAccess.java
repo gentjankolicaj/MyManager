@@ -17,7 +17,7 @@ public interface JobAccess {
 
 	public abstract List<Job> readAllJobsByTitle(String jobTitle) throws Exception;
 
-	public abstract Job readJob(Job job) throws Exception;
+	public abstract Job readJob(int jobId) throws Exception;
 
 	public abstract int updateJob(Job oldJob, Job newJob) throws Exception;
 

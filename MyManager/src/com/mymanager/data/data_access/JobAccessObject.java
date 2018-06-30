@@ -112,10 +112,10 @@ public class JobAccessObject implements JobAccess {
 	}
 
 	@Override
-	public Job readJob(Job job) throws Exception {
+	public Job readJob(int jobId) throws Exception {
 		ResultSet results = null;
 		Job temp = null;
-		String query = "SELECT * FROM mymanager.jobs WHERE job_id=" + job.getJobId();
+		String query = "SELECT * FROM mymanager.jobs WHERE job_id=" + jobId;
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -134,7 +134,7 @@ public class JobAccessObject implements JobAccess {
 		String query = "UPDATE mymanager.jobs SET job_id=?,job_title=?,min_salary=?,max_salary=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE job_id=?";
 
 		setQueryType(QueryType.NORMAL);
-		Job temp = readJob(oldJob);
+		Job temp = readJob(oldJob.getJobId());
 		savePreviousRow(temp);
 
 		PreparedStatement pstmt = database.updateStatement(query);
