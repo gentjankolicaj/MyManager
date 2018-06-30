@@ -6,11 +6,17 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MySQL+Postgres"/>
+	<classpathentry kind="lib" path="C:/Program Files/eclipse/plugins/org.eclipse.core.databinding_1.6.0.v20160412-0910.jar" sourcepath="C:/Program Files/eclipse/plugins/org.eclipse.core.databinding_1.6.0.v20160412-0910.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/eclipse/plugins/org.eclipse.core.databinding.observable_1.6.0.v20160511-1747.jar" sourcepath="C:/Program Files/eclipse/plugins/org.eclipse.core.databinding.observable_1.6.0.v20160511-1747.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/eclipse/plugins/org.eclipse.jface.databinding_1.8.1.v20161026-1531.jar" sourcepath="C:/Program Files/eclipse/plugins/org.eclipse.jface.databinding_1.8.1.v20161026-1531.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="jgoodies-forms-1.8.0.jar" sourcepath="jgoodies-forms-1.8.0-sources.jar"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>

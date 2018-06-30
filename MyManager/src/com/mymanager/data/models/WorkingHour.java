@@ -3,7 +3,12 @@ package com.mymanager.data.models;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class WorkingHour {
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
+public class WorkingHour extends MyModel {
 
 	private int index;
 	private String employeeId;
@@ -107,6 +112,28 @@ public class WorkingHour {
 
 	public void setUpdatedDate(LocalDateTime updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	@Override
+	public String toNormal() {
+		String cls = getClass().getSimpleName();
+		String text = cls + ": index:" + index + ", employeeId:" + employeeId + ", date:" + date + ", amount:" + amount
+				+ ", createdBy:" + createdBy + ", createdDate:" + createdDate.toString() + ", updatedBy:" + updatedBy
+				+ ", updatedDate:" + updatedDate;
+
+		return text;
+	}
+
+	@Override
+	public String toJson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toXml() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

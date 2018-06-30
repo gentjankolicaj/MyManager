@@ -3,18 +3,22 @@ package com.mymanager.data.models;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class User {
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
+public class User extends MyModel {
 
 	private String userId;
 	private UserType userType;
 	private String firstName;
 	private String lastName;
-	private String middleName;
 	private String password;
 	private LocalDate birthday;
 	private String birthplace;
-	private Contact contact;
-	private Adress adress;
+	private Gender gender;
+	private Rights rights;
 	private String createdBy;
 	private String updatedBy;
 	private LocalDateTime createdDate;
@@ -33,31 +37,29 @@ public class User {
 	 * @param userType
 	 * @param firstName
 	 * @param lastName
-	 * @param middleName
 	 * @param password
 	 * @param birthday
 	 * @param birthplace
-	 * @param contact
-	 * @param adress
+	 * @param gender
+	 * @param rights
 	 * @param createdBy
 	 * @param updatedBy
 	 * @param createdDate
 	 * @param updatedDate
 	 */
-	public User(String userId, UserType userType, String firstName, String lastName, String middleName, String password,
-			LocalDate birthday, String birthplace, Contact contact, Adress adress, String createdBy, String updatedBy,
+	public User(String userId, UserType userType, String firstName, String lastName, String password,
+			LocalDate birthday, String birthplace, Gender gender, Rights rights, String createdBy, String updatedBy,
 			LocalDateTime createdDate, LocalDateTime updatedDate) {
 		super();
 		this.userId = userId;
 		this.userType = userType;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.middleName = middleName;
 		this.password = password;
 		this.birthday = birthday;
 		this.birthplace = birthplace;
-		this.contact = contact;
-		this.adress = adress;
+		this.gender = gender;
+		this.rights = rights;
 		this.createdBy = createdBy;
 		this.updatedBy = updatedBy;
 		this.createdDate = createdDate;
@@ -96,14 +98,6 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public String getMiddleName() {
-		return middleName;
-	}
-
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
-	}
-
 	public String getPassword() {
 		return password;
 	}
@@ -128,20 +122,20 @@ public class User {
 		this.birthplace = birthplace;
 	}
 
-	public Contact getContact() {
-		return contact;
+	public Gender getGender() {
+		return gender;
 	}
 
-	public void setContact(Contact contact) {
-		this.contact = contact;
+	public void setGender(Gender gender) {
+		this.gender = gender;
 	}
 
-	public Adress getAdress() {
-		return adress;
+	public Rights getRights() {
+		return rights;
 	}
 
-	public void setAdress(Adress adress) {
-		this.adress = adress;
+	public void setRights(Rights rights) {
+		this.rights = rights;
 	}
 
 	public String getCreatedBy() {
@@ -174,6 +168,30 @@ public class User {
 
 	public void setUpdatedDate(LocalDateTime updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	@Override
+	public String toNormal() {
+		String cls = getClass().getSimpleName();
+		String text = cls + ": userId:" + userId + ", userType:" + userType + ", firstName:" + firstName + ", lastName:"
+				+ lastName + ", password:" + password + " , birthday:" + birthday.toString() + ", birthplace:"
+				+ birthplace + ", gender:" + gender + ", rights:" + rights + ", createdBy:" + createdBy
+				+ ", createdDate:" + createdDate.toString() + ", updatedBy:" + updatedBy + ", updatedDate:"
+				+ updatedDate.toString();
+
+		return text;
+	}
+
+	@Override
+	public String toJson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toXml() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

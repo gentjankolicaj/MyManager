@@ -2,7 +2,12 @@ package com.mymanager.data.models;
 
 import java.time.LocalDateTime;
 
-public class Payment {
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
+public class Payment extends MyModel {
 
 	private int paymentId;
 	private PaymentType paymentType;
@@ -129,6 +134,30 @@ public class Payment {
 
 	public void setUpdatedDate(LocalDateTime updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	@Override
+	public String toNormal() {
+		String cls = getClass().getSimpleName();
+		String text = cls + ": paymentId:" + paymentId + ", paymentType:" + paymentType + ", employeeId:" + employeeId
+				+ ", currency:" + currency.getCurrencyName() + ", paymentAmount:" + paymentAmount
+				+ " , paymentDescription:" + paymentDescription + ", createdBy:" + createdBy + ", createdDate:"
+				+ createdDate.toString() + ", updatedBy:" + updatedBy + ", updatedDate:" + updatedDate.toString();
+
+		return text;
+
+	}
+
+	@Override
+	public String toJson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toXml() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

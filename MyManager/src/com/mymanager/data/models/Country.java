@@ -2,10 +2,10 @@ package com.mymanager.data.models;
 
 /**
  * 
- * @author gentjan_kolicaj
+ * @author gentjan koliçaj
  *
  */
-public class Country {
+public class Country extends MyModel {
 
 	private String countryName;
 
@@ -17,9 +17,6 @@ public class Country {
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @param countryName
-	 */
 	public Country(String countryName) {
 		super();
 		this.countryName = countryName;
@@ -31,6 +28,26 @@ public class Country {
 
 	public void setCountryName(String countryName) {
 		this.countryName = countryName;
+	}
+
+	@Override
+	public String toNormal() {
+		String cls = getClass().getSimpleName();
+		String text = cls + ": countryName:" + countryName;
+
+		return text;
+	}
+
+	@Override
+	public String toJson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toXml() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

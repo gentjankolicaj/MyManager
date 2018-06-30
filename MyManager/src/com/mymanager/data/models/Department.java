@@ -4,10 +4,10 @@ import java.time.LocalDateTime;
 
 /**
  * 
- * @author gentjan_kolicaj
+ * @author gentjan koliçaj
  *
  */
-public class Department {
+public class Department extends MyModel {
 
 	private int departmentId;
 	private String departmentName;
@@ -100,6 +100,28 @@ public class Department {
 
 	public void setUpdatedDate(LocalDateTime updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	@Override
+	public String toNormal() {
+		String cls = getClass().getSimpleName();
+		String text = cls + ": departmentId:" + departmentId + ", departmentName:" + departmentName + ", managerId:"
+				+ managerId + ", createdBy:" + createdBy + ", createdDate:" + createdDate.toString() + ", updatedBy:"
+				+ updatedBy + ", updatedDate:" + updatedDate.toString();
+
+		return text;
+	}
+
+	@Override
+	public String toJson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toXml() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
