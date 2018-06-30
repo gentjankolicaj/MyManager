@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import com.mymanager.data.data_access.AdditionalAccessObject;
 import com.mymanager.data.data_access.AdressAccessObject;
-import com.mymanager.data.data_access.AtemptAccessObject;
+import com.mymanager.data.data_access.AttemptAccessObject;
 import com.mymanager.data.data_access.ContactAccessObject;
 import com.mymanager.data.data_access.CountryAccessObject;
 import com.mymanager.data.data_access.CurrencyAccessObject;
@@ -22,7 +22,7 @@ import com.mymanager.data.data_access.UserAccessObject;
 import com.mymanager.data.data_access.WorkingHourAccessObject;
 import com.mymanager.data.data_access.interfaces.AdditionalAccess;
 import com.mymanager.data.data_access.interfaces.AdressAccess;
-import com.mymanager.data.data_access.interfaces.AtemptAccess;
+import com.mymanager.data.data_access.interfaces.AttemptAccess;
 import com.mymanager.data.data_access.interfaces.ContactAccess;
 import com.mymanager.data.data_access.interfaces.CountryAccess;
 import com.mymanager.data.data_access.interfaces.CurrencyAccess;
@@ -44,7 +44,7 @@ public class DatabaseSelectQueries {
 
 	private AdditionalAccess additionalAccess;
 	private AdressAccess adressAccess;
-	private AtemptAccess atemptAccess;
+	private AttemptAccess attemptAccess;
 	private ContactAccess contactAccess;
 	private CountryAccess countryAccess;
 	private CurrencyAccess currencyAccess;
@@ -66,7 +66,7 @@ public class DatabaseSelectQueries {
 		DatabaseManager.getDatabase(RDBMSType.MySQL);
 		additionalAccess = new AdditionalAccessObject(queryType);
 		adressAccess = new AdressAccessObject(queryType);
-		atemptAccess = new AtemptAccessObject();
+		attemptAccess = new AttemptAccessObject();
 		contactAccess = new ContactAccessObject(queryType);
 		countryAccess = new CountryAccessObject();
 		currencyAccess = new CurrencyAccessObject();
@@ -99,37 +99,72 @@ public class DatabaseSelectQueries {
 
 	@Test
 	public void selectAdress() throws Exception {
-
+		adressAccess.readAllAdresses();
 	}
 
 	@Test
 	public void selectContact() throws Exception {
-
+		contactAccess.readAllContacts();
 	}
 
 	@Test
 	public void selectAdditional() throws Exception {
-
+		additionalAccess.readAllAdditionals();
 	}
 
 	@Test
 	public void selectAtempt() throws Exception {
-
+		attemptAccess.readAllAttempts();
 	}
 
 	@Test
 	public void selectCountry() throws Exception {
-
+		countryAccess.readAllCountries();
 	}
 
 	@Test
 	public void selectCurrency() throws Exception {
+		currencyAccess.readAllCurrencies();
+	}
 
+	@Test
+	public void selectDocument() throws Exception {
+		documentAccess.readAllDocuments();
 	}
 
 	@Test
 	public void selectDepartment() throws Exception {
+		departmentAccess.readAllDepartments();
+	}
 
+	@Test
+	public void selectFileType() throws Exception {
+		fileTypeAccess.readAllFileTypes();
+	}
+
+	@Test
+	public void selectJob() throws Exception {
+		jobAccess.readAllJobs();
+	}
+
+	@Test
+	public void selectPayment() throws Exception {
+		paymentAccess.readAllPayments();
+	}
+
+	@Test
+	public void selectJobHistory() throws Exception {
+		jobHistoryAccess.readAllJobHistories();
+	}
+
+	@Test
+	public void selectProject() throws Exception {
+		projectAccess.readAllProjects();
+	}
+
+	@Test
+	public void selectWorkingHour() throws Exception {
+		workingHourAccess.readAllWorkingHour();
 	}
 
 }

@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import com.mymanager.data.data_access.AdditionalAccessObject;
 import com.mymanager.data.data_access.AdressAccessObject;
-import com.mymanager.data.data_access.AtemptAccessObject;
+import com.mymanager.data.data_access.AttemptAccessObject;
 import com.mymanager.data.data_access.ContactAccessObject;
 import com.mymanager.data.data_access.CountryAccessObject;
 import com.mymanager.data.data_access.CurrencyAccessObject;
@@ -25,7 +25,7 @@ import com.mymanager.data.data_access.UserAccessObject;
 import com.mymanager.data.data_access.WorkingHourAccessObject;
 import com.mymanager.data.data_access.interfaces.AdditionalAccess;
 import com.mymanager.data.data_access.interfaces.AdressAccess;
-import com.mymanager.data.data_access.interfaces.AtemptAccess;
+import com.mymanager.data.data_access.interfaces.AttemptAccess;
 import com.mymanager.data.data_access.interfaces.ContactAccess;
 import com.mymanager.data.data_access.interfaces.CountryAccess;
 import com.mymanager.data.data_access.interfaces.CurrencyAccess;
@@ -51,7 +51,7 @@ public class DatabaseUpdateQueries {
 
 	private AdditionalAccess additionalAccess;
 	private AdressAccess adressAccess;
-	private AtemptAccess atemptAccess;
+	private AttemptAccess attemptAccess;
 	private ContactAccess contactAccess;
 	private CountryAccess countryAccess;
 	private CurrencyAccess currencyAccess;
@@ -74,7 +74,7 @@ public class DatabaseUpdateQueries {
 		DatabaseManager.getDatabase(RDBMSType.MySQL);
 		additionalAccess = new AdditionalAccessObject(queryType);
 		adressAccess = new AdressAccessObject(queryType);
-		atemptAccess = new AtemptAccessObject();
+		attemptAccess = new AttemptAccessObject();
 		contactAccess = new ContactAccessObject(queryType);
 		countryAccess = new CountryAccessObject();
 		currencyAccess = new CurrencyAccessObject();
