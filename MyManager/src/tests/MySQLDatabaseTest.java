@@ -15,13 +15,13 @@ public class MySQLDatabaseTest {
 	Database temp;
 
 	@Test
-	public final void testConnection() {
+	public final void testConnection() throws Exception {
 		temp = new MySQLDatabase();
 		temp.connect();
 	}
 
 	@Test
-	public final void testDisConnection() {
+	public final void testDisConnection() throws Exception {
 		temp = new MySQLDatabase();
 		temp.disconnect();
 	}

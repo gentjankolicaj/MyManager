@@ -1,7 +1,7 @@
 package tests;
 
 import org.junit.After;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.mymanager.data.data_access.AdditionalAccessObject;
@@ -42,27 +42,27 @@ import com.mymanager.data.database.RDBMSType;
 
 public class DatabaseSelectQueries {
 
-	private AdditionalAccess additionalAccess;
-	private AdressAccess adressAccess;
-	private AttemptAccess attemptAccess;
-	private ContactAccess contactAccess;
-	private CountryAccess countryAccess;
-	private CurrencyAccess currencyAccess;
-	private DepartmentAccess departmentAccess;
-	private DocumentAccess documentAccess;
-	private EmployeeAccess employeeAccess;
-	private FileTypeAccess fileTypeAccess;
-	private JobAccess jobAccess;
-	private JobHistoryAccess jobHistoryAccess;
-	private PaymentAccess paymentAccess;
-	private ProjectAccess projectAccess;
-	private UserAccess userAccess;
-	private WorkingHourAccess workingHourAccess;
+	private static AdditionalAccess additionalAccess;
+	private static AdressAccess adressAccess;
+	private static AttemptAccess attemptAccess;
+	private static ContactAccess contactAccess;
+	private static CountryAccess countryAccess;
+	private static CurrencyAccess currencyAccess;
+	private static DepartmentAccess departmentAccess;
+	private static DocumentAccess documentAccess;
+	private static EmployeeAccess employeeAccess;
+	private static FileTypeAccess fileTypeAccess;
+	private static JobAccess jobAccess;
+	private static JobHistoryAccess jobHistoryAccess;
+	private static PaymentAccess paymentAccess;
+	private static ProjectAccess projectAccess;
+	private static UserAccess userAccess;
+	private static WorkingHourAccess workingHourAccess;
 
 	private static QueryType queryType = QueryType.NORMAL;
 
-	@Before
-	public void setUp() throws Exception {
+	@BeforeClass
+	public static void setUp() throws Exception {
 		DatabaseManager.getDatabase(RDBMSType.MySQL);
 		additionalAccess = new AdditionalAccessObject(queryType);
 		adressAccess = new AdressAccessObject(queryType);
@@ -88,82 +88,98 @@ public class DatabaseSelectQueries {
 
 	@Test
 	public void selectUser() throws Exception {
+		System.out.println();
 		userAccess.readAllUsers();
 
 	}
 
 	@Test
 	public void selectEmployee() throws Exception {
+		System.out.println();
 		employeeAccess.readAllEmployees();
 	}
 
 	@Test
 	public void selectAdress() throws Exception {
+		System.out.println();
 		adressAccess.readAllAdresses();
 	}
 
 	@Test
 	public void selectContact() throws Exception {
+		System.out.println();
 		contactAccess.readAllContacts();
 	}
 
 	@Test
 	public void selectAdditional() throws Exception {
+		System.out.println();
 		additionalAccess.readAllAdditionals();
 	}
 
 	@Test
 	public void selectAtempt() throws Exception {
+		System.out.println();
 		attemptAccess.readAllAttempts();
 	}
 
 	@Test
 	public void selectCountry() throws Exception {
+		System.out.println();
 		countryAccess.readAllCountries();
 	}
 
 	@Test
 	public void selectCurrency() throws Exception {
+		System.out.println();
 		currencyAccess.readAllCurrencies();
 	}
 
 	@Test
 	public void selectDocument() throws Exception {
+		System.out.println();
 		documentAccess.readAllDocuments();
 	}
 
 	@Test
 	public void selectDepartment() throws Exception {
+		System.out.println();
 		departmentAccess.readAllDepartments();
 	}
 
 	@Test
 	public void selectFileType() throws Exception {
+		System.out.println();
 		fileTypeAccess.readAllFileTypes();
 	}
 
 	@Test
 	public void selectJob() throws Exception {
+		System.out.println();
 		jobAccess.readAllJobs();
 	}
 
 	@Test
 	public void selectPayment() throws Exception {
+		System.out.println();
 		paymentAccess.readAllPayments();
 	}
 
 	@Test
 	public void selectJobHistory() throws Exception {
+		System.out.println();
 		jobHistoryAccess.readAllJobHistories();
 	}
 
 	@Test
 	public void selectProject() throws Exception {
+		System.out.println();
 		projectAccess.readAllProjects();
 	}
 
 	@Test
 	public void selectWorkingHour() throws Exception {
+		System.out.println();
 		workingHourAccess.readAllWorkingHour();
 	}
 
