@@ -180,10 +180,10 @@ public class UserAccessObject implements UserAccess {
 	}
 
 	@Override
-	public User readUser(User user) throws Exception {
+	public User readUser(String userId) throws Exception {
 		ResultSet results = null;
 		User userLocal = null;
-		String query = "SELECT * FROM mymanager.users WHERE user_id=" + user.getUserId();
+		String query = "SELECT * FROM mymanager.users WHERE user_id=" + userId;
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -196,7 +196,7 @@ public class UserAccessObject implements UserAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 
 		}
-		PrintUtils.print(user, PrintType.QUERY_RESULTS);
+		PrintUtils.print(userLocal, PrintType.QUERY_RESULTS);
 		return userLocal;
 	}
 
@@ -206,7 +206,7 @@ public class UserAccessObject implements UserAccess {
 				+ "birthplace=?,gender=?,rights=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE user_id=?";
 
 		setQueryType(QueryType.NORMAL);
-		User temp = readUser(oldUser);
+		User temp = readUser(oldUser.getUserId());
 		savePreviousRow(temp);
 
 		PreparedStatement pstmt = database.updateStatement(query);

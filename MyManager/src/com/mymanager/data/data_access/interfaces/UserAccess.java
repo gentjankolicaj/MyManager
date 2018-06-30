@@ -23,7 +23,7 @@ public interface UserAccess {
 
 	public abstract List<User> readUsersByRights(Rights rights) throws Exception;
 
-	public abstract User readUser(User user) throws Exception;
+	public abstract User readUser(String userId) throws Exception;
 
 	public abstract int updateUser(User oldUser, User newUser) throws Exception;
 
