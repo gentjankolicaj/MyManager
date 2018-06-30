@@ -66,11 +66,7 @@ public class AdditionalAccessObject implements AdditionalAccess {
 	public Additional readAdditional(String employeeId) throws Exception {
 		Additional additional = null;
 		ResultSet results = null;
-		String query = null;
-		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM mymanager.employee_additional WHERE employee_id=" + employeeId;
-		else
-			query = "SELECT * FROM mymanager.employee_additional_history WHERE employee_id=" + employeeId;
+		String query = "SELECT * FROM mymanager.employee_additional WHERE employee_id=" + employeeId;
 
 		results = database.selectStatement(query);
 		while (results.next()) {
