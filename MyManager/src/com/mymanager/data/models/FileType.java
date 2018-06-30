@@ -2,10 +2,10 @@ package com.mymanager.data.models;
 
 /**
  * 
- * @author gentjan_kolicaj
+ * @author gentjan koliçaj
  *
  */
-public class FileType {
+public class FileType extends MyModel {
 
 	private String file;
 
@@ -31,6 +31,26 @@ public class FileType {
 
 	public void setFile(String file) {
 		this.file = file;
+	}
+
+	@Override
+	public String toNormal() {
+		String cls = getClass().getSimpleName();
+		String text = cls + ": file:" + file;
+
+		return text;
+	}
+
+	@Override
+	public String toJson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toXml() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

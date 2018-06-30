@@ -4,17 +4,18 @@ import java.time.LocalDateTime;
 
 /**
  * 
- * @author gentjan_kolicaj
+ * @author gentjan koliçaj
  *
  */
-public class Adress {
+public class Adress extends MyModel {
 
-	private String id;
+	private int adressId;
+	private String personId;
 	private Country country;
 	private String city;
 	private String streetName;
 	private int zipCode;
-	private int building;
+	private String building;
 	private String createdBy;
 	private String updatedBy;
 	private LocalDateTime createdDate;
@@ -29,21 +30,23 @@ public class Adress {
 	}
 
 	/**
-	 * @param id
+	 * @param adressId
+	 * @param personId
 	 * @param country
 	 * @param city
 	 * @param streetName
 	 * @param zipCode
 	 * @param building
 	 * @param createdBy
-	 * @param updateBy
+	 * @param updatedBy
 	 * @param createdDate
 	 * @param updatedDate
 	 */
-	public Adress(String id, Country country, String city, String streetName, int zipCode, int building,
-			String createdBy, String updatedBy, LocalDateTime createdDate, LocalDateTime updatedDate) {
+	public Adress(int adressId, String personId, Country country, String city, String streetName, int zipCode,
+			String building, String createdBy, String updatedBy, LocalDateTime createdDate, LocalDateTime updatedDate) {
 		super();
-		this.id = id;
+		this.adressId = adressId;
+		this.personId = personId;
 		this.country = country;
 		this.city = city;
 		this.streetName = streetName;
@@ -55,12 +58,20 @@ public class Adress {
 		this.updatedDate = updatedDate;
 	}
 
-	public String getId() {
-		return id;
+	public int getAdressId() {
+		return adressId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setAdressId(int adressId) {
+		this.adressId = adressId;
+	}
+
+	public String getPersonId() {
+		return personId;
+	}
+
+	public void setPersonId(String personId) {
+		this.personId = personId;
 	}
 
 	public Country getCountry() {
@@ -95,11 +106,11 @@ public class Adress {
 		this.zipCode = zipCode;
 	}
 
-	public int getBuilding() {
+	public String getBuilding() {
 		return building;
 	}
 
-	public void setBuilding(int building) {
+	public void setBuilding(String building) {
 		this.building = building;
 	}
 
@@ -133,6 +144,29 @@ public class Adress {
 
 	public void setUpdatedDate(LocalDateTime updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	@Override
+	public String toNormal() {
+		String cls = getClass().getSimpleName();
+		String text = cls + ": adressId:" + adressId + ", personId:" + personId + ", country:"
+				+ country.getCountryName() + ", city:" + city + ", streetName:" + streetName + " , zipCode:" + zipCode
+				+ ", building:" + building + ", createdBy:" + createdBy + ", createdDate:" + createdDate.toString()
+				+ ", updatedBy:" + updatedBy + ", updatedDate:" + updatedDate.toString();
+
+		return text;
+	}
+
+	@Override
+	public String toJson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toXml() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

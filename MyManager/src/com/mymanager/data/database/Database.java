@@ -1,10 +1,119 @@
 package com.mymanager.data.database;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
+
+import com.mymanager.utils.PrintType;
+import com.mymanager.utils.PrintUtils;
+
 /**
  * 
  * @author gentjan_kolicaj
  *
  */
-public class Database {
+public class Database implements Connectable {
+
+	private final String driverName;
+	private String api;
+	private String databaseType;
+	private String server;
+	private int port;
+	private String user;
+	private String password;
+	private String schema;
+	private String url;
+
+	private Connection connection;
+	private Statement statement;
+	private PreparedStatement preparedStatement;
+
+	/**
+	 * @param driverName
+	 * @param api
+	 * @param databaseType
+	 * @param server
+	 * @param user
+	 * @param password
+	 * @param schema
+	 */
+	public Database(String driverName, String api, String databaseType, String server, int port, String user,
+			String password, String schema) {
+		super();
+		this.driverName = driverName;
+		this.api = api;
+		this.databaseType = databaseType;
+		this.server = server;
+		this.port = port;
+		this.user = user;
+		this.password = password;
+		this.schema = schema;
+	}
+
+	@Override
+	public void initDriver() {
+		try {
+			Class.forName(driverName);
+		} catch (ClassNotFoundException e) {
+			PrintUtils.print(e, PrintType.EXCEPTION);
+		}
+
+	}
+
+	@Override
+	public void connect() {
+		initDriver();
+		try {
+			url = new ConnectionUrlBuilder().setApi(api).setDatabase(databaseType).setServer(server).setPort(port)
+					.setSchema(schema).build();
+			PrintUtils.print(url, PrintType.LOG);
+			connection = DriverManager.getConnection(url, user, password);
+			PrintUtils.print("--- CONNECTED ---- ".concat(databaseType), PrintType.DATABASE_IO);
+		} catch (SQLException sqle) {
+			PrintUtils.print(sqle, PrintType.EXCEPTION);
+		}
+
+	}
+
+	@Override
+	public void disconnect() {
+		if (connection != null) {
+			try {
+				connection.close();
+				PrintUtils.print("--- DISCONNECTED --- ".concat(databaseType), PrintType.DATABASE_IO);
+			} catch (SQLException sqle) {
+				PrintUtils.print(sqle, PrintType.EXCEPTION);
+
+			}
+		}
+
+	}
+
+	public ResultSet selectStatement(String query) throws SQLException {
+		ResultSet resultSet = null;
+		statement = connection.createStatement();
+		resultSet = statement.executeQuery(query);
+		return resultSet;
+	}
+
+	public PreparedStatement updateStatement(String query) throws SQLException {
+		preparedStatement = connection.prepareStatement(query);
+		return preparedStatement;
+
+	}
+
+	public ResultSet selectStatement(String query, List<Object> objectList) throws SQLException {
+		ResultSet resultSet = null;
+		preparedStatement = connection.prepareStatement(query);
+		for (int i = 1; i < objectList.size() + 1; i++) {
+			preparedStatement.setObject(i, objectList.get(i));
+		}
+		resultSet = preparedStatement.executeQuery();
+		return resultSet;
+	}
 
 }

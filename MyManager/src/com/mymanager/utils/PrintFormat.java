@@ -2,7 +2,7 @@ package com.mymanager.utils;
 
 /**
  * 
- * @author gentjan_kolicaj
+ * @author gentjan koliçaj
  *
  */
 public enum PrintFormat {

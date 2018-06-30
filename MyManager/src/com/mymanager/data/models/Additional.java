@@ -1,17 +1,18 @@
 package com.mymanager.data.models;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
  * 
- * @author gentjan_kolicaj
+ * @author gentjan koliçaj
  *
  */
-public class Additional {
+public class Additional extends MyModel {
 
 	private String employeeId;
 	private float salaryAmount;
-	private LocalDateTime hireDate;
+	private LocalDate hireDate;
 	private String createdBy;
 	private String updatedBy;
 	private LocalDateTime createdDate;
@@ -34,7 +35,7 @@ public class Additional {
 	 * @param createdDate
 	 * @param updatedDate
 	 */
-	public Additional(String employeeId, float salaryAmount, LocalDateTime hireDate, String createdBy, String updatedBy,
+	public Additional(String employeeId, float salaryAmount, LocalDate hireDate, String createdBy, String updatedBy,
 			LocalDateTime createdDate, LocalDateTime updatedDate) {
 		super();
 		this.employeeId = employeeId;
@@ -62,11 +63,11 @@ public class Additional {
 		this.salaryAmount = salaryAmount;
 	}
 
-	public LocalDateTime getHireDate() {
+	public LocalDate getHireDate() {
 		return hireDate;
 	}
 
-	public void setHireDate(LocalDateTime hireDate) {
+	public void setHireDate(LocalDate hireDate) {
 		this.hireDate = hireDate;
 	}
 
@@ -100,6 +101,37 @@ public class Additional {
 
 	public void setUpdatedDate(LocalDateTime updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	@Override
+	public String toNormal() {
+		/**
+		 * @param employeeId
+		 * @param salaryAmount
+		 * @param hireDate
+		 * @param createdBy
+		 * @param updatedBy
+		 * @param createdDate
+		 * @param updatedDate
+		 */
+		String cls = getClass().getSimpleName();
+		String text = cls + ": employeeId:" + employeeId + ", salaryAmount:" + salaryAmount + ", hireDate:"
+				+ hireDate.toString() + ", createdBy:" + createdBy + ", createdDate:" + createdDate.toString()
+				+ ", updatedBy:" + updatedBy + ", updatedDate:" + updatedDate.toString();
+
+		return text;
+	}
+
+	@Override
+	public String toJson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toXml() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

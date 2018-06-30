@@ -5,10 +5,10 @@ import java.time.LocalDateTime;
 
 /**
  * 
- * @author gentjan_kolicaj
+ * @author gentjan koliçaj
  *
  */
-public class Employee {
+public class Employee extends MyModel {
 
 	private String employeeId;
 	private String firstName;
@@ -20,7 +20,6 @@ public class Employee {
 	private int jobId;
 	private int departmentId;
 	private String projectName;
-
 	private String createdBy;
 	private String updatedBy;
 	private LocalDateTime createdDate;
@@ -180,6 +179,30 @@ public class Employee {
 
 	public void setUpdatedDate(LocalDateTime updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	@Override
+	public String toNormal() {
+		String cls = getClass().getSimpleName();
+		String text = cls + ": employeeId:" + employeeId + ", firstName:" + firstName + ", lastName:" + lastName
+				+ ", middleName:" + middleName + ", birthday:" + birthday.toString() + " , birthplace:" + birthplace
+				+ ", gender:" + gender + ", jobId:" + jobId + ", departmentId:" + departmentId + ", projectName:"
+				+ projectName + ", createdBy:" + createdBy + ", createdDate:" + createdDate.toString() + ", updatedBy:"
+				+ updatedBy + ", updatedDate:" + updatedDate.toString();
+
+		return text;
+	}
+
+	@Override
+	public String toJson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toXml() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
