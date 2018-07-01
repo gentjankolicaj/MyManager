@@ -21,6 +21,14 @@ public class Config {
 	public static PrintFormat PRINT_FORMAT = PrintFormat.NORMAL;
 	public static PrintEnviroment PRINT_ENV = PrintEnviroment.CONSOLE;
 
+	public static boolean MESSAGE_WINDOWS = true;
+	public static int warningWindowTime = 4000;
+	public static int errorWindowTime = 4000;
+	public static int infoWindowTime = 4000;
+	public static int questionWindowTime = 4000;
+
+	public static boolean INPUT_WINDOWS = true;
+
 	/*
 	 * Config values are overriden by application.properties file is necesary
 	 */

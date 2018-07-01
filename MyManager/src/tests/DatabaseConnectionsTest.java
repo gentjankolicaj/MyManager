@@ -22,21 +22,21 @@ public class DatabaseConnectionsTest {
 	}
 
 	@Test
-	public void testMySQLConnect() {
+	public void testMySQLConnect() throws Exception {
 		temp = new MySQLDatabase();
 		temp.connect();
 		temp.disconnect();
 	}
 
 	@Test
-	public void testPostgreSQLConnect() {
+	public void testPostgreSQLConnect() throws Exception {
 		temp = new PostgresDatabase();
 		temp.connect();
 		temp.disconnect();
 	}
 
 	@Test
-	public void tesOracleConnect() {
+	public void tesOracleConnect() throws Exception {
 		temp = new OracleDatabase();
 		temp.connect();
 		temp.disconnect();

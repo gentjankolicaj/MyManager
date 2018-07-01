@@ -55,40 +55,28 @@ public class Database implements Connectable {
 	}
 
 	@Override
-	public void initDriver() {
-		try {
-			Class.forName(driverName);
-		} catch (ClassNotFoundException e) {
-			PrintUtils.print(e, PrintType.EXCEPTION);
-		}
+	public void initDriver() throws Exception {
+		Class.forName(driverName);
 
 	}
 
 	@Override
-	public void connect() {
+	public void connect() throws Exception {
 		initDriver();
-		try {
-			url = new ConnectionUrlBuilder().setApi(api).setDatabase(databaseType).setServer(server).setPort(port)
-					.setSchema(schema).build();
-			PrintUtils.print(url, PrintType.LOG);
-			connection = DriverManager.getConnection(url, user, password);
-			PrintUtils.print("--- CONNECTED ---- ".concat(databaseType), PrintType.DATABASE_IO);
-		} catch (SQLException sqle) {
-			PrintUtils.print(sqle, PrintType.EXCEPTION);
-		}
+		url = new ConnectionUrlBuilder().setApi(api).setDatabase(databaseType).setServer(server).setPort(port)
+				.setSchema(schema).build();
+		PrintUtils.print(url, PrintType.LOG);
+		connection = DriverManager.getConnection(url, user, password);
+		PrintUtils.print("--- CONNECTED ---- ".concat(databaseType), PrintType.DATABASE_IO);
 
 	}
 
 	@Override
-	public void disconnect() {
+	public void disconnect() throws Exception {
 		if (connection != null) {
-			try {
-				connection.close();
-				PrintUtils.print("--- DISCONNECTED --- ".concat(databaseType), PrintType.DATABASE_IO);
-			} catch (SQLException sqle) {
-				PrintUtils.print(sqle, PrintType.EXCEPTION);
+			connection.close();
+			PrintUtils.print("--- DISCONNECTED --- ".concat(databaseType), PrintType.DATABASE_IO);
 
-			}
 		}
 
 	}

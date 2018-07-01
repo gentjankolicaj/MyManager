@@ -12,7 +12,7 @@ public class DatabaseManager {
 	private DatabaseManager() {
 	}
 
-	public static Database getDatabase(RDBMSType type) {
+	public static Database getDatabase(RDBMSType type) throws Exception {
 		Database temp = null;
 		switch (type) {
 		case MySQL:
@@ -34,7 +34,7 @@ public class DatabaseManager {
 		return temp;
 	}
 
-	public static Database getDatabase(InstanceData instanceData) {
+	public static Database getDatabase(InstanceData instanceData) throws Exception {
 		Database temp = null;
 		switch (instanceData.getRdbmsType()) {
 		case MySQL:
@@ -63,11 +63,11 @@ public class DatabaseManager {
 		return temp;
 	}
 
-	public static void openConnection(Database database) {
+	public static void openConnection(Database database) throws Exception {
 		database.connect();
 	}
 
-	public static void closeConnection(Database database) {
+	public static void closeConnection(Database database) throws Exception {
 		database.disconnect();
 	}
 

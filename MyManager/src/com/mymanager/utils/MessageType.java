@@ -1,0 +1,6 @@
+package com.mymanager.utils;
+
+public enum MessageType {
+
+	ERROR_MESSAGE, INFORMATION_MESSAGE, WARNING_MESSAGE, QUESTION_MESSAGE, PLAIN_MESSAGE
+}

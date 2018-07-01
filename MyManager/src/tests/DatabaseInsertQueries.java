@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Random;
 
 import org.junit.After;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.mymanager.data.data_access.AdditionalAccessObject;
@@ -54,29 +54,29 @@ import com.mymanager.data.models.UserType;
 
 public class DatabaseInsertQueries {
 
-	private AdditionalAccess additionalAccess;
-	private AdressAccess adressAccess;
-	private AttemptAccess attemptAccess;
-	private ContactAccess contactAccess;
-	private CountryAccess countryAccess;
-	private CurrencyAccess currencyAccess;
-	private DepartmentAccess departmentAccess;
-	private DocumentAccess documentAccess;
-	private EmployeeAccess employeeAccess;
-	private FileTypeAccess fileTypeAccess;
-	private JobAccess jobAccess;
-	private JobHistoryAccess jobHistoryAccess;
-	private PaymentAccess paymentAccess;
-	private ProjectAccess projectAccess;
-	private UserAccess userAccess;
-	private WorkingHourAccess workingHourAccess;
+	private static AdditionalAccess additionalAccess;
+	private static AdressAccess adressAccess;
+	private static AttemptAccess attemptAccess;
+	private static ContactAccess contactAccess;
+	private static CountryAccess countryAccess;
+	private static CurrencyAccess currencyAccess;
+	private static DepartmentAccess departmentAccess;
+	private static DocumentAccess documentAccess;
+	private static EmployeeAccess employeeAccess;
+	private static FileTypeAccess fileTypeAccess;
+	private static JobAccess jobAccess;
+	private static JobHistoryAccess jobHistoryAccess;
+	private static PaymentAccess paymentAccess;
+	private static ProjectAccess projectAccess;
+	private static UserAccess userAccess;
+	private static WorkingHourAccess workingHourAccess;
 
 	private static QueryType queryType = QueryType.NORMAL;
-	private int randomId;
-	private Random random;
+	private static int randomId;
+	private static Random random;
 
-	@Before
-	public void setUp() throws Exception {
+	@BeforeClass
+	public static void setUp() throws Exception {
 
 		DatabaseManager.getDatabase(RDBMSType.MySQL);
 		additionalAccess = new AdditionalAccessObject(queryType);

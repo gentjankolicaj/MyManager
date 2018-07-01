@@ -7,10 +7,10 @@ package com.mymanager.data.database;
  */
 public interface Connectable {
 
-	void initDriver();
+	void initDriver() throws Exception;
 
-	void connect();
+	void connect() throws Exception;
 
-	void disconnect();
+	void disconnect() throws Exception;
 
 }
