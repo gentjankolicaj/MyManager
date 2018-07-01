@@ -11,11 +11,14 @@ com\mymanager\data\database\Database.class
 com\mymanager\data\models\JobHistory.class
 com\mymanager\data\database\Connectable.class
 tests\DatabaseDeleteQueries.class
+com\mymanager\utils\MessageType.class
 com\mymanager\utils\PrintUtils.class
 com\mymanager\utils\ConsolePrinter.class
 com\mymanager\data\data_access\interfaces\JobAccess.class
+com\mymanager\utils\WinType.class
 com\mymanager\data\models\Employee.class
 com\mymanager\data\models\AdressType.class
+tests\ImageLoadingTest.class
 com\mymanager\data\database\ConnectionUrlBuilder.class
 com\mymanager\views\subviews\HumanResourceView.class
 com\mymanager\data\models\Attempt.class
@@ -27,6 +30,7 @@ com\mymanager\data\data_access\interfaces\FileTypeAccess.class
 com\mymanager\data\database\DatabaseManager$1.class
 com\mymanager\data\data_access\interfaces\DocumentAccess.class
 com\mymanager\views\subviews\CoreView.class
+com\mymanager\config\AppText.class
 com\mymanager\data\data_access\PaymentAccessObject.class
 com\mymanager\data\data_access\DepartmentAccessObject.class
 com\mymanager\data\data_access\interfaces\CurrencyAccess.class
@@ -62,6 +66,7 @@ com\mymanager\utils\PropertyFilesUtils.class
 tests\DatabaseConnectionsTest.class
 com\mymanager\data\data_access\interfaces\ContactAccess.class
 com\mymanager\data\models\Gender.class
+com\mymanager\utils\UtilWindow.class
 com\mymanager\data\data_access\FileTypeAccessObject.class
 com\mymanager\data\models\Department.class
 com\mymanager\views\subviews\AssistantView.class
@@ -92,6 +97,7 @@ com\mymanager\data\data_access\interfaces\DepartmentAccess.class
 com\mymanager\data\models\Currency.class
 com\mymanager\data\database\DatabasePool.class
 com\mymanager\data\database\RDBMSType.class
+com\mymanager\config\AppIcon.class
 com\mymanager\utils\PrintEnviroment.class
 com\mymanager\views\MyWindow.class
 com\mymanager\data\models\User.class

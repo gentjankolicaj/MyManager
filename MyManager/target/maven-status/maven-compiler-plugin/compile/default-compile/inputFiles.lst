@@ -8,6 +8,8 @@ C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\data\database\ConnectionU
 C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\utils\PrintUtils.java
 C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\data\models\FileType.java
 C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\data\database\DatabaseManager.java
+C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\utils\UtilWindow.java
+C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\config\AppIcon.java
 C:\Users\gentjan\MyManager\MyManager\src\tests\DatabaseConnectionsTest.java
 C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\data\data_access\DocumentAccessObject.java
 C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\data\data_access\ProjectAccessObject.java
@@ -44,6 +46,8 @@ C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\data\models\Document.java
 C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\data\data_access\interfaces\AttemptAccess.java
 C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\data\database\Database.java
 C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\data\data_access\interfaces\WorkingHourAccess.java
+C:\Users\gentjan\MyManager\MyManager\src\tests\ImageLoadingTest.java
+C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\config\AppText.java
 C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\views\subviews\ManagerView.java
 C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\utils\PrintType.java
 C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\data\data_access\AdressAccessObject.java
@@ -54,6 +58,7 @@ C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\data\data_access\interfac
 C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\data\data_access\interfaces\CurrencyAccess.java
 C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\data\models\Status.java
 C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\data\database\RDBMSType.java
+C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\utils\MessageType.java
 C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\data\data_access\JobAccessObject.java
 C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\data\data_access\EmployeeAccessObject.java
 C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\data\data_access\interfaces\AdressAccess.java
@@ -93,5 +98,6 @@ C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\views\subviews\CoreView.j
 C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\data\models\WorkingHour.java
 C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\data\data_access\CountryAccessObject.java
 C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\data\data_access\WorkingHourAccessObject.java
+C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\utils\WinType.java
 C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\data\data_access\interfaces\AdditionalAccess.java
 C:\Users\gentjan\MyManager\MyManager\src\com\mymanager\views\subviews\HumanResourceView.java
