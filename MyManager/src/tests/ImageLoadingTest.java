@@ -6,6 +6,11 @@ import org.junit.Test;
 
 import com.mymanager.config.AppIcon;
 
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public class ImageLoadingTest {
 
 	@Before

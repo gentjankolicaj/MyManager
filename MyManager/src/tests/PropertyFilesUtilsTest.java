@@ -7,6 +7,11 @@ import org.junit.Test;
 
 import com.mymanager.utils.PropertyFilesUtils;
 
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public class PropertyFilesUtilsTest {
 
 	@Test

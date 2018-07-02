@@ -42,6 +42,11 @@ import com.mymanager.data.database.DatabaseManager;
 import com.mymanager.data.database.QueryType;
 import com.mymanager.data.database.RDBMSType;
 
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public class DatabaseDeleteQueries {
 
 	private static AdditionalAccess additionalAccess;

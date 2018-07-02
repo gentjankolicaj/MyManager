@@ -40,6 +40,11 @@ import com.mymanager.data.database.DatabaseManager;
 import com.mymanager.data.database.QueryType;
 import com.mymanager.data.database.RDBMSType;
 
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public class DatabaseSelectQueries {
 
 	private static AdditionalAccess additionalAccess;

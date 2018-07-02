@@ -9,6 +9,11 @@ import com.mymanager.data.database.MySQLDatabase;
 import com.mymanager.data.database.OracleDatabase;
 import com.mymanager.data.database.PostgresDatabase;
 
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public class DatabaseConnectionsTest {
 
 	Database temp;
