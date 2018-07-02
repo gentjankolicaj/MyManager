@@ -138,6 +138,8 @@ public class AppText {
 	public static String dataLabel = "Data";
 	public static String uploadLabel = "Upload";
 	public static String downloadLabel = "Download";
+
+	public static String plainLabel = "Just to notify you";
 	public static String successLabel = "Success ";
 	public static String warningLabel = "Warning ";
 	public static String infoLabel = "Information ";

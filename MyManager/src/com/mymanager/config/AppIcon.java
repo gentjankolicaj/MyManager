@@ -10,6 +10,11 @@ import javax.swing.ImageIcon;
 import com.mymanager.utils.PrintType;
 import com.mymanager.utils.PrintUtils;
 
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public class AppIcon {
 
 	// Functionality Icons
@@ -58,12 +63,13 @@ public class AppIcon {
 	public static String uploadIcon = "com//mymanager//resources//icons//success.png";
 	public static String downloadIcon = "com//mymanager//resources//icons//success.png";
 
-	public static String successIcon = "com//mymanager//resources//icons//success.png";
-	public static String warningIcon = "com//mymanager//resources//icons//success.png";
-	public static String infoIcon = "com//mymanager//resources//icons//success.png";
-	public static String errorIcon = "com//mymanager//resources//icons//success.png";
-	public static String questionIcon = "com//mymanager//resources//icons//success.png";
-	public static String inputIcon = "com//mymanager//resources//icons//success.png";
+	public static String successIcon = "com//mymanager//resources//icons//test.jpg";
+	public static String plainIcon = "com//mymanager//resources//icons//test.jpg";
+	public static String warningIcon = "com//mymanager//resources//icons//test.jpg";
+	public static String infoIcon = "com//mymanager//resources//icons//test.jpg";
+	public static String errorIcon = "com//mymanager//resources//icons//test.jpg";
+	public static String questionIcon = "com//mymanager//resources//icons//test.jpg";
+	public static String inputIcon = "com//mymanager//resources//icons//test.jpg";
 
 	/**
 	 *
