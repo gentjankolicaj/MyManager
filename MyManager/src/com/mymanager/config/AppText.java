@@ -145,6 +145,7 @@ public class AppText {
 	public static String infoLabel = "Information ";
 	public static String errorLabel = "Error ";
 	public static String questionLabel = "Question ";
+
 	public static String inputLabel = "Input ";
 
 	// To do

@@ -2,6 +2,7 @@ package com.mymanager.utils;
 
 import java.awt.Component;
 
+import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
 import com.mymanager.config.AppIcon;
@@ -36,9 +37,8 @@ public class UtilWindow {
 		}
 	}
 
-	public static OptionType showOption(Component component, String text, OptionType optionType) {
+	public static Answer showOption(Component component, String text, OptionType optionType) {
 		int choiceValue = 0;
-		OptionType type = null;
 		if (Config.OPTION_WINDOWS) {
 			if (optionType.equals(OptionType.DEFAULT) && Config.DEFAULT) {
 				choiceValue = JOptionPane.showConfirmDialog(component, text, AppText.questionLabel,
@@ -54,16 +54,39 @@ public class UtilWindow {
 						JOptionPane.YES_NO_OPTION);
 			}
 		}
-
-		return type;
+		return translateValue(choiceValue);
 	}
 
-	public static void showInput(Component component, String text, MessageType messageType) {
+	public static String showInput(Component component, String text, String[] choices, String defaultChoice) {
+		Icon icon = AppIcon.getIcon(AppIcon.inputIcon);
+		String result = null;
+		result = (String) JOptionPane.showInputDialog(component, text, AppText.inputLabel, JOptionPane.QUESTION_MESSAGE,
+				icon, choices, defaultChoice);
+		return result;
 
 	}
 
-	private static OptionType translateValue(int value) {
-		OptionType type = OptionType.DEFAULT;
-		return type;
+	public static String showInput(Component component, String text, String[] choices) {
+		Icon icon = AppIcon.getIcon(AppIcon.inputIcon);
+		String result = null;
+		result = (String) JOptionPane.showInputDialog(component, text, AppText.inputLabel, JOptionPane.QUESTION_MESSAGE,
+				icon, choices, choices[0]);
+		return result;
+
+	}
+
+	private static Answer translateValue(int value) {
+		if (value == -1) {
+			return Answer.ClOSE;
+		} else if (value == 0) {
+			return Answer.YES;
+		} else if (value == 1) {
+			return Answer.NO;
+		} else if (value == 2) {
+			return Answer.CANCEL;
+		} else {
+			return Answer.UNKNOWN;
+		}
+
 	}
 }

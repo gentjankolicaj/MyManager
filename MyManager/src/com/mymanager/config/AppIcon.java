@@ -71,6 +71,8 @@ public class AppIcon {
 	public static String questionIcon = "com//mymanager//resources//icons//test.jpg";
 	public static String inputIcon = "com//mymanager//resources//icons//test.jpg";
 
+	public static String testIcon = "com/mymanager/resources/icons/test.jpg";
+
 	/**
 	 *
 	 * 
@@ -90,6 +92,35 @@ public class AppIcon {
 		Image img = null;
 		try {
 			img = ImageIO.read(AppIcon.class.getClassLoader().getResourceAsStream(imagePath));
+		} catch (IOException io) {
+
+			PrintUtils.print(io, PrintType.EXCEPTION);
+
+		}
+		return img;
+	}
+
+	/**
+	 * To be fixed below method because are throwing NPE
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+	public static ImageIcon getImageIcon(Object obj, String iconPath) {
+		ImageIcon icon = new ImageIcon(obj.getClass().getResource(iconPath));
+		return icon;
+	}
+
+	public static Icon getIcon(Object obj, String iconPath) {
+		Icon icon = new ImageIcon(obj.getClass().getResource(iconPath));
+		return icon;
+	}
+
+	public static Image getImage(Object obj, String imagePath) {
+		Image img = null;
+		try {
+			img = ImageIO.read(obj.getClass().getResourceAsStream(imagePath));
 		} catch (IOException io) {
 
 			PrintUtils.print(io, PrintType.EXCEPTION);

@@ -19,8 +19,13 @@ import com.mymanager.utils.UtilWindow;
  */
 public class OptionPaneTesting {
 
+	JFrame frame;
+
 	@Before
 	public void setUp() throws Exception {
+		frame = new JFrame();
+		frame.setSize(new Dimension(600, 350));
+		frame.setVisible(true);
 	}
 
 	@After
@@ -29,21 +34,30 @@ public class OptionPaneTesting {
 
 	@Test
 	public final void testMessage() {
-		JFrame frame = new JFrame();
-		frame.setSize(new Dimension(600, 350));
-		frame.setVisible(true);
 		UtilWindow.showMessage(frame, "Info", MessageType.ERROR);
+		UtilWindow.showMessage(frame, "Info", MessageType.WARNING);
+		UtilWindow.showMessage(frame, "Info", MessageType.INFORMATION);
+		UtilWindow.showMessage(frame, "Info", MessageType.QUESTION);
+		UtilWindow.showMessage(frame, "Info", MessageType.PLAIN);
+
 	}
 
 	@Test
 	public final void testOption() {
-		JFrame frame = new JFrame();
-		frame.setSize(new Dimension(600, 350));
-		frame.setVisible(true);
-		UtilWindow.showOption(frame, "OPtion testing", OptionType.DEFAULT);
-		UtilWindow.showOption(frame, "OPtion testing", OptionType.OK_CANCEL);
-		UtilWindow.showOption(frame, "OPtion testing", OptionType.YES_NO);
-		UtilWindow.showOption(frame, "OPtion testing", OptionType.YES_NO_CANCEL);
+		System.out.println(UtilWindow.showOption(frame, "OPtion testing", OptionType.DEFAULT));
+		System.out.println(UtilWindow.showOption(frame, "OPtion testing", OptionType.OK_CANCEL));
+		System.out.println(UtilWindow.showOption(frame, "OPtion testing", OptionType.YES_NO));
+		System.out.println(UtilWindow.showOption(frame, "OPtion testing", OptionType.YES_NO_CANCEL));
+
+	}
+
+	@Test
+	public final void testInput() {
+		String[] choices = { "GENI", "JARI", "LYMI", "DIU", "HASANI" };
+		System.out.println(UtilWindow.showInput(frame, "HI make a choice", choices, choices[0]));
+		System.out.println(UtilWindow.showInput(frame, "HI make a choice", choices, choices[0]));
+		System.out.println(UtilWindow.showInput(frame, "HI make a choice", choices, choices[0]));
+		System.out.println(UtilWindow.showInput(frame, "HI make a choice", choices, choices[0]));
 
 	}
 
