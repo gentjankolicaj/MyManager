@@ -38,7 +38,7 @@ public class UtilWindow {
 	}
 
 	public static Answer showOption(Component component, String text, OptionType optionType) {
-		int choiceValue = 0;
+		int choiceValue = 10;
 		if (Config.OPTION_WINDOWS) {
 			if (optionType.equals(OptionType.DEFAULT) && Config.DEFAULT) {
 				choiceValue = JOptionPane.showConfirmDialog(component, text, AppText.questionLabel,
@@ -58,10 +58,12 @@ public class UtilWindow {
 	}
 
 	public static String showInput(Component component, String text, String[] choices, String defaultChoice) {
-		Icon icon = AppIcon.getIcon(AppIcon.inputIcon);
 		String result = null;
-		result = (String) JOptionPane.showInputDialog(component, text, AppText.inputLabel, JOptionPane.QUESTION_MESSAGE,
-				icon, choices, defaultChoice);
+		if (Config.INPUT_WINDOWS) {
+			Icon icon = AppIcon.getIcon(AppIcon.inputIcon);
+			result = (String) JOptionPane.showInputDialog(component, text, AppText.inputLabel,
+					JOptionPane.QUESTION_MESSAGE, icon, choices, defaultChoice);
+		}
 		return result;
 
 	}
