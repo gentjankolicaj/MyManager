@@ -1,5 +1,6 @@
 package com.mymanager.controllers;
 
+import java.awt.Component;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -59,6 +60,8 @@ import com.mymanager.data.models.Status;
 import com.mymanager.data.models.User;
 import com.mymanager.data.models.UserType;
 import com.mymanager.data.models.WorkingHour;
+import com.mymanager.utils.MessageType;
+import com.mymanager.utils.UtilWindow;
 
 /**
  * 
@@ -87,8 +90,8 @@ public class AdminController extends UserController {
 	private AdressType adressType = AdressType.USER_ADRESS;
 	private ContactType contactType = ContactType.USER_CONTACT;
 
-	public AdminController(User user) {
-		super(user);
+	public AdminController(User user, Component component) {
+		super(user, component);
 		additionalAccess = new AdditionalAccessObject(queryType);
 		adressAccess = new AdressAccessObject(queryType, adressType);
 		attemptAccess = new AttemptAccessObject();
@@ -139,7 +142,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return additionalAccess.readAllAdditionals();
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -149,7 +152,7 @@ public class AdminController extends UserController {
 		try {
 			return additionalAccess.readAdditional(employeeId);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -159,7 +162,7 @@ public class AdminController extends UserController {
 		try {
 			return additionalAccess.insertAdditional(additional);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -169,7 +172,7 @@ public class AdminController extends UserController {
 		try {
 			return additionalAccess.updateAdditional(oldAdditional, newAdditional);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -179,7 +182,7 @@ public class AdminController extends UserController {
 		try {
 			return additionalAccess.deleteAdditional(additional);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -195,7 +198,7 @@ public class AdminController extends UserController {
 			setAdressType(adressType);
 			return adressAccess.readAllAdresses();
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -205,7 +208,7 @@ public class AdminController extends UserController {
 		try {
 			return adressAccess.readAdress(adressId);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -217,7 +220,7 @@ public class AdminController extends UserController {
 			setAdressType(adressType);
 			return adressAccess.readAdressesByPersonId(personId);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -229,7 +232,7 @@ public class AdminController extends UserController {
 			setAdressType(adressType);
 			return adressAccess.readAdressesByPersonId(city);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -241,7 +244,7 @@ public class AdminController extends UserController {
 			setAdressType(adressType);
 			return adressAccess.readAdressesByPersonId(country);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -253,7 +256,7 @@ public class AdminController extends UserController {
 			setAdressType(adressType);
 			return adressAccess.readAdressesByPersonId(street);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -264,7 +267,7 @@ public class AdminController extends UserController {
 			setAdressType(adressType);
 			return adressAccess.insertAdress(adress);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -275,7 +278,7 @@ public class AdminController extends UserController {
 			setAdressType(adressType);
 			return adressAccess.updateAdress(oldAdress, newAdress);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -286,7 +289,7 @@ public class AdminController extends UserController {
 			setAdressType(adressType);
 			return adressAccess.deleteAdress(adress);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -300,7 +303,7 @@ public class AdminController extends UserController {
 		try {
 			return attemptAccess.readAllAttempts();
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -310,7 +313,7 @@ public class AdminController extends UserController {
 		try {
 			return attemptAccess.readAtempts(user);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -320,7 +323,7 @@ public class AdminController extends UserController {
 		try {
 			return attemptAccess.readAtempts(status);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -330,7 +333,7 @@ public class AdminController extends UserController {
 		try {
 			return attemptAccess.insertAttempt(attempt);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -340,7 +343,7 @@ public class AdminController extends UserController {
 		try {
 			return attemptAccess.deleteAttempt(attempt);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -356,7 +359,7 @@ public class AdminController extends UserController {
 			setContactType(contactType);
 			return contactAccess.readAllContacts();
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -366,7 +369,7 @@ public class AdminController extends UserController {
 		try {
 			return contactAccess.readContact(contactId);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -378,7 +381,7 @@ public class AdminController extends UserController {
 			setContactType(contactType);
 			return contactAccess.readContactsByCelular(celular);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -390,7 +393,7 @@ public class AdminController extends UserController {
 			setContactType(contactType);
 			return contactAccess.readContactsByEmail(email);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -402,7 +405,7 @@ public class AdminController extends UserController {
 			setContactType(contactType);
 			return contactAccess.readContactByPersonId(personId);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -413,7 +416,7 @@ public class AdminController extends UserController {
 			setContactType(contactType);
 			return contactAccess.insertContact(contact);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -424,7 +427,7 @@ public class AdminController extends UserController {
 			setContactType(contactType);
 			return contactAccess.updateContact(oldContact, newContact);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -435,7 +438,7 @@ public class AdminController extends UserController {
 			setContactType(contactType);
 			return contactAccess.deleteContact(contact);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -449,7 +452,7 @@ public class AdminController extends UserController {
 		try {
 			return countryAccess.readAllCountries();
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -459,7 +462,7 @@ public class AdminController extends UserController {
 		try {
 			return countryAccess.readCountries(countryNames);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -469,7 +472,7 @@ public class AdminController extends UserController {
 		try {
 			return countryAccess.readCountry(country);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -479,7 +482,7 @@ public class AdminController extends UserController {
 		try {
 			return countryAccess.updateCountry(oldCountry, newCountry);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -489,7 +492,7 @@ public class AdminController extends UserController {
 		try {
 			return countryAccess.insertCountry(country);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -499,7 +502,7 @@ public class AdminController extends UserController {
 		try {
 			return countryAccess.deleteCountry(country);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -513,7 +516,7 @@ public class AdminController extends UserController {
 		try {
 			return currencyAccess.readAllCurrencies();
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -523,7 +526,7 @@ public class AdminController extends UserController {
 		try {
 			return currencyAccess.readCurrencies(currencyNames);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -533,7 +536,7 @@ public class AdminController extends UserController {
 		try {
 			return currencyAccess.updateCurrency(oldCurrency, newCurrency);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -543,7 +546,7 @@ public class AdminController extends UserController {
 		try {
 			return currencyAccess.insertCurrency(currency);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -553,7 +556,7 @@ public class AdminController extends UserController {
 		try {
 			return currencyAccess.deleteCurrency(currency);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -568,7 +571,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return departmentAccess.readAllDepartments();
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -579,7 +582,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return departmentAccess.readDepartments(departmentName);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -589,7 +592,7 @@ public class AdminController extends UserController {
 		try {
 			return departmentAccess.readDepartment(departmentId);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -599,7 +602,7 @@ public class AdminController extends UserController {
 		try {
 			return departmentAccess.updateDepartment(oldDepartment, newDepartment);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -609,7 +612,7 @@ public class AdminController extends UserController {
 		try {
 			return departmentAccess.insertDepartment(department);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -619,7 +622,7 @@ public class AdminController extends UserController {
 		try {
 			return departmentAccess.deleteDepartment(department);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -634,7 +637,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return documentAccess.readAllDocuments();
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -645,7 +648,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return documentAccess.readDocuments(documentName);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -656,7 +659,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return documentAccess.readDocumentByEmployeeId(employeeId);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -666,7 +669,7 @@ public class AdminController extends UserController {
 		try {
 			return documentAccess.readDocument(documentNumber);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -676,7 +679,7 @@ public class AdminController extends UserController {
 		try {
 			return documentAccess.updateDocument(oldDocument, newDocument);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -686,7 +689,7 @@ public class AdminController extends UserController {
 		try {
 			return documentAccess.insertDocument(document);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -696,7 +699,7 @@ public class AdminController extends UserController {
 		try {
 			return documentAccess.deleteDocument(document);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -711,7 +714,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return employeeAccess.readAllEmployees();
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -722,7 +725,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return employeeAccess.readEmployeesByFirstName(firstName);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -733,7 +736,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return employeeAccess.readEmployeesByLastName(lastName);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -744,7 +747,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return employeeAccess.readEmployeesByJobId(jobId);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -755,7 +758,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return employeeAccess.readEmployeesByDepartmentId(departmentId);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -766,7 +769,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return employeeAccess.readEmployeesByProjectName(projectName);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -776,7 +779,7 @@ public class AdminController extends UserController {
 		try {
 			return employeeAccess.readEmployee(employeeId);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -786,7 +789,7 @@ public class AdminController extends UserController {
 		try {
 			return employeeAccess.updateEmployee(oldEmployee, newEmployee);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -796,7 +799,7 @@ public class AdminController extends UserController {
 		try {
 			return employeeAccess.insertEmployee(employee);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -806,7 +809,7 @@ public class AdminController extends UserController {
 		try {
 			return employeeAccess.deleteEmployee(employee);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -820,7 +823,7 @@ public class AdminController extends UserController {
 		try {
 			return fileTypeAccess.readAllFileTypes();
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -830,7 +833,7 @@ public class AdminController extends UserController {
 		try {
 			return fileTypeAccess.readFileType(fileType);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -840,7 +843,7 @@ public class AdminController extends UserController {
 		try {
 			return fileTypeAccess.updateFileType(oldFileType, newFileType);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -850,7 +853,7 @@ public class AdminController extends UserController {
 		try {
 			return fileTypeAccess.insertFileType(fileType);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -860,7 +863,7 @@ public class AdminController extends UserController {
 		try {
 			return fileTypeAccess.deleteFileType(fileType);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -875,7 +878,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return jobAccess.readAllJobs();
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -886,7 +889,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return jobAccess.readAllJobsBetweenSalary(minSalary, maxSalary);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -897,7 +900,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return jobAccess.readAllJobsByTitle(jobTitle);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -907,7 +910,7 @@ public class AdminController extends UserController {
 		try {
 			return jobAccess.readJob(jobId);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -917,7 +920,7 @@ public class AdminController extends UserController {
 		try {
 			return jobAccess.updateJob(oldJob, newJob);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -927,7 +930,7 @@ public class AdminController extends UserController {
 		try {
 			return jobAccess.insertJob(job);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -937,7 +940,7 @@ public class AdminController extends UserController {
 		try {
 			return jobAccess.deleteJob(job);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -952,7 +955,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return jobHistoryAccess.readAllJobHistories();
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -963,7 +966,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return jobHistoryAccess.readAllJobHistoryBetweenDates(startDate, endDate);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -974,7 +977,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return jobHistoryAccess.readAllJobHistoryByJobId(jobId);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -985,7 +988,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return jobHistoryAccess.readAllJobHistoryByDepartmentId(departmentId);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -996,7 +999,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return jobHistoryAccess.readAllJobHistoryByEmployeeId(employeeId);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -1006,7 +1009,7 @@ public class AdminController extends UserController {
 		try {
 			return jobHistoryAccess.readJobHistoryByEmployeeId(employeeId, createdDateTime);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -1016,7 +1019,7 @@ public class AdminController extends UserController {
 		try {
 			return jobHistoryAccess.updateJobHistory(oldJobHistory, newJobHistory);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -1026,7 +1029,7 @@ public class AdminController extends UserController {
 		try {
 			return jobHistoryAccess.insertJobHistory(jobHistory);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -1036,7 +1039,7 @@ public class AdminController extends UserController {
 		try {
 			return jobHistoryAccess.deleteJobHistory(jobHistory);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -1051,7 +1054,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return paymentAccess.readAllPayments();
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -1062,7 +1065,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return paymentAccess.readAllPaymentsByPaymentType(paymentType);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -1073,7 +1076,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return paymentAccess.readAllPaymentsByDescription(description);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -1084,7 +1087,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return paymentAccess.readAllPaymentsByEmployeeId(employeeId);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -1094,7 +1097,7 @@ public class AdminController extends UserController {
 		try {
 			return paymentAccess.readPayment(paymentId);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -1104,7 +1107,7 @@ public class AdminController extends UserController {
 		try {
 			return paymentAccess.updatePayment(oldPayment, newPayment);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -1114,7 +1117,7 @@ public class AdminController extends UserController {
 		try {
 			return paymentAccess.insertPayment(payment);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -1124,7 +1127,7 @@ public class AdminController extends UserController {
 		try {
 			return paymentAccess.deletePayment(payment);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -1139,7 +1142,7 @@ public class AdminController extends UserController {
 
 			return projectAccess.readAllProjects();
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -1149,7 +1152,7 @@ public class AdminController extends UserController {
 		try {
 			return projectAccess.readAllProjectsByCustomer(customer);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -1159,7 +1162,7 @@ public class AdminController extends UserController {
 		try {
 			return projectAccess.readAllProjectsByDescription(description);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -1169,7 +1172,7 @@ public class AdminController extends UserController {
 		try {
 			return projectAccess.readProjectByName(projectName);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -1179,7 +1182,7 @@ public class AdminController extends UserController {
 		try {
 			return projectAccess.updateProject(oldProject, newProject);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -1189,7 +1192,7 @@ public class AdminController extends UserController {
 		try {
 			return projectAccess.insertProject(project);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -1199,7 +1202,7 @@ public class AdminController extends UserController {
 		try {
 			return projectAccess.deleteProject(project);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -1214,7 +1217,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return userAccess.readAllUsers();
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -1225,7 +1228,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return userAccess.readUsersByFirstName(firstName);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -1236,7 +1239,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return userAccess.readUsersByLastName(lastName);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -1247,7 +1250,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return userAccess.readUsersByUserType(userType);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -1258,7 +1261,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return userAccess.readUsersByRights(rights);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -1268,7 +1271,7 @@ public class AdminController extends UserController {
 		try {
 			return userAccess.readUser(userId);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -1278,7 +1281,7 @@ public class AdminController extends UserController {
 		try {
 			return userAccess.updateUser(oldUser, newUser);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -1288,7 +1291,7 @@ public class AdminController extends UserController {
 		try {
 			return userAccess.insertUser(user);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -1298,7 +1301,7 @@ public class AdminController extends UserController {
 		try {
 			return userAccess.deleteUser(user);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -1313,7 +1316,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return workingHourAccess.readAllWorkingHour();
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -1324,7 +1327,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return workingHourAccess.readWorkingHourByEmplyeeId(employeeId);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -1335,7 +1338,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return workingHourAccess.readWorkingHourByDate(date);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -1346,7 +1349,7 @@ public class AdminController extends UserController {
 			setQueryType(queryType);
 			return workingHourAccess.readWorkingHourByBetween(minHours, maxHours);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -1356,7 +1359,7 @@ public class AdminController extends UserController {
 		try {
 			return workingHourAccess.readWorkingHourByIndex(index);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -1366,7 +1369,7 @@ public class AdminController extends UserController {
 		try {
 			return workingHourAccess.updateWorkingHour(oldWorkingHour, newWorkingHour);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -1376,7 +1379,7 @@ public class AdminController extends UserController {
 		try {
 			return workingHourAccess.insertWorkingHour(workingHour);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -1386,7 +1389,7 @@ public class AdminController extends UserController {
 		try {
 			return workingHourAccess.deleteWorkingHour(workingHour);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
