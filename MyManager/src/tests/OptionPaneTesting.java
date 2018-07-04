@@ -58,6 +58,7 @@ public class OptionPaneTesting {
 		System.out.println(UtilWindow.showInput(frame, "HI make a choice", choices, choices[0]));
 		System.out.println(UtilWindow.showInput(frame, "HI make a choice", choices, choices[0]));
 		System.out.println(UtilWindow.showInput(frame, "HI make a choice", choices, choices[0]));
+		System.out.println(UtilWindow.showInput(frame, "Type some text"));
 
 	}
 
