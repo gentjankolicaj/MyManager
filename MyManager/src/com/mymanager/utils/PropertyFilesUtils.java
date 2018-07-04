@@ -1,7 +1,6 @@
 package com.mymanager.utils;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -79,7 +78,7 @@ public class PropertyFilesUtils {
 		try {
 			Properties prop = new Properties();
 
-			InputStream inputStream = new FileInputStream(filePath);
+			InputStream inputStream = PropertyFilesUtils.class.getClassLoader().getResourceAsStream(filePath);
 			prop.load(inputStream);
 			inputStream.close();
 

@@ -37,6 +37,29 @@ public class UtilWindow {
 		}
 	}
 
+	public static void showMessage(Component component, String text, MessageType messageType, String scope) {
+		if (Config.MESSAGE_WINDOWS) {
+			if (decideScope(scope)) {
+				if (messageType.equals(MessageType.PLAIN) && Config.PLAIN_MESSAGE) {
+					JOptionPane.showMessageDialog(component, text, AppText.plainLabel, JOptionPane.PLAIN_MESSAGE,
+							AppIcon.getIcon(AppIcon.plainIcon));
+				} else if (messageType.equals(MessageType.INFORMATION) && Config.INFO_MESSAGE) {
+					JOptionPane.showMessageDialog(component, text, AppText.infoLabel, JOptionPane.INFORMATION_MESSAGE,
+							AppIcon.getIcon(AppIcon.infoIcon));
+				} else if (messageType.equals(MessageType.QUESTION) && Config.QUESTION_MESSAGE) {
+					JOptionPane.showMessageDialog(component, text, AppText.questionLabel, JOptionPane.QUESTION_MESSAGE,
+							AppIcon.getIcon(AppIcon.questionIcon));
+				} else if (messageType.equals(MessageType.WARNING) && Config.WARNING_MESSAGE) {
+					JOptionPane.showMessageDialog(component, text, AppText.warningLabel, JOptionPane.WARNING_MESSAGE,
+							AppIcon.getIcon(AppIcon.warningIcon));
+				} else if (messageType.equals(MessageType.ERROR) && Config.ERROR_MESSAGE) {
+					JOptionPane.showMessageDialog(component, text, AppText.errorLabel, JOptionPane.ERROR_MESSAGE,
+							AppIcon.getIcon(AppIcon.errorIcon));
+				}
+			}
+		}
+	}
+
 	public static Answer showOption(Component component, String text, OptionType optionType) {
 		int choiceValue = 10;
 		if (Config.OPTION_WINDOWS) {
@@ -77,6 +100,14 @@ public class UtilWindow {
 
 	}
 
+	public static String showInput(Component component, String text) {
+		Icon icon = AppIcon.getIcon(AppIcon.inputIcon);
+		String result = null;
+		result = (String) JOptionPane.showInputDialog(component, text);
+		return result;
+
+	}
+
 	private static Answer translateValue(int value) {
 		if (value == -1) {
 			return Answer.ClOSE;
@@ -90,5 +121,20 @@ public class UtilWindow {
 			return Answer.UNKNOWN;
 		}
 
+	}
+
+	private static boolean decideScope(String scope) {
+		if (scope.equalsIgnoreCase("admin")) {
+			return Config.ADMIN_CONTROLLER;
+		} else if (scope.equalsIgnoreCase("assistant")) {
+			return Config.ASSISTANT_CONTROLLER;
+		} else if (scope.equalsIgnoreCase("finance")) {
+			return Config.FINANCE_CONTROLLER;
+		} else if (scope.equalsIgnoreCase("hr")) {
+			return Config.HR_CONTROLLER;
+		} else if (scope.equalsIgnoreCase("manager")) {
+			return Config.MANAGER_CONTROLLER;
+		} else
+			return false;
 	}
 }
