@@ -10,6 +10,9 @@ import com.mymanager.utils.PrintFormat;
  */
 public class Config {
 
+	public static int WIDTH = 900;
+	public static int HEIGHT = 600;
+
 	public static boolean PRINT_EXCEPTION = true;
 	public static boolean PRINT_FILE_IO = true;
 	public static boolean PRINT_DATABASE_QUERY = true;
@@ -29,6 +32,13 @@ public class Config {
 	public static boolean ERROR_MESSAGE = true;
 	public static boolean INFO_MESSAGE = true;
 	public static boolean QUESTION_MESSAGE = true;
+
+	// decides for scope of message window
+	public static boolean ADMIN_CONTROLLER = true;
+	public static boolean ASSISTANT_CONTROLLER = true;
+	public static boolean FINANCE_CONTROLLER = true;
+	public static boolean HR_CONTROLLER = true;
+	public static boolean MANAGER_CONTROLLER = true;
 
 	// OPTION Pane
 	public static boolean OPTION_WINDOWS = true;
