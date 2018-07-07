@@ -18,7 +18,8 @@ public class AppText {
 	public static String[] textMode = { "ADMIN", "ASSISTANT", "FINANCE", "HUMAN RESOURCE", "MANAGER", };
 	public static String[] permissions = { "READ", "CREATE", "EDIT", "DELETE", "AUDIT" };
 
-	public static String loginButtonText = "Login";
+	public static String loginButtonText = " Login";
+	public static String closeButtonText = " Close";
 	public static String logoutButtonText = "Logout";
 	public static String passwordLabel = "Password :";
 	public static String userLabel = "User :";

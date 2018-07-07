@@ -17,6 +17,10 @@ import com.mymanager.utils.PrintUtils;
  */
 public class AppIcon {
 
+	public static String appIcon = "com/mymanager/resources/icons/png/Boss.png";
+
+	public static String appImage = "com/mymanager/resources/icons/png/image.png";
+
 	// Functionality Icons
 	public static String usersIcon = "com/mymanager/resources/icons/test.jpg";
 	public static String employeesIcon = "com/mymanager/resources/icons/test.jpg";
