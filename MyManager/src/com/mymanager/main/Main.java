@@ -1,8 +1,10 @@
 package com.mymanager.main;
 
+import java.awt.EventQueue;
+
 import com.mymanager.data.database.Database;
 import com.mymanager.data.database.MySQLDatabase;
-import com.mymanager.views.MyWindow;
+import com.mymanager.views.MyFrame;
 
 /**
  * 
@@ -12,11 +14,20 @@ import com.mymanager.views.MyWindow;
 public class Main {
 
 	private static Database database;
-	private static MyWindow myWindow;
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MyFrame frame = new MyFrame();
+					frame.initFrame();
+					frame.initMenu();
+					frame.displayFrame();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	public static boolean setUpDatabase() {
@@ -26,7 +37,7 @@ public class Main {
 	}
 
 	public static boolean setUpGUI() {
-		myWindow = new MyWindow();
+
 		return false;
 	}
 
