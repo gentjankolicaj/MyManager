@@ -52,6 +52,11 @@ import com.mymanager.data.models.Status;
 import com.mymanager.data.models.User;
 import com.mymanager.data.models.UserType;
 
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public class DatabaseInsertQueries {
 
 	private static AdditionalAccess additionalAccess;

@@ -1,6 +1,11 @@
 package com.mymanager.utils;
 
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public enum MessageType {
 
-	ERROR_MESSAGE, INFORMATION_MESSAGE, WARNING_MESSAGE, QUESTION_MESSAGE, PLAIN_MESSAGE
+	ERROR, INFORMATION, WARNING, QUESTION, PLAIN
 }

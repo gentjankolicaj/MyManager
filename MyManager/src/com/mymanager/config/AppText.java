@@ -18,7 +18,8 @@ public class AppText {
 	public static String[] textMode = { "ADMIN", "ASSISTANT", "FINANCE", "HUMAN RESOURCE", "MANAGER", };
 	public static String[] permissions = { "READ", "CREATE", "EDIT", "DELETE", "AUDIT" };
 
-	public static String loginButtonText = "Login";
+	public static String loginButtonText = " Login";
+	public static String closeButtonText = " Close";
 	public static String logoutButtonText = "Logout";
 	public static String passwordLabel = "Password :";
 	public static String userLabel = "User :";
@@ -138,11 +139,14 @@ public class AppText {
 	public static String dataLabel = "Data";
 	public static String uploadLabel = "Upload";
 	public static String downloadLabel = "Download";
+
+	public static String plainLabel = "Just to notify you";
 	public static String successLabel = "Success ";
 	public static String warningLabel = "Warning ";
 	public static String infoLabel = "Information ";
 	public static String errorLabel = "Error ";
 	public static String questionLabel = "Question ";
+
 	public static String inputLabel = "Input ";
 
 	// To do

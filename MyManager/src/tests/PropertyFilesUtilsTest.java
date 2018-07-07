@@ -7,13 +7,18 @@ import org.junit.Test;
 
 import com.mymanager.utils.PropertyFilesUtils;
 
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public class PropertyFilesUtilsTest {
 
 	@Test
 	public final void testGetValues() {
-		PropertyFilesUtils.getValues("com//mymanager//config//application.properties");// relative
-																						// path
-																						// ok
+		PropertyFilesUtils.getValues("com/mymanager/config/application.properties");// relative
+																					// path
+																					// ok
 	}
 
 	@Test
@@ -23,7 +28,7 @@ public class PropertyFilesUtilsTest {
 		temp.put("2", "postgresSQL");
 		temp.put("3", "5432");
 		temp.put("4", "localhost");
-		PropertyFilesUtils.updateValues("src//com//mymanager//config//update_application.properties", temp);// absolute
+		PropertyFilesUtils.updateValues("com/mymanager/config/update_application.properties", temp);// absolute
 		// path
 	}
 

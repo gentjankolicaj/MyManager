@@ -1,5 +1,6 @@
 package com.mymanager.controllers;
 
+import java.awt.Component;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -26,6 +27,8 @@ import com.mymanager.data.models.PaymentType;
 import com.mymanager.data.models.Project;
 import com.mymanager.data.models.User;
 import com.mymanager.data.models.WorkingHour;
+import com.mymanager.utils.MessageType;
+import com.mymanager.utils.UtilWindow;
 
 /**
  * 
@@ -44,8 +47,8 @@ public class FinanceController extends UserController {
 	private AdressType adressType = AdressType.USER_ADRESS;
 	private ContactType contactType = ContactType.USER_CONTACT;
 
-	public FinanceController(User user) {
-		super(user);
+	public FinanceController(User user, Component component) {
+		super(user, component);
 		currencyAccess = new CurrencyAccessObject();
 		employeeAccess = new EmployeeAccessObject(queryType);
 		fileTypeAccess = new FileTypeAccessObject();
@@ -86,7 +89,7 @@ public class FinanceController extends UserController {
 		try {
 			return currencyAccess.readAllCurrencies();
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return null;
 		}
 
@@ -96,7 +99,7 @@ public class FinanceController extends UserController {
 		try {
 			return currencyAccess.readCurrencies(currencyNames);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return null;
 		}
 
@@ -106,7 +109,7 @@ public class FinanceController extends UserController {
 		try {
 			return currencyAccess.updateCurrency(oldCurrency, newCurrency);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return 0;
 		}
 
@@ -116,7 +119,7 @@ public class FinanceController extends UserController {
 		try {
 			return currencyAccess.insertCurrency(currency);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return 0;
 		}
 
@@ -126,7 +129,7 @@ public class FinanceController extends UserController {
 		try {
 			return currencyAccess.deleteCurrency(currency);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return 0;
 		}
 
@@ -141,7 +144,7 @@ public class FinanceController extends UserController {
 			setQueryType(queryType);
 			return employeeAccess.readAllEmployees();
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return null;
 		}
 
@@ -152,7 +155,7 @@ public class FinanceController extends UserController {
 			setQueryType(queryType);
 			return employeeAccess.readEmployeesByFirstName(firstName);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return null;
 		}
 
@@ -163,7 +166,7 @@ public class FinanceController extends UserController {
 			setQueryType(queryType);
 			return employeeAccess.readEmployeesByLastName(lastName);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return null;
 		}
 
@@ -174,7 +177,7 @@ public class FinanceController extends UserController {
 			setQueryType(queryType);
 			return employeeAccess.readEmployeesByJobId(jobId);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return null;
 		}
 
@@ -185,7 +188,7 @@ public class FinanceController extends UserController {
 			setQueryType(queryType);
 			return employeeAccess.readEmployeesByDepartmentId(departmentId);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return null;
 		}
 
@@ -196,7 +199,7 @@ public class FinanceController extends UserController {
 			setQueryType(queryType);
 			return employeeAccess.readEmployeesByProjectName(projectName);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return null;
 		}
 
@@ -206,7 +209,7 @@ public class FinanceController extends UserController {
 		try {
 			return employeeAccess.readEmployee(employeeId);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return null;
 		}
 
@@ -216,7 +219,7 @@ public class FinanceController extends UserController {
 		try {
 			return employeeAccess.updateEmployee(oldEmployee, newEmployee);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return 0;
 		}
 
@@ -226,7 +229,7 @@ public class FinanceController extends UserController {
 		try {
 			return employeeAccess.insertEmployee(employee);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return 0;
 		}
 
@@ -236,7 +239,7 @@ public class FinanceController extends UserController {
 		try {
 			return employeeAccess.deleteEmployee(employee);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return 0;
 		}
 
@@ -250,7 +253,7 @@ public class FinanceController extends UserController {
 		try {
 			return fileTypeAccess.readAllFileTypes();
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return null;
 		}
 
@@ -260,7 +263,7 @@ public class FinanceController extends UserController {
 		try {
 			return fileTypeAccess.readFileType(fileType);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return null;
 		}
 
@@ -270,7 +273,7 @@ public class FinanceController extends UserController {
 		try {
 			return fileTypeAccess.updateFileType(oldFileType, newFileType);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return 0;
 		}
 
@@ -280,7 +283,7 @@ public class FinanceController extends UserController {
 		try {
 			return fileTypeAccess.insertFileType(fileType);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return 0;
 		}
 
@@ -290,7 +293,7 @@ public class FinanceController extends UserController {
 		try {
 			return fileTypeAccess.deleteFileType(fileType);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return 0;
 		}
 
@@ -305,7 +308,7 @@ public class FinanceController extends UserController {
 			setQueryType(queryType);
 			return paymentAccess.readAllPayments();
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return null;
 		}
 
@@ -316,7 +319,7 @@ public class FinanceController extends UserController {
 			setQueryType(queryType);
 			return paymentAccess.readAllPaymentsByPaymentType(paymentType);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return null;
 		}
 
@@ -327,7 +330,7 @@ public class FinanceController extends UserController {
 			setQueryType(queryType);
 			return paymentAccess.readAllPaymentsByDescription(description);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return null;
 		}
 
@@ -338,7 +341,7 @@ public class FinanceController extends UserController {
 			setQueryType(queryType);
 			return paymentAccess.readAllPaymentsByEmployeeId(employeeId);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return null;
 		}
 
@@ -348,7 +351,7 @@ public class FinanceController extends UserController {
 		try {
 			return paymentAccess.readPayment(paymentId);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return null;
 		}
 
@@ -358,7 +361,7 @@ public class FinanceController extends UserController {
 		try {
 			return paymentAccess.updatePayment(oldPayment, newPayment);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return 0;
 		}
 
@@ -368,7 +371,7 @@ public class FinanceController extends UserController {
 		try {
 			return paymentAccess.insertPayment(payment);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return 0;
 		}
 
@@ -378,7 +381,7 @@ public class FinanceController extends UserController {
 		try {
 			return paymentAccess.deletePayment(payment);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return 0;
 		}
 
@@ -393,7 +396,7 @@ public class FinanceController extends UserController {
 
 			return projectAccess.readAllProjects();
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return null;
 		}
 
@@ -403,7 +406,7 @@ public class FinanceController extends UserController {
 		try {
 			return projectAccess.readAllProjectsByCustomer(customer);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return null;
 		}
 
@@ -413,7 +416,7 @@ public class FinanceController extends UserController {
 		try {
 			return projectAccess.readAllProjectsByDescription(description);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return null;
 		}
 
@@ -423,7 +426,7 @@ public class FinanceController extends UserController {
 		try {
 			return projectAccess.readProjectByName(projectName);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return null;
 		}
 
@@ -433,7 +436,7 @@ public class FinanceController extends UserController {
 		try {
 			return projectAccess.updateProject(oldProject, newProject);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return 0;
 		}
 
@@ -443,7 +446,7 @@ public class FinanceController extends UserController {
 		try {
 			return projectAccess.insertProject(project);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return 0;
 		}
 
@@ -453,7 +456,7 @@ public class FinanceController extends UserController {
 		try {
 			return projectAccess.deleteProject(project);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return 0;
 		}
 
@@ -468,7 +471,7 @@ public class FinanceController extends UserController {
 			setQueryType(queryType);
 			return workingHourAccess.readAllWorkingHour();
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return null;
 		}
 
@@ -479,7 +482,7 @@ public class FinanceController extends UserController {
 			setQueryType(queryType);
 			return workingHourAccess.readWorkingHourByEmplyeeId(employeeId);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return null;
 		}
 
@@ -490,7 +493,7 @@ public class FinanceController extends UserController {
 			setQueryType(queryType);
 			return workingHourAccess.readWorkingHourByDate(date);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return null;
 		}
 
@@ -501,7 +504,7 @@ public class FinanceController extends UserController {
 			setQueryType(queryType);
 			return workingHourAccess.readWorkingHourByBetween(minHours, maxHours);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return null;
 		}
 
@@ -511,7 +514,7 @@ public class FinanceController extends UserController {
 		try {
 			return workingHourAccess.readWorkingHourByIndex(index);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return null;
 		}
 
@@ -521,7 +524,7 @@ public class FinanceController extends UserController {
 		try {
 			return workingHourAccess.updateWorkingHour(oldWorkingHour, newWorkingHour);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return 0;
 		}
 
@@ -531,7 +534,7 @@ public class FinanceController extends UserController {
 		try {
 			return workingHourAccess.insertWorkingHour(workingHour);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return 0;
 		}
 
@@ -541,7 +544,7 @@ public class FinanceController extends UserController {
 		try {
 			return workingHourAccess.deleteWorkingHour(workingHour);
 		} catch (Exception e) {
-
+			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "finance");
 			return 0;
 		}
 
