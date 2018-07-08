@@ -120,6 +120,9 @@ public class DatabaseInsertQueries {
 
 			i--;
 		}
+		userAccess.insertUser(new User(String.valueOf(1), UserType.ADMIN, "name", "last", "1", LocalDate.now(),
+				"Tirane", Gender.M, Rights.DELETE, "created Gentjan", "modified gentjan", LocalDateTime.now(),
+				LocalDateTime.now()));
 
 	}
 

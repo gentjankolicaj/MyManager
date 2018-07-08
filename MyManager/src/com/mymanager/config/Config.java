@@ -10,8 +10,8 @@ import com.mymanager.utils.PrintFormat;
  */
 public class Config {
 
-	public static int FRAME_WIDTH = 900;
-	public static int FRAME_HEIGHT = 650;
+	public static int FRAME_WIDTH = 910;
+	public static int FRAME_HEIGHT = 690;
 
 	public static boolean PRINT_EXCEPTION = true;
 	public static boolean PRINT_FILE_IO = true;

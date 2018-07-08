@@ -41,4 +41,10 @@ public class AppUtil {
 		});
 
 	}
+
+	public static void changePanel(JFrame jframe, JPanel jpanel) {
+		jframe.setContentPane(jpanel);
+		jframe.invalidate();
+		jframe.validate();
+	}
 }

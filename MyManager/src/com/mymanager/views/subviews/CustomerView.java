@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.User;
 
-public class EmployeeView extends JPanel {
+public class CustomerView extends JPanel {
 
 	private User user;
 	private UserController userController;
@@ -14,7 +14,7 @@ public class EmployeeView extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public EmployeeView(JFrame jframe) {
+	public CustomerView(JFrame jframe) {
 
 	}
 

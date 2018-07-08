@@ -2,20 +2,78 @@ package com.mymanager.views;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.time.LocalDateTime;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import com.mymanager.controllers.UserController;
+import com.mymanager.data.models.User;
+import com.mymanager.utils.AppUtil;
+import com.mymanager.views.subviews.CustomerView;
+import com.mymanager.views.subviews.EmployeeView;
+import com.mymanager.views.subviews.ProjectView;
+import com.mymanager.views.subviews.UserView;
+
 public class MainView extends JPanel {
+
+	private JFrame jframe;
 	private JPanel accountPanel;
+	private JPanel usersPanel;
+	private JPanel employeesPanel;
+	private JPanel projectsPanel;
+	private JLabel labelFirstname;
+	private JLabel labelLastname;
+	private JLabel labelGender;
+	private JLabel labelBirthplace;
+	private JLabel labelBirthday;
+	private JLabel labelUsertype;
+	private JLabel labelRights;
+	private JLabel labelLastlogin;
+	private JLabel labelDate;
+	private JPanel customerPanel;
+	private JPanel myAccountPanel;
+	private JPanel currenciesPanel;
+	private JPanel paymentTypePanel;
+	private JPanel rightsPanel;
+	private JPanel fileTypePanel;
+	private JPanel countryPanel;
+
+	private User user;
+	private UserController userController;
+	private JLabel labelUserId;
+
+	// Views
+	//
+	private UserView usersView;
+	private EmployeeView employeesView;
+	private ProjectView projectsView;
+	private CustomerView customersView;
 
 	/**
 	 * Create the panel.
 	 */
-	public MainView() {
+	public MainView(JFrame jframe) {
+		this.jframe = jframe;
+		usersView = new UserView(jframe);
+		employeesView = new EmployeeView(jframe);
+		projectsView = new ProjectView(jframe);
+		customersView = new CustomerView(jframe);
+		initComponents();
+		initAccountEvents();
+		initConfigEvents();
+
+		// update user details labels;
+
+	}
+
+	public void initComponents() {
 		setBorder(new LineBorder(new Color(0, 191, 255)));
 		setForeground(new Color(0, 191, 255));
 		setBackground(new Color(255, 255, 255));
@@ -24,7 +82,7 @@ public class MainView extends JPanel {
 		accountPanel = new JPanel();
 		accountPanel.setBorder(new LineBorder(new Color(0, 191, 255)));
 		accountPanel.setBackground(new Color(255, 255, 255));
-		accountPanel.setBounds(0, 0, 235, 650);
+		accountPanel.setBounds(0, 0, 284, 650);
 		add(accountPanel);
 		accountPanel.setLayout(null);
 
@@ -34,84 +92,92 @@ public class MainView extends JPanel {
 		lblUser.setBounds(116, 0, 75, 56);
 		accountPanel.add(lblUser);
 
-		JLabel labelFirstname = new JLabel("default");
-		labelFirstname.setBounds(72, 53, 153, 19);
+		labelFirstname = new JLabel("default");
+		labelFirstname.setBounds(95, 127, 162, 19);
 		accountPanel.add(labelFirstname);
 
 		JLabel firstname = new JLabel("First name :");
-		firstname.setBounds(10, 55, 57, 14);
+		firstname.setBounds(10, 127, 75, 19);
 		accountPanel.add(firstname);
 
-		JLabel labelLastname = new JLabel("default");
-		labelLastname.setBounds(72, 83, 153, 19);
+		labelLastname = new JLabel("default");
+		labelLastname.setBounds(95, 169, 162, 19);
 		accountPanel.add(labelLastname);
 
-		JLabel labelGender = new JLabel("default");
-		labelGender.setBounds(72, 121, 153, 19);
+		labelGender = new JLabel("default");
+		labelGender.setBounds(95, 207, 162, 19);
 		accountPanel.add(labelGender);
 
-		JLabel labelBirthplace = new JLabel("default");
-		labelBirthplace.setBounds(72, 161, 153, 19);
+		labelBirthplace = new JLabel("default");
+		labelBirthplace.setBounds(95, 247, 162, 19);
 		accountPanel.add(labelBirthplace);
 
-		JLabel labelBirthday = new JLabel("default");
-		labelBirthday.setBounds(72, 202, 153, 19);
+		labelBirthday = new JLabel("default");
+		labelBirthday.setBounds(98, 288, 159, 19);
 		accountPanel.add(labelBirthday);
 
-		JLabel labelUsertype = new JLabel("default");
-		labelUsertype.setBounds(72, 244, 153, 19);
+		labelUsertype = new JLabel("default");
+		labelUsertype.setBounds(98, 330, 140, 19);
 		accountPanel.add(labelUsertype);
 
-		JLabel labelRights = new JLabel("default");
-		labelRights.setBounds(72, 289, 153, 19);
+		labelRights = new JLabel("default");
+		labelRights.setBounds(98, 375, 159, 19);
 		accountPanel.add(labelRights);
 
-		JLabel labelLastlogin = new JLabel("default");
-		labelLastlogin.setBounds(72, 332, 153, 19);
+		labelLastlogin = new JLabel("default");
+		labelLastlogin.setBounds(95, 416, 162, 19);
 		accountPanel.add(labelLastlogin);
 
-		JLabel labelDate = new JLabel("default");
-		labelDate.setBounds(72, 391, 134, 19);
+		labelDate = new JLabel("default");
+		labelDate.setBounds(95, 475, 162, 19);
 		accountPanel.add(labelDate);
 
 		JLabel lastname = new JLabel("Last name :");
-		lastname.setBounds(10, 85, 57, 14);
+		lastname.setBounds(10, 169, 75, 19);
 		accountPanel.add(lastname);
 
 		JLabel gender = new JLabel("Gender :");
-		gender.setBounds(10, 123, 57, 14);
+		gender.setBounds(10, 207, 75, 19);
 		accountPanel.add(gender);
 
 		JLabel birthplace = new JLabel("Birthplace :");
-		birthplace.setBounds(10, 163, 57, 14);
+		birthplace.setBounds(10, 247, 75, 19);
 		accountPanel.add(birthplace);
 
 		JLabel birthday = new JLabel("Birthday  :");
-		birthday.setBounds(10, 204, 57, 14);
+		birthday.setBounds(10, 288, 75, 19);
 		accountPanel.add(birthday);
 
 		JLabel userType = new JLabel("User type  :");
-		userType.setBounds(10, 246, 57, 14);
+		userType.setBounds(10, 330, 75, 19);
 		accountPanel.add(userType);
 
 		JLabel rights = new JLabel("Rights  :");
-		rights.setBounds(10, 291, 57, 14);
+		rights.setBounds(10, 375, 75, 19);
 		accountPanel.add(rights);
 
 		JLabel lastlogin = new JLabel("Last login :");
-		lastlogin.setBounds(10, 334, 57, 14);
+		lastlogin.setBounds(10, 418, 75, 17);
 		accountPanel.add(lastlogin);
 
 		JLabel currentDate = new JLabel("Today date");
 		currentDate.setFont(new Font("Tahoma", Font.ITALIC, 11));
-		currentDate.setBounds(10, 392, 60, 17);
+		currentDate.setBounds(10, 476, 75, 18);
 		accountPanel.add(currentDate);
+
+		JLabel userId = new JLabel("User ID :");
+		userId.setBounds(10, 92, 60, 14);
+		accountPanel.add(userId);
+
+		labelUserId = new JLabel("default");
+		labelUserId.setBounds(95, 92, 162, 19);
+		accountPanel.add(labelUserId);
 
 		JPanel menuPanel = new JPanel();
 		menuPanel.setBorder(new LineBorder(new Color(0, 191, 255)));
 		menuPanel.setForeground(new Color(0, 191, 255));
 		menuPanel.setBackground(new Color(255, 255, 255));
-		menuPanel.setBounds(226, 0, 624, 650);
+		menuPanel.setBounds(226, 0, 752, 650);
 		add(menuPanel);
 		menuPanel.setLayout(null);
 
@@ -119,11 +185,11 @@ public class MainView extends JPanel {
 		dataPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "My Data", TitledBorder.CENTER,
 				TitledBorder.TOP, null, new Color(0, 0, 0)));
 		dataPanel.setBackground(new Color(255, 255, 255));
-		dataPanel.setBounds(10, 11, 604, 388);
+		dataPanel.setBounds(61, 11, 604, 388);
 		menuPanel.add(dataPanel);
 		dataPanel.setLayout(null);
 
-		JPanel usersPanel = new JPanel();
+		usersPanel = new JPanel();
 		usersPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Users", TitledBorder.LEADING,
 				TitledBorder.TOP, null, new Color(0, 0, 0)));
 		usersPanel.setBackground(new Color(255, 255, 255));
@@ -137,7 +203,7 @@ public class MainView extends JPanel {
 		lblNewLabel_1.setIcon(new ImageIcon(
 				MainView.class.getResource("/com/mymanager/resources/icons/icons_80x80/icons8-user-menu-male.png")));
 
-		JPanel employeesPanel = new JPanel();
+		employeesPanel = new JPanel();
 		employeesPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Employees",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		employeesPanel.setBackground(new Color(255, 255, 255));
@@ -151,21 +217,22 @@ public class MainView extends JPanel {
 		lblNewLabel.setIcon(new ImageIcon(
 				MainView.class.getResource("/com/mymanager/resources/icons/icons_80x80/icons8-users-meeting-2.png")));
 
-		JPanel clientPanel = new JPanel();
-		clientPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Clients", TitledBorder.LEADING,
-				TitledBorder.TOP, null, null));
-		clientPanel.setBackground(new Color(255, 255, 255));
-		clientPanel.setBounds(420, 21, 168, 110);
-		dataPanel.add(clientPanel);
-		clientPanel.setLayout(null);
+		customerPanel = new JPanel();
+		customerPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Customers",
+				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		customerPanel.setBackground(new Color(255, 255, 255));
+		customerPanel.setBounds(420, 21, 168, 110);
+		dataPanel.add(customerPanel);
+		customerPanel.setLayout(null);
 
 		JLabel label_1 = new JLabel("");
 		label_1.setIcon(new ImageIcon(MainView.class
 				.getResource("/com/mymanager/resources/icons/icons_80x80/icons8-conference-foreground-selected.png")));
 		label_1.setBounds(37, 22, 98, 77);
-		clientPanel.add(label_1);
+		customerPanel.add(label_1);
 
-		JPanel projectsPanel = new JPanel();
+		projectsPanel = new JPanel();
+
 		projectsPanel.setLayout(null);
 		projectsPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Projects",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -198,11 +265,11 @@ public class MainView extends JPanel {
 		configPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Configuration",
 				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		configPanel.setForeground(new Color(0, 0, 0));
-		configPanel.setBounds(10, 404, 604, 235);
+		configPanel.setBounds(61, 404, 604, 235);
 		menuPanel.add(configPanel);
 		configPanel.setLayout(null);
 
-		JPanel myAccountPanel = new JPanel();
+		myAccountPanel = new JPanel();
 		myAccountPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "My Account",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		myAccountPanel.setBackground(new Color(255, 255, 255));
@@ -216,7 +283,8 @@ public class MainView extends JPanel {
 		label.setBounds(21, 11, 56, 56);
 		myAccountPanel.add(label);
 
-		JPanel currenciesPanel = new JPanel();
+		currenciesPanel = new JPanel();
+
 		currenciesPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Currencies",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		currenciesPanel.setBackground(new Color(255, 255, 255));
@@ -230,7 +298,8 @@ public class MainView extends JPanel {
 		label_2.setBounds(21, 11, 56, 56);
 		currenciesPanel.add(label_2);
 
-		JPanel paymentTypePanel = new JPanel();
+		paymentTypePanel = new JPanel();
+
 		paymentTypePanel.setBackground(new Color(255, 255, 255));
 		paymentTypePanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Payment",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -244,7 +313,7 @@ public class MainView extends JPanel {
 		label_3.setBounds(21, 11, 56, 56);
 		paymentTypePanel.add(label_3);
 
-		JPanel countryPanel = new JPanel();
+		countryPanel = new JPanel();
 		countryPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Country", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
 		countryPanel.setBackground(new Color(255, 255, 255));
@@ -258,7 +327,7 @@ public class MainView extends JPanel {
 		label_4.setBounds(21, 11, 56, 56);
 		countryPanel.add(label_4);
 
-		JPanel rightsPanel = new JPanel();
+		rightsPanel = new JPanel();
 		rightsPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Rights", TitledBorder.LEADING,
 				TitledBorder.TOP, null, new Color(0, 0, 0)));
 		rightsPanel.setBackground(new Color(255, 255, 255));
@@ -272,7 +341,7 @@ public class MainView extends JPanel {
 		label_5.setBounds(21, 11, 56, 56);
 		rightsPanel.add(label_5);
 
-		JPanel fileTypePanel = new JPanel();
+		fileTypePanel = new JPanel();
 		fileTypePanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "File types",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		fileTypePanel.setBackground(new Color(255, 255, 255));
@@ -301,6 +370,110 @@ public class MainView extends JPanel {
 		JPanel panel_10 = new JPanel();
 		panel_10.setBounds(485, 134, 87, 78);
 		configPanel.add(panel_10);
+
+	}
+
+	public void initAccountEvents() {
+		usersPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				usersView.setUserController(userController);
+				AppUtil.changePanel(jframe, usersView);
+			}
+		});
+
+		employeesPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				employeesView.setUserController(userController);
+				AppUtil.changePanel(jframe, employeesView);
+			}
+		});
+
+		customerPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				customersView.setUserController(userController);
+				AppUtil.changePanel(jframe, customersView);
+			}
+		});
+
+		projectsPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				projectsView.setUserController(userController);
+				AppUtil.changePanel(jframe, projectsView);
+			}
+		});
+
+	}
+
+	public void initConfigEvents() {
+		myAccountPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+		});
+
+		currenciesPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+		});
+
+		fileTypePanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+		});
+
+		rightsPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+		});
+
+		countryPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+		});
+
+		paymentTypePanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+		});
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public UserController getUserController() {
+		return userController;
+	}
+
+	public void setUserController(UserController userController) {
+		this.userController = userController;
+		this.user = userController.getUser();
+		setUserDetails();
+	}
+
+	public void setUserDetails() {
+		labelUserId.setText(user.getUserId());
+		labelFirstname.setText(user.getFirstName());
+		labelLastname.setText(user.getLastName());
+		labelGender.setText(user.getGender().name());
+		labelBirthplace.setText(user.getBirthplace());
+		labelBirthday.setText(user.getBirthday().toString());
+		labelUsertype.setText(user.getUserType().name());
+		labelRights.setText(user.getRights().name());
+		labelDate.setText(LocalDateTime.now().toString());
 
 	}
 }

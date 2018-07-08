@@ -23,7 +23,12 @@ public class ConsolePrinter {
 	}
 
 	public static void print(Object object) {
-		System.out.println("-  " + object.toString());
+		if (object instanceof MyModel) {
+			MyModel model = (MyModel) object;
+			print("|" + model.toNormal() + "|");
+		} else {
+			System.out.println("-  " + object.toString());
+		}
 
 	}
 

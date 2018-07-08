@@ -67,15 +67,15 @@ public class AppIcon {
 	public static String uploadIcon = "com/mymanager/resources/icons/test.jpg";
 	public static String downloadIcon = "com/mymanager/resources/icons/test.jpg";
 
-	public static String successIcon = "com/mymanager/resources/icons/test.jpg";
-	public static String plainIcon = "com/mymanager/resources/icons/test.jpg";
-	public static String warningIcon = "com/mymanager/resources/icons/test.jpg";
-	public static String infoIcon = "com/mymanager/resources/icons/test.jpg";
-	public static String errorIcon = "com/mymanager/resources/icons/test.jpg";
-	public static String questionIcon = "com/mymanager/resources/icons/test.jpg";
-	public static String inputIcon = "com/mymanager/resources/icons/test.jpg";
+	public static String successIcon = "com/mymanager/resources/icons/icons_45x45/icons8-warn.png";
+	public static String plainIcon = "com/mymanager/resources/icons/icons_45x45/icons8-warn.png";
+	public static String warningIcon = "com/mymanager/resources/icons/icons_45x45/icons8-warn.png";
+	public static String infoIcon = "com/mymanager/resources/icons/icons_45x45/icons8-warn.png";
+	public static String errorIcon = "com/mymanager/resources/icons/icons_45x45/icons8-warn.png";
+	public static String questionIcon = "com/mymanager/resources/icons/icons_45x45/icons8-warn.png";
+	public static String inputIcon = "com/mymanager/resources/icons/icons_45x45/icons8-warn.png";
 
-	public static String testIcon = "com/mymanager/resources/icons/test.jpg";
+	public static String testIcon = "com/mymanager/resources/icons/icons_45x45/icons8-warn.png";
 
 	/**
 	 *

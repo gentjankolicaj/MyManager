@@ -1,7 +1,7 @@
 package com.mymanager.views;
 
 import java.awt.Color;
-import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -14,7 +14,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.UIManager;
 
-import com.mymanager.config.AppIcon;
 import com.mymanager.config.Config;
 
 public class MyFrame extends JFrame {
@@ -37,37 +36,21 @@ public class MyFrame extends JFrame {
 
 	List<JMenuItem> menuItemSizeList = new ArrayList<>();
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MyFrame frame = new MyFrame();
-					frame.initFrame();
-					frame.initMenu();
-					frame.displayFrame();
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the frame.
 	 */
 	public MyFrame() {
-
-		initFrame();
 		initMenu();
+		initComponents();
 		displayFrame();
-
 	}
 
-	public void initFrame() {
+	public void initComponents() {
+
 		getContentPane().setBackground(Color.WHITE);
 		setBackground(Color.WHITE);
-		setIconImage(AppIcon.getImage(AppIcon.appIcon));
+		setIconImage(Toolkit.getDefaultToolkit()
+				.getImage(MyFrame.class.getResource("/com/mymanager/resources/icons/icons_45x45/icons8-admin-2.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(200, 150, Config.FRAME_WIDTH, Config.FRAME_HEIGHT);
 		this.setResizable(false);

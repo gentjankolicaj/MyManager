@@ -2,8 +2,10 @@ package com.mymanager.main;
 
 import java.awt.EventQueue;
 
-import com.mymanager.data.database.Database;
-import com.mymanager.data.database.MySQLDatabase;
+import com.mymanager.data.database.DatabaseManager;
+import com.mymanager.data.database.RDBMSType;
+import com.mymanager.views.LoginView;
+import com.mymanager.views.MainView;
 import com.mymanager.views.MyFrame;
 
 /**
@@ -13,32 +15,29 @@ import com.mymanager.views.MyFrame;
  */
 public class Main {
 
-	private static Database database;
+	private static MyFrame frame;
+	private static LoginView loginView;
+	private static MainView mainView;
 
 	public static void main(String[] args) {
+		try {
+
+			DatabaseManager.getDatabase(RDBMSType.MySQL);
+
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MyFrame frame = new MyFrame();
-					frame.initFrame();
-					frame.initMenu();
-					frame.displayFrame();
+					frame = new MyFrame();
+					loginView = new LoginView(frame);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
-
-	public static boolean setUpDatabase() {
-		database = new MySQLDatabase();
-		return false;
-
-	}
-
-	public static boolean setUpGUI() {
-
-		return false;
 	}
 
 }
