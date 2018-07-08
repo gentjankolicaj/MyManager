@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
@@ -29,17 +28,18 @@ public class MainView extends JPanel {
 		add(accountPanel);
 		accountPanel.setLayout(null);
 
-		JLabel lblUser = new JLabel(" User ");
-		lblUser.setIcon(new ImageIcon(MainView.class.getResource("/com/mymanager/resources/icons/png/Male.png")));
-		lblUser.setBounds(72, 9, 60, 24);
+		JLabel lblUser = new JLabel("");
+		lblUser.setIcon(new ImageIcon(MainView.class
+				.getResource("/com/mymanager/resources/icons/icons_45x45/icons8-administrator-male-2.png")));
+		lblUser.setBounds(116, 0, 75, 56);
 		accountPanel.add(lblUser);
 
 		JLabel labelFirstname = new JLabel("default");
-		labelFirstname.setBounds(72, 44, 153, 19);
+		labelFirstname.setBounds(72, 53, 153, 19);
 		accountPanel.add(labelFirstname);
 
 		JLabel firstname = new JLabel("First name :");
-		firstname.setBounds(10, 46, 57, 14);
+		firstname.setBounds(10, 55, 57, 14);
 		accountPanel.add(firstname);
 
 		JLabel labelLastname = new JLabel("default");
@@ -107,13 +107,6 @@ public class MainView extends JPanel {
 		currentDate.setBounds(10, 392, 60, 17);
 		accountPanel.add(currentDate);
 
-		JButton btnChangePassword = new JButton("Change");
-		btnChangePassword
-				.setIcon(new ImageIcon(MainView.class.getResource("/com/mymanager/resources/icons/png/Blue key.png")));
-		btnChangePassword.setForeground(new Color(0, 191, 255));
-		btnChangePassword.setBounds(42, 584, 134, 42);
-		accountPanel.add(btnChangePassword);
-
 		JPanel menuPanel = new JPanel();
 		menuPanel.setBorder(new LineBorder(new Color(0, 191, 255)));
 		menuPanel.setForeground(new Color(0, 191, 255));
@@ -130,21 +123,33 @@ public class MainView extends JPanel {
 		menuPanel.add(dataPanel);
 		dataPanel.setLayout(null);
 
-		JPanel employeePanel = new JPanel();
-		employeePanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Employees",
-				TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		employeePanel.setBackground(new Color(255, 255, 255));
-		employeePanel.setBounds(15, 21, 168, 110);
-		dataPanel.add(employeePanel);
-		employeePanel.setLayout(null);
+		JPanel usersPanel = new JPanel();
+		usersPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Users", TitledBorder.LEADING,
+				TitledBorder.TOP, null, new Color(0, 0, 0)));
+		usersPanel.setBackground(new Color(255, 255, 255));
+		usersPanel.setBounds(15, 21, 168, 110);
+		dataPanel.add(usersPanel);
+		usersPanel.setLayout(null);
 
-		JPanel userPanel = new JPanel();
-		userPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Users", TitledBorder.LEADING,
-				TitledBorder.TOP, null, null));
-		userPanel.setBackground(new Color(255, 255, 255));
-		userPanel.setBounds(216, 21, 173, 110);
-		dataPanel.add(userPanel);
-		userPanel.setLayout(null);
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setBounds(41, 11, 102, 88);
+		usersPanel.add(lblNewLabel_1);
+		lblNewLabel_1.setIcon(new ImageIcon(
+				MainView.class.getResource("/com/mymanager/resources/icons/icons_80x80/icons8-user-menu-male.png")));
+
+		JPanel employeesPanel = new JPanel();
+		employeesPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Employees",
+				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		employeesPanel.setBackground(new Color(255, 255, 255));
+		employeesPanel.setBounds(216, 21, 173, 110);
+		dataPanel.add(employeesPanel);
+		employeesPanel.setLayout(null);
+
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(43, 11, 97, 88);
+		employeesPanel.add(lblNewLabel);
+		lblNewLabel.setIcon(new ImageIcon(
+				MainView.class.getResource("/com/mymanager/resources/icons/icons_80x80/icons8-users-meeting-2.png")));
 
 		JPanel clientPanel = new JPanel();
 		clientPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Clients", TitledBorder.LEADING,
@@ -154,6 +159,12 @@ public class MainView extends JPanel {
 		dataPanel.add(clientPanel);
 		clientPanel.setLayout(null);
 
+		JLabel label_1 = new JLabel("");
+		label_1.setIcon(new ImageIcon(MainView.class
+				.getResource("/com/mymanager/resources/icons/icons_80x80/icons8-conference-foreground-selected.png")));
+		label_1.setBounds(37, 22, 98, 77);
+		clientPanel.add(label_1);
+
 		JPanel projectsPanel = new JPanel();
 		projectsPanel.setLayout(null);
 		projectsPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Projects",
@@ -161,6 +172,12 @@ public class MainView extends JPanel {
 		projectsPanel.setBackground(Color.WHITE);
 		projectsPanel.setBounds(15, 142, 168, 110);
 		dataPanel.add(projectsPanel);
+
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setIcon(new ImageIcon(
+				MainView.class.getResource("/com/mymanager/resources/icons/icons_80x80/icons8-training-2.png")));
+		lblNewLabel_2.setBounds(42, 11, 100, 88);
+		projectsPanel.add(lblNewLabel_2);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
@@ -193,6 +210,12 @@ public class MainView extends JPanel {
 		configPanel.add(myAccountPanel);
 		myAccountPanel.setLayout(null);
 
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon(
+				MainView.class.getResource("/com/mymanager/resources/icons/icons_45x45/icons8-edit-account-2.png")));
+		label.setBounds(21, 11, 56, 56);
+		myAccountPanel.add(label);
+
 		JPanel currenciesPanel = new JPanel();
 		currenciesPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Currencies",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -200,6 +223,12 @@ public class MainView extends JPanel {
 		currenciesPanel.setBounds(146, 26, 87, 78);
 		configPanel.add(currenciesPanel);
 		currenciesPanel.setLayout(null);
+
+		JLabel label_2 = new JLabel("");
+		label_2.setIcon(new ImageIcon(
+				MainView.class.getResource("/com/mymanager/resources/icons/icons_45x45/icons8-save-money-2.png")));
+		label_2.setBounds(21, 11, 56, 56);
+		currenciesPanel.add(label_2);
 
 		JPanel paymentTypePanel = new JPanel();
 		paymentTypePanel.setBackground(new Color(255, 255, 255));
@@ -209,6 +238,12 @@ public class MainView extends JPanel {
 		configPanel.add(paymentTypePanel);
 		paymentTypePanel.setLayout(null);
 
+		JLabel label_3 = new JLabel("");
+		label_3.setIcon(new ImageIcon(
+				MainView.class.getResource("/com/mymanager/resources/icons/icons_45x45/icons8-payment-history.png")));
+		label_3.setBounds(21, 11, 56, 56);
+		paymentTypePanel.add(label_3);
+
 		JPanel countryPanel = new JPanel();
 		countryPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Country", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
@@ -216,6 +251,12 @@ public class MainView extends JPanel {
 		countryPanel.setBounds(371, 26, 87, 78);
 		configPanel.add(countryPanel);
 		countryPanel.setLayout(null);
+
+		JLabel label_4 = new JLabel("");
+		label_4.setIcon(new ImageIcon(
+				MainView.class.getResource("/com/mymanager/resources/icons/icons_45x45/icons8-country.png")));
+		label_4.setBounds(21, 11, 56, 56);
+		countryPanel.add(label_4);
 
 		JPanel rightsPanel = new JPanel();
 		rightsPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Rights", TitledBorder.LEADING,
@@ -225,12 +266,25 @@ public class MainView extends JPanel {
 		configPanel.add(rightsPanel);
 		rightsPanel.setLayout(null);
 
+		JLabel label_5 = new JLabel("");
+		label_5.setIcon(new ImageIcon(
+				MainView.class.getResource("/com/mymanager/resources/icons/icons_45x45/icons8-user-rights.png")));
+		label_5.setBounds(21, 11, 56, 56);
+		rightsPanel.add(label_5);
+
 		JPanel fileTypePanel = new JPanel();
 		fileTypePanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "File types",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		fileTypePanel.setBackground(new Color(255, 255, 255));
 		fileTypePanel.setBounds(35, 134, 87, 78);
 		configPanel.add(fileTypePanel);
+		fileTypePanel.setLayout(null);
+
+		JLabel label_6 = new JLabel("");
+		label_6.setIcon(new ImageIcon(
+				MainView.class.getResource("/com/mymanager/resources/icons/icons_45x45/icons8-documents.png")));
+		label_6.setBounds(21, 11, 56, 56);
+		fileTypePanel.add(label_6);
 
 		JPanel panel_7 = new JPanel();
 		panel_7.setBounds(146, 134, 87, 78);
@@ -249,5 +303,4 @@ public class MainView extends JPanel {
 		configPanel.add(panel_10);
 
 	}
-
 }

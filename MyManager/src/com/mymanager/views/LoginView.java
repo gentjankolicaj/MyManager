@@ -37,7 +37,8 @@ public class LoginView extends JPanel {
 		loginPanel.setLayout(null);
 
 		JLabel lblUser = new JLabel("User :");
-		lblUser.setIcon(new ImageIcon(LoginView.class.getResource("/com/mymanager/resources/icons/png/Male.png")));
+		lblUser.setIcon(new ImageIcon(LoginView.class
+				.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-login-to-my-account.png")));
 		lblUser.setBounds(16, 47, 73, 39);
 		loginPanel.add(lblUser);
 
@@ -48,7 +49,8 @@ public class LoginView extends JPanel {
 		textFieldUsername.setColumns(10);
 
 		JLabel lblPassword = new JLabel("Password :");
-		lblPassword.setIcon(new ImageIcon(LoginView.class.getResource("/com/mymanager/resources/icons/png/Key.png")));
+		lblPassword.setIcon(new ImageIcon(
+				LoginView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-key.png")));
 		lblPassword.setBounds(10, 107, 96, 24);
 		loginPanel.add(lblPassword);
 
@@ -59,13 +61,15 @@ public class LoginView extends JPanel {
 		loginPanel.add(textFieldPassword);
 
 		btnLogin = new JButton(AppText.loginButtonText);
-		btnLogin.setIcon(new ImageIcon(LoginView.class.getResource("/com/mymanager/resources/icons/png/Unlock.png")));
+		btnLogin.setIcon(new ImageIcon(
+				LoginView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-login-2.png")));
 		btnLogin.setBackground(new Color(0, 191, 255));
 		btnLogin.setBounds(55, 221, 106, 33);
 		loginPanel.add(btnLogin);
 
 		btnClose = new JButton(AppText.closeButtonText);
-		btnClose.setIcon(new ImageIcon(LoginView.class.getResource("/com/mymanager/resources/icons/png/Close.png")));
+		btnClose.setIcon(new ImageIcon(
+				LoginView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-close-window-2.png")));
 		btnClose.setBackground(new Color(0, 191, 255));
 		btnClose.setBounds(176, 221, 106, 33);
 		loginPanel.add(btnClose);
