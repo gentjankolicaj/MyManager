@@ -71,7 +71,7 @@ public class LoginView extends JPanel {
 
 		loginPanel = new JPanel();
 		loginPanel.setBorder(new LineBorder(new Color(0, 191, 255)));
-		loginPanel.setBackground(Color.WHITE);
+		loginPanel.setBackground(UIManager.getColor("Button.background"));
 		loginPanel.setBounds(0, 0, 392, 650);
 		add(loginPanel);
 		loginPanel.setLayout(null);

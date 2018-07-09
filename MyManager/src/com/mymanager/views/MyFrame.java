@@ -2,17 +2,17 @@ package com.mymanager.views;
 
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.UIManager;
+import javax.swing.JRadioButtonMenuItem;
 
 import com.mymanager.config.Config;
 
@@ -23,30 +23,33 @@ public class MyFrame extends JFrame {
 	private JMenu menuFile;
 	private JMenu menuView;
 	private JMenu menuWindow;
-	private JMenu menuAbout;
+	private JMenu menuHelp;
 	private JMenuItem mntmExit;
-	private JMenuItem mntmMetal;
-	private JMenuItem mntmNimbus;
-	private JMenuItem mntmClassic;
-	private JMenuItem mntmSize850;
-	private JMenuItem mntmSize950;
-	private JMenuItem mntmSize1050;
 	private JMenuBar menuBar;
+	private JMenu mnEdit;
+	private JRadioButtonMenuItem rdbtnmntmNimbus;
+	private JRadioButtonMenuItem rdbtnmntmMetal;
+	private JRadioButtonMenuItem rdbtnmntmClassic;
+	private JRadioButtonMenuItem rdbtnmntmWindows;
+	private final ButtonGroup buttonGroupView = new ButtonGroup();
+	private JRadioButtonMenuItem rdbtnmntmSizex;
+	private JRadioButtonMenuItem rdbtnmntmSizex_1;
+	private JRadioButtonMenuItem rdbtnmntmSizex_2;
 	private final ButtonGroup buttonGroupSize = new ButtonGroup();
-
-	List<JMenuItem> menuItemSizeList = new ArrayList<>();
+	private JMenuItem mntmAbout;
 
 	/**
 	 * Create the frame.
 	 */
 	public MyFrame() {
 		initMenu();
+		initMenuItemEvents();
 		initComponents();
+
 		displayFrame();
 	}
 
 	public void initComponents() {
-
 		getContentPane().setBackground(Color.WHITE);
 		setBackground(Color.WHITE);
 		setIconImage(Toolkit.getDefaultToolkit()
@@ -71,41 +74,52 @@ public class MyFrame extends JFrame {
 		mntmExit = new JMenuItem("Exit");
 		menuFile.add(mntmExit);
 
+		mnEdit = new JMenu("Edit");
+		menuBar.add(mnEdit);
+
 		menuView = new JMenu("View");
 		menuBar.add(menuView);
 
-		mntmMetal = new JMenuItem("Metal");
-		menuView.add(mntmMetal);
+		rdbtnmntmMetal = new JRadioButtonMenuItem("Metal");
+		buttonGroupView.add(rdbtnmntmMetal);
+		menuView.add(rdbtnmntmMetal);
 
-		mntmNimbus = new JMenuItem("Nimbus");
-		menuView.add(mntmNimbus);
+		rdbtnmntmNimbus = new JRadioButtonMenuItem("Nimbus");
+		buttonGroupView.add(rdbtnmntmNimbus);
+		menuView.add(rdbtnmntmNimbus);
 
-		mntmClassic = new JMenuItem("Classic");
-		menuView.add(mntmClassic);
+		rdbtnmntmClassic = new JRadioButtonMenuItem("Classic");
+		buttonGroupView.add(rdbtnmntmClassic);
+		menuView.add(rdbtnmntmClassic);
+
+		rdbtnmntmWindows = new JRadioButtonMenuItem("Windows");
+		buttonGroupView.add(rdbtnmntmWindows);
+		menuView.add(rdbtnmntmWindows);
 
 		menuWindow = new JMenu("Window");
 		menuWindow.setIcon(null);
 		menuBar.add(menuWindow);
 
-		mntmSize850 = new JMenuItem("Size : 900x650");
-		buttonGroupSize.add(mntmSize850);
-		menuWindow.add(mntmSize850);
+		rdbtnmntmSizex = new JRadioButtonMenuItem("Size 910x690");
+		buttonGroupSize.add(rdbtnmntmSizex);
+		menuWindow.add(rdbtnmntmSizex);
 
-		mntmSize950 = new JMenuItem("Size : 990x690");
-		buttonGroupSize.add(mntmSize950);
-		menuWindow.add(mntmSize950);
+		rdbtnmntmSizex_1 = new JRadioButtonMenuItem("Size 980x720");
+		buttonGroupSize.add(rdbtnmntmSizex_1);
+		menuWindow.add(rdbtnmntmSizex_1);
 
-		mntmSize1050 = new JMenuItem("Size : 1100x720");
-		buttonGroupSize.add(mntmSize1050);
-		menuWindow.add(mntmSize1050);
+		rdbtnmntmSizex_2 = new JRadioButtonMenuItem("Size 1100x740");
 
-		// adding them to list
-		menuItemSizeList.add(mntmSize850);
-		menuItemSizeList.add(mntmSize950);
-		menuItemSizeList.add(mntmSize1050);
+		buttonGroupSize.add(rdbtnmntmSizex_2);
+		menuWindow.add(rdbtnmntmSizex_2);
 
-		menuAbout = new JMenu("About");
-		menuBar.add(menuAbout);
+		menuHelp = new JMenu("Help");
+
+		mntmAbout = new JMenuItem("About");
+		menuHelp.add(mntmAbout);
+
+		menuBar.add(menuHelp);
+
 	}
 
 	public void initMenuEvents() {
@@ -117,54 +131,35 @@ public class MyFrame extends JFrame {
 	}
 
 	public void initMenuItemEvents() {
-		mntmSize850.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				unSelectAllPrevious();
-				mntmSize850.setSelected(true);
-				mntmSize850.setBackground(UIManager.getColor("MenuItem.selectionBackground"));
-				mntmSize850.setForeground(UIManager.getColor("MenuItem.selectionForeground"));
-				tempWidth = 900;
-				tempHeight = 650;
-				setBounds(e.getXOnScreen() - 100, e.getYOnScreen() - 66, 900, 650);
-
+		mntmAbout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AboutDialog aboutDialog = new AboutDialog();
+				aboutDialog.setModal(true);
+				aboutDialog.setVisible(true);
 			}
 		});
 
-		mntmSize950.addMouseListener(new MouseAdapter() {
+		rdbtnmntmSizex.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				unSelectAllPrevious();
-				mntmSize950.setSelected(true);
-				mntmSize950.setBackground(UIManager.getColor("MenuItem.selectionBackground"));
-				mntmSize950.setForeground(UIManager.getColor("MenuItem.selectionForeground"));
-				tempWidth = 990;
-				tempHeight = 690;
-				setBounds(e.getXOnScreen() - 100, e.getYOnScreen() - 77, 990, 690);
+				setBounds(e.getXOnScreen() - 100, e.getYOnScreen() - 66, 910, 690);
 			}
 		});
 
-		mntmSize1050.addMouseListener(new MouseAdapter() {
+		rdbtnmntmSizex_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				unSelectAllPrevious();
-				mntmSize1050.setSelected(true);
-				mntmSize1050.setBackground(UIManager.getColor("MenuItem.selectionBackground"));
-				mntmSize1050.setForeground(UIManager.getColor("MenuItem.selectionForeground"));
-				tempWidth = 1100;
-				tempHeight = 720;
-				setBounds(e.getXOnScreen() - 100, e.getYOnScreen() - 95, 1100, 720);
+				setBounds(e.getXOnScreen() - 100, e.getYOnScreen() - 77, 980, 720);
 			}
 		});
-	}
 
-	public void unSelectAllPrevious() {
-		for (JMenuItem item : menuItemSizeList) {
-			if (item.isSelected())
-				item.setSelected(false);
-			item.setBackground(UIManager.getColor("MenuItem.background"));
-			item.setForeground(UIManager.getColor("MenuItem.foreground"));
-		}
+		rdbtnmntmSizex_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				setBounds(e.getXOnScreen() - 100, e.getYOnScreen() - 95, 1100, 740);
+			}
+		});
+
 	}
 
 }

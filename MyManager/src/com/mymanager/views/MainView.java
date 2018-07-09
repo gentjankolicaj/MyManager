@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
@@ -81,7 +82,7 @@ public class MainView extends JPanel {
 
 		accountPanel = new JPanel();
 		accountPanel.setBorder(new LineBorder(new Color(0, 191, 255)));
-		accountPanel.setBackground(new Color(255, 255, 255));
+		accountPanel.setBackground(UIManager.getColor("Button.background"));
 		accountPanel.setBounds(0, 0, 284, 650);
 		add(accountPanel);
 		accountPanel.setLayout(null);
@@ -176,7 +177,7 @@ public class MainView extends JPanel {
 		JPanel menuPanel = new JPanel();
 		menuPanel.setBorder(new LineBorder(new Color(0, 191, 255)));
 		menuPanel.setForeground(new Color(0, 191, 255));
-		menuPanel.setBackground(new Color(255, 255, 255));
+		menuPanel.setBackground(UIManager.getColor("Button.background"));
 		menuPanel.setBounds(226, 0, 752, 650);
 		add(menuPanel);
 		menuPanel.setLayout(null);
@@ -184,7 +185,7 @@ public class MainView extends JPanel {
 		JPanel dataPanel = new JPanel();
 		dataPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "My Data", TitledBorder.CENTER,
 				TitledBorder.TOP, null, new Color(0, 0, 0)));
-		dataPanel.setBackground(new Color(255, 255, 255));
+		dataPanel.setBackground(UIManager.getColor("Button.background"));
 		dataPanel.setBounds(61, 11, 604, 388);
 		menuPanel.add(dataPanel);
 		dataPanel.setLayout(null);
@@ -192,7 +193,7 @@ public class MainView extends JPanel {
 		usersPanel = new JPanel();
 		usersPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Users", TitledBorder.LEADING,
 				TitledBorder.TOP, null, new Color(0, 0, 0)));
-		usersPanel.setBackground(new Color(255, 255, 255));
+		usersPanel.setBackground(UIManager.getColor("Button.background"));
 		usersPanel.setBounds(15, 21, 168, 110);
 		dataPanel.add(usersPanel);
 		usersPanel.setLayout(null);
@@ -206,7 +207,7 @@ public class MainView extends JPanel {
 		employeesPanel = new JPanel();
 		employeesPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Employees",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		employeesPanel.setBackground(new Color(255, 255, 255));
+		employeesPanel.setBackground(UIManager.getColor("Button.background"));
 		employeesPanel.setBounds(216, 21, 173, 110);
 		dataPanel.add(employeesPanel);
 		employeesPanel.setLayout(null);
@@ -220,7 +221,7 @@ public class MainView extends JPanel {
 		customerPanel = new JPanel();
 		customerPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Customers",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		customerPanel.setBackground(new Color(255, 255, 255));
+		customerPanel.setBackground(UIManager.getColor("Button.background"));
 		customerPanel.setBounds(420, 21, 168, 110);
 		dataPanel.add(customerPanel);
 		customerPanel.setLayout(null);
@@ -236,7 +237,7 @@ public class MainView extends JPanel {
 		projectsPanel.setLayout(null);
 		projectsPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Projects",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		projectsPanel.setBackground(Color.WHITE);
+		projectsPanel.setBackground(UIManager.getColor("Button.background"));
 		projectsPanel.setBounds(15, 142, 168, 110);
 		dataPanel.add(projectsPanel);
 
@@ -249,19 +250,19 @@ public class MainView extends JPanel {
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		panel_1.setBorder(new LineBorder(new Color(0, 191, 255)));
-		panel_1.setBackground(Color.WHITE);
+		panel_1.setBackground(UIManager.getColor("Button.background"));
 		panel_1.setBounds(216, 142, 168, 110);
 		dataPanel.add(panel_1);
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setLayout(null);
 		panel_2.setBorder(new LineBorder(new Color(0, 191, 255)));
-		panel_2.setBackground(Color.WHITE);
+		panel_2.setBackground(UIManager.getColor("Button.background"));
 		panel_2.setBounds(15, 263, 168, 110);
 		dataPanel.add(panel_2);
 
 		JPanel configPanel = new JPanel();
-		configPanel.setBackground(new Color(255, 255, 255));
+		configPanel.setBackground(UIManager.getColor("Button.background"));
 		configPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Configuration",
 				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		configPanel.setForeground(new Color(0, 0, 0));
@@ -272,7 +273,7 @@ public class MainView extends JPanel {
 		myAccountPanel = new JPanel();
 		myAccountPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "My Account",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		myAccountPanel.setBackground(new Color(255, 255, 255));
+		myAccountPanel.setBackground(UIManager.getColor("Button.background"));
 		myAccountPanel.setBounds(35, 26, 87, 78);
 		configPanel.add(myAccountPanel);
 		myAccountPanel.setLayout(null);
@@ -287,7 +288,7 @@ public class MainView extends JPanel {
 
 		currenciesPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Currencies",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		currenciesPanel.setBackground(new Color(255, 255, 255));
+		currenciesPanel.setBackground(UIManager.getColor("Button.background"));
 		currenciesPanel.setBounds(146, 26, 87, 78);
 		configPanel.add(currenciesPanel);
 		currenciesPanel.setLayout(null);
@@ -300,7 +301,7 @@ public class MainView extends JPanel {
 
 		paymentTypePanel = new JPanel();
 
-		paymentTypePanel.setBackground(new Color(255, 255, 255));
+		paymentTypePanel.setBackground(UIManager.getColor("Button.background"));
 		paymentTypePanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Payment",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		paymentTypePanel.setBounds(257, 26, 87, 78);
@@ -316,7 +317,7 @@ public class MainView extends JPanel {
 		countryPanel = new JPanel();
 		countryPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Country", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
-		countryPanel.setBackground(new Color(255, 255, 255));
+		countryPanel.setBackground(UIManager.getColor("Button.background"));
 		countryPanel.setBounds(371, 26, 87, 78);
 		configPanel.add(countryPanel);
 		countryPanel.setLayout(null);
@@ -330,7 +331,7 @@ public class MainView extends JPanel {
 		rightsPanel = new JPanel();
 		rightsPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Rights", TitledBorder.LEADING,
 				TitledBorder.TOP, null, new Color(0, 0, 0)));
-		rightsPanel.setBackground(new Color(255, 255, 255));
+		rightsPanel.setBackground(UIManager.getColor("Button.background"));
 		rightsPanel.setBounds(485, 26, 87, 78);
 		configPanel.add(rightsPanel);
 		rightsPanel.setLayout(null);
@@ -344,7 +345,7 @@ public class MainView extends JPanel {
 		fileTypePanel = new JPanel();
 		fileTypePanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "File types",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		fileTypePanel.setBackground(new Color(255, 255, 255));
+		fileTypePanel.setBackground(UIManager.getColor("Button.background"));
 		fileTypePanel.setBounds(35, 134, 87, 78);
 		configPanel.add(fileTypePanel);
 		fileTypePanel.setLayout(null);

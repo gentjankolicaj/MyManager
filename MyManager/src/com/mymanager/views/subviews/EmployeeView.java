@@ -1,6 +1,8 @@
 package com.mymanager.views.subviews;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.mymanager.controllers.UserController;
@@ -10,11 +12,19 @@ public class EmployeeView extends JPanel {
 
 	private User user;
 	private UserController userController;
+	private JLabel label;
 
 	/**
 	 * Create the panel.
 	 */
 	public EmployeeView(JFrame jframe) {
+		setLayout(null);
+
+		label = new JLabel("");
+		label.setIcon(new ImageIcon(
+				EmployeeView.class.getResource("/com/mymanager/resources/icons/icons_45x45/icons8-back-arrow.png")));
+		label.setBounds(10, 11, 60, 45);
+		add(label);
 
 	}
 
