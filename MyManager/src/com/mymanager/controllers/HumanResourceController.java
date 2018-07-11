@@ -1,6 +1,5 @@
 package com.mymanager.controllers;
 
-import java.awt.Component;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -59,8 +58,8 @@ public class HumanResourceController extends UserController {
 	private AdressType adressType = AdressType.USER_ADRESS;
 	private ContactType contactType = ContactType.USER_CONTACT;
 
-	public HumanResourceController(User user, Component component) {
-		super(user, component);
+	public HumanResourceController(User user) {
+		super(user);
 		adressAccess = new AdressAccessObject(queryType, adressType);
 		contactAccess = new ContactAccessObject(queryType, contactType);
 		departmentAccess = new DepartmentAccessObject(queryType);
@@ -106,7 +105,7 @@ public class HumanResourceController extends UserController {
 			setAdressType(adressType);
 			return adressAccess.readAllAdresses();
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -116,7 +115,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return adressAccess.readAdress(adressId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -128,7 +127,7 @@ public class HumanResourceController extends UserController {
 			setAdressType(adressType);
 			return adressAccess.readAdressesByPersonId(personId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -140,7 +139,7 @@ public class HumanResourceController extends UserController {
 			setAdressType(adressType);
 			return adressAccess.readAdressesByPersonId(city);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -152,7 +151,7 @@ public class HumanResourceController extends UserController {
 			setAdressType(adressType);
 			return adressAccess.readAdressesByPersonId(country);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -164,7 +163,7 @@ public class HumanResourceController extends UserController {
 			setAdressType(adressType);
 			return adressAccess.readAdressesByPersonId(street);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -175,7 +174,7 @@ public class HumanResourceController extends UserController {
 			setAdressType(adressType);
 			return adressAccess.insertAdress(adress);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -186,7 +185,7 @@ public class HumanResourceController extends UserController {
 			setAdressType(adressType);
 			return adressAccess.updateAdress(oldAdress, newAdress);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -197,7 +196,7 @@ public class HumanResourceController extends UserController {
 			setAdressType(adressType);
 			return adressAccess.deleteAdress(adress);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -213,7 +212,7 @@ public class HumanResourceController extends UserController {
 			setContactType(contactType);
 			return contactAccess.readAllContacts();
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -223,7 +222,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return contactAccess.readContact(contactId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -235,7 +234,7 @@ public class HumanResourceController extends UserController {
 			setContactType(contactType);
 			return contactAccess.readContactsByCelular(celular);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -247,7 +246,7 @@ public class HumanResourceController extends UserController {
 			setContactType(contactType);
 			return contactAccess.readContactsByEmail(email);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -259,7 +258,7 @@ public class HumanResourceController extends UserController {
 			setContactType(contactType);
 			return contactAccess.readContactByPersonId(personId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -270,7 +269,7 @@ public class HumanResourceController extends UserController {
 			setContactType(contactType);
 			return contactAccess.insertContact(contact);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -281,7 +280,7 @@ public class HumanResourceController extends UserController {
 			setContactType(contactType);
 			return contactAccess.updateContact(oldContact, newContact);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -292,7 +291,7 @@ public class HumanResourceController extends UserController {
 			setContactType(contactType);
 			return contactAccess.deleteContact(contact);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -307,7 +306,7 @@ public class HumanResourceController extends UserController {
 			setQueryType(queryType);
 			return departmentAccess.readAllDepartments();
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -318,7 +317,7 @@ public class HumanResourceController extends UserController {
 			setQueryType(queryType);
 			return departmentAccess.readDepartments(departmentName);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -328,7 +327,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return departmentAccess.readDepartment(departmentId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -338,7 +337,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return departmentAccess.updateDepartment(oldDepartment, newDepartment);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -348,7 +347,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return departmentAccess.insertDepartment(department);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -358,7 +357,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return departmentAccess.deleteDepartment(department);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -373,7 +372,7 @@ public class HumanResourceController extends UserController {
 			setQueryType(queryType);
 			return documentAccess.readAllDocuments();
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -384,7 +383,7 @@ public class HumanResourceController extends UserController {
 			setQueryType(queryType);
 			return documentAccess.readDocuments(documentName);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -395,7 +394,7 @@ public class HumanResourceController extends UserController {
 			setQueryType(queryType);
 			return documentAccess.readDocumentByEmployeeId(employeeId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -405,7 +404,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return documentAccess.readDocument(documentNumber);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -415,7 +414,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return documentAccess.updateDocument(oldDocument, newDocument);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -425,7 +424,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return documentAccess.insertDocument(document);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -435,7 +434,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return documentAccess.deleteDocument(document);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -450,7 +449,7 @@ public class HumanResourceController extends UserController {
 			setQueryType(queryType);
 			return employeeAccess.readAllEmployees();
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -461,7 +460,7 @@ public class HumanResourceController extends UserController {
 			setQueryType(queryType);
 			return employeeAccess.readEmployeesByFirstName(firstName);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -472,7 +471,7 @@ public class HumanResourceController extends UserController {
 			setQueryType(queryType);
 			return employeeAccess.readEmployeesByLastName(lastName);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -483,7 +482,7 @@ public class HumanResourceController extends UserController {
 			setQueryType(queryType);
 			return employeeAccess.readEmployeesByJobId(jobId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -494,7 +493,7 @@ public class HumanResourceController extends UserController {
 			setQueryType(queryType);
 			return employeeAccess.readEmployeesByDepartmentId(departmentId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -505,7 +504,7 @@ public class HumanResourceController extends UserController {
 			setQueryType(queryType);
 			return employeeAccess.readEmployeesByProjectName(projectName);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -515,7 +514,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return employeeAccess.readEmployee(employeeId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -525,7 +524,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return employeeAccess.updateEmployee(oldEmployee, newEmployee);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -535,7 +534,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return employeeAccess.insertEmployee(employee);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -545,7 +544,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return employeeAccess.deleteEmployee(employee);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -559,7 +558,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return fileTypeAccess.readAllFileTypes();
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -569,7 +568,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return fileTypeAccess.readFileType(fileType);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -579,7 +578,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return fileTypeAccess.updateFileType(oldFileType, newFileType);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -589,7 +588,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return fileTypeAccess.insertFileType(fileType);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -599,7 +598,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return fileTypeAccess.deleteFileType(fileType);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -614,7 +613,7 @@ public class HumanResourceController extends UserController {
 			setQueryType(queryType);
 			return jobAccess.readAllJobs();
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -625,7 +624,7 @@ public class HumanResourceController extends UserController {
 			setQueryType(queryType);
 			return jobAccess.readAllJobsBetweenSalary(minSalary, maxSalary);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -636,7 +635,7 @@ public class HumanResourceController extends UserController {
 			setQueryType(queryType);
 			return jobAccess.readAllJobsByTitle(jobTitle);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -646,7 +645,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return jobAccess.readJob(jobId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -656,7 +655,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return jobAccess.updateJob(oldJob, newJob);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -666,7 +665,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return jobAccess.insertJob(job);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -676,7 +675,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return jobAccess.deleteJob(job);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -691,7 +690,7 @@ public class HumanResourceController extends UserController {
 			setQueryType(queryType);
 			return jobHistoryAccess.readAllJobHistories();
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -702,7 +701,7 @@ public class HumanResourceController extends UserController {
 			setQueryType(queryType);
 			return jobHistoryAccess.readAllJobHistoryBetweenDates(startDate, endDate);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -713,7 +712,7 @@ public class HumanResourceController extends UserController {
 			setQueryType(queryType);
 			return jobHistoryAccess.readAllJobHistoryByJobId(jobId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -724,7 +723,7 @@ public class HumanResourceController extends UserController {
 			setQueryType(queryType);
 			return jobHistoryAccess.readAllJobHistoryByDepartmentId(departmentId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -735,7 +734,7 @@ public class HumanResourceController extends UserController {
 			setQueryType(queryType);
 			return jobHistoryAccess.readAllJobHistoryByEmployeeId(employeeId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -745,7 +744,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return jobHistoryAccess.readJobHistoryByEmployeeId(employeeId, createdDateTime);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -755,7 +754,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return jobHistoryAccess.updateJobHistory(oldJobHistory, newJobHistory);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -765,7 +764,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return jobHistoryAccess.insertJobHistory(jobHistory);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -775,7 +774,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return jobHistoryAccess.deleteJobHistory(jobHistory);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -790,7 +789,7 @@ public class HumanResourceController extends UserController {
 			setQueryType(queryType);
 			return workingHourAccess.readAllWorkingHour();
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -801,7 +800,7 @@ public class HumanResourceController extends UserController {
 			setQueryType(queryType);
 			return workingHourAccess.readWorkingHourByEmplyeeId(employeeId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -812,7 +811,7 @@ public class HumanResourceController extends UserController {
 			setQueryType(queryType);
 			return workingHourAccess.readWorkingHourByDate(date);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -823,7 +822,7 @@ public class HumanResourceController extends UserController {
 			setQueryType(queryType);
 			return workingHourAccess.readWorkingHourByBetween(minHours, maxHours);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -833,7 +832,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return workingHourAccess.readWorkingHourByIndex(index);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return null;
 		}
 
@@ -843,7 +842,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return workingHourAccess.updateWorkingHour(oldWorkingHour, newWorkingHour);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -853,7 +852,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return workingHourAccess.insertWorkingHour(workingHour);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 
@@ -863,7 +862,7 @@ public class HumanResourceController extends UserController {
 		try {
 			return workingHourAccess.deleteWorkingHour(workingHour);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "hr");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "hr");
 			return 0;
 		}
 

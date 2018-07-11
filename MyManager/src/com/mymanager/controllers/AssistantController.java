@@ -1,6 +1,5 @@
 package com.mymanager.controllers;
 
-import java.awt.Component;
 import java.util.List;
 
 import com.mymanager.data.data_access.AdressAccessObject;
@@ -33,8 +32,8 @@ public class AssistantController extends UserController {
 	private AdressType adressType = AdressType.USER_ADRESS;
 	private ContactType contactType = ContactType.USER_CONTACT;
 
-	public AssistantController(User user, Component component) {
-		super(user, component);
+	public AssistantController(User user) {
+		super(user);
 		adressAccess = new AdressAccessObject(queryType, adressType);
 		contactAccess = new ContactAccessObject(queryType, contactType);
 		employeeAccess = new EmployeeAccessObject(queryType);
@@ -75,7 +74,7 @@ public class AssistantController extends UserController {
 			setAdressType(adressType);
 			return adressAccess.readAllAdresses();
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return null;
 		}
 
@@ -85,7 +84,7 @@ public class AssistantController extends UserController {
 		try {
 			return adressAccess.readAdress(adressId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return null;
 		}
 
@@ -97,7 +96,7 @@ public class AssistantController extends UserController {
 			setAdressType(adressType);
 			return adressAccess.readAdressesByPersonId(personId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return null;
 		}
 
@@ -109,7 +108,7 @@ public class AssistantController extends UserController {
 			setAdressType(adressType);
 			return adressAccess.readAdressesByPersonId(city);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return null;
 		}
 
@@ -121,7 +120,7 @@ public class AssistantController extends UserController {
 			setAdressType(adressType);
 			return adressAccess.readAdressesByPersonId(country);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return null;
 		}
 
@@ -133,7 +132,7 @@ public class AssistantController extends UserController {
 			setAdressType(adressType);
 			return adressAccess.readAdressesByPersonId(street);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return null;
 		}
 
@@ -144,7 +143,7 @@ public class AssistantController extends UserController {
 			setAdressType(adressType);
 			return adressAccess.insertAdress(adress);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return 0;
 		}
 
@@ -155,7 +154,7 @@ public class AssistantController extends UserController {
 			setAdressType(adressType);
 			return adressAccess.updateAdress(oldAdress, newAdress);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return 0;
 		}
 
@@ -166,7 +165,7 @@ public class AssistantController extends UserController {
 			setAdressType(adressType);
 			return adressAccess.deleteAdress(adress);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return 0;
 		}
 
@@ -182,7 +181,7 @@ public class AssistantController extends UserController {
 			setContactType(contactType);
 			return contactAccess.readAllContacts();
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return null;
 		}
 
@@ -192,7 +191,7 @@ public class AssistantController extends UserController {
 		try {
 			return contactAccess.readContact(contactId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return null;
 		}
 
@@ -204,7 +203,7 @@ public class AssistantController extends UserController {
 			setContactType(contactType);
 			return contactAccess.readContactsByCelular(celular);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return null;
 		}
 
@@ -216,7 +215,7 @@ public class AssistantController extends UserController {
 			setContactType(contactType);
 			return contactAccess.readContactsByEmail(email);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return null;
 		}
 
@@ -228,7 +227,7 @@ public class AssistantController extends UserController {
 			setContactType(contactType);
 			return contactAccess.readContactByPersonId(personId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return null;
 		}
 
@@ -239,7 +238,7 @@ public class AssistantController extends UserController {
 			setContactType(contactType);
 			return contactAccess.insertContact(contact);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return 0;
 		}
 
@@ -250,7 +249,7 @@ public class AssistantController extends UserController {
 			setContactType(contactType);
 			return contactAccess.updateContact(oldContact, newContact);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return 0;
 		}
 
@@ -261,7 +260,7 @@ public class AssistantController extends UserController {
 			setContactType(contactType);
 			return contactAccess.deleteContact(contact);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return 0;
 		}
 
@@ -276,7 +275,7 @@ public class AssistantController extends UserController {
 			setQueryType(queryType);
 			return employeeAccess.readAllEmployees();
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return null;
 		}
 
@@ -287,7 +286,7 @@ public class AssistantController extends UserController {
 			setQueryType(queryType);
 			return employeeAccess.readEmployeesByFirstName(firstName);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return null;
 		}
 
@@ -298,7 +297,7 @@ public class AssistantController extends UserController {
 			setQueryType(queryType);
 			return employeeAccess.readEmployeesByLastName(lastName);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return null;
 		}
 
@@ -309,7 +308,7 @@ public class AssistantController extends UserController {
 			setQueryType(queryType);
 			return employeeAccess.readEmployeesByJobId(jobId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return null;
 		}
 
@@ -320,7 +319,7 @@ public class AssistantController extends UserController {
 			setQueryType(queryType);
 			return employeeAccess.readEmployeesByDepartmentId(departmentId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return null;
 		}
 
@@ -331,7 +330,7 @@ public class AssistantController extends UserController {
 			setQueryType(queryType);
 			return employeeAccess.readEmployeesByProjectName(projectName);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return null;
 		}
 
@@ -341,7 +340,7 @@ public class AssistantController extends UserController {
 		try {
 			return employeeAccess.readEmployee(employeeId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return null;
 		}
 
@@ -351,7 +350,7 @@ public class AssistantController extends UserController {
 		try {
 			return employeeAccess.updateEmployee(oldEmployee, newEmployee);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return 0;
 		}
 
@@ -361,7 +360,7 @@ public class AssistantController extends UserController {
 		try {
 			return employeeAccess.insertEmployee(employee);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return 0;
 		}
 
@@ -371,7 +370,7 @@ public class AssistantController extends UserController {
 		try {
 			return employeeAccess.deleteEmployee(employee);
 		} catch (Exception e) {
-			UtilWindow.showMessage(component, e.getMessage(), MessageType.ERROR, "assistant");
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "assistant");
 			return 0;
 		}
 
