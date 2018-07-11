@@ -5,7 +5,6 @@ import java.awt.EventQueue;
 import com.mymanager.data.database.DatabaseManager;
 import com.mymanager.data.database.RDBMSType;
 import com.mymanager.views.LoginView;
-import com.mymanager.views.MainView;
 import com.mymanager.views.MyFrame;
 
 /**
@@ -17,7 +16,6 @@ public class Main {
 
 	private static MyFrame frame;
 	private static LoginView loginView;
-	private static MainView mainView;
 
 	public static void main(String[] args) {
 		try {

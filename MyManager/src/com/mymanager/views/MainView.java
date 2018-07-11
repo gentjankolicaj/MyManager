@@ -14,21 +14,31 @@ import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import com.mymanager.controllers.AdminController;
 import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.User;
 import com.mymanager.utils.AppUtil;
+import com.mymanager.views.subviews.AccountView;
 import com.mymanager.views.subviews.CustomerView;
 import com.mymanager.views.subviews.EmployeeView;
 import com.mymanager.views.subviews.ProjectView;
+import com.mymanager.views.subviews.RightsView;
 import com.mymanager.views.subviews.UserView;
 
 public class MainView extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7963323342444755630L;
+
 	private JFrame jframe;
+
 	private JPanel accountPanel;
 	private JPanel usersPanel;
 	private JPanel employeesPanel;
 	private JPanel projectsPanel;
+
 	private JLabel labelFirstname;
 	private JLabel labelLastname;
 	private JLabel labelGender;
@@ -38,6 +48,7 @@ public class MainView extends JPanel {
 	private JLabel labelRights;
 	private JLabel labelLastlogin;
 	private JLabel labelDate;
+
 	private JPanel customerPanel;
 	private JPanel myAccountPanel;
 	private JPanel currenciesPanel;
@@ -66,11 +77,10 @@ public class MainView extends JPanel {
 		employeesView = new EmployeeView(jframe);
 		projectsView = new ProjectView(jframe);
 		customersView = new CustomerView(jframe);
+
 		initComponents();
 		initAccountEvents();
 		initConfigEvents();
-
-		// update user details labels;
 
 	}
 
@@ -98,6 +108,7 @@ public class MainView extends JPanel {
 		accountPanel.add(labelFirstname);
 
 		JLabel firstname = new JLabel("First name :");
+		firstname.setFont(new Font("Arial", Font.BOLD, 13));
 		firstname.setBounds(10, 127, 75, 19);
 		accountPanel.add(firstname);
 
@@ -122,7 +133,7 @@ public class MainView extends JPanel {
 		accountPanel.add(labelUsertype);
 
 		labelRights = new JLabel("default");
-		labelRights.setBounds(98, 375, 159, 19);
+		labelRights.setBounds(81, 375, 193, 19);
 		accountPanel.add(labelRights);
 
 		labelLastlogin = new JLabel("default");
@@ -134,39 +145,47 @@ public class MainView extends JPanel {
 		accountPanel.add(labelDate);
 
 		JLabel lastname = new JLabel("Last name :");
+		lastname.setFont(new Font("Arial", Font.BOLD, 13));
 		lastname.setBounds(10, 169, 75, 19);
 		accountPanel.add(lastname);
 
 		JLabel gender = new JLabel("Gender :");
+		gender.setFont(new Font("Arial", Font.BOLD, 13));
 		gender.setBounds(10, 207, 75, 19);
 		accountPanel.add(gender);
 
 		JLabel birthplace = new JLabel("Birthplace :");
+		birthplace.setFont(new Font("Arial", Font.BOLD, 13));
 		birthplace.setBounds(10, 247, 75, 19);
 		accountPanel.add(birthplace);
 
 		JLabel birthday = new JLabel("Birthday  :");
+		birthday.setFont(new Font("Arial", Font.BOLD, 13));
 		birthday.setBounds(10, 288, 75, 19);
 		accountPanel.add(birthday);
 
 		JLabel userType = new JLabel("User type  :");
+		userType.setFont(new Font("Arial", Font.BOLD, 13));
 		userType.setBounds(10, 330, 75, 19);
 		accountPanel.add(userType);
 
 		JLabel rights = new JLabel("Rights  :");
+		rights.setFont(new Font("Arial", Font.BOLD, 13));
 		rights.setBounds(10, 375, 75, 19);
 		accountPanel.add(rights);
 
 		JLabel lastlogin = new JLabel("Last login :");
+		lastlogin.setFont(new Font("Arial", Font.BOLD, 13));
 		lastlogin.setBounds(10, 418, 75, 17);
 		accountPanel.add(lastlogin);
 
 		JLabel currentDate = new JLabel("Today date");
-		currentDate.setFont(new Font("Tahoma", Font.ITALIC, 11));
+		currentDate.setFont(new Font("Arial", Font.BOLD, 13));
 		currentDate.setBounds(10, 476, 75, 18);
 		accountPanel.add(currentDate);
 
 		JLabel userId = new JLabel("User ID :");
+		userId.setFont(new Font("Arial", Font.BOLD, 13));
 		userId.setBounds(10, 92, 60, 14);
 		accountPanel.add(userId);
 
@@ -285,7 +304,6 @@ public class MainView extends JPanel {
 		myAccountPanel.add(label);
 
 		currenciesPanel = new JPanel();
-
 		currenciesPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Currencies",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		currenciesPanel.setBackground(UIManager.getColor("Button.background"));
@@ -300,7 +318,6 @@ public class MainView extends JPanel {
 		currenciesPanel.add(label_2);
 
 		paymentTypePanel = new JPanel();
-
 		paymentTypePanel.setBackground(UIManager.getColor("Button.background"));
 		paymentTypePanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Payment",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -413,6 +430,10 @@ public class MainView extends JPanel {
 		myAccountPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				AccountView account = new AccountView(userController);
+				account.setModal(true);
+				account.setVisible(true);
+				updateUserDetails();
 			}
 		});
 
@@ -431,6 +452,11 @@ public class MainView extends JPanel {
 		rightsPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				RightsView rights = new RightsView(userController);
+				rights.setModal(true);
+				rights.setVisible(true);
+				updateUserDetails();
+
 			}
 		});
 
@@ -462,10 +488,10 @@ public class MainView extends JPanel {
 	public void setUserController(UserController userController) {
 		this.userController = userController;
 		this.user = userController.getUser();
-		setUserDetails();
+		setUserDetails(user);
 	}
 
-	public void setUserDetails() {
+	private void setUserDetails(User user) {
 		labelUserId.setText(user.getUserId());
 		labelFirstname.setText(user.getFirstName());
 		labelLastname.setText(user.getLastName());
@@ -473,8 +499,14 @@ public class MainView extends JPanel {
 		labelBirthplace.setText(user.getBirthplace());
 		labelBirthday.setText(user.getBirthday().toString());
 		labelUsertype.setText(user.getUserType().name());
-		labelRights.setText(user.getRights().name());
+		labelRights.setText(user.getRights());
 		labelDate.setText(LocalDateTime.now().toString());
 
+	}
+
+	public void updateUserDetails() {
+		AdminController admin = (AdminController) userController;
+		user = admin.getUser(user.getUserId());
+		setUserDetails(user);
 	}
 }

@@ -14,19 +14,6 @@ public class AboutDialog extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			AboutDialog dialog = new AboutDialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the dialog.
 	 */
 	public AboutDialog() {
@@ -41,6 +28,7 @@ public class AboutDialog extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			JTextArea txtrAboutAuthorGentjan = new JTextArea();
+			txtrAboutAuthorGentjan.setEditable(false);
 			txtrAboutAuthorGentjan.setLineWrap(true);
 			txtrAboutAuthorGentjan.setText(
 					"Author : Gentjan Koli\u00E7aj \r\nEmail : gentjankolicaj@gmail.com\r\nGithub : https://github.com/gentjankolicaj\r\n\r\nAbout Icons : \r\nIcons are property of https://icons8.com/. \r\nThey distribute icons under the license called Creative Commons Attribution-NoDerivs 3.0 Unported.\r\nA special thanks to them.\r\nAlso check the site for more awesome icons.");

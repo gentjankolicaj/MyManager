@@ -18,16 +18,10 @@ import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 
 import com.mymanager.config.AppText;
-import com.mymanager.controllers.AdminController;
-import com.mymanager.controllers.AssistantController;
-import com.mymanager.controllers.FinanceController;
-import com.mymanager.controllers.HumanResourceController;
-import com.mymanager.controllers.ManagerController;
 import com.mymanager.controllers.UserController;
 import com.mymanager.data.data_access.UserAccessObject;
 import com.mymanager.data.data_access.interfaces.UserAccess;
 import com.mymanager.data.models.User;
-import com.mymanager.data.models.UserType;
 import com.mymanager.utils.AppUtil;
 import com.mymanager.utils.MessageType;
 import com.mymanager.utils.PrintType;
@@ -35,6 +29,12 @@ import com.mymanager.utils.PrintUtils;
 import com.mymanager.utils.UtilWindow;
 
 public class LoginView extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private JFrame jframe;
 	private MainView mainView;
 
@@ -43,8 +43,6 @@ public class LoginView extends JPanel {
 	private JButton btnClose;
 	private JButton btnLogin;
 
-	private UserController userController;
-	private UserAccess userAccess;
 	private JPanel infoPanel;
 	private JPanel loginPanel;
 	private JLabel lblPassword;
@@ -52,13 +50,16 @@ public class LoginView extends JPanel {
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel;
 
+	private UserController userController;
+	private UserAccess userAccess;
+
 	/**
 	 * Create the panel.
 	 */
 	public LoginView(JFrame jframe) {
 		this.jframe = jframe;
 		mainView = new MainView(jframe);
-		initDao();
+		userAccess = new UserAccessObject();
 		initComponents();
 		initButtonEvents();
 		initKeyEvents();
@@ -135,12 +136,7 @@ public class LoginView extends JPanel {
 		jframe.setContentPane(this);
 	}
 
-	public void initDao() {
-		userAccess = new UserAccessObject();
-	}
-
 	public void initKeyEvents() {
-
 		textFieldPassword.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -173,9 +169,6 @@ public class LoginView extends JPanel {
 		btnLogin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				// test user
-				// user:1
-				// password: 1
 				if (authenticate()) {
 					mainView.setUserController(userController);
 					AppUtil.changePanel(jframe, mainView);
@@ -194,23 +187,23 @@ public class LoginView extends JPanel {
 	}
 
 	private boolean authenticate() {
-		boolean auth = false;
+
 		String userId = textFieldUsername.getText();
 		char[] pass = textFieldPassword.getPassword();
 		String password = String.valueOf(pass);
+
 		try {
 			User user = userAccess.readUser(userId);
 			if (user != null) {
-				if (validateUser(user, userId, password)) {
-					userController = decideController(user);
-					auth = true;
-				} else {
+				if (AppUtil.validateUser(user, userId, password)) {
+					userController = AppUtil.decideController(user);
+					return true;
+				} else
 					UtilWindow.showMessage(jframe, "User and password don't match.", MessageType.WARNING);
-				}
-			} else {
+
+			} else
 				UtilWindow.showMessage(jframe, "User with ID :" + userId + " not found in database.",
 						MessageType.WARNING);
-			}
 
 		} catch (Exception e1) {
 			UtilWindow.showMessage(jframe, "User with ID : " + userId + " not found in database.", MessageType.WARNING);
@@ -218,32 +211,7 @@ public class LoginView extends JPanel {
 			return false;
 		}
 
-		return auth;
-	}
-
-	private boolean validateUser(User user, String userId, String password) {
-		boolean status = false;
-		String userIdTemp = user.getUserId();
-		String userPassTemp = user.getPassword();
-		if ((userIdTemp.equals(userId)) && (userPassTemp.equals(password))) {
-			status = true;
-		}
-
-		return status;
-	}
-
-	private UserController decideController(User user) {
-		if (user.getUserType().equals(UserType.ADMIN)) {
-			return new AdminController(user, this);
-		} else if (user.getUserType().equals(UserType.ASSISTANT)) {
-			return new AssistantController(user, this);
-		} else if (user.getUserType().equals(UserType.FINANCE)) {
-			return new FinanceController(user, this);
-		} else if (user.getUserType().equals(UserType.HR)) {
-			return new HumanResourceController(user, this);
-		} else {
-			return new ManagerController(user, this);
-		}
+		return false;
 	}
 
 }
