@@ -2,7 +2,6 @@ package com.mymanager.data.data_access.interfaces;
 
 import java.util.List;
 
-import com.mymanager.data.models.Rights;
 import com.mymanager.data.models.User;
 import com.mymanager.data.models.UserType;
 
@@ -21,7 +20,7 @@ public interface UserAccess {
 
 	public abstract List<User> readUsersByUserType(UserType userType) throws Exception;
 
-	public abstract List<User> readUsersByRights(Rights rights) throws Exception;
+	public abstract List<User> readUsersByRights(String rights) throws Exception;
 
 	public abstract User readUser(String userId) throws Exception;
 

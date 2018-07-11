@@ -11,7 +11,6 @@ import com.mymanager.data.database.DatabaseManager;
 import com.mymanager.data.database.DatabasePool;
 import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.Gender;
-import com.mymanager.data.models.Rights;
 import com.mymanager.data.models.User;
 import com.mymanager.data.models.UserType;
 import com.mymanager.utils.PrintType;
@@ -63,7 +62,7 @@ public class UserAccessObject implements UserAccess {
 			User temp = new User(results.getString("user_id"), UserType.valueOf(results.getString("user_type")),
 					results.getString("first_name"), results.getString("last_name"), results.getString("password"),
 					results.getDate("birthday").toLocalDate(), results.getString("birthplace"),
-					Gender.valueOf(results.getString("gender")), Rights.valueOf(results.getString("rights")),
+					Gender.valueOf(results.getString("gender")), results.getString("rights"),
 					results.getString("created_by"), results.getString("updated_by"),
 					results.getTimestamp("created_date").toLocalDateTime(),
 					results.getTimestamp("updated_date").toLocalDateTime());
@@ -89,7 +88,7 @@ public class UserAccessObject implements UserAccess {
 			User temp = new User(results.getString("user_id"), UserType.valueOf(results.getString("user_type")),
 					results.getString("first_name"), results.getString("last_name"), results.getString("password"),
 					results.getDate("birthday").toLocalDate(), results.getString("birthplace"),
-					Gender.valueOf(results.getString("gender")), Rights.valueOf(results.getString("rights")),
+					Gender.valueOf(results.getString("gender")), results.getString("rights"),
 					results.getString("created_by"), results.getString("updated_by"),
 					results.getTimestamp("created_date").toLocalDateTime(),
 					results.getTimestamp("updated_date").toLocalDateTime());
@@ -115,7 +114,7 @@ public class UserAccessObject implements UserAccess {
 			User temp = new User(results.getString("user_id"), UserType.valueOf(results.getString("user_type")),
 					results.getString("first_name"), results.getString("last_name"), results.getString("password"),
 					results.getDate("birthday").toLocalDate(), results.getString("birthplace"),
-					Gender.valueOf(results.getString("gender")), Rights.valueOf(results.getString("rights")),
+					Gender.valueOf(results.getString("gender")), results.getString("rights"),
 					results.getString("created_by"), results.getString("updated_by"),
 					results.getTimestamp("created_date").toLocalDateTime(),
 					results.getTimestamp("updated_date").toLocalDateTime());
@@ -141,7 +140,7 @@ public class UserAccessObject implements UserAccess {
 			User temp = new User(results.getString("user_id"), UserType.valueOf(results.getString("user_type")),
 					results.getString("first_name"), results.getString("last_name"), results.getString("password"),
 					results.getDate("birthday").toLocalDate(), results.getString("birthplace"),
-					Gender.valueOf(results.getString("gender")), Rights.valueOf(results.getString("rights")),
+					Gender.valueOf(results.getString("gender")), results.getString("rights"),
 					results.getString("created_by"), results.getString("updated_by"),
 					results.getTimestamp("created_date").toLocalDateTime(),
 					results.getTimestamp("updated_date").toLocalDateTime());
@@ -153,21 +152,21 @@ public class UserAccessObject implements UserAccess {
 	}
 
 	@Override
-	public List<User> readUsersByRights(Rights rights) throws Exception {
+	public List<User> readUsersByRights(String rights) throws Exception {
 		List<User> userList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM mymanager.users WHERE rights LIKE '%" + rights.name() + "%'";
+			query = "SELECT * FROM mymanager.users WHERE rights LIKE '%" + rights + "%'";
 		else
-			query = "SELECT * FROM mymanager.users_history WHERE rights LIKE '%" + rights.name() + "%'";
+			query = "SELECT * FROM mymanager.users_history WHERE rights LIKE '%" + rights + "%'";
 
 		results = database.selectStatement(query);
 		while (results.next()) {
 			User temp = new User(results.getString("user_id"), UserType.valueOf(results.getString("user_type")),
 					results.getString("first_name"), results.getString("last_name"), results.getString("password"),
 					results.getDate("birthday").toLocalDate(), results.getString("birthplace"),
-					Gender.valueOf(results.getString("gender")), Rights.valueOf(results.getString("rights")),
+					Gender.valueOf(results.getString("gender")), results.getString("rights"),
 					results.getString("created_by"), results.getString("updated_by"),
 					results.getTimestamp("created_date").toLocalDateTime(),
 					results.getTimestamp("updated_date").toLocalDateTime());
@@ -190,7 +189,7 @@ public class UserAccessObject implements UserAccess {
 			userLocal = new User(results.getString("user_id"), UserType.valueOf(results.getString("user_type")),
 					results.getString("first_name"), results.getString("last_name"), results.getString("password"),
 					results.getDate("birthday").toLocalDate(), results.getString("birthplace"),
-					Gender.valueOf(results.getString("gender")), Rights.valueOf(results.getString("rights")),
+					Gender.valueOf(results.getString("gender")), results.getString("rights"),
 					results.getString("created_by"), results.getString("updated_by"),
 					results.getTimestamp("created_date").toLocalDateTime(),
 					results.getTimestamp("updated_date").toLocalDateTime());
@@ -218,7 +217,7 @@ public class UserAccessObject implements UserAccess {
 		pstmt.setObject(6, newUser.getBirthday());
 		pstmt.setString(7, newUser.getBirthplace());
 		pstmt.setString(8, newUser.getGender().name());
-		pstmt.setString(9, newUser.getRights().name());
+		pstmt.setString(9, newUser.getRights());
 		pstmt.setString(10, newUser.getCreatedBy());
 		pstmt.setObject(11, newUser.getCreatedDate());
 		pstmt.setString(12, newUser.getUpdatedBy());
@@ -242,7 +241,7 @@ public class UserAccessObject implements UserAccess {
 		pstmt.setObject(6, user.getBirthday());
 		pstmt.setString(7, user.getBirthplace());
 		pstmt.setString(8, user.getGender().name());
-		pstmt.setString(9, user.getRights().name());
+		pstmt.setString(9, user.getRights());
 		pstmt.setString(10, user.getCreatedBy());
 		pstmt.setObject(11, user.getCreatedDate());
 		pstmt.setString(12, user.getUpdatedBy());
@@ -275,7 +274,7 @@ public class UserAccessObject implements UserAccess {
 		pstmt.setObject(6, user.getBirthday());
 		pstmt.setString(7, user.getBirthplace());
 		pstmt.setString(8, user.getGender().name());
-		pstmt.setString(9, user.getRights().name());
+		pstmt.setString(9, user.getRights());
 		pstmt.setString(10, user.getCreatedBy());
 		pstmt.setObject(11, user.getCreatedDate());
 		pstmt.setString(12, user.getUpdatedBy());

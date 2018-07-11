@@ -18,7 +18,7 @@ public class User extends MyModel {
 	private LocalDate birthday;
 	private String birthplace;
 	private Gender gender;
-	private Rights rights;
+	private String rights;
 	private String createdBy;
 	private String updatedBy;
 	private LocalDateTime createdDate;
@@ -48,7 +48,7 @@ public class User extends MyModel {
 	 * @param updatedDate
 	 */
 	public User(String userId, UserType userType, String firstName, String lastName, String password,
-			LocalDate birthday, String birthplace, Gender gender, Rights rights, String createdBy, String updatedBy,
+			LocalDate birthday, String birthplace, Gender gender, String rights, String createdBy, String updatedBy,
 			LocalDateTime createdDate, LocalDateTime updatedDate) {
 		super();
 		this.userId = userId;
@@ -130,11 +130,11 @@ public class User extends MyModel {
 		this.gender = gender;
 	}
 
-	public Rights getRights() {
+	public String getRights() {
 		return rights;
 	}
 
-	public void setRights(Rights rights) {
+	public void setRights(String rights) {
 		this.rights = rights;
 	}
 
