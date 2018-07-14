@@ -43,7 +43,6 @@ import com.mymanager.data.database.DatabaseManager;
 import com.mymanager.data.database.QueryType;
 import com.mymanager.data.database.RDBMSType;
 import com.mymanager.data.models.Gender;
-import com.mymanager.data.models.Rights;
 import com.mymanager.data.models.User;
 import com.mymanager.data.models.UserType;
 
@@ -105,7 +104,7 @@ public class DatabaseUpdateQueries {
 		oldUser.setUserId("75");
 		userAccess.updateUser(oldUser,
 				new User("75", UserType.MANAGER, "Name", "Last", "password_updated", LocalDate.now(), "Tirane",
-						Gender.M, Rights.DELETE, "created Gentjan", "modified gentjan", LocalDateTime.now(),
+						Gender.M, "READ", "created Gentjan", "modified gentjan", LocalDateTime.now(),
 						LocalDateTime.now()));
 	}
 

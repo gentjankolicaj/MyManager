@@ -115,13 +115,13 @@ public class DatabaseInsertQueries {
 		while (0 < i) {
 			randomId = random.nextInt(2000);
 			userAccess.insertUser(new User(String.valueOf(randomId), UserType.ADMIN, "name", "last", "password",
-					LocalDate.now(), "Tirane", Gender.M, Rights.DELETE, "created Gentjan", "modified gentjan",
+					LocalDate.now(), "Tirane", Gender.M, Rights.READ.name(), "created Gentjan", "modified gentjan",
 					LocalDateTime.now(), LocalDateTime.now()));
 
 			i--;
 		}
 		userAccess.insertUser(new User(String.valueOf(1), UserType.ADMIN, "name", "last", "1", LocalDate.now(),
-				"Tirane", Gender.M, Rights.DELETE, "created Gentjan", "modified gentjan", LocalDateTime.now(),
+				"Tirane", Gender.M, Rights.READ.name(), "created Gentjan", "modified gentjan", LocalDateTime.now(),
 				LocalDateTime.now()));
 
 	}
