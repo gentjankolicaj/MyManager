@@ -18,9 +18,14 @@ import com.mymanager.controllers.AdminController;
 import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.User;
 import com.mymanager.utils.AppUtil;
+import com.mymanager.utils.MessageType;
+import com.mymanager.utils.UtilWindow;
 import com.mymanager.views.subviews.AccountView;
+import com.mymanager.views.subviews.CountryView;
+import com.mymanager.views.subviews.CurrencyView;
 import com.mymanager.views.subviews.CustomerView;
 import com.mymanager.views.subviews.EmployeeView;
+import com.mymanager.views.subviews.FileView;
 import com.mymanager.views.subviews.ProjectView;
 import com.mymanager.views.subviews.RightsView;
 import com.mymanager.views.subviews.UserView;
@@ -427,35 +432,60 @@ public class MainView extends JPanel {
 	}
 
 	public void initConfigEvents() {
+
 		myAccountPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				AccountView account = new AccountView(userController);
-				account.setModal(true);
-				account.setVisible(true);
-				updateUserDetails();
+				AccountView accountView = new AccountView(userController);
+				accountView.setModal(true);
+				accountView.setVisible(true);
+				updateMainViewUserDetails();
 			}
 		});
 
 		currenciesPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				if (userController instanceof AdminController) {
+					AdminController adminController = (AdminController) userController;
+					CurrencyView currencyView = new CurrencyView(adminController);
+					currencyView.setModal(true);
+					currencyView.setVisible(true);
+
+				} else
+					UtilWindow.showMessage(null, "Admin users only can access currency panel.",
+							MessageType.INFORMATION);
 			}
 		});
 
 		fileTypePanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				if (userController instanceof AdminController) {
+					AdminController adminController = (AdminController) userController;
+					FileView fileView = new FileView(adminController);
+					fileView.setModal(true);
+					fileView.setVisible(true);
+
+				} else
+					UtilWindow.showMessage(null, "Admin users only can access currency panel.",
+							MessageType.INFORMATION);
 			}
 		});
 
 		rightsPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				RightsView rights = new RightsView(userController);
-				rights.setModal(true);
-				rights.setVisible(true);
-				updateUserDetails();
+				if (userController instanceof AdminController) {
+					AdminController adminController = (AdminController) userController;
+					RightsView rightsView = new RightsView(adminController);
+					rightsView.updateUserComboBox();
+					rightsView.setModal(true);
+					rightsView.setVisible(true);
+
+					updateMainViewUserDetails();
+				} else
+					UtilWindow.showMessage(null, "Admin users only can access rights panel.", MessageType.INFORMATION);
 
 			}
 		});
@@ -463,6 +493,14 @@ public class MainView extends JPanel {
 		countryPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				if (userController instanceof AdminController) {
+					AdminController adminController = (AdminController) userController;
+					CountryView countryView = new CountryView(adminController);
+					countryView.setModal(true);
+					countryView.setVisible(true);
+
+				} else
+					UtilWindow.showMessage(null, "Admin users only can access country panel.", MessageType.INFORMATION);
 			}
 		});
 
@@ -488,10 +526,10 @@ public class MainView extends JPanel {
 	public void setUserController(UserController userController) {
 		this.userController = userController;
 		this.user = userController.getUser();
-		setUserDetails(user);
+		setMainViewUserDetails(user);
 	}
 
-	private void setUserDetails(User user) {
+	private void setMainViewUserDetails(User user) {
 		labelUserId.setText(user.getUserId());
 		labelFirstname.setText(user.getFirstName());
 		labelLastname.setText(user.getLastName());
@@ -504,9 +542,9 @@ public class MainView extends JPanel {
 
 	}
 
-	public void updateUserDetails() {
+	public void updateMainViewUserDetails() {
 		AdminController admin = (AdminController) userController;
 		user = admin.getUser(user.getUserId());
-		setUserDetails(user);
+		setMainViewUserDetails(user);
 	}
 }
