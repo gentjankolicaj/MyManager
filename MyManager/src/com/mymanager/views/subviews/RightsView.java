@@ -33,6 +33,7 @@ public class RightsView extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 
+	private JDialog selfReference;
 	private JLabel lblRights_1;
 	private JLabel lblUser;
 	private JComboBox comboBox_1;
@@ -51,6 +52,7 @@ public class RightsView extends JDialog {
 	 * Create the dialog.
 	 */
 	public RightsView(AdminController adminController) {
+		this.selfReference = this;
 		this.adminController = adminController;
 		this.user = adminController.getUser();
 		initComponents();
@@ -151,6 +153,7 @@ public class RightsView extends JDialog {
 						newUser.setRights(newRights);
 						adminController.editUser(user, newUser);
 						UtilWindow.showMessage(null, "Your rights are updated.", MessageType.INFORMATION);
+						selfReference.dispose();
 					}
 
 				} else if (selectedRadioButton == 2) {
@@ -198,7 +201,7 @@ public class RightsView extends JDialog {
 
 	private List<String> getAllUserIds() {
 		List<String> userIdList = new ArrayList<String>();
-		List<User> userList = adminController.getAllUsers(QueryType.NORMAL);
+		List<User> userList = adminController.getAllUsersId(QueryType.NORMAL);
 		for (User user : userList) {
 			userIdList.add(user.getUserId());
 		}
