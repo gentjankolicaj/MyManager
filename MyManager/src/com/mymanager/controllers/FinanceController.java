@@ -248,7 +248,7 @@ public class FinanceController extends UserController {
 	// File Types
 	// =======================================================================
 
-	public List<FileType> getAllFileTypes(QueryType queryType) {
+	public List<FileType> getAllFileTypes() {
 		try {
 			return fileTypeAccess.readAllFileTypes();
 		} catch (Exception e) {
