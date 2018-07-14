@@ -81,4 +81,11 @@ public class AppUtil {
 		return status;
 	}
 
+	public boolean checkUserPermission(UserController userController) {
+		if (userController instanceof AdminController) {
+			return true;
+		} else
+			return false;
+	}
+
 }
