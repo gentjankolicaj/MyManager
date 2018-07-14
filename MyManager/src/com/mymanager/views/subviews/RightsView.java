@@ -144,7 +144,8 @@ public class RightsView extends JDialog {
 					String decidedRight = right.name();
 
 					if (currentRights.contains(decidedRight)) {
-						UtilWindow.showMessage(null, "Your already have this right.", MessageType.INFORMATION);
+						UtilWindow.showMessage(null, "This user already has this right.", MessageType.INFORMATION);
+
 					} else {
 						String newRights = currentRights.concat(",").concat(decidedRight);
 						newUser.setRights(newRights);
