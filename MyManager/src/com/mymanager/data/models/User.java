@@ -173,11 +173,15 @@ public class User extends MyModel {
 	@Override
 	public String toNormal() {
 		String cls = getClass().getSimpleName();
-		String text = cls + ": userId:" + userId + ", userType:" + userType + ", firstName:" + firstName + ", lastName:"
-				+ lastName + ", password:" + password + " , birthday:" + birthday.toString() + ", birthplace:"
-				+ birthplace + ", gender:" + gender + ", rights:" + rights + ", createdBy:" + createdBy
-				+ ", createdDate:" + createdDate.toString() + ", updatedBy:" + updatedBy + ", updatedDate:"
-				+ updatedDate.toString();
+		String text = null;
+		if ((birthday != null) && (createdDate != null) && (updatedDate != null)) {
+			text = cls + ": userId:" + userId + ", userType:" + userType + ", firstName:" + firstName + ", lastName:"
+					+ lastName + ", password:" + password + " , birthday:" + birthday.toString() + ", birthplace:"
+					+ birthplace + ", gender:" + gender + ", rights:" + rights + ", createdBy:" + createdBy
+					+ ", createdDate:" + createdDate.toString() + ", updatedBy:" + updatedBy + ", updatedDate:"
+					+ updatedDate.toString();
+		} else
+			text = cls + ": userId:" + userId;
 
 		return text;
 	}

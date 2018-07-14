@@ -283,4 +283,25 @@ public class UserAccessObject implements UserAccess {
 		return pstmt.executeUpdate();
 	}
 
+	@Override
+	public List<User> readAllUsersId() throws Exception {
+		List<User> userList = new ArrayList<>();
+		ResultSet results = null;
+		String query = null;
+		if (queryType.equals(QueryType.NORMAL))
+			query = "SELECT * FROM mymanager.users";
+		else
+			query = "SELECT * FROM mymanager.users_history";
+
+		results = database.selectStatement(query);
+		while (results.next()) {
+			User temp = new User();
+			temp.setUserId(results.getString("user_id"));
+			userList.add(temp);
+
+		}
+		PrintUtils.print(userList, PrintType.QUERY_RESULTS);
+		return userList;
+	}
+
 }

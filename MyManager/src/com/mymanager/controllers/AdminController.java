@@ -1221,6 +1221,17 @@ public class AdminController extends UserController {
 
 	}
 
+	public List<User> getAllUsersId(QueryType queryType) {
+		try {
+			setQueryType(queryType);
+			return userAccess.readAllUsersId();
+		} catch (Exception e) {
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
+			return null;
+		}
+
+	}
+
 	public List<User> getUsersByFirstName(QueryType queryType, String firstName) {
 		try {
 			setQueryType(queryType);
