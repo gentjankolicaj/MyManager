@@ -26,6 +26,7 @@ import com.mymanager.views.subviews.CurrencyView;
 import com.mymanager.views.subviews.CustomerView;
 import com.mymanager.views.subviews.EmployeeView;
 import com.mymanager.views.subviews.FileView;
+import com.mymanager.views.subviews.PaymentTypeView;
 import com.mymanager.views.subviews.ProjectView;
 import com.mymanager.views.subviews.RightsView;
 import com.mymanager.views.subviews.UserView;
@@ -507,6 +508,14 @@ public class MainView extends JPanel {
 		paymentTypePanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				if (userController instanceof AdminController) {
+					AdminController adminController = (AdminController) userController;
+					PaymentTypeView paymentTypeView = new PaymentTypeView(adminController);
+					paymentTypeView.setModal(true);
+					paymentTypeView.setVisible(true);
+
+				} else
+					UtilWindow.showMessage(null, "Admin users only can access country panel.", MessageType.INFORMATION);
 			}
 		});
 	}

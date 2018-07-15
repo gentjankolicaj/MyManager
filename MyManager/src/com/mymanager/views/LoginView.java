@@ -6,6 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDateTime;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,8 +20,12 @@ import javax.swing.border.LineBorder;
 
 import com.mymanager.config.AppText;
 import com.mymanager.controllers.UserController;
+import com.mymanager.data.data_access.AttemptAccessObject;
 import com.mymanager.data.data_access.UserAccessObject;
+import com.mymanager.data.data_access.interfaces.AttemptAccess;
 import com.mymanager.data.data_access.interfaces.UserAccess;
+import com.mymanager.data.models.Attempt;
+import com.mymanager.data.models.Status;
 import com.mymanager.data.models.User;
 import com.mymanager.utils.AppUtil;
 import com.mymanager.utils.MessageType;
@@ -52,6 +57,8 @@ public class LoginView extends JPanel {
 
 	private UserController userController;
 	private UserAccess userAccess;
+	private User user;
+	private AttemptAccess attemptAccess;
 
 	/**
 	 * Create the panel.
@@ -60,6 +67,8 @@ public class LoginView extends JPanel {
 		this.jframe = jframe;
 		mainView = new MainView(jframe);
 		userAccess = new UserAccessObject();
+		attemptAccess = new AttemptAccessObject();
+
 		initComponents();
 		initButtonEvents();
 		initKeyEvents();
@@ -187,31 +196,50 @@ public class LoginView extends JPanel {
 	}
 
 	private boolean authenticate() {
-
 		String userId = textFieldUsername.getText();
 		char[] pass = textFieldPassword.getPassword();
 		String password = String.valueOf(pass);
-
 		try {
-			User user = userAccess.readUser(userId);
+			user = userAccess.readUser(userId);
 			if (user != null) {
 				if (AppUtil.validateUser(user, userId, password)) {
 					userController = AppUtil.decideController(user);
+					registerAttempt(user, Status.SUCCESS, "login");
 					return true;
-				} else
+				} else {
 					UtilWindow.showMessage(jframe, "User and password don't match.", MessageType.WARNING);
-
-			} else
+					registerAttempt(user, Status.FAILURE, "login");
+				}
+			} else {
 				UtilWindow.showMessage(jframe, "User with ID :" + userId + " not found in database.",
 						MessageType.WARNING);
-
+				registerAttempt(user, Status.FAILURE, "login");
+			}
 		} catch (Exception e1) {
 			UtilWindow.showMessage(jframe, "User with ID : " + userId + " not found in database.", MessageType.WARNING);
+			registerAttempt(user, Status.FAILURE, "login");
 			PrintUtils.print(e1, PrintType.DATABASE_QUERY);
 			return false;
 		}
 
 		return false;
+	}
+
+	private void registerAttempt(User user, Status status, String intent) {
+		try {
+			if (status.equals(Status.SUCCESS)) {
+				Attempt attempt = new Attempt(0, user.getUserId(), user.getPassword(), status, intent + " successfully",
+						LocalDateTime.now());
+				attemptAccess.insertAttempt(attempt);
+			} else {
+				Attempt attempt = new Attempt(0, user.getUserId(), user.getPassword(), status, "Failed " + intent,
+						LocalDateTime.now());
+				attemptAccess.insertAttempt(attempt);
+			}
+
+		} catch (Exception e) {
+			UtilWindow.showMessage(null, "Failed to register attempt.", MessageType.ERROR);
+		}
 	}
 
 }

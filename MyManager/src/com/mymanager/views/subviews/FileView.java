@@ -67,19 +67,19 @@ public class FileView extends JDialog {
 
 		btnCreate.setIcon(new ImageIcon(
 				CurrencyView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-add-2.png")));
-		btnCreate.setBounds(10, 71, 108, 23);
+		btnCreate.setBounds(10, 212, 108, 23);
 		contentPanel.add(btnCreate);
 
 		btnEdit = new JButton("Edit");
 		btnEdit.setIcon(new ImageIcon(
 				CurrencyView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-edit-3.png")));
-		btnEdit.setBounds(10, 116, 108, 23);
+		btnEdit.setBounds(10, 257, 108, 23);
 		contentPanel.add(btnEdit);
 
 		btnDelete = new JButton("Delete");
 		btnDelete.setIcon(new ImageIcon(
 				CurrencyView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-minus-2.png")));
-		btnDelete.setBounds(10, 164, 108, 23);
+		btnDelete.setBounds(10, 305, 108, 23);
 		contentPanel.add(btnDelete);
 
 		scrollPane = new JScrollPane();
