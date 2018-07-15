@@ -12,7 +12,6 @@ import com.mymanager.data.database.DatabasePool;
 import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.Gender;
 import com.mymanager.data.models.User;
-import com.mymanager.data.models.UserType;
 import com.mymanager.utils.PrintType;
 import com.mymanager.utils.PrintUtils;
 
@@ -59,7 +58,7 @@ public class UserAccessObject implements UserAccess {
 
 		results = database.selectStatement(query);
 		while (results.next()) {
-			User temp = new User(results.getString("user_id"), UserType.valueOf(results.getString("user_type")),
+			User temp = new User(results.getString("user_id"), results.getString("user_type"),
 					results.getString("first_name"), results.getString("last_name"), results.getString("password"),
 					results.getDate("birthday").toLocalDate(), results.getString("birthplace"),
 					Gender.valueOf(results.getString("gender")), results.getString("rights"),
@@ -85,7 +84,7 @@ public class UserAccessObject implements UserAccess {
 
 		results = database.selectStatement(query);
 		while (results.next()) {
-			User temp = new User(results.getString("user_id"), UserType.valueOf(results.getString("user_type")),
+			User temp = new User(results.getString("user_id"), results.getString("user_type"),
 					results.getString("first_name"), results.getString("last_name"), results.getString("password"),
 					results.getDate("birthday").toLocalDate(), results.getString("birthplace"),
 					Gender.valueOf(results.getString("gender")), results.getString("rights"),
@@ -111,7 +110,7 @@ public class UserAccessObject implements UserAccess {
 
 		results = database.selectStatement(query);
 		while (results.next()) {
-			User temp = new User(results.getString("user_id"), UserType.valueOf(results.getString("user_type")),
+			User temp = new User(results.getString("user_id"), results.getString("user_type"),
 					results.getString("first_name"), results.getString("last_name"), results.getString("password"),
 					results.getDate("birthday").toLocalDate(), results.getString("birthplace"),
 					Gender.valueOf(results.getString("gender")), results.getString("rights"),
@@ -126,18 +125,18 @@ public class UserAccessObject implements UserAccess {
 	}
 
 	@Override
-	public List<User> readUsersByUserType(UserType userType) throws Exception {
+	public List<User> readUsersByUserType(String userType) throws Exception {
 		List<User> userList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM mymanager.users WHERE user_type=" + userType.name();
+			query = "SELECT * FROM mymanager.users WHERE user_type=" + userType;
 		else
-			query = "SELECT * FROM mymanager.users_history WHERE user_type=" + userType.name();
+			query = "SELECT * FROM mymanager.users_history WHERE user_type=" + userType;
 
 		results = database.selectStatement(query);
 		while (results.next()) {
-			User temp = new User(results.getString("user_id"), UserType.valueOf(results.getString("user_type")),
+			User temp = new User(results.getString("user_id"), results.getString("user_type"),
 					results.getString("first_name"), results.getString("last_name"), results.getString("password"),
 					results.getDate("birthday").toLocalDate(), results.getString("birthplace"),
 					Gender.valueOf(results.getString("gender")), results.getString("rights"),
@@ -163,7 +162,7 @@ public class UserAccessObject implements UserAccess {
 
 		results = database.selectStatement(query);
 		while (results.next()) {
-			User temp = new User(results.getString("user_id"), UserType.valueOf(results.getString("user_type")),
+			User temp = new User(results.getString("user_id"), results.getString("user_type"),
 					results.getString("first_name"), results.getString("last_name"), results.getString("password"),
 					results.getDate("birthday").toLocalDate(), results.getString("birthplace"),
 					Gender.valueOf(results.getString("gender")), results.getString("rights"),
@@ -186,7 +185,7 @@ public class UserAccessObject implements UserAccess {
 
 		results = database.selectStatement(query);
 		while (results.next()) {
-			userLocal = new User(results.getString("user_id"), UserType.valueOf(results.getString("user_type")),
+			userLocal = new User(results.getString("user_id"), results.getString("user_type"),
 					results.getString("first_name"), results.getString("last_name"), results.getString("password"),
 					results.getDate("birthday").toLocalDate(), results.getString("birthplace"),
 					Gender.valueOf(results.getString("gender")), results.getString("rights"),
@@ -210,7 +209,7 @@ public class UserAccessObject implements UserAccess {
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, newUser.getUserId());
-		pstmt.setString(2, newUser.getUserType().name());
+		pstmt.setString(2, newUser.getUserType());
 		pstmt.setString(3, newUser.getFirstName());
 		pstmt.setString(4, newUser.getLastName());
 		pstmt.setString(5, newUser.getPassword());
@@ -234,7 +233,7 @@ public class UserAccessObject implements UserAccess {
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, user.getUserId());
-		pstmt.setString(2, user.getUserType().name());
+		pstmt.setString(2, user.getUserType());
 		pstmt.setString(3, user.getFirstName());
 		pstmt.setString(4, user.getLastName());
 		pstmt.setString(5, user.getPassword());
@@ -267,7 +266,7 @@ public class UserAccessObject implements UserAccess {
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, user.getUserId());
-		pstmt.setString(2, user.getUserType().name());
+		pstmt.setString(2, user.getUserType());
 		pstmt.setString(3, user.getFirstName());
 		pstmt.setString(4, user.getLastName());
 		pstmt.setString(5, user.getPassword());

@@ -17,7 +17,7 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.mymanager.controllers.AdminController;
+import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.FileType;
 import com.mymanager.views.subviews.create.CreateFile;
 
@@ -31,7 +31,7 @@ public class FileView extends JDialog {
 	private JButton btnDelete;
 	private JButton btnEdit;
 	private JButton btnCreate;
-	private AdminController adminController;
+	private UserController userController;
 	private DefaultTableModel tableModel;
 	private List<FileType> fileTypeList;
 	private JTable table;
@@ -40,8 +40,8 @@ public class FileView extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public FileView(AdminController adminController) {
-		this.adminController = adminController;
+	public FileView(UserController userController) {
+		this.userController = userController;
 		initComponents();
 		initEvents();
 
@@ -99,7 +99,7 @@ public class FileView extends JDialog {
 		btnCreate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				CreateFile createFile = new CreateFile(adminController);
+				CreateFile createFile = new CreateFile(userController);
 				createFile.setModal(true);
 				createFile.setVisible(true);
 				updateTable();
@@ -113,7 +113,7 @@ public class FileView extends JDialog {
 				int index = table.getSelectedRow();
 				FileType oldFileType = fileTypeList.get(index);
 				String newFileType = (String) tableModel.getValueAt(index, 0);
-				adminController.editFileType(oldFileType, new FileType(newFileType));
+				userController.editFileType(oldFileType, new FileType(newFileType));
 				updateTable();
 			}
 		});
@@ -123,7 +123,7 @@ public class FileView extends JDialog {
 			public void mouseReleased(MouseEvent e) {
 				int index = table.getSelectedRow();
 				String fileType = (String) tableModel.getValueAt(index, 0);
-				adminController.deleteFileType(new FileType(fileType));
+				userController.deleteFileType(new FileType(fileType));
 				updateTable();
 			}
 		});
@@ -131,11 +131,11 @@ public class FileView extends JDialog {
 	}
 
 	public void updateTable() {
-		fileTypeList = adminController.getAllFileTypes();
+		fileTypeList = userController.getAllFileTypes();
 		tableModel = new DefaultTableModel();
 		tableModel.setColumnIdentifiers(new String[] { "File type" });
 		table.setModel(tableModel);
-		for (FileType fileType : adminController.getAllFileTypes()) {
+		for (FileType fileType : userController.getAllFileTypes()) {
 			Object[] obj = new Object[1];
 			obj[0] = fileType.getFile();
 			tableModel.addRow(obj);

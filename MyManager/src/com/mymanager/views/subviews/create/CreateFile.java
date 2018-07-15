@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.mymanager.controllers.AdminController;
+import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.FileType;
 import com.mymanager.views.subviews.CurrencyView;
 
@@ -29,14 +29,14 @@ public class CreateFile extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JButton btnCreate;
 	private JTextField textFieldFile;
-	private AdminController adminController;
+	private UserController userController;
 
 	/**
 	 * Create the dialog.
 	 */
-	public CreateFile(AdminController adminController) {
+	public CreateFile(UserController userController) {
 		selfReference = this;
-		this.adminController = adminController;
+		this.userController = userController;
 		initComponents();
 		initEvents();
 
@@ -47,7 +47,7 @@ public class CreateFile extends JDialog {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				String newFileType = textFieldFile.getText();
-				adminController.saveFileType(new FileType(newFileType));
+				userController.saveFileType(new FileType(newFileType));
 				selfReference.dispose();
 			}
 		});
@@ -57,7 +57,7 @@ public class CreateFile extends JDialog {
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					String newFile = textFieldFile.getText();
-					adminController.saveFileType(new FileType(newFile));
+					userController.saveFileType(new FileType(newFile));
 					selfReference.dispose();
 				}
 			}

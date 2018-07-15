@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class User extends MyModel {
 
 	private String userId;
-	private UserType userType;
+	private String userType;
 	private String firstName;
 	private String lastName;
 	private String password;
@@ -47,8 +47,8 @@ public class User extends MyModel {
 	 * @param createdDate
 	 * @param updatedDate
 	 */
-	public User(String userId, UserType userType, String firstName, String lastName, String password,
-			LocalDate birthday, String birthplace, Gender gender, String rights, String createdBy, String updatedBy,
+	public User(String userId, String userType, String firstName, String lastName, String password, LocalDate birthday,
+			String birthplace, Gender gender, String rights, String createdBy, String updatedBy,
 			LocalDateTime createdDate, LocalDateTime updatedDate) {
 		super();
 		this.userId = userId;
@@ -74,11 +74,11 @@ public class User extends MyModel {
 		this.userId = userId;
 	}
 
-	public UserType getUserType() {
+	public String getUserType() {
 		return userType;
 	}
 
-	public void setUserType(UserType userType) {
+	public void setUserType(String userType) {
 		this.userType = userType;
 	}
 

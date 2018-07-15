@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.mymanager.controllers.AdminController;
+import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.PaymentType;
 import com.mymanager.views.subviews.CurrencyView;
 
@@ -30,14 +30,14 @@ public class CreatePaymentType extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JButton btnCreate;
 	private JTextField textFieldPayment;
-	private AdminController adminController;
+	private UserController userController;
 
 	/**
 	 * Create the dialog.
 	 */
-	public CreatePaymentType(AdminController adminController) {
+	public CreatePaymentType(UserController userController) {
 		selfReference = this;
-		this.adminController = adminController;
+		this.userController = userController;
 		initComponents();
 		initEvents();
 
@@ -48,7 +48,7 @@ public class CreatePaymentType extends JDialog {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				String newPaymentType = textFieldPayment.getText();
-				adminController.savePaymentType(new PaymentType(newPaymentType));
+				userController.savePaymentType(new PaymentType(newPaymentType));
 				selfReference.dispose();
 			}
 		});
@@ -58,7 +58,7 @@ public class CreatePaymentType extends JDialog {
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					String newPaymentType = textFieldPayment.getText();
-					adminController.savePaymentType(new PaymentType(newPaymentType));
+					userController.savePaymentType(new PaymentType(newPaymentType));
 					selfReference.dispose();
 				}
 			}

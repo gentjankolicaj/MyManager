@@ -103,8 +103,8 @@ public class DatabaseUpdateQueries {
 		User oldUser = new User();
 		oldUser.setUserId("75");
 		userAccess.updateUser(oldUser,
-				new User("75", UserType.MANAGER, "Name", "Last", "password_updated", LocalDate.now(), "Tirane",
-						Gender.M, "READ", "created Gentjan", "modified gentjan", LocalDateTime.now(),
+				new User("75", UserType.MANAGER.toString(), "Name", "Last", "password_updated", LocalDate.now(),
+						"Tirane", Gender.M, "READ", "created Gentjan", "modified gentjan", LocalDateTime.now(),
 						LocalDateTime.now()));
 	}
 

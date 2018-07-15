@@ -203,7 +203,7 @@ public class LoginView extends JPanel {
 			user = userAccess.readUser(userId);
 			if (user != null) {
 				if (AppUtil.validateUser(user, userId, password)) {
-					userController = AppUtil.decideController(user);
+					userController = new UserController(user);
 					registerAttempt(user, Status.SUCCESS, "login");
 					return true;
 				} else {
@@ -216,7 +216,7 @@ public class LoginView extends JPanel {
 				registerAttempt(user, Status.FAILURE, "login");
 			}
 		} catch (Exception e1) {
-			UtilWindow.showMessage(jframe, "User with ID : " + userId + " not found in database.", MessageType.WARNING);
+			UtilWindow.showMessage(jframe, e1.getMessage(), MessageType.WARNING);
 			registerAttempt(user, Status.FAILURE, "login");
 			PrintUtils.print(e1, PrintType.DATABASE_QUERY);
 			return false;

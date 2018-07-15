@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.mymanager.controllers.AdminController;
+import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.Country;
 import com.mymanager.views.subviews.CurrencyView;
 
@@ -30,14 +30,14 @@ public class CreateCountry extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JButton btnCreate;
 	private JTextField textFieldCountry;
-	private AdminController adminController;
+	private UserController userController;
 
 	/**
 	 * Create the dialog.
 	 */
-	public CreateCountry(AdminController adminController) {
+	public CreateCountry(UserController userController) {
 		selfReference = this;
-		this.adminController = adminController;
+		this.userController = userController;
 		initComponents();
 		initEvents();
 
@@ -48,7 +48,7 @@ public class CreateCountry extends JDialog {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				String newCountry = textFieldCountry.getText();
-				adminController.saveCountry(new Country(newCountry));
+				userController.saveCountry(new Country(newCountry));
 				selfReference.dispose();
 			}
 		});
@@ -58,7 +58,7 @@ public class CreateCountry extends JDialog {
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					String newCountry = textFieldCountry.getText();
-					adminController.saveCountry(new Country(newCountry));
+					userController.saveCountry(new Country(newCountry));
 					selfReference.dispose();
 				}
 			}

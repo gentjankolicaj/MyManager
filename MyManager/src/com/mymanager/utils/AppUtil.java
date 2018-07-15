@@ -7,14 +7,7 @@ import java.awt.event.MouseMotionAdapter;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.mymanager.controllers.AdminController;
-import com.mymanager.controllers.AssistantController;
-import com.mymanager.controllers.FinanceController;
-import com.mymanager.controllers.HumanResourceController;
-import com.mymanager.controllers.ManagerController;
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.User;
-import com.mymanager.data.models.UserType;
 
 /**
  * 
@@ -57,20 +50,6 @@ public class AppUtil {
 		jframe.validate();
 	}
 
-	public static UserController decideController(User user) {
-		if (user.getUserType().equals(UserType.ADMIN)) {
-			return new AdminController(user);
-		} else if (user.getUserType().equals(UserType.ASSISTANT)) {
-			return new AssistantController(user);
-		} else if (user.getUserType().equals(UserType.FINANCE)) {
-			return new FinanceController(user);
-		} else if (user.getUserType().equals(UserType.HR)) {
-			return new HumanResourceController(user);
-		} else {
-			return new ManagerController(user);
-		}
-	}
-
 	public static boolean validateUser(User user, String userId, String password) {
 		boolean status = false;
 		String userIdTemp = user.getUserId();
@@ -79,13 +58,6 @@ public class AppUtil {
 			status = true;
 		}
 		return status;
-	}
-
-	public boolean checkUserPermission(UserController userController) {
-		if (userController instanceof AdminController) {
-			return true;
-		} else
-			return false;
 	}
 
 }

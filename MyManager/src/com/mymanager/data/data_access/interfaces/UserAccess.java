@@ -3,7 +3,6 @@ package com.mymanager.data.data_access.interfaces;
 import java.util.List;
 
 import com.mymanager.data.models.User;
-import com.mymanager.data.models.UserType;
 
 /**
  * 
@@ -20,7 +19,7 @@ public interface UserAccess {
 
 	public abstract List<User> readUsersByLastName(String lastName) throws Exception;
 
-	public abstract List<User> readUsersByUserType(UserType userType) throws Exception;
+	public abstract List<User> readUsersByUserType(String userType) throws Exception;
 
 	public abstract List<User> readUsersByRights(String rights) throws Exception;
 

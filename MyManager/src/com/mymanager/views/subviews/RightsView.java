@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 
-import com.mymanager.controllers.AdminController;
+import com.mymanager.controllers.UserController;
 import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.Rights;
 import com.mymanager.data.models.User;
@@ -45,16 +45,17 @@ public class RightsView extends JDialog {
 	private DefaultComboBoxModel comboBoxModel;
 
 	private User user;
-	private AdminController adminController;
+	private UserController userController;
 	private JComboBox userComboBox;
 
 	/**
 	 * Create the dialog.
 	 */
-	public RightsView(AdminController adminController) {
+	public RightsView(UserController userController) {
 		this.selfReference = this;
-		this.adminController = adminController;
-		this.user = adminController.getUser();
+		this.userController = userController;
+		;
+		this.user = userController.getUser();
 		initComponents();
 		initEvents();
 		showRights();
@@ -135,7 +136,7 @@ public class RightsView extends JDialog {
 				int selectedRadioButton = getSelectedRadioButton();
 
 				if (selectedRadioButton == 1) {
-					User current = adminController.getUser(user.getUserId());
+					User current = userController.getUser(user.getUserId());
 					User newUser = new User(current.getUserId(), current.getUserType(), current.getFirstName(),
 							current.getLastName(), current.getPassword(), current.getBirthday(),
 							current.getBirthplace(), current.getGender(), null, current.getCreatedBy(),
@@ -151,14 +152,14 @@ public class RightsView extends JDialog {
 					} else {
 						String newRights = currentRights.concat(",").concat(decidedRight);
 						newUser.setRights(newRights);
-						adminController.editUser(user, newUser);
+						userController.editUser(user, newUser);
 						UtilWindow.showMessage(null, "Your rights are updated.", MessageType.INFORMATION);
 						selfReference.dispose();
 					}
 
 				} else if (selectedRadioButton == 2) {
 
-					User current = adminController.getUser(user.getUserId());
+					User current = userController.getUser(user.getUserId());
 					User newUser = new User(current.getUserId(), current.getUserType(), current.getFirstName(),
 							current.getLastName(), current.getPassword(), current.getBirthday(),
 							current.getBirthplace(), current.getGender(), null, current.getCreatedBy(),
@@ -179,7 +180,7 @@ public class RightsView extends JDialog {
 
 		userComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				user = adminController.getUser((String) userComboBox.getSelectedItem());
+				user = userController.getUser((String) userComboBox.getSelectedItem());
 				showRights();
 			}
 		});
@@ -195,13 +196,13 @@ public class RightsView extends JDialog {
 	}
 
 	private void showRights() {
-		User actualUser = adminController.getUser(user.getUserId());
+		User actualUser = userController.getUser(user.getUserId());
 		lblRights.setText(actualUser.getRights());
 	}
 
 	private List<String> getAllUserIds() {
 		List<String> userIdList = new ArrayList<String>();
-		List<User> userList = adminController.getAllUsersId(QueryType.NORMAL);
+		List<User> userList = userController.getAllUsersId(QueryType.NORMAL);
 		for (User user : userList) {
 			userIdList.add(user.getUserId());
 		}

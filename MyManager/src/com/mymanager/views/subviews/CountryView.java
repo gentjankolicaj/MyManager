@@ -17,7 +17,7 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.mymanager.controllers.AdminController;
+import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.Country;
 import com.mymanager.views.subviews.create.CreateCountry;
 
@@ -31,7 +31,7 @@ public class CountryView extends JDialog {
 	private JButton btnDelete;
 	private JButton btnEdit;
 	private JButton btnCreate;
-	private AdminController adminController;
+	private UserController userController;
 	private DefaultTableModel tableModel;
 	private List<Country> countryList;
 	private JTable table;
@@ -40,8 +40,8 @@ public class CountryView extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public CountryView(AdminController adminController) {
-		this.adminController = adminController;
+	public CountryView(UserController userController) {
+		this.userController = userController;
 		initComponents();
 		initEvents();
 
@@ -99,7 +99,7 @@ public class CountryView extends JDialog {
 		btnCreate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				CreateCountry createCountry = new CreateCountry(adminController);
+				CreateCountry createCountry = new CreateCountry(userController);
 				createCountry.setModal(true);
 				createCountry.setVisible(true);
 				updateTable();
@@ -113,7 +113,7 @@ public class CountryView extends JDialog {
 				int index = table.getSelectedRow();
 				Country oldCountry = countryList.get(index);
 				String country = (String) tableModel.getValueAt(index, 0);
-				adminController.editCountry(oldCountry, new Country(country));
+				userController.editCountry(oldCountry, new Country(country));
 				updateTable();
 			}
 		});
@@ -123,7 +123,7 @@ public class CountryView extends JDialog {
 			public void mouseReleased(MouseEvent e) {
 				int index = table.getSelectedRow();
 				String country = (String) tableModel.getValueAt(index, 0);
-				adminController.deleteCountry(new Country(country));
+				userController.deleteCountry(new Country(country));
 				updateTable();
 			}
 		});
@@ -131,11 +131,11 @@ public class CountryView extends JDialog {
 	}
 
 	public void updateTable() {
-		countryList = adminController.getAllCountries();
+		countryList = userController.getAllCountries();
 		tableModel = new DefaultTableModel();
 		tableModel.setColumnIdentifiers(new String[] { "Country" });
 		table.setModel(tableModel);
-		for (Country country : adminController.getAllCountries()) {
+		for (Country country : userController.getAllCountries()) {
 			Object[] obj = new Object[1];
 			obj[0] = country.getCountryName();
 			tableModel.addRow(obj);

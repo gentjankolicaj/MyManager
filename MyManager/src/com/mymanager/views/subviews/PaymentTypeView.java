@@ -17,7 +17,7 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.mymanager.controllers.AdminController;
+import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.PaymentType;
 import com.mymanager.views.subviews.create.CreatePaymentType;
 
@@ -31,7 +31,7 @@ public class PaymentTypeView extends JDialog {
 	private JButton btnDelete;
 	private JButton btnEdit;
 	private JButton btnCreate;
-	private AdminController adminController;
+	private UserController userController;
 	private DefaultTableModel tableModel;
 	private List<PaymentType> paymentTypeList;
 	private JTable table;
@@ -40,8 +40,8 @@ public class PaymentTypeView extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public PaymentTypeView(AdminController adminController) {
-		this.adminController = adminController;
+	public PaymentTypeView(UserController userController) {
+		this.userController = userController;
 		initComponents();
 		initEvents();
 
@@ -99,7 +99,7 @@ public class PaymentTypeView extends JDialog {
 		btnCreate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				CreatePaymentType createPaymentType = new CreatePaymentType(adminController);
+				CreatePaymentType createPaymentType = new CreatePaymentType(userController);
 				createPaymentType.setModal(true);
 				createPaymentType.setVisible(true);
 				updateTable();
@@ -113,7 +113,7 @@ public class PaymentTypeView extends JDialog {
 				int index = table.getSelectedRow();
 				PaymentType oldPaymentType = paymentTypeList.get(index);
 				String newPaymentType = (String) tableModel.getValueAt(index, 0);
-				adminController.editPaymentType(oldPaymentType, new PaymentType(newPaymentType));
+				userController.editPaymentType(oldPaymentType, new PaymentType(newPaymentType));
 				updateTable();
 			}
 		});
@@ -123,7 +123,7 @@ public class PaymentTypeView extends JDialog {
 			public void mouseReleased(MouseEvent e) {
 				int index = table.getSelectedRow();
 				String paymentType = (String) tableModel.getValueAt(index, 0);
-				adminController.deletePaymentType(new PaymentType(paymentType));
+				userController.deletePaymentType(new PaymentType(paymentType));
 				updateTable();
 			}
 		});
@@ -131,11 +131,11 @@ public class PaymentTypeView extends JDialog {
 	}
 
 	public void updateTable() {
-		paymentTypeList = adminController.getAllPaymentTypes();
+		paymentTypeList = userController.getAllPaymentTypes();
 		tableModel = new DefaultTableModel();
 		tableModel.setColumnIdentifiers(new String[] { "Type of payment" });
 		table.setModel(tableModel);
-		for (PaymentType paymentType : adminController.getAllPaymentTypes()) {
+		for (PaymentType paymentType : userController.getAllPaymentTypes()) {
 			Object[] obj = new Object[1];
 			obj[0] = paymentType.getPayment();
 			tableModel.addRow(obj);

@@ -14,9 +14,9 @@ import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import com.mymanager.controllers.AdminController;
 import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.User;
+import com.mymanager.data.models.UserType;
 import com.mymanager.utils.AppUtil;
 import com.mymanager.utils.MessageType;
 import com.mymanager.utils.UtilWindow;
@@ -447,9 +447,8 @@ public class MainView extends JPanel {
 		currenciesPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				if (userController instanceof AdminController) {
-					AdminController adminController = (AdminController) userController;
-					CurrencyView currencyView = new CurrencyView(adminController);
+				if (user.getUserType().equals(UserType.ADMIN.toString())) {
+					CurrencyView currencyView = new CurrencyView(userController);
 					currencyView.setModal(true);
 					currencyView.setVisible(true);
 
@@ -462,9 +461,8 @@ public class MainView extends JPanel {
 		fileTypePanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				if (userController instanceof AdminController) {
-					AdminController adminController = (AdminController) userController;
-					FileView fileView = new FileView(adminController);
+				if (user.getUserType().equals(UserType.ADMIN.toString())) {
+					FileView fileView = new FileView(userController);
 					fileView.setModal(true);
 					fileView.setVisible(true);
 
@@ -477,9 +475,8 @@ public class MainView extends JPanel {
 		rightsPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				if (userController instanceof AdminController) {
-					AdminController adminController = (AdminController) userController;
-					RightsView rightsView = new RightsView(adminController);
+				if (user.getUserType().equals(UserType.ADMIN.toString())) {
+					RightsView rightsView = new RightsView(userController);
 					rightsView.updateUserComboBox();
 					rightsView.setModal(true);
 					rightsView.setVisible(true);
@@ -494,9 +491,8 @@ public class MainView extends JPanel {
 		countryPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				if (userController instanceof AdminController) {
-					AdminController adminController = (AdminController) userController;
-					CountryView countryView = new CountryView(adminController);
+				if (user.getUserType().equals(UserType.ADMIN.toString())) {
+					CountryView countryView = new CountryView(userController);
 					countryView.setModal(true);
 					countryView.setVisible(true);
 
@@ -508,9 +504,8 @@ public class MainView extends JPanel {
 		paymentTypePanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				if (userController instanceof AdminController) {
-					AdminController adminController = (AdminController) userController;
-					PaymentTypeView paymentTypeView = new PaymentTypeView(adminController);
+				if (user.getUserType().equals(UserType.ADMIN.toString())) {
+					PaymentTypeView paymentTypeView = new PaymentTypeView(userController);
 					paymentTypeView.setModal(true);
 					paymentTypeView.setVisible(true);
 
@@ -545,15 +540,14 @@ public class MainView extends JPanel {
 		labelGender.setText(user.getGender().name());
 		labelBirthplace.setText(user.getBirthplace());
 		labelBirthday.setText(user.getBirthday().toString());
-		labelUsertype.setText(user.getUserType().name());
+		labelUsertype.setText(user.getUserType());
 		labelRights.setText(user.getRights());
 		labelDate.setText(LocalDateTime.now().toString());
 
 	}
 
 	public void updateMainViewUserDetails() {
-		AdminController admin = (AdminController) userController;
-		user = admin.getUser(user.getUserId());
+		user = userController.getUser(user.getUserId());
 		setMainViewUserDetails(user);
 	}
 }
