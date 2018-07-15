@@ -17,6 +17,7 @@ import com.mymanager.data.data_access.FileTypeAccessObject;
 import com.mymanager.data.data_access.JobAccessObject;
 import com.mymanager.data.data_access.JobHistoryAccessObject;
 import com.mymanager.data.data_access.PaymentAccessObject;
+import com.mymanager.data.data_access.PaymentTypeAccessObject;
 import com.mymanager.data.data_access.ProjectAccessObject;
 import com.mymanager.data.data_access.UserAccessObject;
 import com.mymanager.data.data_access.WorkingHourAccessObject;
@@ -33,6 +34,7 @@ import com.mymanager.data.data_access.interfaces.FileTypeAccess;
 import com.mymanager.data.data_access.interfaces.JobAccess;
 import com.mymanager.data.data_access.interfaces.JobHistoryAccess;
 import com.mymanager.data.data_access.interfaces.PaymentAccess;
+import com.mymanager.data.data_access.interfaces.PaymentTypeAccess;
 import com.mymanager.data.data_access.interfaces.ProjectAccess;
 import com.mymanager.data.data_access.interfaces.UserAccess;
 import com.mymanager.data.data_access.interfaces.WorkingHourAccess;
@@ -78,6 +80,7 @@ public class AdminController extends UserController {
 	private DocumentAccess documentAccess;
 	private EmployeeAccess employeeAccess;
 	private FileTypeAccess fileTypeAccess;
+	private PaymentTypeAccess paymentTypeAccess;
 	private JobAccess jobAccess;
 	private JobHistoryAccess jobHistoryAccess;
 	private PaymentAccess paymentAccess;
@@ -100,6 +103,7 @@ public class AdminController extends UserController {
 		documentAccess = new DocumentAccessObject(queryType);
 		employeeAccess = new EmployeeAccessObject(queryType);
 		fileTypeAccess = new FileTypeAccessObject();
+		paymentTypeAccess = new PaymentTypeAccessObject();
 		jobAccess = new JobAccessObject(queryType);
 		jobHistoryAccess = new JobHistoryAccessObject(queryType);
 		paymentAccess = new PaymentAccessObject(queryType);
@@ -806,6 +810,60 @@ public class AdminController extends UserController {
 	public int deleteEmployee(Employee employee) {
 		try {
 			return employeeAccess.deleteEmployee(employee);
+		} catch (Exception e) {
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
+			return 0;
+		}
+
+	}
+
+	// =======================================================================
+	// Payment Types
+	// =======================================================================
+
+	public List<PaymentType> getAllPaymentTypes() {
+		try {
+			return paymentTypeAccess.readAllPaymentTypes();
+		} catch (Exception e) {
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
+			return null;
+		}
+
+	}
+
+	public PaymentType getPaymentType(String paymentType) {
+		try {
+			return paymentTypeAccess.readPaymentType(paymentType);
+		} catch (Exception e) {
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
+			return null;
+		}
+
+	}
+
+	public int editPaymentType(PaymentType oldPaymentType, PaymentType newPaymentType) {
+		try {
+			return paymentTypeAccess.updatePaymentType(oldPaymentType, newPaymentType);
+		} catch (Exception e) {
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
+			return 0;
+		}
+
+	}
+
+	public int savePaymentType(PaymentType paymentType) {
+		try {
+			return paymentTypeAccess.insertPaymentType(paymentType);
+		} catch (Exception e) {
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
+			return 0;
+		}
+
+	}
+
+	public int deletePaymentType(PaymentType paymentType) {
+		try {
+			return paymentTypeAccess.deletePaymentType(paymentType);
 		} catch (Exception e) {
 			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
