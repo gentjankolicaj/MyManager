@@ -25,7 +25,9 @@ import com.mymanager.data.models.Job;
 import com.mymanager.data.models.MyTable;
 import com.mymanager.utils.AppUtil;
 import com.mymanager.views.MainView;
+import com.mymanager.views.subviews.create.CreateJob;
 import com.mymanager.views.subviews.custom.MyPanel;
+import com.mymanager.views.subviews.edit.EditJob;
 
 public class JobView extends MyPanel {
 
@@ -64,6 +66,8 @@ public class JobView extends MyPanel {
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		initComponents();
 		initEvents();
+
+		loadData();
 
 	}
 
@@ -147,12 +151,25 @@ public class JobView extends MyPanel {
 		btnCreate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				CreateJob createJob = new CreateJob(userController);
+				createJob.setModal(true);
+				createJob.setVisible(true);
+				loadData();
 
 			}
 		});
 		btnEdit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				int selectedRow = table.getSelectedRow();
+				int totalRows = table.getRowCount();
+				if ((selectedRow > -1) && (selectedRow < totalRows)) {
+					Job oldJob = currentJobList.get(selectedRow);
+					EditJob editJob = new EditJob(userController, oldJob);
+					editJob.setModal(true);
+					editJob.setVisible(true);
+					loadData();
+				}
 			}
 		});
 		btnDelete.addMouseListener(new MouseAdapter() {
@@ -160,9 +177,10 @@ public class JobView extends MyPanel {
 			public void mouseReleased(MouseEvent e) {
 				int selectedRow = table.getSelectedRow();
 				int totalRows = table.getRowCount();
-				if ((selectedRow > 0) && (selectedRow < totalRows)) {
+				if ((selectedRow > -1) && (selectedRow < totalRows)) {
 					Job jobToDelete = currentJobList.get(selectedRow);
 					userController.deleteJob(jobToDelete);
+					loadData();
 				}
 			}
 		});
@@ -226,5 +244,23 @@ public class JobView extends MyPanel {
 			rowData[7] = job.getUpdatedDate();
 			tableModel.addRow(rowData);
 		}
+	}
+
+	private void loadData() {
+		emptyTable();
+		currentJobList = userController.getAllJobs(QueryType.NORMAL);
+		Object[] rowData = new Object[8];
+		for (Job job : currentJobList) {
+			rowData[0] = job.getJobId();
+			rowData[1] = job.getJobTitle();
+			rowData[2] = job.getMaxSalary();
+			rowData[3] = job.getMinSalary();
+			rowData[4] = job.getCreatedBy();
+			rowData[5] = job.getCreatedDate();
+			rowData[6] = job.getUpdatedBy();
+			rowData[7] = job.getUpdatedDate();
+			tableModel.addRow(rowData);
+		}
+
 	}
 }

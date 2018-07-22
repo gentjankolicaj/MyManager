@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDateTime;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -14,6 +15,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import com.mymanager.controllers.UserController;
+import com.mymanager.data.models.Job;
+import com.mymanager.data.models.User;
 
 public class CreateJob extends JDialog {
 
@@ -30,7 +35,12 @@ public class CreateJob extends JDialog {
 	private JButton okButton;
 	private JButton cancelButton;
 
-	public CreateJob() {
+	private UserController userController;
+	private User user;
+
+	public CreateJob(UserController userController) {
+		this.userController = userController;
+		this.user = userController.getUser();
 		selfReference = this;
 		setResizable(false);
 		initComponents();
@@ -103,6 +113,11 @@ public class CreateJob extends JDialog {
 		okButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				Job newJob = new Job(1, textFieldTitle.getText(), Float.parseFloat(textFieldMaxSalary.getText()),
+						Float.parseFloat(textFieldMinSalary.getText()), user.getUserId(), user.getUserId(),
+						LocalDateTime.now(), LocalDateTime.now());
+				userController.saveJob(newJob);
+				selfReference.dispose();
 			}
 		});
 

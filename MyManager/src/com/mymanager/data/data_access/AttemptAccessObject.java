@@ -74,7 +74,7 @@ public class AttemptAccessObject implements AttemptAccess {
 		List<Attempt> atemptList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
-		query = "SELECT * FROM mymanager.attempts where status=" + status.name();
+		query = "SELECT * FROM mymanager.attempts where status LIKE '" + status.name() + "'";
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -88,21 +88,21 @@ public class AttemptAccessObject implements AttemptAccess {
 	}
 
 	@Override
-	public List<Attempt> readAtempts(String id) throws Exception {
-		List<Attempt> atemptList = new ArrayList<>();
+	public List<Attempt> readAtempt(String id) throws Exception {
+		List<Attempt> attemptList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
-		query = "SELECT * FROM mymanager.attempts where index=" + id;
+		query = "SELECT * FROM mymanager.attempts where `index` LIKE '" + id + "' OR `index` LIKE '" + id + "%'";
 
 		results = database.selectStatement(query);
 		while (results.next()) {
-			Attempt temp = new Attempt(results.getInt("index"), results.getString("user"),
+			Attempt attempt = new Attempt(results.getInt("index"), results.getString("user"),
 					results.getString("password"), Status.valueOf(results.getString("status")),
 					results.getString("description"), results.getTimestamp("date_time").toLocalDateTime());
-			atemptList.add(temp);
+			attemptList.add(attempt);
 		}
-		PrintUtils.print(atemptList, PrintType.QUERY_RESULTS);
-		return atemptList;
+		PrintUtils.print(attemptList, PrintType.QUERY_RESULTS);
+		return attemptList;
 	}
 
 	@Override
@@ -121,7 +121,7 @@ public class AttemptAccessObject implements AttemptAccess {
 
 	@Override
 	public int deleteAttempt(Attempt atempt) throws Exception {
-		String query = "DELETE FROM mymanager.attempts WHERE index=?";
+		String query = "DELETE FROM mymanager.attempts WHERE `index`=?";
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setInt(1, atempt.getIndex());

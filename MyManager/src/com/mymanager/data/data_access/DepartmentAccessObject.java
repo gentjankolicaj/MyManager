@@ -132,16 +132,15 @@ public class DepartmentAccessObject implements DepartmentAccess {
 
 	@Override
 	public int insertDepartment(Department department) throws Exception {
-		String query = "INSERT INTO mymanager.departments (department_id,department_name,manager_id,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?)";
+		String query = "INSERT INTO mymanager.departments (department_name,manager_id,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setInt(1, department.getDepartmentId());
-		pstmt.setString(2, department.getDepartmentName());
-		pstmt.setString(3, department.getManagerId());
-		pstmt.setString(4, department.getCreatedBy());
-		pstmt.setObject(5, department.getCreatedDate());
-		pstmt.setString(6, department.getUpdatedBy());
-		pstmt.setObject(7, department.getUpdatedDate());
+		pstmt.setString(1, department.getDepartmentName());
+		pstmt.setString(2, department.getManagerId());
+		pstmt.setString(3, department.getCreatedBy());
+		pstmt.setObject(4, department.getCreatedDate());
+		pstmt.setString(5, department.getUpdatedBy());
+		pstmt.setObject(6, department.getUpdatedDate());
 
 		return pstmt.executeUpdate();
 

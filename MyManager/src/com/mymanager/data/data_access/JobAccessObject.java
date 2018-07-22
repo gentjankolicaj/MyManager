@@ -154,17 +154,16 @@ public class JobAccessObject implements JobAccess {
 
 	@Override
 	public int insertJob(Job job) throws Exception {
-		String query = "INSERT INTO mymanager.jobs (job_id,job_title,min_salary,max_salary,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?)";
+		String query = "INSERT INTO mymanager.jobs (job_title,min_salary,max_salary,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setInt(1, job.getJobId());
-		pstmt.setString(2, job.getJobTitle());
-		pstmt.setFloat(3, job.getMinSalary());
-		pstmt.setFloat(4, job.getMaxSalary());
-		pstmt.setString(5, job.getCreatedBy());
-		pstmt.setObject(6, job.getCreatedDate());
-		pstmt.setString(7, job.getUpdatedBy());
-		pstmt.setObject(8, job.getUpdatedDate());
+		pstmt.setString(1, job.getJobTitle());
+		pstmt.setFloat(2, job.getMinSalary());
+		pstmt.setFloat(3, job.getMaxSalary());
+		pstmt.setString(4, job.getCreatedBy());
+		pstmt.setObject(5, job.getCreatedDate());
+		pstmt.setString(6, job.getUpdatedBy());
+		pstmt.setObject(7, job.getUpdatedDate());
 
 		return pstmt.executeUpdate();
 

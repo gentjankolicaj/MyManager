@@ -16,6 +16,9 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import com.mymanager.controllers.UserController;
+import com.mymanager.data.models.User;
+
 public class CreateProject extends JDialog {
 
 	/**
@@ -35,8 +38,14 @@ public class CreateProject extends JDialog {
 	private JLabel label_2;
 	private JComboBox comboBoxCountry;
 
-	public CreateProject() {
+	private UserController userController;
+	private User user;
+
+	public CreateProject(UserController userController) {
+		this.userController = userController;
+		this.user = userController.getUser();
 		selfReference = this;
+
 		setResizable(false);
 		initComponents();
 		initEvents();

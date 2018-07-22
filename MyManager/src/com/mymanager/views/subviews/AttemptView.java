@@ -116,11 +116,11 @@ public class AttemptView extends MyPanel {
 		add(scrollPane);
 
 		btnDelete = new JButton("Delete");
-		btnDelete.setBounds(791, 136, 97, 25);
+		btnDelete.setBounds(791, 145, 97, 25);
 		add(btnDelete);
 
 		btnBack = new JButton("Back");
-		btnBack.setBounds(791, 179, 97, 25);
+		btnBack.setBounds(791, 188, 97, 25);
 		add(btnBack);
 	}
 
@@ -135,7 +135,7 @@ public class AttemptView extends MyPanel {
 			public void mouseReleased(MouseEvent e) {
 				int selectedRow = table.getSelectedRow();
 				int totalRows = table.getRowCount();
-				if ((selectedRow > 0) && (selectedRow < totalRows)) {
+				if ((selectedRow > -1) && (selectedRow < totalRows)) {
 					Attempt attemptToDelete = currentAttemptList.get(selectedRow);
 					userController.deleteAttempt(attemptToDelete);
 				}
@@ -168,10 +168,10 @@ public class AttemptView extends MyPanel {
 			String failStaus = Status.FAILURE.toString();
 			String successStatus = Status.SUCCESS.toString();
 
-			if (successStatus.contains(searchValue)) {
+			if (successStatus.contains(searchValue.toUpperCase())) {
 				currentAttemptList = userController.getAttemptsByStatus(Status.SUCCESS);
 				fillTable(currentAttemptList);
-			} else if (failStaus.contains(searchValue)) {
+			} else if (failStaus.contains(searchValue.toUpperCase())) {
 				currentAttemptList = userController.getAttemptsByStatus(Status.FAILURE);
 				fillTable(currentAttemptList);
 			}

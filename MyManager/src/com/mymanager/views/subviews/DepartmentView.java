@@ -25,7 +25,9 @@ import com.mymanager.data.models.Department;
 import com.mymanager.data.models.MyTable;
 import com.mymanager.utils.AppUtil;
 import com.mymanager.views.MainView;
+import com.mymanager.views.subviews.create.CreateDepartment;
 import com.mymanager.views.subviews.custom.MyPanel;
+import com.mymanager.views.subviews.edit.EditDepartment;
 
 public class DepartmentView extends MyPanel {
 
@@ -45,7 +47,6 @@ public class DepartmentView extends MyPanel {
 	private JButton btnBack;
 	private JRadioButton rdbtnId;
 	private JRadioButton rdbtnName;
-	private JRadioButton rdbtnManId;
 	private List<Department> currentDepartmentList;
 
 	private JFrame jframe;
@@ -65,6 +66,8 @@ public class DepartmentView extends MyPanel {
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		initComponents();
 		initEvents();
+
+		loadData();
 
 	}
 
@@ -89,15 +92,10 @@ public class DepartmentView extends MyPanel {
 		lblSearcchBy.setBounds(12, 63, 89, 31);
 		add(lblSearcchBy);
 
-		rdbtnName = new JRadioButton("Name");
+		rdbtnName = new JRadioButton("Department name");
 		buttonGroupSearchType.add(rdbtnName);
-		rdbtnName.setBounds(159, 66, 71, 25);
+		rdbtnName.setBounds(159, 66, 153, 25);
 		add(rdbtnName);
-
-		rdbtnManId = new JRadioButton("Man Id");
-		buttonGroupSearchType.add(rdbtnManId);
-		rdbtnManId.setBounds(234, 66, 104, 25);
-		add(rdbtnManId);
 
 		btnSearch = new JButton("Search");
 		btnSearch.setBounds(813, 98, 138, 31);
@@ -146,12 +144,25 @@ public class DepartmentView extends MyPanel {
 		btnCreate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				CreateDepartment createDepartment = new CreateDepartment(userController);
+				createDepartment.setModal(true);
+				createDepartment.setVisible(true);
+				loadData();
 
 			}
 		});
 		btnEdit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				int selectedRow = table.getSelectedRow();
+				int totalRows = table.getRowCount();
+				if ((selectedRow > -1) && (selectedRow < totalRows)) {
+					Department oldDepartment = currentDepartmentList.get(selectedRow);
+					EditDepartment editDepartment = new EditDepartment(userController, oldDepartment);
+					editDepartment.setModal(true);
+					editDepartment.setVisible(true);
+					loadData();
+				}
 			}
 		});
 		btnDelete.addMouseListener(new MouseAdapter() {
@@ -159,9 +170,10 @@ public class DepartmentView extends MyPanel {
 			public void mouseReleased(MouseEvent e) {
 				int selectedRow = table.getSelectedRow();
 				int totalRows = table.getRowCount();
-				if ((selectedRow > 0) && (selectedRow < totalRows)) {
+				if ((selectedRow > -1) && (selectedRow < totalRows)) {
 					Department departmentToDelete = currentDepartmentList.get(selectedRow);
 					userController.deleteDepartment(departmentToDelete);
+					loadData();
 				}
 
 			}
@@ -203,8 +215,6 @@ public class DepartmentView extends MyPanel {
 			return 1;
 		} else if (rdbtnName.isSelected()) {
 			return 2;
-		} else if (rdbtnManId.isSelected()) {
-			return 3;
 		} else
 			return 0;
 	}
@@ -212,6 +222,22 @@ public class DepartmentView extends MyPanel {
 	private void fillTable(List<Department> departmentList) {
 		Object[] rowData = new Object[7];
 		for (Department department : departmentList) {
+			rowData[0] = department.getDepartmentId();
+			rowData[1] = department.getDepartmentName();
+			rowData[2] = department.getManagerId();
+			rowData[3] = department.getCreatedBy();
+			rowData[4] = department.getCreatedDate();
+			rowData[5] = department.getUpdatedBy();
+			rowData[6] = department.getUpdatedDate();
+			tableModel.addRow(rowData);
+		}
+	}
+
+	private void loadData() {
+		emptyTable();
+		currentDepartmentList = userController.getAllDepartments(QueryType.NORMAL);
+		Object[] rowData = new Object[7];
+		for (Department department : currentDepartmentList) {
 			rowData[0] = department.getDepartmentId();
 			rowData[1] = department.getDepartmentName();
 			rowData[2] = department.getManagerId();

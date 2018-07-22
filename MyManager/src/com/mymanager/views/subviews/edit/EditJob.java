@@ -6,7 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.List;
+import java.time.LocalDateTime;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -15,6 +15,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import com.mymanager.controllers.UserController;
+import com.mymanager.data.models.Job;
+import com.mymanager.data.models.User;
 
 public class EditJob extends JDialog {
 
@@ -33,16 +37,22 @@ public class EditJob extends JDialog {
 	private JTextField textFieldJobId;
 	private JLabel lblCreatedBy;
 	private JTextField textFieldCreatedBy;
-	private List<Object> objectList;
+
+	private UserController userController;
+	private User user;
+	private Job oldJob;
 
 	/**
 	 * Create the dialog.
 	 */
-	public EditJob(List<Object> objectList) {
-		this.objectList = objectList;
+	public EditJob(UserController userController, Job oldJob) {
+		this.userController = userController;
+		this.user = userController.getUser();
+		this.oldJob = oldJob;
 		selfReference = this;
 		initComponents();
 		initEvents();
+		fillDetails();
 
 	}
 
@@ -143,6 +153,11 @@ public class EditJob extends JDialog {
 		okButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				Job newJob = new Job(Integer.parseInt(textFieldJobId.getText()), textFieldTitle.getText(),
+						Float.parseFloat(textFieldMaxSalary.getText()), Float.parseFloat(textFieldMinSalary.getText()),
+						textFieldCreatedBy.getText(), user.getUserId(), LocalDateTime.now(), LocalDateTime.now());
+				userController.editJob(oldJob, newJob);
+				selfReference.dispose();
 			}
 		});
 
@@ -152,6 +167,15 @@ public class EditJob extends JDialog {
 				selfReference.dispose();
 			}
 		});
+	}
+
+	private void fillDetails() {
+		textFieldJobId.setText(String.valueOf(oldJob.getJobId()));
+		textFieldTitle.setText(oldJob.getJobTitle());
+		textFieldMinSalary.setText(String.valueOf(oldJob.getMinSalary()));
+		textFieldMaxSalary.setText(String.valueOf(oldJob.getMaxSalary()));
+		textFieldCreatedBy.setText(oldJob.getCreatedBy());
+
 	}
 
 }

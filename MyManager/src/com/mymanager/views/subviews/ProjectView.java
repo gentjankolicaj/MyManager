@@ -64,6 +64,8 @@ public class ProjectView extends MyPanel {
 		initComponents();
 		initEvents();
 
+		loadData();
+
 	}
 
 	private void initComponents() {
@@ -156,9 +158,10 @@ public class ProjectView extends MyPanel {
 			public void mouseReleased(MouseEvent e) {
 				int selectedRow = table.getSelectedRow();
 				int totalRows = table.getRowCount();
-				if ((selectedRow > 0) && (selectedRow < totalRows)) {
+				if ((selectedRow > -1) && (selectedRow < totalRows)) {
 					Project projectToDelete = currentProjectList.get(selectedRow);
 					userController.deleteProject(projectToDelete);
+					loadData();
 				}
 			}
 		});
@@ -222,4 +225,22 @@ public class ProjectView extends MyPanel {
 			tableModel.addRow(rowData);
 		}
 	}
+
+	private void loadData() {
+		emptyTable();
+		currentProjectList = userController.getAllProjects();
+		Object[] rowData = new Object[8];
+		for (Project project : currentProjectList) {
+			rowData[0] = project.getProjectName();
+			rowData[1] = project.getDescription();
+			rowData[2] = project.getCustomer();
+			rowData[3] = project.getCountry().getCountryName();
+			rowData[4] = project.getCreatedBy();
+			rowData[5] = project.getCreatedDate();
+			rowData[6] = project.getUpdatedBy();
+			rowData[7] = project.getUpdatedDate();
+			tableModel.addRow(rowData);
+		}
+	}
+
 }

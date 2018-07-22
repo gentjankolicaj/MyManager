@@ -6,16 +6,19 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.List;
+import java.time.LocalDateTime;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import com.mymanager.controllers.UserController;
+import com.mymanager.data.models.Department;
+import com.mymanager.data.models.User;
 
 public class EditDepartment extends JDialog {
 
@@ -29,20 +32,26 @@ public class EditDepartment extends JDialog {
 	private JButton okButton;
 	private JButton cancelButton;
 	private JTextField textFieldDepName;
-	private JTextField textFieldJobId;
+	private JTextField textFieldDepId;
 	private JLabel lblCreatedBy;
 	private JTextField textFieldCreatedBy;
-	private List<Object> objectList;
-	private JComboBox comboBoxManId;
+	private JTextField textFieldManId;
+
+	private Department oldDepartment;
+	private UserController userController;
+	private User user;
 
 	/**
 	 * Create the dialog.
 	 */
-	public EditDepartment(List<Object> objectList) {
-		this.objectList = objectList;
+	public EditDepartment(UserController userController, Department oldDepartment) {
+		this.userController = userController;
+		this.user = userController.getUser();
+		this.oldDepartment = oldDepartment;
 		selfReference = this;
 		initComponents();
 		initEvents();
+		fillDetails();
 
 	}
 
@@ -67,10 +76,10 @@ public class EditDepartment extends JDialog {
 			contentPanel.add(lblDepartmentId);
 		}
 		{
-			textFieldJobId = new JTextField();
-			textFieldJobId.setColumns(10);
-			textFieldJobId.setBounds(105, 71, 326, 30);
-			contentPanel.add(textFieldJobId);
+			textFieldDepId = new JTextField();
+			textFieldDepId.setColumns(10);
+			textFieldDepId.setBounds(105, 71, 326, 30);
+			contentPanel.add(textFieldDepId);
 		}
 		{
 			JLabel lblDepName = new JLabel("Dep name :");
@@ -102,9 +111,10 @@ public class EditDepartment extends JDialog {
 		lblManId.setBounds(12, 254, 93, 26);
 		contentPanel.add(lblManId);
 
-		comboBoxManId = new JComboBox();
-		comboBoxManId.setBounds(117, 257, 314, 30);
-		contentPanel.add(comboBoxManId);
+		textFieldManId = new JTextField();
+		textFieldManId.setColumns(10);
+		textFieldManId.setBounds(115, 259, 316, 30);
+		contentPanel.add(textFieldManId);
 		{
 			buttonPane = new JPanel();
 			buttonPane.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -128,6 +138,12 @@ public class EditDepartment extends JDialog {
 		okButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				Department newDepartment = new Department(Integer.parseInt(textFieldDepId.getText()),
+						textFieldDepName.getText(), textFieldManId.getText(), textFieldCreatedBy.getText(),
+						user.getUserId(), oldDepartment.getCreatedDate(), LocalDateTime.now());
+				userController.editDepartment(oldDepartment, newDepartment);
+				selfReference.dispose();
+
 			}
 		});
 
@@ -137,5 +153,13 @@ public class EditDepartment extends JDialog {
 				selfReference.dispose();
 			}
 		});
+	}
+
+	private void fillDetails() {
+		textFieldDepId.setText(String.valueOf(oldDepartment.getDepartmentId()));
+		textFieldDepName.setText(oldDepartment.getDepartmentName());
+		textFieldManId.setText(oldDepartment.getManagerId());
+		textFieldCreatedBy.setText(oldDepartment.getCreatedBy());
+
 	}
 }

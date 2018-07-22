@@ -6,15 +6,19 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDateTime;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import com.mymanager.controllers.UserController;
+import com.mymanager.data.models.Department;
+import com.mymanager.data.models.User;
 
 public class CreateDepartment extends JDialog {
 
@@ -28,9 +32,14 @@ public class CreateDepartment extends JDialog {
 	private JTextField textFieldName;
 	private JButton okButton;
 	private JButton cancelButton;
-	private JComboBox comboBox;
 
-	public CreateDepartment() {
+	private UserController userController;
+	private User user;
+	private JTextField textFieldManId;
+
+	public CreateDepartment(UserController userController) {
+		this.userController = userController;
+		this.user = userController.getUser();
 		selfReference = this;
 		setResizable(false);
 		initComponents();
@@ -66,9 +75,11 @@ public class CreateDepartment extends JDialog {
 		lblCreateNewType.setBounds(129, 13, 270, 26);
 		contentPanel.add(lblCreateNewType);
 
-		comboBox = new JComboBox();
-		comboBox.setBounds(117, 146, 314, 30);
-		contentPanel.add(comboBox);
+		textFieldManId = new JTextField();
+		textFieldManId.setColumns(10);
+		textFieldManId.setBounds(115, 147, 316, 30);
+		contentPanel.add(textFieldManId);
+
 		{
 			buttonPane = new JPanel();
 			buttonPane.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -92,6 +103,11 @@ public class CreateDepartment extends JDialog {
 		okButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				String managerId = textFieldManId.getText();
+				Department newDepartment = new Department(1, textFieldName.getText(), managerId, user.getUserId(),
+						user.getUserId(), LocalDateTime.now(), LocalDateTime.now());
+				userController.saveDepartment(newDepartment);
+				selfReference.dispose();
 			}
 		});
 
@@ -103,4 +119,5 @@ public class CreateDepartment extends JDialog {
 			}
 		});
 	}
+
 }
