@@ -2,6 +2,7 @@ package com.mymanager.views;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDateTime;
@@ -21,17 +22,21 @@ import com.mymanager.utils.AppUtil;
 import com.mymanager.utils.MessageType;
 import com.mymanager.utils.UtilWindow;
 import com.mymanager.views.subviews.AccountView;
+import com.mymanager.views.subviews.AttemptView;
 import com.mymanager.views.subviews.CountryView;
 import com.mymanager.views.subviews.CurrencyView;
-import com.mymanager.views.subviews.CustomerView;
-import com.mymanager.views.subviews.EmployeeView;
+import com.mymanager.views.subviews.DepartmentView;
 import com.mymanager.views.subviews.FileView;
+import com.mymanager.views.subviews.JobView;
 import com.mymanager.views.subviews.PaymentTypeView;
 import com.mymanager.views.subviews.ProjectView;
 import com.mymanager.views.subviews.RightsView;
-import com.mymanager.views.subviews.UserView;
+import com.mymanager.views.subviews.WorkingHourView;
+import com.mymanager.views.subviews.custom.MyPanel;
+import com.mymanager.views.subviews.employee.EmployeeDataView;
+import com.mymanager.views.subviews.user.UserDataView;
 
-public class MainView extends JPanel {
+public class MainView extends MyPanel {
 
 	/**
 	 * 
@@ -39,10 +44,11 @@ public class MainView extends JPanel {
 	private static final long serialVersionUID = 7963323342444755630L;
 
 	private JFrame jframe;
+	private MainView selfReference;
 
 	private JPanel accountPanel;
-	private JPanel usersPanel;
-	private JPanel employeesPanel;
+	private JPanel useDataPanel;
+	private JPanel employeeDataPanel;
 	private JPanel projectsPanel;
 
 	private JLabel labelFirstname;
@@ -55,7 +61,7 @@ public class MainView extends JPanel {
 	private JLabel labelLastlogin;
 	private JLabel labelDate;
 
-	private JPanel customerPanel;
+	private JPanel jobsPanel;
 	private JPanel myAccountPanel;
 	private JPanel currenciesPanel;
 	private JPanel paymentTypePanel;
@@ -69,20 +75,36 @@ public class MainView extends JPanel {
 
 	// Views
 	//
-	private UserView usersView;
-	private EmployeeView employeesView;
+	private UserDataView usersDataView;
+	private EmployeeDataView employeesDataView;
 	private ProjectView projectsView;
-	private CustomerView customersView;
+	private JobView jobsView;
+	private AttemptView attemptsView;
+	private WorkingHourView workingHoursView;
+	private DepartmentView departmentsView;
+	private JPanel departmentsPanel;
+	private JPanel workingHoursPanel;
+	private JPanel attemptsPanel;
+	private JPanel utilPanel;
+	private JPanel historyPanel;
+	private JPanel dataPanel;
 
 	/**
 	 * Create the panel.
 	 */
-	public MainView(JFrame jframe) {
+	public MainView(JFrame jframe, UserController userController) {
+		super(900, 690);
+		selfReference = this;
 		this.jframe = jframe;
-		usersView = new UserView(jframe);
-		employeesView = new EmployeeView(jframe);
-		projectsView = new ProjectView(jframe);
-		customersView = new CustomerView(jframe);
+		this.userController = userController;
+		this.user = userController.getUser();
+		usersDataView = new UserDataView(jframe, selfReference, userController);
+		employeesDataView = new EmployeeDataView(jframe, selfReference, userController);
+		projectsView = new ProjectView(jframe, selfReference, userController);
+		jobsView = new JobView(jframe, selfReference, userController);
+		workingHoursView = new WorkingHourView(jframe, selfReference, userController);
+		attemptsView = new AttemptView(jframe, selfReference, userController);
+		departmentsView = new DepartmentView(jframe, selfReference, userController);
 
 		initComponents();
 		initAccountEvents();
@@ -207,7 +229,7 @@ public class MainView extends JPanel {
 		add(menuPanel);
 		menuPanel.setLayout(null);
 
-		JPanel dataPanel = new JPanel();
+		dataPanel = new JPanel();
 		dataPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "My Data", TitledBorder.CENTER,
 				TitledBorder.TOP, null, new Color(0, 0, 0)));
 		dataPanel.setBackground(UIManager.getColor("Button.background"));
@@ -215,47 +237,47 @@ public class MainView extends JPanel {
 		menuPanel.add(dataPanel);
 		dataPanel.setLayout(null);
 
-		usersPanel = new JPanel();
-		usersPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Users", TitledBorder.LEADING,
-				TitledBorder.TOP, null, new Color(0, 0, 0)));
-		usersPanel.setBackground(UIManager.getColor("Button.background"));
-		usersPanel.setBounds(15, 21, 168, 110);
-		dataPanel.add(usersPanel);
-		usersPanel.setLayout(null);
+		useDataPanel = new JPanel();
+		useDataPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "User data",
+				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		useDataPanel.setBackground(UIManager.getColor("Button.background"));
+		useDataPanel.setBounds(15, 21, 168, 110);
+		dataPanel.add(useDataPanel);
+		useDataPanel.setLayout(null);
 
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBounds(41, 11, 102, 88);
-		usersPanel.add(lblNewLabel_1);
+		useDataPanel.add(lblNewLabel_1);
 		lblNewLabel_1.setIcon(new ImageIcon(
 				MainView.class.getResource("/com/mymanager/resources/icons/icons_80x80/icons8-user-menu-male.png")));
 
-		employeesPanel = new JPanel();
-		employeesPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Employees",
+		employeeDataPanel = new JPanel();
+		employeeDataPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Employees",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		employeesPanel.setBackground(UIManager.getColor("Button.background"));
-		employeesPanel.setBounds(216, 21, 173, 110);
-		dataPanel.add(employeesPanel);
-		employeesPanel.setLayout(null);
+		employeeDataPanel.setBackground(UIManager.getColor("Button.background"));
+		employeeDataPanel.setBounds(216, 21, 173, 110);
+		dataPanel.add(employeeDataPanel);
+		employeeDataPanel.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setBounds(43, 11, 97, 88);
-		employeesPanel.add(lblNewLabel);
+		employeeDataPanel.add(lblNewLabel);
 		lblNewLabel.setIcon(new ImageIcon(
 				MainView.class.getResource("/com/mymanager/resources/icons/icons_80x80/icons8-users-meeting-2.png")));
 
-		customerPanel = new JPanel();
-		customerPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Customers",
-				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		customerPanel.setBackground(UIManager.getColor("Button.background"));
-		customerPanel.setBounds(420, 21, 168, 110);
-		dataPanel.add(customerPanel);
-		customerPanel.setLayout(null);
+		jobsPanel = new JPanel();
+		jobsPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Jobs", TitledBorder.LEADING,
+				TitledBorder.TOP, null, new Color(0, 0, 0)));
+		jobsPanel.setBackground(UIManager.getColor("Button.background"));
+		jobsPanel.setBounds(420, 21, 168, 110);
+		dataPanel.add(jobsPanel);
+		jobsPanel.setLayout(null);
 
 		JLabel label_1 = new JLabel("");
 		label_1.setIcon(new ImageIcon(MainView.class
 				.getResource("/com/mymanager/resources/icons/icons_80x80/icons8-conference-foreground-selected.png")));
 		label_1.setBounds(37, 22, 98, 77);
-		customerPanel.add(label_1);
+		jobsPanel.add(label_1);
 
 		projectsPanel = new JPanel();
 
@@ -272,19 +294,73 @@ public class MainView extends JPanel {
 		lblNewLabel_2.setBounds(42, 11, 100, 88);
 		projectsPanel.add(lblNewLabel_2);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setLayout(null);
-		panel_1.setBorder(new LineBorder(new Color(0, 191, 255)));
-		panel_1.setBackground(UIManager.getColor("Button.background"));
-		panel_1.setBounds(216, 142, 168, 110);
-		dataPanel.add(panel_1);
+		departmentsPanel = new JPanel();
+		departmentsPanel.setLayout(null);
+		departmentsPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Departments",
+				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		departmentsPanel.setBackground(UIManager.getColor("Button.background"));
+		departmentsPanel.setBounds(216, 142, 168, 110);
+		dataPanel.add(departmentsPanel);
 
-		JPanel panel_2 = new JPanel();
-		panel_2.setLayout(null);
-		panel_2.setBorder(new LineBorder(new Color(0, 191, 255)));
-		panel_2.setBackground(UIManager.getColor("Button.background"));
-		panel_2.setBounds(15, 263, 168, 110);
-		dataPanel.add(panel_2);
+		JLabel label_7 = new JLabel("");
+		label_7.setIcon(new ImageIcon(
+				MainView.class.getResource("/com/mymanager/resources/icons/icons_80x80/icons8-contact-us-2.png")));
+		label_7.setBounds(35, 11, 102, 88);
+		departmentsPanel.add(label_7);
+
+		attemptsPanel = new JPanel();
+		attemptsPanel.setLayout(null);
+		attemptsPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Attempts",
+				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		attemptsPanel.setBackground(UIManager.getColor("Button.background"));
+		attemptsPanel.setBounds(15, 263, 168, 110);
+		dataPanel.add(attemptsPanel);
+
+		JLabel label_9 = new JLabel("");
+		label_9.setIcon(new ImageIcon(
+				MainView.class.getResource("/com/mymanager/resources/icons/icons_80x80/icons8-resume.png")));
+		label_9.setBounds(35, 11, 102, 88);
+		attemptsPanel.add(label_9);
+
+		workingHoursPanel = new JPanel();
+		workingHoursPanel.setLayout(null);
+		workingHoursPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Working hours",
+				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		workingHoursPanel.setBackground(SystemColor.menu);
+		workingHoursPanel.setBounds(420, 142, 168, 110);
+		dataPanel.add(workingHoursPanel);
+
+		JLabel label_8 = new JLabel("");
+		label_8.setIcon(new ImageIcon(
+				MainView.class.getResource("/com/mymanager/resources/icons/icons_80x80/icons8-street-worker-2.png")));
+		label_8.setBounds(33, 11, 102, 88);
+		workingHoursPanel.add(label_8);
+
+		utilPanel = new JPanel();
+		utilPanel.setLayout(null);
+		utilPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Util", TitledBorder.LEADING,
+				TitledBorder.TOP, null, new Color(0, 0, 0)));
+		utilPanel.setBackground(SystemColor.menu);
+		utilPanel.setBounds(216, 263, 168, 110);
+		dataPanel.add(utilPanel);
+
+		JLabel label_10 = new JLabel("");
+		label_10.setBounds(40, 11, 102, 88);
+		utilPanel.add(label_10);
+
+		historyPanel = new JPanel();
+		historyPanel.setLayout(null);
+		historyPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "History", TitledBorder.LEADING,
+				TitledBorder.TOP, null, new Color(0, 0, 0)));
+		historyPanel.setBackground(SystemColor.menu);
+		historyPanel.setBounds(420, 263, 168, 110);
+		dataPanel.add(historyPanel);
+
+		JLabel label_11 = new JLabel("");
+		label_11.setIcon(new ImageIcon(
+				MainView.class.getResource("/com/mymanager/resources/icons/icons_80x80/icons8-book-shelf.png")));
+		label_11.setBounds(30, 11, 102, 88);
+		historyPanel.add(label_11);
 
 		JPanel configPanel = new JPanel();
 		configPanel.setBackground(UIManager.getColor("Button.background"));
@@ -398,35 +474,52 @@ public class MainView extends JPanel {
 	}
 
 	public void initAccountEvents() {
-		usersPanel.addMouseListener(new MouseAdapter() {
+		useDataPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				usersView.setUserController(userController);
-				AppUtil.changePanel(jframe, usersView);
+				AppUtil.changeAccountPanel(jframe, selfReference, usersDataView);
 			}
 		});
 
-		employeesPanel.addMouseListener(new MouseAdapter() {
+		employeeDataPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				employeesView.setUserController(userController);
-				AppUtil.changePanel(jframe, employeesView);
+				AppUtil.changeAccountPanel(jframe, selfReference, employeesDataView);
 			}
 		});
 
-		customerPanel.addMouseListener(new MouseAdapter() {
+		jobsPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				customersView.setUserController(userController);
-				AppUtil.changePanel(jframe, customersView);
+				AppUtil.changeAccountPanel(jframe, selfReference, jobsView);
 			}
 		});
 
 		projectsPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				projectsView.setUserController(userController);
-				AppUtil.changePanel(jframe, projectsView);
+				AppUtil.changeAccountPanel(jframe, selfReference, projectsView);
+			}
+		});
+
+		departmentsPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				AppUtil.changeAccountPanel(jframe, selfReference, departmentsView);
+			}
+		});
+
+		attemptsPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				AppUtil.changeAccountPanel(jframe, selfReference, attemptsView);
+			}
+		});
+
+		workingHoursPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				AppUtil.changeAccountPanel(jframe, selfReference, workingHoursView);
 			}
 		});
 
@@ -550,4 +643,5 @@ public class MainView extends JPanel {
 		user = userController.getUser(user.getUserId());
 		setMainViewUserDetails(user);
 	}
+
 }

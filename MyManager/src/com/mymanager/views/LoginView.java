@@ -40,6 +40,9 @@ public class LoginView extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private int height = 600;
+	private int width = 850;
+
 	private JFrame jframe;
 	private MainView mainView;
 
@@ -59,13 +62,14 @@ public class LoginView extends JPanel {
 	private UserAccess userAccess;
 	private User user;
 	private AttemptAccess attemptAccess;
+	private JPanel selfReference;
 
 	/**
 	 * Create the panel.
 	 */
 	public LoginView(JFrame jframe) {
+		selfReference = this;
 		this.jframe = jframe;
-		mainView = new MainView(jframe);
 		userAccess = new UserAccessObject();
 		attemptAccess = new AttemptAccessObject();
 
@@ -142,6 +146,7 @@ public class LoginView extends JPanel {
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setBounds(10, 39, 488, 512);
 		infoPanel.add(lblNewLabel_1);
+		jframe.setSize(width, height);
 		jframe.setContentPane(this);
 	}
 
@@ -151,8 +156,8 @@ public class LoginView extends JPanel {
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					if (authenticate()) {
-						mainView.setUserController(userController);
-						AppUtil.changePanel(jframe, mainView);
+						mainView = new MainView(jframe, userController);
+						AppUtil.openMainView(jframe, selfReference, mainView);
 
 					}
 				}
@@ -164,8 +169,8 @@ public class LoginView extends JPanel {
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					if (authenticate()) {
-						mainView.setUserController(userController);
-						AppUtil.changePanel(jframe, mainView);
+						mainView = new MainView(jframe, userController);
+						AppUtil.openMainView(jframe, selfReference, mainView);
 
 					}
 				}
@@ -179,8 +184,8 @@ public class LoginView extends JPanel {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				if (authenticate()) {
-					mainView.setUserController(userController);
-					AppUtil.changePanel(jframe, mainView);
+					mainView = new MainView(jframe, userController);
+					AppUtil.openMainView(jframe, selfReference, mainView);
 
 				}
 
@@ -242,4 +247,11 @@ public class LoginView extends JPanel {
 		}
 	}
 
+	public int getMyHeight() {
+		return height;
+	}
+
+	public int getMyWidth() {
+		return width;
+	}
 }
