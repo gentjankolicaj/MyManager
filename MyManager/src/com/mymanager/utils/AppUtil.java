@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.mymanager.data.models.User;
+import com.mymanager.views.subviews.custom.MyPanel;
 
 /**
  * 
@@ -44,10 +45,40 @@ public class AppUtil {
 
 	}
 
-	public static void changePanel(JFrame jframe, JPanel jpanel) {
-		jframe.setContentPane(jpanel);
-		jframe.invalidate();
-		jframe.validate();
+	public static void openMainView(JFrame jframe, JPanel oldPanel, MyPanel newPanel) {
+		jframe.getContentPane().remove(oldPanel);
+		System.out.println(newPanel.getMyWidth() + " ," + newPanel.getMyHeight());
+		jframe.setSize(newPanel.getMyWidth(), newPanel.getMyHeight());
+		jframe.setContentPane(newPanel);
+		jframe.repaint();
+
+	}
+
+	public static void changeAccountPanel(JFrame jframe, JPanel oldPanel, MyPanel newPanel) {
+		jframe.getContentPane().remove(oldPanel);
+		System.out.println(newPanel.getMyWidth() + " ," + newPanel.getMyHeight());
+		jframe.setSize(newPanel.getMyWidth() + 10, newPanel.getMyHeight() + 50);
+		jframe.setContentPane(newPanel);
+		jframe.repaint();
+
+	}
+
+	public static void changeAccountPanel(JFrame jframe, MyPanel oldPanel, MyPanel newPanel) {
+		jframe.getContentPane().remove(oldPanel);
+		System.out.println(newPanel.getMyWidth() + " ," + newPanel.getMyHeight());
+		jframe.setSize(newPanel.getMyWidth() + 10, newPanel.getMyHeight() + 50);
+		jframe.setContentPane(newPanel);
+		jframe.repaint();
+
+	}
+
+	public static void returnToMainView(JFrame jframe, MyPanel oldPanel, MyPanel mainView) {
+		jframe.getContentPane().remove(oldPanel);
+		System.out.println(mainView.getMyWidth() + " ," + mainView.getMyHeight());
+		jframe.setSize(mainView.getMyWidth(), mainView.getMyHeight());
+		jframe.setContentPane(mainView);
+		jframe.repaint();
+
 	}
 
 	public static boolean validateUser(User user, String userId, String password) {

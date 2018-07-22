@@ -13,13 +13,14 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.Country;
+import com.mymanager.data.models.MyTable;
 import com.mymanager.views.subviews.create.CreateCountry;
+import com.mymanager.views.subviews.edit.EditCountry;
 
 public class CountryView extends JDialog {
 
@@ -34,7 +35,7 @@ public class CountryView extends JDialog {
 	private UserController userController;
 	private DefaultTableModel tableModel;
 	private List<Country> countryList;
-	private JTable table;
+	private MyTable table;
 	private JScrollPane scrollPane;
 
 	/**
@@ -85,7 +86,7 @@ public class CountryView extends JDialog {
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(166, 68, 327, 306);
 
-		table = new JTable();
+		table = new MyTable();
 		table.setCellSelectionEnabled(true);
 		tableModel = new DefaultTableModel();
 		tableModel.setColumnIdentifiers(new String[] { "Country" });
@@ -112,8 +113,9 @@ public class CountryView extends JDialog {
 			public void mouseReleased(MouseEvent e) {
 				int index = table.getSelectedRow();
 				Country oldCountry = countryList.get(index);
-				String country = (String) tableModel.getValueAt(index, 0);
-				userController.editCountry(oldCountry, new Country(country));
+				EditCountry editCountry = new EditCountry(userController, oldCountry);
+				editCountry.setModal(true);
+				editCountry.setVisible(true);
 				updateTable();
 			}
 		});
@@ -131,14 +133,16 @@ public class CountryView extends JDialog {
 	}
 
 	public void updateTable() {
+		emptyTable();
 		countryList = userController.getAllCountries();
-		tableModel = new DefaultTableModel();
-		tableModel.setColumnIdentifiers(new String[] { "Country" });
-		table.setModel(tableModel);
-		for (Country country : userController.getAllCountries()) {
+		for (Country country : countryList) {
 			Object[] obj = new Object[1];
 			obj[0] = country.getCountryName();
 			tableModel.addRow(obj);
 		}
+	}
+
+	private void emptyTable() {
+		tableModel.setRowCount(0);
 	}
 }

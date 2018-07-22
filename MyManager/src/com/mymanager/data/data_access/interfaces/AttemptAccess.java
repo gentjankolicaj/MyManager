@@ -17,6 +17,8 @@ public interface AttemptAccess {
 
 	public abstract List<Attempt> readAtempts(User user) throws Exception;
 
+	public abstract List<Attempt> readAtempts(String id) throws Exception;
+
 	public abstract List<Attempt> readAtempts(Status status) throws Exception;
 
 	public abstract int insertAttempt(Attempt attempt) throws Exception;

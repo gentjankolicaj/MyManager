@@ -13,13 +13,14 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.Currency;
+import com.mymanager.data.models.MyTable;
 import com.mymanager.views.subviews.create.CreateCurrency;
+import com.mymanager.views.subviews.edit.EditCurrency;
 
 public class CurrencyView extends JDialog {
 
@@ -34,7 +35,7 @@ public class CurrencyView extends JDialog {
 	private UserController userController;
 	private DefaultTableModel tableModel;
 	private List<Currency> currencyList;
-	private JTable table;
+	private MyTable table;
 	private JScrollPane scrollPane;
 
 	/**
@@ -85,7 +86,7 @@ public class CurrencyView extends JDialog {
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(166, 68, 327, 306);
 
-		table = new JTable();
+		table = new MyTable();
 		table.setCellSelectionEnabled(true);
 		tableModel = new DefaultTableModel();
 		tableModel.setColumnIdentifiers(new String[] { "Currency" });
@@ -112,8 +113,10 @@ public class CurrencyView extends JDialog {
 			public void mouseReleased(MouseEvent e) {
 				int index = table.getSelectedRow();
 				Currency oldCurrency = currencyList.get(index);
-				String currency = (String) tableModel.getValueAt(index, 0);
-				userController.editCurrency(oldCurrency, new Currency(currency));
+
+				EditCurrency editCurrency = new EditCurrency(userController, oldCurrency);
+				editCurrency.setModal(true);
+				editCurrency.setVisible(true);
 				updateTable();
 			}
 		});
@@ -131,14 +134,16 @@ public class CurrencyView extends JDialog {
 	}
 
 	public void updateTable() {
+		emptyTable();
 		currencyList = userController.getAllCurrencies();
-		tableModel = new DefaultTableModel();
-		tableModel.setColumnIdentifiers(new String[] { "Currency" });
-		table.setModel(tableModel);
-		for (Currency currency : userController.getAllCurrencies()) {
+		for (Currency currency : currencyList) {
 			Object[] obj = new Object[1];
 			obj[0] = currency.getCurrencyName();
 			tableModel.addRow(obj);
 		}
+	}
+
+	private void emptyTable() {
+		tableModel.setRowCount(0);
 	}
 }

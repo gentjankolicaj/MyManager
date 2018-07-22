@@ -88,6 +88,24 @@ public class AttemptAccessObject implements AttemptAccess {
 	}
 
 	@Override
+	public List<Attempt> readAtempts(String id) throws Exception {
+		List<Attempt> atemptList = new ArrayList<>();
+		ResultSet results = null;
+		String query = null;
+		query = "SELECT * FROM mymanager.attempts where index=" + id;
+
+		results = database.selectStatement(query);
+		while (results.next()) {
+			Attempt temp = new Attempt(results.getInt("index"), results.getString("user"),
+					results.getString("password"), Status.valueOf(results.getString("status")),
+					results.getString("description"), results.getTimestamp("date_time").toLocalDateTime());
+			atemptList.add(temp);
+		}
+		PrintUtils.print(atemptList, PrintType.QUERY_RESULTS);
+		return atemptList;
+	}
+
+	@Override
 	public int insertAttempt(Attempt atempt) throws Exception {
 		String query = "INSERT INTO mymanager.attempts (user,password,status,description,date_time) VALUES (?,?,?,?,?)";
 		PreparedStatement pstmt = database.updateStatement(query);
