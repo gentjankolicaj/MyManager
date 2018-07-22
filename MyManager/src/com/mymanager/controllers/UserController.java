@@ -346,7 +346,7 @@ public class UserController {
 
 	public List<Attempt> getAttemptsById(String id) {
 		try {
-			return attemptAccess.readAtempt(id);
+			return attemptAccess.readAtempts(id);
 		} catch (Exception e) {
 			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return null;

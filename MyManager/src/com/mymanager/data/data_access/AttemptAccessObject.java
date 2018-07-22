@@ -88,7 +88,7 @@ public class AttemptAccessObject implements AttemptAccess {
 	}
 
 	@Override
-	public List<Attempt> readAtempt(String id) throws Exception {
+	public List<Attempt> readAtempts(String id) throws Exception {
 		List<Attempt> attemptList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
