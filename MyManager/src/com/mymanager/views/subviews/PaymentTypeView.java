@@ -13,13 +13,14 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.mymanager.controllers.UserController;
+import com.mymanager.data.models.MyTable;
 import com.mymanager.data.models.PaymentType;
 import com.mymanager.views.subviews.create.CreatePaymentType;
+import com.mymanager.views.subviews.edit.EditPaymentType;
 
 public class PaymentTypeView extends JDialog {
 
@@ -34,7 +35,7 @@ public class PaymentTypeView extends JDialog {
 	private UserController userController;
 	private DefaultTableModel tableModel;
 	private List<PaymentType> paymentTypeList;
-	private JTable table;
+	private MyTable table;
 	private JScrollPane scrollPane;
 
 	/**
@@ -85,7 +86,7 @@ public class PaymentTypeView extends JDialog {
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(166, 68, 327, 306);
 
-		table = new JTable();
+		table = new MyTable();
 		table.setCellSelectionEnabled(true);
 		tableModel = new DefaultTableModel();
 		tableModel.setColumnIdentifiers(new String[] { "Type of payment" });
@@ -112,8 +113,9 @@ public class PaymentTypeView extends JDialog {
 			public void mouseReleased(MouseEvent e) {
 				int index = table.getSelectedRow();
 				PaymentType oldPaymentType = paymentTypeList.get(index);
-				String newPaymentType = (String) tableModel.getValueAt(index, 0);
-				userController.editPaymentType(oldPaymentType, new PaymentType(newPaymentType));
+				EditPaymentType editPaymentType = new EditPaymentType(userController, oldPaymentType);
+				editPaymentType.setModal(true);
+				editPaymentType.setVisible(true);
 				updateTable();
 			}
 		});
@@ -131,14 +133,16 @@ public class PaymentTypeView extends JDialog {
 	}
 
 	public void updateTable() {
+		emptyTable();
 		paymentTypeList = userController.getAllPaymentTypes();
-		tableModel = new DefaultTableModel();
-		tableModel.setColumnIdentifiers(new String[] { "Type of payment" });
-		table.setModel(tableModel);
-		for (PaymentType paymentType : userController.getAllPaymentTypes()) {
+		for (PaymentType paymentType : paymentTypeList) {
 			Object[] obj = new Object[1];
 			obj[0] = paymentType.getPayment();
 			tableModel.addRow(obj);
 		}
+	}
+
+	private void emptyTable() {
+		tableModel.setRowCount(0);
 	}
 }

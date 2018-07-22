@@ -13,13 +13,14 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.FileType;
+import com.mymanager.data.models.MyTable;
 import com.mymanager.views.subviews.create.CreateFile;
+import com.mymanager.views.subviews.edit.EditFile;
 
 public class FileView extends JDialog {
 
@@ -34,7 +35,7 @@ public class FileView extends JDialog {
 	private UserController userController;
 	private DefaultTableModel tableModel;
 	private List<FileType> fileTypeList;
-	private JTable table;
+	private MyTable table;
 	private JScrollPane scrollPane;
 
 	/**
@@ -85,7 +86,7 @@ public class FileView extends JDialog {
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(166, 68, 327, 306);
 
-		table = new JTable();
+		table = new MyTable();
 		table.setCellSelectionEnabled(true);
 		tableModel = new DefaultTableModel();
 		tableModel.setColumnIdentifiers(new String[] { "File type" });
@@ -112,8 +113,9 @@ public class FileView extends JDialog {
 			public void mouseReleased(MouseEvent e) {
 				int index = table.getSelectedRow();
 				FileType oldFileType = fileTypeList.get(index);
-				String newFileType = (String) tableModel.getValueAt(index, 0);
-				userController.editFileType(oldFileType, new FileType(newFileType));
+				EditFile editFile = new EditFile(userController, oldFileType);
+				editFile.setModal(true);
+				editFile.setVisible(true);
 				updateTable();
 			}
 		});
@@ -131,14 +133,16 @@ public class FileView extends JDialog {
 	}
 
 	public void updateTable() {
+		emptyTable();
 		fileTypeList = userController.getAllFileTypes();
-		tableModel = new DefaultTableModel();
-		tableModel.setColumnIdentifiers(new String[] { "File type" });
-		table.setModel(tableModel);
-		for (FileType fileType : userController.getAllFileTypes()) {
+		for (FileType fileType : fileTypeList) {
 			Object[] obj = new Object[1];
 			obj[0] = fileType.getFile();
 			tableModel.addRow(obj);
 		}
+	}
+
+	private void emptyTable() {
+		tableModel.setRowCount(0);
 	}
 }

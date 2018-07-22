@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.swing.JDialog;
+
 import com.mymanager.data.data_access.AdditionalAccessObject;
 import com.mymanager.data.data_access.AdressAccessObject;
 import com.mymanager.data.data_access.AttemptAccessObject;
@@ -342,6 +344,16 @@ public class UserController {
 
 	}
 
+	public List<Attempt> getAttemptsById(String id) {
+		try {
+			return attemptAccess.readAtempts(id);
+		} catch (Exception e) {
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
+			return null;
+		}
+
+	}
+
 	public int saveAttempt(Attempt attempt) {
 		try {
 			return attemptAccess.insertAttempt(attempt);
@@ -601,7 +613,7 @@ public class UserController {
 
 	}
 
-	public Department getDepartment(int departmentId) {
+	public Department getDepartment(String departmentId) {
 		try {
 			return departmentAccess.readDepartment(departmentId);
 		} catch (Exception e) {
@@ -1477,7 +1489,7 @@ public class UserController {
 	// Controller methods
 	// ===================================================================================
 
-	private boolean verifyOldPassword(String typedOldPassword) {
+	public boolean verifyOldPassword(String typedOldPassword) {
 		String oldPassword = user.getPassword();
 		if (oldPassword.equals(typedOldPassword))
 			return true;
@@ -1486,14 +1498,14 @@ public class UserController {
 
 	}
 
-	private boolean verifyNewPasswords(String newPassword, String retypedNewPassword) {
+	public boolean verifyNewPasswords(String newPassword, String retypedNewPassword) {
 		if (newPassword.equals(retypedNewPassword))
 			return true;
 		else
 			return false;
 	}
 
-	public void changePassword(String oldPassword, String newPassword, String retypedPassword) {
+	public void changePassword(JDialog jdialog, String oldPassword, String newPassword, String retypedPassword) {
 		try {
 			if (verifyOldPassword(oldPassword)) {
 				if (verifyNewPasswords(newPassword, retypedPassword)) {
@@ -1505,7 +1517,7 @@ public class UserController {
 					userAccess.updateUser(user, newUser);
 					user = newUser;
 				} else {
-					UtilWindow.showMessage(null, "New password don't match", MessageType.INFORMATION);
+					UtilWindow.showMessage(null, "New password don't match", MessageType.WARNING);
 				}
 
 			} else {
@@ -1513,7 +1525,7 @@ public class UserController {
 						MessageType.INFORMATION);
 			}
 		} catch (Exception e) {
-			UtilWindow.showMessage(null, e.getMessage(), MessageType.INFORMATION);
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.WARNING);
 
 		}
 	}

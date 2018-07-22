@@ -15,7 +15,7 @@ public interface DepartmentAccess {
 
 	public abstract List<Department> readDepartments(String departmentName) throws Exception;
 
-	public abstract Department readDepartment(int departmentId) throws Exception;
+	public abstract Department readDepartment(String departmentId) throws Exception;
 
 	public abstract int updateDepartment(Department oldDepartment, Department newDepartment) throws Exception;
 

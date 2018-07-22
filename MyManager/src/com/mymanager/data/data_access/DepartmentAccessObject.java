@@ -92,7 +92,7 @@ public class DepartmentAccessObject implements DepartmentAccess {
 	}
 
 	@Override
-	public Department readDepartment(int departmentId) throws Exception {
+	public Department readDepartment(String departmentId) throws Exception {
 		Department department = null;
 		ResultSet results = null;
 		String query = "SELECT * FROM mymanager.departments WHERE department_id=" + departmentId;
@@ -113,7 +113,7 @@ public class DepartmentAccessObject implements DepartmentAccess {
 		String query = "UPDATE mymanager.departments SET department_id=?,department_name=?,manager_id=?,created_by=?,"
 				+ "created_date=?," + "updated_by=?," + "updated_date=? WHERE department_id=?";
 		setQueryType(QueryType.NORMAL);
-		Department temp = readDepartment(oldDepartment.getDepartmentId());
+		Department temp = readDepartment(String.valueOf(oldDepartment.getDepartmentId()));
 		savePreviousRow(temp);
 
 		PreparedStatement pstmt = database.updateStatement(query);
