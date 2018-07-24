@@ -4,12 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -18,6 +18,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import com.mymanager.controllers.UserController;
+import com.mymanager.data.models.Country;
+import com.mymanager.data.models.Project;
+import com.mymanager.data.models.User;
 
 public class EditProject extends JDialog {
 
@@ -35,19 +40,27 @@ public class EditProject extends JDialog {
 	private JTextField textFieldName;
 	private JLabel lblCreatedBy;
 	private JTextField textFieldCreatedBy;
-	private List<Object> objectList;
 	private JLabel lblCountry;
 	private JComboBox comboBoxCountry;
+	private DefaultComboBoxModel comboBoxModel;
+
+	private UserController userController;
+	private User user;
+	private Project oldProject;
 
 	/**
 	 * Create the dialog.
 	 */
-	public EditProject(List<Object> objectList) {
-		this.objectList = objectList;
+	public EditProject(UserController userController, Project oldProject) {
+		this.userController = userController;
+		this.user = userController.getUser();
+		this.oldProject = oldProject;
 		selfReference = this;
 		initComponents();
 		initEvents();
+
 		loadCountries();
+		fillDetails();
 
 	}
 
@@ -122,6 +135,10 @@ public class EditProject extends JDialog {
 
 		comboBoxCountry = new JComboBox();
 		comboBoxCountry.setBounds(142, 303, 320, 36);
+
+		comboBoxModel = new DefaultComboBoxModel();
+		comboBoxCountry.setModel(comboBoxModel);
+
 		contentPanel.add(comboBoxCountry);
 		{
 			buttonPane = new JPanel();
@@ -146,6 +163,12 @@ public class EditProject extends JDialog {
 		okButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				Project newProject = new Project(textFieldName.getText(), textFieldDescription.getText(),
+						textFieldCustomer.getText(), new Country((String) comboBoxCountry.getSelectedItem()),
+						textFieldCreatedBy.getText(), user.getUserId(), oldProject.getCreatedDate(),
+						LocalDateTime.now());
+				userController.editProject(oldProject, newProject);
+				selfReference.dispose();
 			}
 		});
 
@@ -156,13 +179,23 @@ public class EditProject extends JDialog {
 			}
 		});
 
-		comboBoxCountry.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 	}
 
 	private void loadCountries() {
+		comboBoxModel.removeAllElements();
+		List<Country> currentCountryList = userController.getAllCountries();
+		for (Country country : currentCountryList) {
+			comboBoxModel.addElement(country.getCountryName());
+		}
+	}
+
+	private void fillDetails() {
+		textFieldName.setText(oldProject.getProjectName());
+		textFieldDescription.setText(oldProject.getDescription());
+		textFieldCustomer.setText(oldProject.getCustomer());
+		textFieldCreatedBy.setText(oldProject.getCreatedBy());
+		String country = oldProject.getCountry().getCountryName();
+		comboBoxCountry.setSelectedItem(country);
 
 	}
 }

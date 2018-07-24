@@ -22,7 +22,9 @@ import com.mymanager.data.models.MyTable;
 import com.mymanager.data.models.Project;
 import com.mymanager.utils.AppUtil;
 import com.mymanager.views.MainView;
+import com.mymanager.views.subviews.create.CreateProject;
 import com.mymanager.views.subviews.custom.MyPanel;
+import com.mymanager.views.subviews.edit.EditProject;
 
 public class ProjectView extends MyPanel {
 
@@ -145,12 +147,25 @@ public class ProjectView extends MyPanel {
 		btnCreate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				CreateProject createProject = new CreateProject(userController);
+				createProject.setModal(true);
+				createProject.setVisible(true);
+				loadData();
 
 			}
 		});
 		btnEdit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				int selectedRow = table.getSelectedRow();
+				int totalRows = table.getRowCount();
+				if ((selectedRow > -1) && (selectedRow < totalRows)) {
+					Project oldProject = currentProjectList.get(selectedRow);
+					EditProject ediProject = new EditProject(userController, oldProject);
+					ediProject.setModal(true);
+					ediProject.setVisible(true);
+					loadData();
+				}
 			}
 		});
 		btnDelete.addMouseListener(new MouseAdapter() {

@@ -6,7 +6,10 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDateTime;
+import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -17,6 +20,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import com.mymanager.controllers.UserController;
+import com.mymanager.data.models.Country;
+import com.mymanager.data.models.Project;
 import com.mymanager.data.models.User;
 
 public class CreateProject extends JDialog {
@@ -37,6 +42,7 @@ public class CreateProject extends JDialog {
 	private JTextField textFieldCustomer;
 	private JLabel label_2;
 	private JComboBox comboBoxCountry;
+	private DefaultComboBoxModel countryModel;
 
 	private UserController userController;
 	private User user;
@@ -49,6 +55,7 @@ public class CreateProject extends JDialog {
 		setResizable(false);
 		initComponents();
 		initEvents();
+		loadCountries();
 
 	}
 
@@ -102,6 +109,10 @@ public class CreateProject extends JDialog {
 
 		comboBoxCountry = new JComboBox();
 		comboBoxCountry.setBounds(142, 235, 257, 36);
+
+		countryModel = new DefaultComboBoxModel();
+
+		comboBoxCountry.setModel(countryModel);
 		contentPanel.add(comboBoxCountry);
 		{
 			buttonPane = new JPanel();
@@ -126,6 +137,13 @@ public class CreateProject extends JDialog {
 		okButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				int selectedIndex = comboBoxCountry.getSelectedIndex();
+				String selectedCountry = (String) countryModel.getElementAt(selectedIndex);
+				Project newProject = new Project(textFieldName.getText(), textFieldDesc.getText(),
+						textFieldCustomer.getText(), new Country(selectedCountry), user.getUserId(), user.getUserId(),
+						LocalDateTime.now(), LocalDateTime.now());
+				userController.saveProject(newProject);
+				selfReference.dispose();
 			}
 		});
 
@@ -136,5 +154,13 @@ public class CreateProject extends JDialog {
 
 			}
 		});
+	}
+
+	private void loadCountries() {
+		countryModel.removeAllElements();
+		List<Country> currentCountryList = userController.getAllCountries();
+		for (Country country : currentCountryList) {
+			countryModel.addElement(country.getCountryName());
+		}
 	}
 }

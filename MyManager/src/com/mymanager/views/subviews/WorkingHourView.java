@@ -25,7 +25,9 @@ import com.mymanager.data.models.MyTable;
 import com.mymanager.data.models.WorkingHour;
 import com.mymanager.utils.AppUtil;
 import com.mymanager.views.MainView;
+import com.mymanager.views.subviews.create.CreateWorkingHour;
 import com.mymanager.views.subviews.custom.MyPanel;
+import com.mymanager.views.subviews.edit.EditWorkingHour;
 
 public class WorkingHourView extends MyPanel {
 
@@ -145,12 +147,25 @@ public class WorkingHourView extends MyPanel {
 		btnCreate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				CreateWorkingHour createWorkingHour = new CreateWorkingHour(userController);
+				createWorkingHour.setModal(true);
+				createWorkingHour.setVisible(true);
+				loadData();
 
 			}
 		});
 		btnEdit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				int selectedRow = table.getSelectedRow();
+				int totalRows = table.getRowCount();
+				if ((selectedRow > -1) && (selectedRow < totalRows)) {
+					WorkingHour oldWorkingHour = currentWorkingHourList.get(selectedRow);
+					EditWorkingHour editWorkingHour = new EditWorkingHour(userController, oldWorkingHour);
+					editWorkingHour.setModal(true);
+					editWorkingHour.setVisible(true);
+					loadData();
+				}
 			}
 		});
 		btnDelete.addMouseListener(new MouseAdapter() {
@@ -158,7 +173,7 @@ public class WorkingHourView extends MyPanel {
 			public void mouseReleased(MouseEvent e) {
 				int selectedRow = table.getSelectedRow();
 				int totalRows = table.getRowCount();
-				if ((selectedRow > 0) && (selectedRow < totalRows)) {
+				if ((selectedRow > -1) && (selectedRow < totalRows)) {
 					WorkingHour workingHourToDelete = currentWorkingHourList.get(selectedRow);
 					userController.deleteWorkingHour(workingHourToDelete);
 				}
@@ -220,7 +235,23 @@ public class WorkingHourView extends MyPanel {
 			rowData[5] = workingHour.getCreatedDate();
 			rowData[6] = workingHour.getUpdatedBy();
 			rowData[7] = workingHour.getUpdatedDate();
+			tableModel.addRow(rowData);
+		}
+	}
 
+	private void loadData() {
+		emptyTable();
+		currentWorkingHourList = userController.getAllWorkingHour(QueryType.NORMAL);
+		Object[] rowData = new Object[8];
+		for (WorkingHour workingHour : currentWorkingHourList) {
+			rowData[0] = workingHour.getIndex();
+			rowData[1] = workingHour.getEmployeeId();
+			rowData[2] = workingHour.getDate();
+			rowData[3] = workingHour.getAmount();
+			rowData[4] = workingHour.getCreatedBy();
+			rowData[5] = workingHour.getCreatedDate();
+			rowData[6] = workingHour.getUpdatedBy();
+			rowData[7] = workingHour.getUpdatedDate();
 			tableModel.addRow(rowData);
 		}
 	}

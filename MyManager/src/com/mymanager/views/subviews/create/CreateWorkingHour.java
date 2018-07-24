@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -14,6 +16,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import com.mymanager.controllers.UserController;
+import com.mymanager.data.models.User;
+import com.mymanager.data.models.WorkingHour;
 
 public class CreateWorkingHour extends JDialog {
 
@@ -29,8 +35,14 @@ public class CreateWorkingHour extends JDialog {
 	private JButton okButton;
 	private JButton cancelButton;
 
-	public CreateWorkingHour() {
+	private UserController userController;
+	private User user;
+
+	public CreateWorkingHour(UserController userController) {
+		this.userController = userController;
+		this.user = userController.getUser();
 		selfReference = this;
+
 		setResizable(false);
 		initComponents();
 		initEvents();
@@ -92,6 +104,11 @@ public class CreateWorkingHour extends JDialog {
 		okButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				WorkingHour newWorkingHour = new WorkingHour(0, textFieldEmpId.getText(), LocalDate.now(),
+						Float.parseFloat(textFieldAmount.getText()), user.getUserId(), user.getUserId(),
+						LocalDateTime.now(), LocalDateTime.now());
+				userController.saveWorkingHour(newWorkingHour);
+				selfReference.dispose();
 			}
 		});
 

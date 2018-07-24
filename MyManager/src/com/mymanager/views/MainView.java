@@ -29,6 +29,7 @@ import com.mymanager.views.subviews.DepartmentView;
 import com.mymanager.views.subviews.FileView;
 import com.mymanager.views.subviews.JobView;
 import com.mymanager.views.subviews.PaymentTypeView;
+import com.mymanager.views.subviews.PaymentsView;
 import com.mymanager.views.subviews.ProjectView;
 import com.mymanager.views.subviews.RightsView;
 import com.mymanager.views.subviews.WorkingHourView;
@@ -82,10 +83,12 @@ public class MainView extends MyPanel {
 	private AttemptView attemptsView;
 	private WorkingHourView workingHoursView;
 	private DepartmentView departmentsView;
+	private PaymentsView paymentsView;
+
 	private JPanel departmentsPanel;
 	private JPanel workingHoursPanel;
 	private JPanel attemptsPanel;
-	private JPanel utilPanel;
+	private JPanel paymentsPanel;
 	private JPanel historyPanel;
 	private JPanel dataPanel;
 
@@ -105,6 +108,7 @@ public class MainView extends MyPanel {
 		workingHoursView = new WorkingHourView(jframe, selfReference, userController);
 		attemptsView = new AttemptView(jframe, selfReference, userController);
 		departmentsView = new DepartmentView(jframe, selfReference, userController);
+		paymentsView = new PaymentsView(jframe, selfReference, userController);
 
 		initComponents();
 		initAccountEvents();
@@ -336,17 +340,19 @@ public class MainView extends MyPanel {
 		label_8.setBounds(33, 11, 102, 88);
 		workingHoursPanel.add(label_8);
 
-		utilPanel = new JPanel();
-		utilPanel.setLayout(null);
-		utilPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Util", TitledBorder.LEADING,
-				TitledBorder.TOP, null, new Color(0, 0, 0)));
-		utilPanel.setBackground(SystemColor.menu);
-		utilPanel.setBounds(216, 263, 168, 110);
-		dataPanel.add(utilPanel);
+		paymentsPanel = new JPanel();
+		paymentsPanel.setLayout(null);
+		paymentsPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Payments",
+				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		paymentsPanel.setBackground(SystemColor.menu);
+		paymentsPanel.setBounds(216, 263, 168, 110);
+		dataPanel.add(paymentsPanel);
 
 		JLabel label_10 = new JLabel("");
+		label_10.setIcon(new ImageIcon(
+				MainView.class.getResource("/com/mymanager/resources/icons/icons_80x80/icons8-payment-history-2.png")));
 		label_10.setBounds(40, 11, 102, 88);
-		utilPanel.add(label_10);
+		paymentsPanel.add(label_10);
 
 		historyPanel = new JPanel();
 		historyPanel.setLayout(null);
@@ -401,7 +407,7 @@ public class MainView extends MyPanel {
 
 		paymentTypePanel = new JPanel();
 		paymentTypePanel.setBackground(UIManager.getColor("Button.background"));
-		paymentTypePanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Payment",
+		paymentTypePanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Payment type",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		paymentTypePanel.setBounds(257, 26, 87, 78);
 		configPanel.add(paymentTypePanel);
@@ -409,13 +415,13 @@ public class MainView extends MyPanel {
 
 		JLabel label_3 = new JLabel("");
 		label_3.setIcon(new ImageIcon(
-				MainView.class.getResource("/com/mymanager/resources/icons/icons_45x45/icons8-payment-history.png")));
+				MainView.class.getResource("/com/mymanager/resources/icons/icons_45x45/icons8-create-2.png")));
 		label_3.setBounds(21, 11, 56, 56);
 		paymentTypePanel.add(label_3);
 
 		countryPanel = new JPanel();
-		countryPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Country", TitledBorder.LEADING,
-				TitledBorder.TOP, null, null));
+		countryPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Countries",
+				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		countryPanel.setBackground(UIManager.getColor("Button.background"));
 		countryPanel.setBounds(371, 26, 87, 78);
 		configPanel.add(countryPanel);
@@ -520,6 +526,13 @@ public class MainView extends MyPanel {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				AppUtil.changeAccountPanel(jframe, selfReference, workingHoursView);
+			}
+		});
+
+		paymentsPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				AppUtil.changeAccountPanel(jframe, selfReference, paymentsView);
 			}
 		});
 

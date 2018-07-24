@@ -142,7 +142,7 @@ public class WorkingHourAccessObject implements WorkingHourAccess {
 	public WorkingHour readWorkingHourByIndex(int index) throws Exception {
 		WorkingHour workingHour = null;
 		ResultSet results = null;
-		String query = "SELECT * FROM mymanager.working_hours WHERE index=" + index;
+		String query = "SELECT * FROM mymanager.working_hours WHERE `index`=" + index;
 		results = database.selectStatement(query);
 		while (results.next()) {
 			workingHour = new WorkingHour(results.getInt("index"), results.getString("employee_id"),
