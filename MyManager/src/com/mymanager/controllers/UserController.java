@@ -163,6 +163,17 @@ public class UserController {
 
 	}
 
+	public List<Additional> getAllAdditional(QueryType queryType, int limit, int offset) {
+		try {
+			setQueryType(queryType);
+			return additionalAccess.readAllAdditionals(limit, offset);
+		} catch (Exception e) {
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
+			return null;
+		}
+
+	}
+
 	public Additional getAdditional(String employeeId) {
 		try {
 			return additionalAccess.readAdditional(employeeId);
@@ -212,6 +223,18 @@ public class UserController {
 			setQueryType(queryType);
 			setAdressType(adressType);
 			return adressAccess.readAllAdresses();
+		} catch (Exception e) {
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
+			return null;
+		}
+
+	}
+
+	public List<Adress> getAllAdresses(QueryType queryType, AdressType adressType, int limit, int offset) {
+		try {
+			setQueryType(queryType);
+			setAdressType(adressType);
+			return adressAccess.readAllAdresses(limit, offset);
 		} catch (Exception e) {
 			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
@@ -324,9 +347,19 @@ public class UserController {
 
 	}
 
+	public List<Attempt> getAllAttempts(int limit, int offset) {
+		try {
+			return attemptAccess.readAllAttempts(limit, offset);
+		} catch (Exception e) {
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
+			return null;
+		}
+
+	}
+
 	public List<Attempt> getAttemptsByUser(User user) {
 		try {
-			return attemptAccess.readAtempts(user);
+			return attemptAccess.readAttempts(user);
 		} catch (Exception e) {
 			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
@@ -336,7 +369,7 @@ public class UserController {
 
 	public List<Attempt> getAttemptsByStatus(Status status) {
 		try {
-			return attemptAccess.readAtempts(status);
+			return attemptAccess.readAttempts(status);
 		} catch (Exception e) {
 			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
@@ -346,7 +379,7 @@ public class UserController {
 
 	public List<Attempt> getAttemptsById(String id) {
 		try {
-			return attemptAccess.readAtempts(id);
+			return attemptAccess.readAttempts(id);
 		} catch (Exception e) {
 			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
@@ -383,6 +416,18 @@ public class UserController {
 			setQueryType(queryType);
 			setContactType(contactType);
 			return contactAccess.readAllContacts();
+		} catch (Exception e) {
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
+			return null;
+		}
+
+	}
+
+	public List<Contact> getAllContacts(QueryType queryType, ContactType contactType, int limit, int offset) {
+		try {
+			setQueryType(queryType);
+			setContactType(contactType);
+			return contactAccess.readAllContacts(limit, offset);
 		} catch (Exception e) {
 			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
@@ -602,6 +647,17 @@ public class UserController {
 
 	}
 
+	public List<Department> getAllDepartments(QueryType queryType, int limit, int offset) {
+		try {
+			setQueryType(queryType);
+			return departmentAccess.readAllDepartments(limit, offset);
+		} catch (Exception e) {
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
+			return null;
+		}
+
+	}
+
 	public List<Department> getDepartmentsByName(QueryType queryType, String departmentName) {
 		try {
 			setQueryType(queryType);
@@ -661,6 +717,17 @@ public class UserController {
 		try {
 			setQueryType(queryType);
 			return documentAccess.readAllDocuments();
+		} catch (Exception e) {
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
+			return null;
+		}
+
+	}
+
+	public List<Document> getAllDocuments(QueryType queryType, int limit, int offset) {
+		try {
+			setQueryType(queryType);
+			return documentAccess.readAllDocuments(limit, offset);
 		} catch (Exception e) {
 			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
@@ -738,6 +805,17 @@ public class UserController {
 		try {
 			setQueryType(queryType);
 			return employeeAccess.readAllEmployees();
+		} catch (Exception e) {
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
+			return null;
+		}
+
+	}
+
+	public List<Employee> getAllEmployees(QueryType queryType, int limit, int offset) {
+		try {
+			setQueryType(queryType);
+			return employeeAccess.readAllEmployees(limit, offset);
 		} catch (Exception e) {
 			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
@@ -963,6 +1041,17 @@ public class UserController {
 
 	}
 
+	public List<Job> getAllJobs(QueryType queryType, int limit, int offset) {
+		try {
+			setQueryType(queryType);
+			return jobAccess.readAllJobs(limit, offset);
+		} catch (Exception e) {
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
+			return null;
+		}
+
+	}
+
 	public List<Job> getJobsBetween(QueryType queryType, float minSalary, float maxSalary) {
 		try {
 			setQueryType(queryType);
@@ -1033,6 +1122,17 @@ public class UserController {
 		try {
 			setQueryType(queryType);
 			return jobHistoryAccess.readAllJobHistories();
+		} catch (Exception e) {
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
+			return null;
+		}
+
+	}
+
+	public List<JobHistory> getAllJobHistories(QueryType queryType, int limit, int offset) {
+		try {
+			setQueryType(queryType);
+			return jobHistoryAccess.readAllJobHistories(limit, offset);
 		} catch (Exception e) {
 			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
@@ -1136,7 +1236,16 @@ public class UserController {
 			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
+	}
 
+	public List<Payment> getAllPayments(QueryType queryType, int limit, int offset) {
+		try {
+			setQueryType(queryType);
+			return paymentAccess.readAllPayments(limit, offset);
+		} catch (Exception e) {
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
+			return null;
+		}
 	}
 
 	public List<Payment> getPaymentByType(QueryType queryType, PaymentType paymentType) {
@@ -1227,6 +1336,17 @@ public class UserController {
 
 	}
 
+	public List<Project> getAllProjects(int limit, int offset) {
+		try {
+
+			return projectAccess.readAllProjects(limit, offset);
+		} catch (Exception e) {
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
+			return null;
+		}
+
+	}
+
 	public List<Project> getProjectsByCustomer(String customer) {
 		try {
 			return projectAccess.readAllProjectsByCustomer(customer);
@@ -1295,6 +1415,17 @@ public class UserController {
 		try {
 			setQueryType(queryType);
 			return userAccess.readAllUsers();
+		} catch (Exception e) {
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
+			return null;
+		}
+
+	}
+
+	public List<User> getAllUsers(QueryType queryType, int limit, int offset) {
+		try {
+			setQueryType(queryType);
+			return userAccess.readAllUsers(limit, offset);
 		} catch (Exception e) {
 			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
@@ -1405,6 +1536,17 @@ public class UserController {
 		try {
 			setQueryType(queryType);
 			return workingHourAccess.readAllWorkingHour();
+		} catch (Exception e) {
+			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
+			return null;
+		}
+
+	}
+
+	public List<WorkingHour> getAllWorkingHour(QueryType queryType, int limit, int offset) {
+		try {
+			setQueryType(queryType);
+			return workingHourAccess.readAllWorkingHour(limit, offset);
 		} catch (Exception e) {
 			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
