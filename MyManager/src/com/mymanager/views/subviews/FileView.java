@@ -135,8 +135,8 @@ public class FileView extends JDialog {
 	public void updateTable() {
 		emptyTable();
 		fileTypeList = userController.getAllFileTypes();
+		Object[] obj = new Object[1];
 		for (FileType fileType : fileTypeList) {
-			Object[] obj = new Object[1];
 			obj[0] = fileType.getFile();
 			tableModel.addRow(obj);
 		}

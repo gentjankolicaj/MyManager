@@ -136,8 +136,8 @@ public class CurrencyView extends JDialog {
 	public void updateTable() {
 		emptyTable();
 		currencyList = userController.getAllCurrencies();
+		Object[] obj = new Object[1];
 		for (Currency currency : currencyList) {
-			Object[] obj = new Object[1];
 			obj[0] = currency.getCurrencyName();
 			tableModel.addRow(obj);
 		}

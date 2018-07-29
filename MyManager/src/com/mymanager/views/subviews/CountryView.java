@@ -135,8 +135,8 @@ public class CountryView extends JDialog {
 	public void updateTable() {
 		emptyTable();
 		countryList = userController.getAllCountries();
+		Object[] obj = new Object[1];
 		for (Country country : countryList) {
-			Object[] obj = new Object[1];
 			obj[0] = country.getCountryName();
 			tableModel.addRow(obj);
 		}
