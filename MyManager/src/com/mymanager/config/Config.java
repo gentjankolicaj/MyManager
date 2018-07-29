@@ -13,7 +13,29 @@ public class Config {
 	public static int FRAME_WIDTH = 910;
 	public static int FRAME_HEIGHT = 690;
 
+	// ====================================================
+	// ====================================================
 	public static final int ROW_LIMIT = 500;
+
+	public static final int USER_OFFSET = 0;
+	public static final int EMPLOYEE_OFFSET = 0;
+
+	public static final int USER_ADRESS_OFFSET = 0;
+	public static final int EMPLOYEE_ADRESS_OFFSET = 0;
+	public static final int USER_CONTACT_OFFSET = 0;
+	public static final int EMPLOYEE_CONTACT_OFFSET = 0;
+	public static final int EMPLOYEE_DOCUMENT_OFFSET = 0;
+
+	public static final int PAYMENTS_OFFSET = 0;
+	public static final int DEPARTMENT_OFFSET = 0;
+	public static final int JOB_OFFSET = 0;
+	public static final int PROJECT_OFFSET = 0;
+	public static final int ATTEMPT_OFFSET = 0;
+	public static final int WORKINGHOUR_OFFSET = 0;
+	public static final int ADDITIONAL_OFFSET = 0;
+
+	// ================================================
+	// ================================================
 
 	public static boolean PRINT_EXCEPTION = true;
 	public static boolean PRINT_FILE_IO = true;
