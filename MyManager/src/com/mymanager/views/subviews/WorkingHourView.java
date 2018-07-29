@@ -64,6 +64,7 @@ public class WorkingHourView extends MyPanel {
 		this.userController = userController;
 		selfReference = this;
 		setBorder(new LineBorder(new Color(0, 0, 0)));
+
 		initComponents();
 		initEvents();
 
@@ -89,12 +90,12 @@ public class WorkingHourView extends MyPanel {
 		lblSearcchBy.setBounds(12, 63, 89, 31);
 		add(lblSearcchBy);
 
-		rdbtnId = new JRadioButton("Id");
+		rdbtnId = new JRadioButton("ID");
 		buttonGroupSearchType.add(rdbtnId);
 		rdbtnId.setBounds(92, 66, 71, 25);
 		add(rdbtnId);
 
-		rdbtnEmpId = new JRadioButton("Emp Id");
+		rdbtnEmpId = new JRadioButton("Emp ID");
 		buttonGroupSearchType.add(rdbtnEmpId);
 		rdbtnEmpId.setBounds(159, 66, 71, 25);
 		add(rdbtnEmpId);
@@ -111,8 +112,8 @@ public class WorkingHourView extends MyPanel {
 		table.setFillsViewportHeight(true);
 
 		tableModel = new DefaultTableModel();
-		tableModel.setColumnIdentifiers(new String[] { "Id", "Emp Id", "Date", "Amount", "Created by", "Created date",
-				"Updated by", "Update date" });
+		tableModel.setColumnIdentifiers(new String[] { "ID", "Emp ID", "Date", "Amount", "Created by", "Created date",
+				"Updated by", "Updated date" });
 
 		table.setModel(tableModel);
 		scrollPane.setViewportView(table);
@@ -239,7 +240,24 @@ public class WorkingHourView extends MyPanel {
 		}
 	}
 
-	private void loadData() {
+	public void loadData() {
+		emptyTable();
+		currentWorkingHourList = userController.getAllWorkingHour(QueryType.NORMAL);
+		Object[] rowData = new Object[8];
+		for (WorkingHour workingHour : currentWorkingHourList) {
+			rowData[0] = workingHour.getIndex();
+			rowData[1] = workingHour.getEmployeeId();
+			rowData[2] = workingHour.getDate();
+			rowData[3] = workingHour.getAmount();
+			rowData[4] = workingHour.getCreatedBy();
+			rowData[5] = workingHour.getCreatedDate();
+			rowData[6] = workingHour.getUpdatedBy();
+			rowData[7] = workingHour.getUpdatedDate();
+			tableModel.addRow(rowData);
+		}
+	}
+
+	public void loadData(int limit) {
 		emptyTable();
 		currentWorkingHourList = userController.getAllWorkingHour(QueryType.NORMAL);
 		Object[] rowData = new Object[8];

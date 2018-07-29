@@ -34,7 +34,6 @@ public class EditJob extends JDialog {
 	private JTextField textFieldTitle;
 	private JTextField textFieldMinSalary;
 	private JTextField textFieldMaxSalary;
-	private JTextField textFieldJobId;
 	private JLabel lblCreatedBy;
 	private JTextField textFieldCreatedBy;
 
@@ -59,7 +58,7 @@ public class EditJob extends JDialog {
 	private void initComponents() {
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 769, 469);
+		setBounds(100, 100, 700, 350);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -73,61 +72,49 @@ public class EditJob extends JDialog {
 		{
 			JLabel label = new JLabel("Job Title :");
 			label.setFont(new Font("Tahoma", Font.BOLD, 14));
-			label.setBounds(12, 129, 81, 26);
+			label.setBounds(10, 51, 81, 26);
 			contentPanel.add(label);
 		}
 		{
 			textFieldTitle = new JTextField();
 			textFieldTitle.setColumns(10);
-			textFieldTitle.setBounds(105, 128, 326, 30);
+			textFieldTitle.setBounds(103, 50, 326, 30);
 			contentPanel.add(textFieldTitle);
 		}
 		{
 			JLabel label = new JLabel("Min salary  :");
 			label.setFont(new Font("Tahoma", Font.BOLD, 14));
-			label.setBounds(12, 190, 81, 26);
+			label.setBounds(10, 112, 81, 26);
 			contentPanel.add(label);
 		}
 		{
 			textFieldMinSalary = new JTextField();
 			textFieldMinSalary.setColumns(10);
-			textFieldMinSalary.setBounds(105, 189, 326, 30);
+			textFieldMinSalary.setBounds(103, 111, 326, 30);
 			contentPanel.add(textFieldMinSalary);
 		}
 		{
 			JLabel label = new JLabel("Max salary :");
 			label.setFont(new Font("Tahoma", Font.BOLD, 14));
-			label.setBounds(12, 253, 93, 26);
+			label.setBounds(10, 175, 93, 26);
 			contentPanel.add(label);
 		}
 		{
 			textFieldMaxSalary = new JTextField();
 			textFieldMaxSalary.setColumns(10);
-			textFieldMaxSalary.setBounds(105, 252, 326, 30);
+			textFieldMaxSalary.setBounds(103, 174, 326, 30);
 			contentPanel.add(textFieldMaxSalary);
-		}
-		{
-			JLabel lblJobId = new JLabel("Job Id :");
-			lblJobId.setFont(new Font("Tahoma", Font.BOLD, 14));
-			lblJobId.setBounds(12, 72, 81, 26);
-			contentPanel.add(lblJobId);
-		}
-		{
-			textFieldJobId = new JTextField();
-			textFieldJobId.setColumns(10);
-			textFieldJobId.setBounds(105, 71, 326, 30);
-			contentPanel.add(textFieldJobId);
 		}
 		{
 			lblCreatedBy = new JLabel("Created by  :");
 			lblCreatedBy.setFont(new Font("Tahoma", Font.BOLD, 14));
-			lblCreatedBy.setBounds(12, 315, 93, 26);
+			lblCreatedBy.setBounds(10, 237, 93, 26);
 			contentPanel.add(lblCreatedBy);
 		}
 		{
 			textFieldCreatedBy = new JTextField();
 			textFieldCreatedBy.setColumns(10);
-			textFieldCreatedBy.setBounds(105, 314, 326, 30);
+			textFieldCreatedBy.setBounds(103, 236, 326, 30);
 			contentPanel.add(textFieldCreatedBy);
 		}
 		{
@@ -153,7 +140,7 @@ public class EditJob extends JDialog {
 		okButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				Job newJob = new Job(Integer.parseInt(textFieldJobId.getText()), textFieldTitle.getText(),
+				Job newJob = new Job(oldJob.getJobId(), textFieldTitle.getText(),
 						Float.parseFloat(textFieldMaxSalary.getText()), Float.parseFloat(textFieldMinSalary.getText()),
 						textFieldCreatedBy.getText(), user.getUserId(), LocalDateTime.now(), LocalDateTime.now());
 				userController.editJob(oldJob, newJob);
@@ -170,7 +157,6 @@ public class EditJob extends JDialog {
 	}
 
 	private void fillDetails() {
-		textFieldJobId.setText(String.valueOf(oldJob.getJobId()));
 		textFieldTitle.setText(oldJob.getJobTitle());
 		textFieldMinSalary.setText(String.valueOf(oldJob.getMinSalary()));
 		textFieldMaxSalary.setText(String.valueOf(oldJob.getMaxSalary()));

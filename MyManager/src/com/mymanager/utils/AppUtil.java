@@ -7,6 +7,7 @@ import java.awt.event.MouseMotionAdapter;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.mymanager.config.Config;
 import com.mymanager.data.models.User;
 import com.mymanager.views.subviews.custom.MyPanel;
 
@@ -16,16 +17,10 @@ import com.mymanager.views.subviews.custom.MyPanel;
  *
  */
 public class AppUtil {
+
 	public static int x, y;
 
-	public static void setBoundsAccordingToPanel(JFrame jframe, JPanel jpanel, int x, int y) {
-		int width = jpanel.getWidth();
-		int height = jpanel.getHeight();
-		jframe.setBounds(x, y, width, height);
-	}
-
 	public static void makePanelMove(JFrame jframe, JPanel jpanel) {
-
 		jpanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -63,10 +58,11 @@ public class AppUtil {
 
 	}
 
-	public static void changeAccountPanel(JFrame jframe, MyPanel oldPanel, MyPanel newPanel) {
+	public static void changeView(JFrame jframe, MyPanel oldPanel, MyPanel newPanel) {
 		jframe.getContentPane().remove(oldPanel);
 		System.out.println(newPanel.getMyWidth() + " ," + newPanel.getMyHeight());
 		jframe.setSize(newPanel.getMyWidth() + 10, newPanel.getMyHeight() + 50);
+		newPanel.loadData(Config.ROW_LIMIT); // fills table view with data
 		jframe.setContentPane(newPanel);
 		jframe.repaint();
 

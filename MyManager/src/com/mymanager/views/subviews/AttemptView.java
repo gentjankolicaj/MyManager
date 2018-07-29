@@ -61,6 +61,7 @@ public class AttemptView extends MyPanel {
 		this.userController = userController;
 		selfReference = this;
 		setBorder(new LineBorder(new Color(0, 0, 0)));
+
 		initComponents();
 		initEvents();
 
@@ -200,6 +201,20 @@ public class AttemptView extends MyPanel {
 	private void fillTable(List<Attempt> attemptList) {
 		Object[] rowData = new Object[5];
 		for (Attempt attempt : attemptList) {
+			rowData[0] = attempt.getIndex();
+			rowData[1] = attempt.getUser();
+			rowData[2] = attempt.getStatus();
+			rowData[3] = attempt.getDescription();
+			rowData[4] = attempt.getDateTime();
+			tableModel.addRow(rowData);
+		}
+	}
+
+	public void loadData(int limit) {
+		emptyTable();
+		currentAttemptList = userController.getAllAttempts();
+		Object[] rowData = new Object[5];
+		for (Attempt attempt : currentAttemptList) {
 			rowData[0] = attempt.getIndex();
 			rowData[1] = attempt.getUser();
 			rowData[2] = attempt.getStatus();

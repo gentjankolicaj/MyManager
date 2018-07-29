@@ -67,7 +67,7 @@ public class EditProject extends JDialog {
 	private void initComponents() {
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 769, 502);
+		setBounds(100, 100, 730, 400);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -81,60 +81,60 @@ public class EditProject extends JDialog {
 		{
 			JLabel lblProjectDescription = new JLabel("Project desc :");
 			lblProjectDescription.setFont(new Font("Tahoma", Font.BOLD, 14));
-			lblProjectDescription.setBounds(12, 132, 105, 26);
+			lblProjectDescription.setBounds(10, 111, 105, 26);
 			contentPanel.add(lblProjectDescription);
 		}
 		{
 			textFieldName = new JTextField();
 			textFieldName.setColumns(10);
-			textFieldName.setBounds(136, 71, 326, 30);
+			textFieldName.setBounds(134, 50, 326, 30);
 			contentPanel.add(textFieldName);
 		}
 		{
 			textFieldDescription = new JTextField();
 			textFieldDescription.setColumns(10);
-			textFieldDescription.setBounds(136, 131, 326, 30);
+			textFieldDescription.setBounds(134, 110, 326, 30);
 			contentPanel.add(textFieldDescription);
 		}
 		{
 			JLabel lblCustomer = new JLabel("Customer  :");
 			lblCustomer.setFont(new Font("Tahoma", Font.BOLD, 14));
-			lblCustomer.setBounds(24, 191, 81, 26);
+			lblCustomer.setBounds(22, 170, 81, 26);
 			contentPanel.add(lblCustomer);
 		}
 		{
 			textFieldCustomer = new JTextField();
 			textFieldCustomer.setColumns(10);
-			textFieldCustomer.setBounds(136, 190, 326, 30);
+			textFieldCustomer.setBounds(134, 169, 326, 30);
 			contentPanel.add(textFieldCustomer);
 		}
 		{
 			JLabel lblJobId = new JLabel("Project name  :");
 			lblJobId.setFont(new Font("Tahoma", Font.BOLD, 14));
-			lblJobId.setBounds(12, 72, 105, 26);
+			lblJobId.setBounds(10, 51, 105, 26);
 			contentPanel.add(lblJobId);
 		}
 		{
 			lblCreatedBy = new JLabel("Created by  :");
 			lblCreatedBy.setFont(new Font("Tahoma", Font.BOLD, 14));
-			lblCreatedBy.setBounds(19, 247, 93, 26);
+			lblCreatedBy.setBounds(17, 226, 93, 26);
 			contentPanel.add(lblCreatedBy);
 		}
 		{
 			textFieldCreatedBy = new JTextField();
 			textFieldCreatedBy.setColumns(10);
-			textFieldCreatedBy.setBounds(136, 246, 326, 30);
+			textFieldCreatedBy.setBounds(134, 225, 326, 30);
 			contentPanel.add(textFieldCreatedBy);
 		}
 		{
 			lblCountry = new JLabel("Country  :");
 			lblCountry.setFont(new Font("Tahoma", Font.BOLD, 14));
-			lblCountry.setBounds(24, 307, 93, 26);
+			lblCountry.setBounds(22, 286, 93, 26);
 			contentPanel.add(lblCountry);
 		}
 
 		comboBoxCountry = new JComboBox();
-		comboBoxCountry.setBounds(142, 303, 320, 36);
+		comboBoxCountry.setBounds(140, 282, 320, 36);
 
 		comboBoxModel = new DefaultComboBoxModel();
 		comboBoxCountry.setModel(comboBoxModel);

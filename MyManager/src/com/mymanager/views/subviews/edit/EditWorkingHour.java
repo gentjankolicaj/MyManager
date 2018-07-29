@@ -33,7 +33,6 @@ public class EditWorkingHour extends JDialog {
 	private JButton cancelButton;
 	private JTextField textFieldEmpId;
 	private JTextField textFieldAmount;
-	private JTextField textFieldWhId;
 	private JLabel lblCreatedBy;
 	private JTextField textFieldCreatedBy;
 
@@ -59,7 +58,7 @@ public class EditWorkingHour extends JDialog {
 	private void initComponents() {
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 713, 469);
+		setBounds(100, 100, 676, 299);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -71,51 +70,39 @@ public class EditWorkingHour extends JDialog {
 			contentPanel.add(lblEditExistingWH);
 		}
 		{
-			JLabel lblWHId = new JLabel("ID :");
-			lblWHId.setFont(new Font("Tahoma", Font.BOLD, 14));
-			lblWHId.setBounds(12, 72, 58, 26);
-			contentPanel.add(lblWHId);
-		}
-		{
-			textFieldWhId = new JTextField();
-			textFieldWhId.setColumns(10);
-			textFieldWhId.setBounds(82, 71, 326, 30);
-			contentPanel.add(textFieldWhId);
-		}
-		{
 			JLabel lblEmpID = new JLabel("Emp ID :");
 			lblEmpID.setFont(new Font("Tahoma", Font.BOLD, 14));
-			lblEmpID.setBounds(12, 129, 81, 26);
+			lblEmpID.setBounds(14, 59, 81, 26);
 			contentPanel.add(lblEmpID);
 		}
 		{
 			textFieldEmpId = new JTextField();
 			textFieldEmpId.setColumns(10);
-			textFieldEmpId.setBounds(82, 128, 326, 30);
+			textFieldEmpId.setBounds(84, 58, 326, 30);
 			contentPanel.add(textFieldEmpId);
 		}
 		{
 			JLabel lblAmount = new JLabel("Amount ( hours )  :");
 			lblAmount.setFont(new Font("Tahoma", Font.BOLD, 14));
-			lblAmount.setBounds(12, 190, 133, 26);
+			lblAmount.setBounds(14, 120, 133, 26);
 			contentPanel.add(lblAmount);
 		}
 		{
 			textFieldAmount = new JTextField();
 			textFieldAmount.setColumns(10);
-			textFieldAmount.setBounds(157, 189, 252, 30);
+			textFieldAmount.setBounds(159, 119, 252, 30);
 			contentPanel.add(textFieldAmount);
 		}
 		{
 			lblCreatedBy = new JLabel("Created by  :");
 			lblCreatedBy.setFont(new Font("Tahoma", Font.BOLD, 14));
-			lblCreatedBy.setBounds(8, 247, 93, 26);
+			lblCreatedBy.setBounds(10, 177, 93, 26);
 			contentPanel.add(lblCreatedBy);
 		}
 		{
 			textFieldCreatedBy = new JTextField();
 			textFieldCreatedBy.setColumns(10);
-			textFieldCreatedBy.setBounds(101, 246, 311, 30);
+			textFieldCreatedBy.setBounds(103, 176, 311, 30);
 			contentPanel.add(textFieldCreatedBy);
 		}
 		{
@@ -141,8 +128,8 @@ public class EditWorkingHour extends JDialog {
 		okButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				WorkingHour newWorkingHour = new WorkingHour(Integer.parseInt(textFieldWhId.getText()),
-						textFieldEmpId.getText(), oldWorkingHour.getDate(), Float.parseFloat(textFieldAmount.getText()),
+				WorkingHour newWorkingHour = new WorkingHour(oldWorkingHour.getIndex(), textFieldEmpId.getText(),
+						oldWorkingHour.getDate(), Float.parseFloat(textFieldAmount.getText()),
 						textFieldCreatedBy.getText(), user.getUserId(), oldWorkingHour.getCreatedDate(),
 						LocalDateTime.now());
 				userController.editWorkingHour(oldWorkingHour, newWorkingHour);
@@ -159,7 +146,6 @@ public class EditWorkingHour extends JDialog {
 	}
 
 	private void fillDetails() {
-		textFieldWhId.setText(String.valueOf(oldWorkingHour.getIndex()));
 		textFieldEmpId.setText(oldWorkingHour.getEmployeeId());
 		textFieldAmount.setText(String.valueOf(oldWorkingHour.getAmount()));
 		textFieldCreatedBy.setText(oldWorkingHour.getCreatedBy());

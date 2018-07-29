@@ -64,10 +64,9 @@ public class DepartmentView extends MyPanel {
 		this.userController = userController;
 		selfReference = this;
 		setBorder(new LineBorder(new Color(0, 0, 0)));
+
 		initComponents();
 		initEvents();
-
-		loadData();
 
 	}
 
@@ -83,7 +82,7 @@ public class DepartmentView extends MyPanel {
 		add(textFieldSearch);
 		textFieldSearch.setColumns(10);
 
-		rdbtnId = new JRadioButton("Id");
+		rdbtnId = new JRadioButton("ID");
 		buttonGroupSearchType.add(rdbtnId);
 		rdbtnId.setBounds(92, 66, 71, 25);
 		add(rdbtnId);
@@ -92,7 +91,7 @@ public class DepartmentView extends MyPanel {
 		lblSearcchBy.setBounds(12, 63, 89, 31);
 		add(lblSearcchBy);
 
-		rdbtnName = new JRadioButton("Department name");
+		rdbtnName = new JRadioButton("Name");
 		buttonGroupSearchType.add(rdbtnName);
 		rdbtnName.setBounds(159, 66, 153, 25);
 		add(rdbtnName);
@@ -108,8 +107,8 @@ public class DepartmentView extends MyPanel {
 		table.setFillsViewportHeight(true);
 
 		tableModel = new DefaultTableModel();
-		tableModel.setColumnIdentifiers(
-				new String[] { "Id", "Name", "Manager id", "Created by", "Created date", "Updated by", "Update date" });
+		tableModel.setColumnIdentifiers(new String[] { "ID", "Name", "Manager ID", "Created by", "Created date",
+				"Updated by", "Updated date" });
 
 		table.setModel(tableModel);
 		scrollPane.setViewportView(table);
@@ -233,7 +232,23 @@ public class DepartmentView extends MyPanel {
 		}
 	}
 
-	private void loadData() {
+	public void loadData() {
+		emptyTable();
+		currentDepartmentList = userController.getAllDepartments(QueryType.NORMAL);
+		Object[] rowData = new Object[7];
+		for (Department department : currentDepartmentList) {
+			rowData[0] = department.getDepartmentId();
+			rowData[1] = department.getDepartmentName();
+			rowData[2] = department.getManagerId();
+			rowData[3] = department.getCreatedBy();
+			rowData[4] = department.getCreatedDate();
+			rowData[5] = department.getUpdatedBy();
+			rowData[6] = department.getUpdatedDate();
+			tableModel.addRow(rowData);
+		}
+	}
+
+	public void loadData(int limit) {
 		emptyTable();
 		currentDepartmentList = userController.getAllDepartments(QueryType.NORMAL);
 		Object[] rowData = new Object[7];

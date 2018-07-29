@@ -64,10 +64,9 @@ public class JobView extends MyPanel {
 		this.userController = userController;
 		selfReference = this;
 		setBorder(new LineBorder(new Color(0, 0, 0)));
+
 		initComponents();
 		initEvents();
-
-		loadData();
 
 	}
 
@@ -93,7 +92,7 @@ public class JobView extends MyPanel {
 		lblSearcchBy.setBounds(12, 63, 89, 31);
 		add(lblSearcchBy);
 
-		rdbtnId = new JRadioButton("Id");
+		rdbtnId = new JRadioButton("ID");
 		buttonGroupSearchType.add(rdbtnId);
 		rdbtnId.setBounds(92, 66, 71, 25);
 		add(rdbtnId);
@@ -115,8 +114,8 @@ public class JobView extends MyPanel {
 		table.setFillsViewportHeight(true);
 
 		tableModel = new DefaultTableModel();
-		tableModel.setColumnIdentifiers(new String[] { "Id", "Title", "Max salary", "Min salary", "Created by",
-				"Created date", "Updated by", "Update date" });
+		tableModel.setColumnIdentifiers(new String[] { "ID", "Title", "Max salary", "Min salary", "Created by",
+				"Created date", "Updated by", "Updated date" });
 
 		table.setModel(tableModel);
 		scrollPane.setViewportView(table);
@@ -246,7 +245,7 @@ public class JobView extends MyPanel {
 		}
 	}
 
-	private void loadData() {
+	public void loadData() {
 		emptyTable();
 		currentJobList = userController.getAllJobs(QueryType.NORMAL);
 		Object[] rowData = new Object[8];

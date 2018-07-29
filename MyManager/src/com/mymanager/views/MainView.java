@@ -114,6 +114,8 @@ public class MainView extends MyPanel {
 		initAccountEvents();
 		initConfigEvents();
 
+		setMainViewUserDetails(user);
+
 	}
 
 	public void initComponents() {
@@ -483,56 +485,56 @@ public class MainView extends MyPanel {
 		useDataPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				AppUtil.changeAccountPanel(jframe, selfReference, usersDataView);
+				AppUtil.changeView(jframe, selfReference, usersDataView);
 			}
 		});
 
 		employeeDataPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				AppUtil.changeAccountPanel(jframe, selfReference, employeesDataView);
+				AppUtil.changeView(jframe, selfReference, employeesDataView);
 			}
 		});
 
 		jobsPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				AppUtil.changeAccountPanel(jframe, selfReference, jobsView);
+				AppUtil.changeView(jframe, selfReference, jobsView);
 			}
 		});
 
 		projectsPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				AppUtil.changeAccountPanel(jframe, selfReference, projectsView);
+				AppUtil.changeView(jframe, selfReference, projectsView);
 			}
 		});
 
 		departmentsPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				AppUtil.changeAccountPanel(jframe, selfReference, departmentsView);
+				AppUtil.changeView(jframe, selfReference, departmentsView);
 			}
 		});
 
 		attemptsPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				AppUtil.changeAccountPanel(jframe, selfReference, attemptsView);
+				AppUtil.changeView(jframe, selfReference, attemptsView);
 			}
 		});
 
 		workingHoursPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				AppUtil.changeAccountPanel(jframe, selfReference, workingHoursView);
+				AppUtil.changeView(jframe, selfReference, workingHoursView);
 			}
 		});
 
 		paymentsPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				AppUtil.changeAccountPanel(jframe, selfReference, paymentsView);
+				AppUtil.changeView(jframe, selfReference, paymentsView);
 			}
 		});
 

@@ -63,10 +63,9 @@ public class ProjectView extends MyPanel {
 		this.userController = userController;
 		selfReference = this;
 		setBorder(new LineBorder(new Color(0, 0, 0)));
+
 		initComponents();
 		initEvents();
-
-		loadData();
 
 	}
 
@@ -113,7 +112,7 @@ public class ProjectView extends MyPanel {
 
 		tableModel = new DefaultTableModel();
 		tableModel.setColumnIdentifiers(new String[] { "Name", "Description", "Customer", "Country", "Created by",
-				"Created date", "Updated by", "Update date" });
+				"Created date", "Updated by", "Updated date" });
 
 		table.setModel(tableModel);
 		scrollPane.setViewportView(table);
@@ -241,7 +240,7 @@ public class ProjectView extends MyPanel {
 		}
 	}
 
-	private void loadData() {
+	public void loadData() {
 		emptyTable();
 		currentProjectList = userController.getAllProjects();
 		Object[] rowData = new Object[8];

@@ -130,19 +130,19 @@ public class ContactView extends MyPanel {
 
 		add(scrollPane);
 		btnCreate = new JButton("Create");
-		btnCreate.setBounds(1092, 134, 97, 25);
+		btnCreate.setBounds(1088, 134, 97, 25);
 		add(btnCreate);
 
 		btnEdit = new JButton("Edit");
-		btnEdit.setBounds(1092, 172, 97, 25);
+		btnEdit.setBounds(1088, 172, 97, 25);
 		add(btnEdit);
 
 		btnDelete = new JButton("Delete");
-		btnDelete.setBounds(1092, 210, 97, 25);
+		btnDelete.setBounds(1088, 210, 97, 25);
 		add(btnDelete);
 
 		btnBack = new JButton("Back");
-		btnBack.setBounds(1092, 300, 97, 25);
+		btnBack.setBounds(1088, 291, 97, 25);
 		add(btnBack);
 	}
 

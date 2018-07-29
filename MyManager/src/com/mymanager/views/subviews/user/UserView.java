@@ -73,7 +73,7 @@ public class UserView extends MyPanel {
 		add(lblNewLabel);
 
 		textFieldSearch = new JTextField();
-		textFieldSearch.setBounds(12, 98, 913, 31);
+		textFieldSearch.setBounds(12, 93, 913, 31);
 		add(textFieldSearch);
 		textFieldSearch.setColumns(10);
 
@@ -107,11 +107,11 @@ public class UserView extends MyPanel {
 		add(rdbtnCreatedBy);
 
 		btnSearch = new JButton("Search");
-		btnSearch.setBounds(942, 98, 138, 31);
+		btnSearch.setBounds(942, 93, 138, 31);
 		add(btnSearch);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 140, 1068, 398);
+		scrollPane.setBounds(12, 136, 1068, 402);
 
 		table = new MyTable();
 		table.setFillsViewportHeight(true);

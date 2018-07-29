@@ -142,7 +142,7 @@ public class AdressView extends MyPanel {
 		add(btnDelete);
 
 		btnBack = new JButton("Back");
-		btnBack.setBounds(1090, 300, 97, 25);
+		btnBack.setBounds(1090, 290, 97, 25);
 		add(btnBack);
 	}
 
