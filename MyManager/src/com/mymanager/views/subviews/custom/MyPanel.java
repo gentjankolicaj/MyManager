@@ -20,7 +20,7 @@ public class MyPanel extends JPanel {
 		return width;
 	}
 
-	public void loadData(int limit) {
+	public void loadData() {
 
 	}
 

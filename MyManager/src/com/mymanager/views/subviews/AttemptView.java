@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.mymanager.config.Config;
 import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.Attempt;
 import com.mymanager.data.models.MyTable;
@@ -139,6 +140,7 @@ public class AttemptView extends MyPanel {
 				if ((selectedRow > -1) && (selectedRow < totalRows)) {
 					Attempt attemptToDelete = currentAttemptList.get(selectedRow);
 					userController.deleteAttempt(attemptToDelete);
+					loadData();
 				}
 
 			}
@@ -210,9 +212,9 @@ public class AttemptView extends MyPanel {
 		}
 	}
 
-	public void loadData(int limit) {
+	public void loadData() {
 		emptyTable();
-		currentAttemptList = userController.getAllAttempts();
+		currentAttemptList = userController.getAllAttempts(Config.ROW_LIMIT, Config.ATTEMPT_OFFSET);
 		Object[] rowData = new Object[5];
 		for (Attempt attempt : currentAttemptList) {
 			rowData[0] = attempt.getIndex();

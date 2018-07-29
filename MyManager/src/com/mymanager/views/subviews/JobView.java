@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.mymanager.config.Config;
 import com.mymanager.controllers.UserController;
 import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.Job;
@@ -247,7 +248,7 @@ public class JobView extends MyPanel {
 
 	public void loadData() {
 		emptyTable();
-		currentJobList = userController.getAllJobs(QueryType.NORMAL);
+		currentJobList = userController.getAllJobs(QueryType.NORMAL, Config.ROW_LIMIT, Config.JOB_OFFSET);
 		Object[] rowData = new Object[8];
 		for (Job job : currentJobList) {
 			rowData[0] = job.getJobId();

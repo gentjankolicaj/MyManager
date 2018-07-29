@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.mymanager.config.Config;
 import com.mymanager.controllers.UserController;
 import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.Department;
@@ -234,7 +235,8 @@ public class DepartmentView extends MyPanel {
 
 	public void loadData() {
 		emptyTable();
-		currentDepartmentList = userController.getAllDepartments(QueryType.NORMAL);
+		currentDepartmentList = userController.getAllDepartments(QueryType.NORMAL, Config.ROW_LIMIT,
+				Config.DEPARTMENT_OFFSET);
 		Object[] rowData = new Object[7];
 		for (Department department : currentDepartmentList) {
 			rowData[0] = department.getDepartmentId();
@@ -248,19 +250,4 @@ public class DepartmentView extends MyPanel {
 		}
 	}
 
-	public void loadData(int limit) {
-		emptyTable();
-		currentDepartmentList = userController.getAllDepartments(QueryType.NORMAL);
-		Object[] rowData = new Object[7];
-		for (Department department : currentDepartmentList) {
-			rowData[0] = department.getDepartmentId();
-			rowData[1] = department.getDepartmentName();
-			rowData[2] = department.getManagerId();
-			rowData[3] = department.getCreatedBy();
-			rowData[4] = department.getCreatedDate();
-			rowData[5] = department.getUpdatedBy();
-			rowData[6] = department.getUpdatedDate();
-			tableModel.addRow(rowData);
-		}
-	}
 }

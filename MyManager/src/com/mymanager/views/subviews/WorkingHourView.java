@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.mymanager.config.Config;
 import com.mymanager.controllers.UserController;
 import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.MyTable;
@@ -242,7 +243,8 @@ public class WorkingHourView extends MyPanel {
 
 	public void loadData() {
 		emptyTable();
-		currentWorkingHourList = userController.getAllWorkingHour(QueryType.NORMAL);
+		currentWorkingHourList = userController.getAllWorkingHour(QueryType.NORMAL, Config.ROW_LIMIT,
+				Config.WORKINGHOUR_OFFSET);
 		Object[] rowData = new Object[8];
 		for (WorkingHour workingHour : currentWorkingHourList) {
 			rowData[0] = workingHour.getIndex();
@@ -257,20 +259,4 @@ public class WorkingHourView extends MyPanel {
 		}
 	}
 
-	public void loadData(int limit) {
-		emptyTable();
-		currentWorkingHourList = userController.getAllWorkingHour(QueryType.NORMAL);
-		Object[] rowData = new Object[8];
-		for (WorkingHour workingHour : currentWorkingHourList) {
-			rowData[0] = workingHour.getIndex();
-			rowData[1] = workingHour.getEmployeeId();
-			rowData[2] = workingHour.getDate();
-			rowData[3] = workingHour.getAmount();
-			rowData[4] = workingHour.getCreatedBy();
-			rowData[5] = workingHour.getCreatedDate();
-			rowData[6] = workingHour.getUpdatedBy();
-			rowData[7] = workingHour.getUpdatedDate();
-			tableModel.addRow(rowData);
-		}
-	}
 }

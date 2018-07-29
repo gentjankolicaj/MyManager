@@ -7,7 +7,6 @@ import java.awt.event.MouseMotionAdapter;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.mymanager.config.Config;
 import com.mymanager.data.models.User;
 import com.mymanager.views.subviews.custom.MyPanel;
 
@@ -62,7 +61,7 @@ public class AppUtil {
 		jframe.getContentPane().remove(oldPanel);
 		System.out.println(newPanel.getMyWidth() + " ," + newPanel.getMyHeight());
 		jframe.setSize(newPanel.getMyWidth() + 10, newPanel.getMyHeight() + 50);
-		newPanel.loadData(Config.ROW_LIMIT); // fills table view with data
+		newPanel.loadData(); // fills table of new view with data
 		jframe.setContentPane(newPanel);
 		jframe.repaint();
 

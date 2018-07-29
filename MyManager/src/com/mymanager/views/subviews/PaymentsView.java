@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import com.mymanager.config.Config;
 import com.mymanager.controllers.UserController;
 import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.MyTable;
@@ -184,7 +185,6 @@ public class PaymentsView extends MyPanel {
 					Payment payment = currentPaymentList.get(selectedRow);
 					userController.deletePayment(payment);
 					loadData();
-
 				}
 
 			}
@@ -256,7 +256,7 @@ public class PaymentsView extends MyPanel {
 
 	public void loadData() {
 		emptyTable();
-		currentPaymentList = userController.getAllPayments(QueryType.NORMAL);
+		currentPaymentList = userController.getAllPayments(QueryType.NORMAL, Config.ROW_LIMIT, Config.PAYMENTS_OFFSET);
 		Object[] rowData = new Object[10];
 		for (Payment payment : currentPaymentList) {
 			rowData[0] = payment.getPaymentId();

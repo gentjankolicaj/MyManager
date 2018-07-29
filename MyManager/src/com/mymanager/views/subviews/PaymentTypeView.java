@@ -135,8 +135,8 @@ public class PaymentTypeView extends JDialog {
 	public void updateTable() {
 		emptyTable();
 		paymentTypeList = userController.getAllPaymentTypes();
+		Object[] obj = new Object[1];
 		for (PaymentType paymentType : paymentTypeList) {
-			Object[] obj = new Object[1];
 			obj[0] = paymentType.getPayment();
 			tableModel.addRow(obj);
 		}

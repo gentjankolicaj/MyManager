@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.mymanager.config.Config;
 import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.MyTable;
 import com.mymanager.data.models.Project;
@@ -242,7 +243,7 @@ public class ProjectView extends MyPanel {
 
 	public void loadData() {
 		emptyTable();
-		currentProjectList = userController.getAllProjects();
+		currentProjectList = userController.getAllProjects(Config.ROW_LIMIT, Config.PROJECT_OFFSET);
 		Object[] rowData = new Object[8];
 		for (Project project : currentProjectList) {
 			rowData[0] = project.getProjectName();
