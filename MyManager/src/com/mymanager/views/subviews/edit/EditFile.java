@@ -72,25 +72,25 @@ public class EditFile extends JDialog {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
 				CurrencyView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-admin-2.png")));
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 384, 185);
+		setBounds(100, 100, 384, 150);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblCurrencies = new JLabel("New file type");
+		JLabel lblCurrencies = new JLabel("Edit file type");
 		lblCurrencies.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCurrencies.setBounds(192, 31, 103, 24);
+		lblCurrencies.setBounds(118, 11, 103, 24);
 		contentPanel.add(lblCurrencies);
 
 		btnCreate = new JButton("Save");
 		btnCreate.setIcon(new ImageIcon(
 				CreateCurrency.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-save-2.png")));
-		btnCreate.setBounds(10, 61, 113, 33);
+		btnCreate.setBounds(245, 65, 113, 24);
 		contentPanel.add(btnCreate);
 
 		textFieldFile = new JTextField();
-		textFieldFile.setBounds(153, 66, 182, 22);
+		textFieldFile.setBounds(10, 66, 211, 22);
 		contentPanel.add(textFieldFile);
 		textFieldFile.setColumns(10);
 	}

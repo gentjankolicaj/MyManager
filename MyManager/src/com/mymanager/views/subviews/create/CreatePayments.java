@@ -63,13 +63,13 @@ public class CreatePayments extends JDialog {
 
 	private void initComponents() {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 770, 483);
+		setBounds(100, 100, 600, 483);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblCreateNewType = new JLabel("Create new type of job :");
+		JLabel lblCreateNewType = new JLabel("Create new payment :");
 		lblCreateNewType.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 		lblCreateNewType.setBounds(129, 13, 270, 26);
 		contentPanel.add(lblCreateNewType);
@@ -90,7 +90,7 @@ public class CreatePayments extends JDialog {
 		contentPanel.add(lblCurrency);
 
 		comboBoxPaymentType = new JComboBox();
-		comboBoxPaymentType.setBounds(136, 67, 295, 30);
+		comboBoxPaymentType.setBounds(118, 67, 270, 30);
 
 		paymentTypeModel = new DefaultComboBoxModel();
 		comboBoxPaymentType.setModel(paymentTypeModel);
@@ -99,11 +99,11 @@ public class CreatePayments extends JDialog {
 
 		textFieldEmpId = new JTextField();
 		textFieldEmpId.setColumns(10);
-		textFieldEmpId.setBounds(105, 125, 326, 30);
+		textFieldEmpId.setBounds(105, 125, 283, 30);
 		contentPanel.add(textFieldEmpId);
 
 		comboBoxCurrency = new JComboBox();
-		comboBoxCurrency.setBounds(135, 182, 296, 30);
+		comboBoxCurrency.setBounds(118, 183, 270, 30);
 
 		currencyModel = new DefaultComboBoxModel();
 		comboBoxCurrency.setModel(currencyModel);
@@ -118,7 +118,7 @@ public class CreatePayments extends JDialog {
 		textFieldAmount = new JTextField();
 		textFieldAmount.setToolTipText("eg : 12.234\r\n");
 		textFieldAmount.setColumns(10);
-		textFieldAmount.setBounds(105, 240, 326, 30);
+		textFieldAmount.setBounds(105, 240, 283, 30);
 		contentPanel.add(textFieldAmount);
 
 		JLabel lblDescription = new JLabel("Description  :");
@@ -130,7 +130,7 @@ public class CreatePayments extends JDialog {
 		textAreaDesc.setLineWrap(true);
 		textAreaDesc.setToolTipText("eg : 12.234\r\n");
 		textAreaDesc.setColumns(10);
-		textAreaDesc.setBounds(105, 306, 326, 103);
+		textAreaDesc.setBounds(105, 306, 283, 103);
 		contentPanel.add(textAreaDesc);
 		{
 			buttonPane = new JPanel();

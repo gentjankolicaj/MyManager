@@ -51,7 +51,7 @@ public class CreateWorkingHour extends JDialog {
 
 	private void initComponents() {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 728, 300);
+		setBounds(100, 100, 600, 222);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -64,22 +64,22 @@ public class CreateWorkingHour extends JDialog {
 
 		JLabel lblEmpId = new JLabel("Emp ID :");
 		lblEmpId.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblEmpId.setBounds(12, 67, 81, 26);
+		lblEmpId.setBounds(10, 51, 81, 26);
 		contentPanel.add(lblEmpId);
 
 		JLabel lblAmount = new JLabel("Amount ( hours ) :");
 		lblAmount.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblAmount.setBounds(12, 147, 135, 26);
+		lblAmount.setBounds(10, 103, 135, 26);
 		contentPanel.add(lblAmount);
 
 		textFieldEmpId = new JTextField();
-		textFieldEmpId.setBounds(105, 66, 326, 30);
+		textFieldEmpId.setBounds(103, 50, 270, 30);
 		contentPanel.add(textFieldEmpId);
 		textFieldEmpId.setColumns(10);
 
 		textFieldAmount = new JTextField();
 		textFieldAmount.setColumns(10);
-		textFieldAmount.setBounds(147, 146, 284, 30);
+		textFieldAmount.setBounds(145, 102, 228, 30);
 		contentPanel.add(textFieldAmount);
 		{
 			buttonPane = new JPanel();

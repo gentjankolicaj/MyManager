@@ -61,7 +61,7 @@ public class CreateProject extends JDialog {
 
 	private void initComponents() {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 769, 389);
+		setBounds(100, 100, 600, 360);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -73,7 +73,7 @@ public class CreateProject extends JDialog {
 		contentPanel.add(lblJobTitle);
 
 		textFieldName = new JTextField();
-		textFieldName.setBounds(129, 66, 326, 30);
+		textFieldName.setBounds(129, 66, 270, 30);
 		contentPanel.add(textFieldName);
 		textFieldName.setColumns(10);
 
@@ -89,7 +89,7 @@ public class CreateProject extends JDialog {
 
 		textFieldDesc = new JTextField();
 		textFieldDesc.setColumns(10);
-		textFieldDesc.setBounds(129, 123, 326, 30);
+		textFieldDesc.setBounds(129, 123, 270, 30);
 		contentPanel.add(textFieldDesc);
 
 		label_1 = new JLabel("Customer  :");
@@ -99,7 +99,7 @@ public class CreateProject extends JDialog {
 
 		textFieldCustomer = new JTextField();
 		textFieldCustomer.setColumns(10);
-		textFieldCustomer.setBounds(129, 178, 326, 30);
+		textFieldCustomer.setBounds(129, 178, 270, 30);
 		contentPanel.add(textFieldCustomer);
 
 		label_2 = new JLabel("Country  :");
@@ -108,7 +108,7 @@ public class CreateProject extends JDialog {
 		contentPanel.add(label_2);
 
 		comboBoxCountry = new JComboBox();
-		comboBoxCountry.setBounds(142, 235, 257, 36);
+		comboBoxCountry.setBounds(129, 236, 257, 36);
 
 		countryModel = new DefaultComboBoxModel();
 

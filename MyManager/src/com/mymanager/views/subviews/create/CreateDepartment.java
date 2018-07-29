@@ -49,7 +49,7 @@ public class CreateDepartment extends JDialog {
 
 	private void initComponents() {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 771, 350);
+		setBounds(100, 100, 600, 264);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -61,11 +61,11 @@ public class CreateDepartment extends JDialog {
 		contentPanel.add(lblDepartmentName);
 
 		textFieldName = new JTextField();
-		textFieldName.setBounds(105, 66, 326, 30);
+		textFieldName.setBounds(105, 66, 270, 30);
 		contentPanel.add(textFieldName);
 		textFieldName.setColumns(10);
 
-		JLabel lblManId = new JLabel("Manager Id  :");
+		JLabel lblManId = new JLabel("Manager ID :");
 		lblManId.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblManId.setBounds(12, 147, 93, 26);
 		contentPanel.add(lblManId);
@@ -77,7 +77,7 @@ public class CreateDepartment extends JDialog {
 
 		textFieldManId = new JTextField();
 		textFieldManId.setColumns(10);
-		textFieldManId.setBounds(115, 147, 316, 30);
+		textFieldManId.setBounds(105, 147, 270, 30);
 		contentPanel.add(textFieldManId);
 
 		{

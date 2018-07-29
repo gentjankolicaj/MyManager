@@ -50,7 +50,7 @@ public class CreateJob extends JDialog {
 
 	private void initComponents() {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 770, 400);
+		setBounds(100, 100, 600, 280);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -68,27 +68,27 @@ public class CreateJob extends JDialog {
 
 		JLabel lblMinSalary = new JLabel("Min salary  :");
 		lblMinSalary.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblMinSalary.setBounds(12, 147, 81, 26);
+		lblMinSalary.setBounds(12, 116, 81, 26);
 		contentPanel.add(lblMinSalary);
 
 		JLabel lblMaxSalary = new JLabel("Max salary :");
 		lblMaxSalary.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblMaxSalary.setBounds(12, 227, 93, 26);
+		lblMaxSalary.setBounds(12, 167, 93, 26);
 		contentPanel.add(lblMaxSalary);
 
 		textFieldTitle = new JTextField();
-		textFieldTitle.setBounds(105, 66, 326, 30);
+		textFieldTitle.setBounds(105, 66, 270, 30);
 		contentPanel.add(textFieldTitle);
 		textFieldTitle.setColumns(10);
 
 		textFieldMinSalary = new JTextField();
 		textFieldMinSalary.setColumns(10);
-		textFieldMinSalary.setBounds(105, 146, 326, 30);
+		textFieldMinSalary.setBounds(105, 115, 270, 30);
 		contentPanel.add(textFieldMinSalary);
 
 		textFieldMaxSalary = new JTextField();
 		textFieldMaxSalary.setColumns(10);
-		textFieldMaxSalary.setBounds(105, 226, 326, 30);
+		textFieldMaxSalary.setBounds(105, 166, 270, 30);
 		contentPanel.add(textFieldMaxSalary);
 		{
 			buttonPane = new JPanel();

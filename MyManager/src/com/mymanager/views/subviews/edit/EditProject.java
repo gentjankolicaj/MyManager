@@ -67,7 +67,7 @@ public class EditProject extends JDialog {
 	private void initComponents() {
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 730, 400);
+		setBounds(100, 100, 600, 400);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -87,13 +87,13 @@ public class EditProject extends JDialog {
 		{
 			textFieldName = new JTextField();
 			textFieldName.setColumns(10);
-			textFieldName.setBounds(134, 50, 326, 30);
+			textFieldName.setBounds(134, 50, 265, 30);
 			contentPanel.add(textFieldName);
 		}
 		{
 			textFieldDescription = new JTextField();
 			textFieldDescription.setColumns(10);
-			textFieldDescription.setBounds(134, 110, 326, 30);
+			textFieldDescription.setBounds(134, 110, 265, 30);
 			contentPanel.add(textFieldDescription);
 		}
 		{
@@ -105,7 +105,7 @@ public class EditProject extends JDialog {
 		{
 			textFieldCustomer = new JTextField();
 			textFieldCustomer.setColumns(10);
-			textFieldCustomer.setBounds(134, 169, 326, 30);
+			textFieldCustomer.setBounds(134, 169, 270, 30);
 			contentPanel.add(textFieldCustomer);
 		}
 		{
@@ -123,7 +123,7 @@ public class EditProject extends JDialog {
 		{
 			textFieldCreatedBy = new JTextField();
 			textFieldCreatedBy.setColumns(10);
-			textFieldCreatedBy.setBounds(134, 225, 326, 30);
+			textFieldCreatedBy.setBounds(134, 225, 270, 30);
 			contentPanel.add(textFieldCreatedBy);
 		}
 		{
@@ -134,7 +134,7 @@ public class EditProject extends JDialog {
 		}
 
 		comboBoxCountry = new JComboBox();
-		comboBoxCountry.setBounds(140, 282, 320, 36);
+		comboBoxCountry.setBounds(104, 283, 260, 36);
 
 		comboBoxModel = new DefaultComboBoxModel();
 		comboBoxCountry.setModel(comboBoxModel);

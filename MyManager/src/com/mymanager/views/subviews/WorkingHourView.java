@@ -156,6 +156,7 @@ public class WorkingHourView extends MyPanel {
 
 			}
 		});
+
 		btnEdit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -170,6 +171,7 @@ public class WorkingHourView extends MyPanel {
 				}
 			}
 		});
+
 		btnDelete.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -178,9 +180,11 @@ public class WorkingHourView extends MyPanel {
 				if ((selectedRow > -1) && (selectedRow < totalRows)) {
 					WorkingHour workingHourToDelete = currentWorkingHourList.get(selectedRow);
 					userController.deleteWorkingHour(workingHourToDelete);
+					loadData();
 				}
 			}
 		});
+
 		btnBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {

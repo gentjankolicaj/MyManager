@@ -69,7 +69,7 @@ public class CreateCurrency extends JDialog {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
 				CurrencyView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-admin-2.png")));
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 362, 185);
+		setBounds(100, 100, 362, 150);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -77,18 +77,18 @@ public class CreateCurrency extends JDialog {
 
 		JLabel lblCurrencies = new JLabel("New currency");
 		lblCurrencies.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCurrencies.setBounds(180, 31, 103, 24);
+		lblCurrencies.setBounds(123, 11, 103, 24);
 		contentPanel.add(lblCurrencies);
 
 		btnCreate = new JButton("Save");
 
 		btnCreate.setIcon(new ImageIcon(
 				CreateCurrency.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-save-2.png")));
-		btnCreate.setBounds(10, 61, 110, 33);
+		btnCreate.setBounds(226, 66, 110, 24);
 		contentPanel.add(btnCreate);
 
 		textFieldCurrency = new JTextField();
-		textFieldCurrency.setBounds(141, 66, 182, 22);
+		textFieldCurrency.setBounds(10, 66, 197, 22);
 		contentPanel.add(textFieldCurrency);
 		textFieldCurrency.setColumns(10);
 	}

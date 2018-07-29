@@ -58,7 +58,7 @@ public class EditJob extends JDialog {
 	private void initComponents() {
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 700, 350);
+		setBounds(100, 100, 600, 350);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -78,7 +78,7 @@ public class EditJob extends JDialog {
 		{
 			textFieldTitle = new JTextField();
 			textFieldTitle.setColumns(10);
-			textFieldTitle.setBounds(103, 50, 326, 30);
+			textFieldTitle.setBounds(103, 50, 286, 30);
 			contentPanel.add(textFieldTitle);
 		}
 		{
@@ -90,7 +90,7 @@ public class EditJob extends JDialog {
 		{
 			textFieldMinSalary = new JTextField();
 			textFieldMinSalary.setColumns(10);
-			textFieldMinSalary.setBounds(103, 111, 326, 30);
+			textFieldMinSalary.setBounds(103, 111, 286, 30);
 			contentPanel.add(textFieldMinSalary);
 		}
 		{
@@ -102,7 +102,7 @@ public class EditJob extends JDialog {
 		{
 			textFieldMaxSalary = new JTextField();
 			textFieldMaxSalary.setColumns(10);
-			textFieldMaxSalary.setBounds(103, 174, 326, 30);
+			textFieldMaxSalary.setBounds(103, 174, 286, 30);
 			contentPanel.add(textFieldMaxSalary);
 		}
 		{
@@ -114,7 +114,7 @@ public class EditJob extends JDialog {
 		{
 			textFieldCreatedBy = new JTextField();
 			textFieldCreatedBy.setColumns(10);
-			textFieldCreatedBy.setBounds(103, 236, 326, 30);
+			textFieldCreatedBy.setBounds(103, 236, 286, 30);
 			contentPanel.add(textFieldCreatedBy);
 		}
 		{

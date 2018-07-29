@@ -36,8 +36,6 @@ public class EditPayments extends JDialog {
 	private JPanel buttonPane;
 	private JButton okButton;
 	private JButton cancelButton;
-
-	private JTextField textFieldPaymentId;
 	private JTextField textFieldEmpId;
 	private JTextField textFieldAmount;
 	private JTextField textFieldCreatedBy;
@@ -71,37 +69,25 @@ public class EditPayments extends JDialog {
 	private void initComponents() {
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 769, 550);
+		setBounds(100, 100, 599, 486);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
-			JLabel lblEditExistingJob = new JLabel("Edit existing job :");
+			JLabel lblEditExistingJob = new JLabel("Edit existing payment :");
 			lblEditExistingJob.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 			lblEditExistingJob.setBounds(129, 13, 270, 26);
 			contentPanel.add(lblEditExistingJob);
 		}
-		{
-			JLabel lblPaymentId = new JLabel("Job Id :");
-			lblPaymentId.setFont(new Font("Tahoma", Font.BOLD, 14));
-			lblPaymentId.setBounds(12, 51, 81, 26);
-			contentPanel.add(lblPaymentId);
-		}
-		{
-			textFieldPaymentId = new JTextField();
-			textFieldPaymentId.setColumns(10);
-			textFieldPaymentId.setBounds(105, 50, 326, 30);
-			contentPanel.add(textFieldPaymentId);
-		}
 
 		JLabel lblPaymentType = new JLabel("Payment type :");
 		lblPaymentType.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblPaymentType.setBounds(12, 98, 114, 26);
+		lblPaymentType.setBounds(10, 50, 114, 26);
 		contentPanel.add(lblPaymentType);
 
 		comboBoxPaymentType = new JComboBox();
-		comboBoxPaymentType.setBounds(136, 98, 295, 30);
+		comboBoxPaymentType.setBounds(134, 50, 265, 30);
 
 		paymentTypeModel = new DefaultComboBoxModel();
 		comboBoxPaymentType.setModel(paymentTypeModel);
@@ -110,21 +96,21 @@ public class EditPayments extends JDialog {
 
 		JLabel lblEmpId = new JLabel("Emp ID  :");
 		lblEmpId.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblEmpId.setBounds(12, 150, 81, 26);
+		lblEmpId.setBounds(10, 102, 81, 26);
 		contentPanel.add(lblEmpId);
 
 		textFieldEmpId = new JTextField();
 		textFieldEmpId.setColumns(10);
-		textFieldEmpId.setBounds(105, 149, 326, 30);
+		textFieldEmpId.setBounds(103, 101, 296, 30);
 		contentPanel.add(textFieldEmpId);
 
 		JLabel lblCurrency = new JLabel("Currency :");
 		lblCurrency.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCurrency.setBounds(12, 202, 93, 26);
+		lblCurrency.setBounds(10, 154, 93, 26);
 		contentPanel.add(lblCurrency);
 
 		comboBoxCurrency = new JComboBox();
-		comboBoxCurrency.setBounds(135, 201, 296, 30);
+		comboBoxCurrency.setBounds(133, 153, 266, 30);
 
 		currencyModel = new DefaultComboBoxModel();
 		comboBoxCurrency.setModel(currencyModel);
@@ -133,36 +119,36 @@ public class EditPayments extends JDialog {
 
 		JLabel lblAmount = new JLabel("Amount  :");
 		lblAmount.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblAmount.setBounds(12, 253, 81, 26);
+		lblAmount.setBounds(10, 205, 81, 26);
 		contentPanel.add(lblAmount);
 
 		textFieldAmount = new JTextField();
 		textFieldAmount.setToolTipText("eg : 12.234\r\n");
 		textFieldAmount.setColumns(10);
-		textFieldAmount.setBounds(105, 252, 326, 30);
+		textFieldAmount.setBounds(103, 204, 296, 30);
 		contentPanel.add(textFieldAmount);
 
 		JLabel lblDesc = new JLabel("Description  :");
 		lblDesc.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblDesc.setBounds(12, 360, 93, 26);
+		lblDesc.setBounds(10, 312, 93, 26);
 		contentPanel.add(lblDesc);
 
 		textAreaDesc = new JTextArea();
 		textAreaDesc.setToolTipText("eg : 12.234\r\n");
 		textAreaDesc.setLineWrap(true);
 		textAreaDesc.setColumns(10);
-		textAreaDesc.setBounds(105, 360, 326, 103);
+		textAreaDesc.setBounds(103, 312, 296, 103);
 		contentPanel.add(textAreaDesc);
 
 		textFieldCreatedBy = new JTextField();
 		textFieldCreatedBy.setToolTipText("eg : 12.234\r\n");
 		textFieldCreatedBy.setColumns(10);
-		textFieldCreatedBy.setBounds(105, 309, 326, 30);
+		textFieldCreatedBy.setBounds(103, 261, 296, 30);
 		contentPanel.add(textFieldCreatedBy);
 
 		JLabel lblCreatedBy = new JLabel("Created by :");
 		lblCreatedBy.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCreatedBy.setBounds(12, 310, 93, 26);
+		lblCreatedBy.setBounds(10, 262, 93, 26);
 		contentPanel.add(lblCreatedBy);
 		{
 			buttonPane = new JPanel();
@@ -187,14 +173,13 @@ public class EditPayments extends JDialog {
 		okButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				int newPaymentId = Integer.parseInt(textFieldPaymentId.getText());
-				float amount = Float.parseFloat(textFieldAmount.getText());
 
+				float amount = Float.parseFloat(textFieldAmount.getText());
 				PaymentType newPaymentType = new PaymentType((String) comboBoxPaymentType.getSelectedItem());
 				Currency newCurrency = new Currency((String) comboBoxCurrency.getSelectedItem());
 
-				Payment newPayment = new Payment(newPaymentId, newPaymentType, textFieldEmpId.getText(), newCurrency,
-						amount, textAreaDesc.getText(), textFieldCreatedBy.getText(), user.getUserId(),
+				Payment newPayment = new Payment(oldPayment.getPaymentId(), newPaymentType, textFieldEmpId.getText(),
+						newCurrency, amount, textAreaDesc.getText(), textFieldCreatedBy.getText(), user.getUserId(),
 						LocalDateTime.now(), LocalDateTime.now());
 
 				userController.editPayment(oldPayment, newPayment);
@@ -235,7 +220,6 @@ public class EditPayments extends JDialog {
 	}
 
 	private void fillDetails() {
-		textFieldPaymentId.setText(String.valueOf(oldPayment.getPaymentId()));
 		textFieldEmpId.setText(oldPayment.getEmployeeId());
 		textFieldAmount.setText(String.valueOf(oldPayment.getPaymentAmount()));
 		textFieldCreatedBy.setText(oldPayment.getCreatedBy());

@@ -32,7 +32,6 @@ public class EditDepartment extends JDialog {
 	private JButton okButton;
 	private JButton cancelButton;
 	private JTextField textFieldDepName;
-	private JTextField textFieldDepId;
 	private JLabel lblCreatedBy;
 	private JTextField textFieldCreatedBy;
 	private JTextField textFieldManId;
@@ -58,7 +57,7 @@ public class EditDepartment extends JDialog {
 	private void initComponents() {
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 769, 469);
+		setBounds(100, 100, 600, 275);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -70,50 +69,38 @@ public class EditDepartment extends JDialog {
 			contentPanel.add(lblEditExistingJob);
 		}
 		{
-			JLabel lblDepartmentId = new JLabel("Dep Id :");
-			lblDepartmentId.setFont(new Font("Tahoma", Font.BOLD, 14));
-			lblDepartmentId.setBounds(12, 72, 81, 26);
-			contentPanel.add(lblDepartmentId);
-		}
-		{
-			textFieldDepId = new JTextField();
-			textFieldDepId.setColumns(10);
-			textFieldDepId.setBounds(105, 71, 326, 30);
-			contentPanel.add(textFieldDepId);
-		}
-		{
 			JLabel lblDepName = new JLabel("Dep name :");
 			lblDepName.setFont(new Font("Tahoma", Font.BOLD, 14));
-			lblDepName.setBounds(12, 129, 81, 26);
+			lblDepName.setBounds(10, 51, 81, 26);
 			contentPanel.add(lblDepName);
 		}
 		{
 			textFieldDepName = new JTextField();
 			textFieldDepName.setColumns(10);
-			textFieldDepName.setBounds(105, 128, 326, 30);
+			textFieldDepName.setBounds(103, 50, 301, 30);
 			contentPanel.add(textFieldDepName);
 		}
 		{
 			lblCreatedBy = new JLabel("Created by  :");
 			lblCreatedBy.setFont(new Font("Tahoma", Font.BOLD, 14));
-			lblCreatedBy.setBounds(12, 191, 93, 26);
+			lblCreatedBy.setBounds(10, 159, 93, 26);
 			contentPanel.add(lblCreatedBy);
 		}
 		{
 			textFieldCreatedBy = new JTextField();
 			textFieldCreatedBy.setColumns(10);
-			textFieldCreatedBy.setBounds(105, 190, 326, 30);
+			textFieldCreatedBy.setBounds(103, 159, 301, 30);
 			contentPanel.add(textFieldCreatedBy);
 		}
 
 		JLabel lblManId = new JLabel("Manager Id  :");
 		lblManId.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblManId.setBounds(12, 254, 93, 26);
+		lblManId.setBounds(10, 101, 93, 26);
 		contentPanel.add(lblManId);
 
 		textFieldManId = new JTextField();
 		textFieldManId.setColumns(10);
-		textFieldManId.setBounds(115, 259, 316, 30);
+		textFieldManId.setBounds(113, 101, 291, 30);
 		contentPanel.add(textFieldManId);
 		{
 			buttonPane = new JPanel();
@@ -138,9 +125,9 @@ public class EditDepartment extends JDialog {
 		okButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				Department newDepartment = new Department(Integer.parseInt(textFieldDepId.getText()),
-						textFieldDepName.getText(), textFieldManId.getText(), textFieldCreatedBy.getText(),
-						user.getUserId(), oldDepartment.getCreatedDate(), LocalDateTime.now());
+				Department newDepartment = new Department(oldDepartment.getDepartmentId(), textFieldDepName.getText(),
+						textFieldManId.getText(), textFieldCreatedBy.getText(), user.getUserId(),
+						oldDepartment.getCreatedDate(), LocalDateTime.now());
 				userController.editDepartment(oldDepartment, newDepartment);
 				selfReference.dispose();
 
@@ -156,7 +143,6 @@ public class EditDepartment extends JDialog {
 	}
 
 	private void fillDetails() {
-		textFieldDepId.setText(String.valueOf(oldDepartment.getDepartmentId()));
 		textFieldDepName.setText(oldDepartment.getDepartmentName());
 		textFieldManId.setText(oldDepartment.getManagerId());
 		textFieldCreatedBy.setText(oldDepartment.getCreatedBy());

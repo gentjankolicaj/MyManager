@@ -58,7 +58,7 @@ public class EditWorkingHour extends JDialog {
 	private void initComponents() {
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 676, 299);
+		setBounds(100, 100, 600, 299);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -78,7 +78,7 @@ public class EditWorkingHour extends JDialog {
 		{
 			textFieldEmpId = new JTextField();
 			textFieldEmpId.setColumns(10);
-			textFieldEmpId.setBounds(84, 58, 326, 30);
+			textFieldEmpId.setBounds(84, 58, 290, 30);
 			contentPanel.add(textFieldEmpId);
 		}
 		{
@@ -90,7 +90,7 @@ public class EditWorkingHour extends JDialog {
 		{
 			textFieldAmount = new JTextField();
 			textFieldAmount.setColumns(10);
-			textFieldAmount.setBounds(159, 119, 252, 30);
+			textFieldAmount.setBounds(159, 119, 215, 30);
 			contentPanel.add(textFieldAmount);
 		}
 		{
@@ -102,7 +102,7 @@ public class EditWorkingHour extends JDialog {
 		{
 			textFieldCreatedBy = new JTextField();
 			textFieldCreatedBy.setColumns(10);
-			textFieldCreatedBy.setBounds(103, 176, 311, 30);
+			textFieldCreatedBy.setBounds(103, 176, 271, 30);
 			contentPanel.add(textFieldCreatedBy);
 		}
 		{

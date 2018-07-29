@@ -189,6 +189,7 @@ public class PaymentsView extends MyPanel {
 
 			}
 		});
+
 		btnBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
