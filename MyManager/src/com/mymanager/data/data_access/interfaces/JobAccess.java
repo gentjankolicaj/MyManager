@@ -13,6 +13,8 @@ public interface JobAccess {
 
 	public abstract List<Job> readAllJobs() throws Exception;
 
+	public abstract List<Job> readAllJobs(int limit, int offset) throws Exception;
+
 	public abstract List<Job> readAllJobsBetweenSalary(float minSalary, float maxSalary) throws Exception;
 
 	public abstract List<Job> readAllJobsByTitle(String jobTitle) throws Exception;

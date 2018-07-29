@@ -15,6 +15,8 @@ public interface JobHistoryAccess {
 
 	public abstract List<JobHistory> readAllJobHistories() throws Exception;
 
+	public abstract List<JobHistory> readAllJobHistories(int limit, int offset) throws Exception;
+
 	public abstract List<JobHistory> readAllJobHistoryBetweenDates(LocalDate startDate, LocalDate endDate)
 			throws Exception;
 

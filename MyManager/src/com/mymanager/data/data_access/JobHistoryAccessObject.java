@@ -73,6 +73,30 @@ public class JobHistoryAccessObject implements JobHistoryAccess {
 	}
 
 	@Override
+	public List<JobHistory> readAllJobHistories(int limit, int offset) throws Exception {
+		List<JobHistory> jobHistoryList = new ArrayList<>();
+		ResultSet results = null;
+		String query = null;
+		if (queryType.equals(QueryType.NORMAL))
+			query = "SELECT * FROM mymanager.job_history LIMIT " + limit + " OFFSET " + offset;
+		else
+			query = "SELECT * FROM mymanager.job_history_history LIMIT " + limit + " OFFSET " + offset;
+
+		results = database.selectStatement(query);
+		while (results.next()) {
+			JobHistory temp = new JobHistory(results.getString("employee_id"),
+					results.getDate("start_date").toLocalDate(), results.getDate("end_date").toLocalDate(),
+					results.getString("job_id"), results.getString("department_id"), results.getString("created_by"),
+					results.getString("updated_by"), results.getTimestamp("created_date").toLocalDateTime(),
+					results.getTimestamp("updated_date").toLocalDateTime());
+			jobHistoryList.add(temp);
+
+		}
+		PrintUtils.print(jobHistoryList, PrintType.QUERY_RESULTS);
+		return jobHistoryList;
+	}
+
+	@Override
 	public List<JobHistory> readAllJobHistoryBetweenDates(LocalDate startDate, LocalDate endDate) throws Exception {
 		List<JobHistory> jobHistoryList = new ArrayList<>();
 		ResultSet results = null;

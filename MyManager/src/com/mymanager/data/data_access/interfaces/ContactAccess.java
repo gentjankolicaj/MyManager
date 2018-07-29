@@ -13,6 +13,8 @@ public interface ContactAccess {
 
 	public abstract List<Contact> readAllContacts() throws Exception;
 
+	public abstract List<Contact> readAllContacts(int limit, int offset) throws Exception;
+
 	public abstract List<Contact> readContactsByCelular(int celular) throws Exception;
 
 	public abstract List<Contact> readContactsByEmail(String email) throws Exception;

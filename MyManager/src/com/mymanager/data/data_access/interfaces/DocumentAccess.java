@@ -13,6 +13,8 @@ public interface DocumentAccess {
 
 	public abstract List<Document> readAllDocuments() throws Exception;
 
+	public abstract List<Document> readAllDocuments(int limit, int offset) throws Exception;
+
 	public abstract List<Document> readDocuments(String documentName) throws Exception;
 
 	public abstract Document readDocument(int documentNumber) throws Exception;

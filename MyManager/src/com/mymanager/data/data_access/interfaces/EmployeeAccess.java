@@ -13,6 +13,8 @@ public interface EmployeeAccess {
 
 	public abstract List<Employee> readAllEmployees() throws Exception;
 
+	public abstract List<Employee> readAllEmployees(int limit, int offset) throws Exception;
+
 	public abstract List<Employee> readEmployeesByFirstName(String firstName) throws Exception;
 
 	public abstract List<Employee> readEmployeesByLastName(String lastName) throws Exception;

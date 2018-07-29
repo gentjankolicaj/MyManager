@@ -72,14 +72,40 @@ public class PaymentAccessObject implements PaymentAccess {
 	}
 
 	@Override
+	public List<Payment> readAllPayments(int limit, int offset) throws Exception {
+		List<Payment> paymentList = new ArrayList<>();
+		ResultSet results = null;
+		String query = null;
+		if (queryType.equals(QueryType.NORMAL))
+			query = "SELECT * FROM mymanager.employee_payments LIMIT " + limit + " OFFSET " + offset;
+		else
+			query = "SELECT * FROM mymanager.employee_payments_history LIMIT " + limit + " OFFSET " + offset;
+
+		results = database.selectStatement(query);
+		while (results.next()) {
+			Payment temp = new Payment(results.getInt("payment_id"), new PaymentType(results.getString("payment_type")),
+					results.getString("employee_id"), new Currency(results.getString("currency")),
+					results.getFloat("payment_amount"), results.getString("payment_desc"),
+					results.getString("created_by"), results.getString("updated_by"),
+					results.getTimestamp("created_date").toLocalDateTime(),
+					results.getTimestamp("updated_date").toLocalDateTime());
+			paymentList.add(temp);
+		}
+		PrintUtils.print(paymentList, PrintType.QUERY_RESULTS);
+		return paymentList;
+	}
+
+	@Override
 	public List<Payment> readAllPaymentsByPaymentType(PaymentType paymentType) throws Exception {
 		List<Payment> paymentList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM mymanager.employee_payments WHERE payment_type=" + paymentType.getPayment();
+			query = "SELECT * FROM mymanager.employee_payments WHERE payment_type LIKE '" + paymentType.getPayment()
+					+ "'";
 		else
-			query = "SELECT * FROM mymanager.employee_payments_history WHERE payment_type=" + paymentType.getPayment();
+			query = "SELECT * FROM mymanager.employee_payments_history WHERE payment_type LIKE '"
+					+ paymentType.getPayment() + "'";
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -190,19 +216,18 @@ public class PaymentAccessObject implements PaymentAccess {
 
 	@Override
 	public int insertPayment(Payment payment) throws Exception {
-		String query = "INSERT INTO mymanager.employee_payments (payment_id,payment_type,employee_id,currency,payment_amount,payment_desc,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
+		String query = "INSERT INTO mymanager.employee_payments (payment_type,employee_id,currency,payment_amount,payment_desc,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setInt(1, payment.getPaymentId());
-		pstmt.setString(2, payment.getPaymentType().getPayment());
-		pstmt.setString(3, payment.getEmployeeId());
-		pstmt.setString(4, payment.getCurrency().getCurrencyName());
-		pstmt.setFloat(5, payment.getPaymentAmount());
-		pstmt.setString(6, payment.getPaymentDescription());
-		pstmt.setString(7, payment.getCreatedBy());
-		pstmt.setObject(8, payment.getCreatedDate());
-		pstmt.setString(9, payment.getUpdatedBy());
-		pstmt.setObject(10, payment.getUpdatedDate());
+		pstmt.setString(1, payment.getPaymentType().getPayment());
+		pstmt.setString(2, payment.getEmployeeId());
+		pstmt.setString(3, payment.getCurrency().getCurrencyName());
+		pstmt.setFloat(4, payment.getPaymentAmount());
+		pstmt.setString(5, payment.getPaymentDescription());
+		pstmt.setString(6, payment.getCreatedBy());
+		pstmt.setObject(7, payment.getCreatedDate());
+		pstmt.setString(8, payment.getUpdatedBy());
+		pstmt.setObject(9, payment.getUpdatedDate());
 
 		return pstmt.executeUpdate();
 	}

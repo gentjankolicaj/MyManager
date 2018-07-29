@@ -65,6 +65,30 @@ public class JobAccessObject implements JobAccess {
 	}
 
 	@Override
+	public List<Job> readAllJobs(int limit, int offset) throws Exception {
+		List<Job> jobList = new ArrayList<>();
+		ResultSet results = null;
+		String query = null;
+		if (queryType.equals(QueryType.NORMAL))
+			query = "SELECT * FROM mymanager.jobs LIMIT " + limit + " OFFSET " + offset;
+		else
+			query = "SELECT * FROM mymanager.jobs_history LIMIT " + limit + " OFFSET " + offset;
+
+		results = database.selectStatement(query);
+		while (results.next()) {
+			Job temp = new Job(results.getInt("job_id"), results.getString("job_title"), results.getFloat("max_salary"),
+					results.getFloat("min_salary"), results.getString("created_by"), results.getString("updated_by"),
+					results.getTimestamp("created_date").toLocalDateTime(),
+					results.getTimestamp("updated_date").toLocalDateTime());
+			jobList.add(temp);
+
+		}
+		PrintUtils.print(jobList, PrintType.QUERY_RESULTS);
+		return jobList;
+
+	}
+
+	@Override
 	public List<Job> readAllJobsBetweenSalary(float minSalary, float maxSalary) throws Exception {
 		List<Job> jobList = new ArrayList<>();
 		ResultSet results = null;

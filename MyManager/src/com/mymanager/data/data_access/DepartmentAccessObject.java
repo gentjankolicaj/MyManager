@@ -69,6 +69,29 @@ public class DepartmentAccessObject implements DepartmentAccess {
 	}
 
 	@Override
+	public List<Department> readAllDepartments(int limit, int offset) throws Exception {
+		List<Department> departmentList = new ArrayList<>();
+		ResultSet results = null;
+		String query = null;
+		if (queryType.equals(QueryType.NORMAL))
+			query = "SELECT * FROM mymanager.departments LIMIT " + limit + " OFFSET " + offset;
+		else
+			query = "SELECT * FROM mymanager.departments_history LIMIT " + limit + " OFFSET " + offset;
+
+		results = database.selectStatement(query);
+		while (results.next()) {
+			Department temp = new Department(results.getInt("department_id"), results.getString("department_name"),
+					results.getString("manager_id"), results.getString("created_by"), results.getString("updated_by"),
+					results.getTimestamp("created_date").toLocalDateTime(),
+					results.getTimestamp("updated_date").toLocalDateTime());
+			departmentList.add(temp);
+
+		}
+		PrintUtils.print(departmentList, PrintType.QUERY_RESULTS);
+		return departmentList;
+	}
+
+	@Override
 	public List<Department> readDepartments(String departmentName) throws Exception {
 		List<Department> departmentList = new ArrayList<>();
 		ResultSet results = null;

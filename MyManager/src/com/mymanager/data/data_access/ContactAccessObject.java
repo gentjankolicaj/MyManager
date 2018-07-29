@@ -106,6 +106,51 @@ public class ContactAccessObject implements ContactAccess {
 	}
 
 	@Override
+	public List<Contact> readAllContacts(int limit, int offset) throws Exception {
+		List<Contact> contactList = new ArrayList<>();
+		ResultSet results = null;
+		String query = null;
+
+		if (contactType.equals(ContactType.EMPLOYEE_CONTACT)) {
+			if (queryType.equals(QueryType.NORMAL))
+				query = "SELECT * FROM mymanager.employee_contact LIMIT " + limit + " OFFSET " + offset;
+			else
+				query = "SELECT * FROM mymanager.employee_contact_history LIMIT " + limit + " OFFSET " + offset;
+
+			results = database.selectStatement(query);
+			while (results.next()) {
+				Contact temp = new Contact(results.getInt("contact_id"), results.getString("employee_id"),
+						results.getInt("telephone"), results.getInt("celular"), results.getString("email"),
+						results.getString("fax"), results.getString("created_by"), results.getString("updated_by"),
+						results.getTimestamp("created_date").toLocalDateTime(),
+						results.getTimestamp("updated_date").toLocalDateTime());
+				contactList.add(temp);
+			}
+			PrintUtils.print(contactList, PrintType.QUERY_RESULTS);
+			return contactList;
+
+		} else {
+			if (queryType.equals(QueryType.NORMAL))
+				query = "SELECT * FROM mymanager.user_contact LIMIT " + limit + " OFFSET " + offset;
+			else
+				query = "SELECT * FROM mymanager.user_contact_history LIMIT " + limit + " OFFSET " + offset;
+
+			results = database.selectStatement(query);
+			while (results.next()) {
+				Contact temp = new Contact(results.getInt("contact_id"), results.getString("user_id"),
+						results.getInt("telephone"), results.getInt("celular"), results.getString("email"),
+						results.getString("fax"), results.getString("created_by"), results.getString("updated_by"),
+						results.getTimestamp("created_date").toLocalDateTime(),
+						results.getTimestamp("updated_date").toLocalDateTime());
+				contactList.add(temp);
+			}
+			PrintUtils.print(contactList, PrintType.QUERY_RESULTS);
+			return contactList;
+		}
+
+	}
+
+	@Override
 	public List<Contact> readContactsByCelular(int celular) throws Exception {
 		List<Contact> contactList = new ArrayList<>();
 		ResultSet results = null;

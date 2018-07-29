@@ -14,6 +14,8 @@ public interface PaymentAccess {
 
 	public abstract List<Payment> readAllPayments() throws Exception;
 
+	public abstract List<Payment> readAllPayments(int limit, int offset) throws Exception;
+
 	public abstract List<Payment> readAllPaymentsByPaymentType(PaymentType paymentType) throws Exception;
 
 	public abstract List<Payment> readAllPaymentsByDescription(String paymentDescription) throws Exception;

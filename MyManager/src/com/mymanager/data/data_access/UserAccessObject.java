@@ -73,6 +73,32 @@ public class UserAccessObject implements UserAccess {
 	}
 
 	@Override
+	public List<User> readAllUsers(int limit, int offset) throws Exception {
+		List<User> userList = new ArrayList<>();
+		ResultSet results = null;
+		String query = null;
+		if (queryType.equals(QueryType.NORMAL))
+			query = "SELECT * FROM mymanager.users LIMIT " + limit + " OFFSET " + offset;
+		else
+			query = "SELECT * FROM mymanager.users_history LIMIT " + limit + " OFFSET " + offset;
+
+		results = database.selectStatement(query);
+		while (results.next()) {
+			User temp = new User(results.getString("user_id"), results.getString("user_type"),
+					results.getString("first_name"), results.getString("last_name"), results.getString("password"),
+					results.getDate("birthday").toLocalDate(), results.getString("birthplace"),
+					Gender.valueOf(results.getString("gender")), results.getString("rights"),
+					results.getString("created_by"), results.getString("updated_by"),
+					results.getTimestamp("created_date").toLocalDateTime(),
+					results.getTimestamp("updated_date").toLocalDateTime());
+			userList.add(temp);
+
+		}
+		PrintUtils.print(userList, PrintType.QUERY_RESULTS);
+		return userList;
+	}
+
+	@Override
 	public List<User> readUsersByFirstName(String firstName) throws Exception {
 		List<User> userList = new ArrayList<>();
 		ResultSet results = null;

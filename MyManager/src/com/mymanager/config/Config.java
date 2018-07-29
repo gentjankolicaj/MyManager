@@ -13,6 +13,8 @@ public class Config {
 	public static int FRAME_WIDTH = 910;
 	public static int FRAME_HEIGHT = 690;
 
+	public static final int ROW_LIMIT = 500;
+
 	public static boolean PRINT_EXCEPTION = true;
 	public static boolean PRINT_FILE_IO = true;
 	public static boolean PRINT_DATABASE_QUERY = true;

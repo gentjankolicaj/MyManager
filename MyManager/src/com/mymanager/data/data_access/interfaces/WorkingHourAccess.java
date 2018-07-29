@@ -14,6 +14,8 @@ public interface WorkingHourAccess {
 
 	public abstract List<WorkingHour> readAllWorkingHour() throws Exception;
 
+	public abstract List<WorkingHour> readAllWorkingHour(int limit, int offset) throws Exception;
+
 	public abstract List<WorkingHour> readWorkingHourByEmplyeeId(String employeeId) throws Exception;
 
 	public abstract List<WorkingHour> readWorkingHourByDate(LocalDate date) throws Exception;

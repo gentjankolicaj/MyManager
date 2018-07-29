@@ -13,6 +13,8 @@ public interface UserAccess {
 
 	public abstract List<User> readAllUsers() throws Exception;
 
+	public abstract List<User> readAllUsers(int limit, int offset) throws Exception;
+
 	public abstract List<User> readAllUsersId() throws Exception;
 
 	public abstract List<User> readUsersByFirstName(String firstName) throws Exception;

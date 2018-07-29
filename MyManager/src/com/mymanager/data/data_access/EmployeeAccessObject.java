@@ -74,6 +74,32 @@ public class EmployeeAccessObject implements EmployeeAccess {
 	}
 
 	@Override
+	public List<Employee> readAllEmployees(int limit, int offset) throws Exception {
+		List<Employee> employeeList = new ArrayList<>();
+		String query = null;
+		ResultSet results = null;
+
+		if (queryType.equals(QueryType.NORMAL))
+			query = "Select * from mymanager.employees LIMIT " + limit + " OFFSET " + offset;
+		else
+			query = "Select * from mymanager.employees_history LIMIT " + limit + " OFFSET " + offset;
+
+		results = database.selectStatement(query);
+		while (results.next()) {
+			Employee employee = new Employee(results.getString("employee_id"), results.getString("first_name"),
+					results.getString("last_name"), results.getString("middle_name"),
+					results.getDate("birthday").toLocalDate(), results.getString("birthplace"),
+					Gender.valueOf(results.getString("gender")), results.getInt("job_id"),
+					results.getInt("department_id"), results.getString("project_name"), results.getString("created_by"),
+					results.getString("updated_by"), results.getTimestamp("created_date").toLocalDateTime(),
+					results.getTimestamp("updated_date").toLocalDateTime());
+			employeeList.add(employee);
+		}
+		PrintUtils.print(employeeList, PrintType.QUERY_RESULTS);
+		return employeeList;
+	}
+
+	@Override
 	public List<Employee> readEmployeesByFirstName(String firstName) throws Exception {
 		List<Employee> employeeList = new ArrayList<>();
 		String query = null;

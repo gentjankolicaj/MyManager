@@ -48,6 +48,26 @@ public class ProjectAccessObject implements ProjectAccess {
 	}
 
 	@Override
+	public List<Project> readAllProjects(int limit, int offset) throws Exception {
+		List<Project> projectList = new ArrayList<>();
+		ResultSet results = null;
+		String query = "SELECT * FROM mymanager.projects LIMIT " + limit + " OFFSET " + offset;
+
+		results = database.selectStatement(query);
+		while (results.next()) {
+			Project temp = new Project(results.getString("project_name"), results.getString("description"),
+					results.getString("customer"), new Country(results.getString("country")),
+					results.getString("created_by"), results.getString("updated_by"),
+					results.getTimestamp("created_date").toLocalDateTime(),
+					results.getTimestamp("updated_date").toLocalDateTime());
+			projectList.add(temp);
+
+		}
+		PrintUtils.print(projectList, PrintType.QUERY_RESULTS);
+		return projectList;
+	}
+
+	@Override
 	public List<Project> readAllProjectsByCustomer(String customer) throws Exception {
 		List<Project> projectList = new ArrayList<>();
 		ResultSet results = null;

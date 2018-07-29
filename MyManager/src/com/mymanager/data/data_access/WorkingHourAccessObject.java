@@ -71,14 +71,37 @@ public class WorkingHourAccessObject implements WorkingHourAccess {
 	}
 
 	@Override
+	public List<WorkingHour> readAllWorkingHour(int limit, int offset) throws Exception {
+		List<WorkingHour> workingHoursList = new ArrayList<>();
+		ResultSet results = null;
+		String query = null;
+		if (queryType.equals(QueryType.NORMAL))
+			query = "SELECT * FROM mymanager.working_hours LIMIT " + limit + " OFFSET " + offset;
+		else
+			query = "SELECT * FROM mymanager.working_hours_history LIMIT " + limit + " OFFSET " + offset;
+
+		results = database.selectStatement(query);
+		while (results.next()) {
+			WorkingHour temp = new WorkingHour(results.getInt("index"), results.getString("employee_id"),
+					results.getDate("date").toLocalDate(), results.getFloat("amount"), results.getString("created_by"),
+					results.getString("updated_by"), results.getTimestamp("created_date").toLocalDateTime(),
+					results.getTimestamp("updated_date").toLocalDateTime());
+			workingHoursList.add(temp);
+
+		}
+		PrintUtils.print(workingHoursList, PrintType.QUERY_RESULTS);
+		return workingHoursList;
+	}
+
+	@Override
 	public List<WorkingHour> readWorkingHourByEmplyeeId(String employeeId) throws Exception {
 		List<WorkingHour> workingHoursList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM mymanager.working_hours WHERE employee_id=" + employeeId;
+			query = "SELECT * FROM mymanager.working_hours WHERE employee_id LIKE '" + employeeId + "'";
 		else
-			query = "SELECT * FROM mymanager.working_hours_history WHERE employee_id=" + employeeId;
+			query = "SELECT * FROM mymanager.working_hours_history WHERE employee_id LIKE '" + employeeId + "'";
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -158,7 +181,7 @@ public class WorkingHourAccessObject implements WorkingHourAccess {
 
 	@Override
 	public int updateWorkingHour(WorkingHour oldWorkingHour, WorkingHour newWorkingHour) throws Exception {
-		String query = "UPDATE mymanager.working_hours SET index=?,employee_id=?,date=?,amount=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE index=?";
+		String query = "UPDATE mymanager.working_hours SET `index`=?,employee_id=?,date=?,amount=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE `index`=?";
 
 		setQueryType(QueryType.NORMAL);
 		WorkingHour temp = readWorkingHourByIndex(oldWorkingHour.getIndex());
@@ -181,7 +204,6 @@ public class WorkingHourAccessObject implements WorkingHourAccess {
 	@Override
 	public int insertWorkingHour(WorkingHour workingHour) throws Exception {
 		String query = "INSERT INTO mymanager.working_hours (employee_id,date,amount,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?)";
-
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, workingHour.getEmployeeId());
 		pstmt.setObject(2, workingHour.getDate());
@@ -196,7 +218,7 @@ public class WorkingHourAccessObject implements WorkingHourAccess {
 
 	@Override
 	public int deleteWorkingHour(WorkingHour workingHour) throws Exception {
-		String query = "DELETE FROM mymanager.working_hours WHERE index=?";
+		String query = "DELETE FROM mymanager.working_hours WHERE `index`=?";
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setInt(1, workingHour.getIndex());
@@ -205,7 +227,7 @@ public class WorkingHourAccessObject implements WorkingHourAccess {
 	}
 
 	public int savePreviousRow(WorkingHour workingHour) throws Exception {
-		String query = "INSERT INTO mymanager.working_hours_history (index,employee_id,date,amount,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?)";
+		String query = "INSERT INTO mymanager.working_hours_history (`index`,employee_id,date,amount,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setInt(1, workingHour.getIndex());

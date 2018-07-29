@@ -44,14 +44,31 @@ public class AttemptAccessObject implements AttemptAccess {
 			atemptList.add(temp);
 
 		}
-
 		PrintUtils.print(atemptList, PrintType.QUERY_RESULTS);
-
 		return atemptList;
 	}
 
 	@Override
-	public List<Attempt> readAtempts(User user) throws Exception {
+	public List<Attempt> readAllAttempts(int limit, int offset) throws Exception {
+		List<Attempt> atemptList = new ArrayList<>();
+		ResultSet results = null;
+		String query = null;
+		query = "SELECT * FROM mymanager.attempts LIMIT " + limit + " OFFSET " + offset;
+
+		results = database.selectStatement(query);
+		while (results.next()) {
+			Attempt temp = new Attempt(results.getInt("index"), results.getString("user"),
+					results.getString("password"), Status.valueOf(results.getString("status")),
+					results.getString("description"), results.getTimestamp("date_time").toLocalDateTime());
+			atemptList.add(temp);
+
+		}
+		PrintUtils.print(atemptList, PrintType.QUERY_RESULTS);
+		return atemptList;
+	}
+
+	@Override
+	public List<Attempt> readAttempts(User user) throws Exception {
 		List<Attempt> atemptList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -70,7 +87,7 @@ public class AttemptAccessObject implements AttemptAccess {
 	}
 
 	@Override
-	public List<Attempt> readAtempts(Status status) throws Exception {
+	public List<Attempt> readAttempts(Status status) throws Exception {
 		List<Attempt> atemptList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -88,7 +105,7 @@ public class AttemptAccessObject implements AttemptAccess {
 	}
 
 	@Override
-	public List<Attempt> readAtempts(String id) throws Exception {
+	public List<Attempt> readAttempts(String id) throws Exception {
 		List<Attempt> attemptList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;

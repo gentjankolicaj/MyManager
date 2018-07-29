@@ -63,6 +63,30 @@ public class AdditionalAccessObject implements AdditionalAccess {
 	}
 
 	@Override
+	public List<Additional> readAllAdditionals(int limit, int offset) throws Exception {
+		List<Additional> additionalList = new ArrayList<>();
+		ResultSet results = null;
+		String query = null;
+		if (queryType.equals(QueryType.NORMAL))
+			query = "SELECT * FROM mymanager.employee_additional LIMIT " + limit + " OFFSET " + offset;
+		else
+			query = "SELECT * FROM mymanager.employee_additional_history LIMIT " + limit + " OFFSET " + offset;
+
+		results = database.selectStatement(query);
+		while (results.next()) {
+			Additional temp = new Additional(results.getString("employee_id"), results.getFloat("salary_amount"),
+					results.getDate("hire_date").toLocalDate(), results.getString("created_by"),
+					results.getString("updated_by"), results.getTimestamp("created_date").toLocalDateTime(),
+					results.getTimestamp("updated_date").toLocalDateTime());
+			additionalList.add(temp);
+
+		}
+		PrintUtils.print(additionalList, PrintType.QUERY_RESULTS);
+		return additionalList;
+
+	}
+
+	@Override
 	public Additional readAdditional(String employeeId) throws Exception {
 		Additional additional = null;
 		ResultSet results = null;

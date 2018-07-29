@@ -13,6 +13,8 @@ public interface AdressAccess {
 
 	public abstract List<Adress> readAllAdresses() throws Exception;
 
+	public abstract List<Adress> readAllAdresses(int limit, int offset) throws Exception;
+
 	public abstract List<Adress> readAdressesByPersonId(String personId) throws Exception;
 
 	public abstract List<Adress> readAdressesByCity(String city) throws Exception;

@@ -13,6 +13,8 @@ public interface AdditionalAccess {
 
 	public abstract List<Additional> readAllAdditionals() throws Exception;
 
+	public abstract List<Additional> readAllAdditionals(int limit, int offset) throws Exception;
+
 	public abstract Additional readAdditional(String employeeId) throws Exception;
 
 	public abstract int updateAdditional(Additional oldAdditional, Additional newAdditional) throws Exception;

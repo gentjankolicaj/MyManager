@@ -15,11 +15,13 @@ public interface AttemptAccess {
 
 	public abstract List<Attempt> readAllAttempts() throws Exception;
 
-	public abstract List<Attempt> readAtempts(User user) throws Exception;
+	public abstract List<Attempt> readAllAttempts(int limit, int offset) throws Exception;
 
-	public abstract List<Attempt> readAtempts(String id) throws Exception;
+	public abstract List<Attempt> readAttempts(User user) throws Exception;
 
-	public abstract List<Attempt> readAtempts(Status status) throws Exception;
+	public abstract List<Attempt> readAttempts(String id) throws Exception;
+
+	public abstract List<Attempt> readAttempts(Status status) throws Exception;
 
 	public abstract int insertAttempt(Attempt attempt) throws Exception;
 

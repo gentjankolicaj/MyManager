@@ -72,6 +72,31 @@ public class DocumentAccessObject implements DocumentAccess {
 	}
 
 	@Override
+	public List<Document> readAllDocuments(int limit, int offset) throws Exception {
+		List<Document> documentList = new ArrayList<>();
+		ResultSet results = null;
+		String query = null;
+		if (queryType.equals(QueryType.NORMAL))
+			query = "SELECT * FROM mymanager.employee_documents LIMIT " + limit + " OFFSET " + offset;
+		else
+			query = "SELECT * FROM mymanager.employee_documents_history LIMIT " + limit + " OFFSET " + offset;
+
+		results = database.selectStatement(query);
+		while (results.next()) {
+			Document temp = new Document(results.getInt("document_number"), results.getString("document_name"),
+					results.getString("document_type"), results.getBlob("document_file"),
+					new FileType(results.getString("file_type")), results.getString("employee_id"),
+					results.getString("created_by"), results.getString("updated_by"),
+					results.getTimestamp("created_date").toLocalDateTime(),
+					results.getTimestamp("updated_date").toLocalDateTime());
+			documentList.add(temp);
+
+		}
+		PrintUtils.print(documentList, PrintType.QUERY_RESULTS);
+		return documentList;
+	}
+
+	@Override
 	public List<Document> readDocuments(String documentName) throws Exception {
 		List<Document> documentList = new ArrayList<>();
 		ResultSet results = null;

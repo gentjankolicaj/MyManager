@@ -13,6 +13,8 @@ public interface ProjectAccess {
 
 	public abstract List<Project> readAllProjects() throws Exception;
 
+	public abstract List<Project> readAllProjects(int limit, int offset) throws Exception;
+
 	public abstract List<Project> readAllProjectsByCustomer(String customer) throws Exception;
 
 	public abstract List<Project> readAllProjectsByDescription(String projectDescription) throws Exception;

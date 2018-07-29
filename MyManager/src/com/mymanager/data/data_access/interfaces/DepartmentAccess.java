@@ -13,6 +13,8 @@ public interface DepartmentAccess {
 
 	public abstract List<Department> readAllDepartments() throws Exception;
 
+	public abstract List<Department> readAllDepartments(int limit, int offset) throws Exception;
+
 	public abstract List<Department> readDepartments(String departmentName) throws Exception;
 
 	public abstract Department readDepartment(String departmentId) throws Exception;
