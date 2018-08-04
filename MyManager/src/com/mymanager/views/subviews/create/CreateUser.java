@@ -1,4 +1,4 @@
-package com.mymanager.views.subviews;
+package com.mymanager.views.subviews.create;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -8,7 +8,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -30,12 +29,12 @@ import com.mymanager.data.models.Contact;
 import com.mymanager.data.models.ContactType;
 import com.mymanager.data.models.Country;
 import com.mymanager.data.models.Gender;
+import com.mymanager.data.models.Rights;
 import com.mymanager.data.models.User;
 import com.mymanager.utils.MessageType;
-import com.mymanager.utils.MyUtil;
 import com.mymanager.utils.UtilWindow;
 
-public class AccountView extends JDialog {
+public class CreateUser extends JDialog {
 
 	/**
 	 * 
@@ -58,12 +57,8 @@ public class AccountView extends JDialog {
 	private UserController userController;
 	private Contact userContact;
 	private Adress userAdress;
-
-	// Password panel
-	private JPasswordField textFieldOldPassword;
 	private JPasswordField textFieldNewPassword;
 	private JPasswordField textFieldRetypePassword;
-	private JButton btnSavePassword;
 	private JPanel passwordPanel;
 	private JLabel lblNewLabel;
 
@@ -96,15 +91,13 @@ public class AccountView extends JDialog {
 
 	private JComboBox comboBoxCountry;
 	private DefaultComboBoxModel<String> comboBoxModel;
-
-	private JButton buttonBack2;
 	private JButton btnSave;
 	private JButton btnBack;
 
 	/**
 	 * Create the dialog.
 	 */
-	public AccountView(UserController userController) {
+	public CreateUser(UserController userController) {
 		this.selfReference = this;
 		setResizable(false);
 		setAlwaysOnTop(true);
@@ -118,20 +111,14 @@ public class AccountView extends JDialog {
 
 		initComponents();
 
-		initPanelEvents();
-
 		initButtonEvents();
-
-		initPasswordPanelEvents();
-
-		loadPanelsData();
 
 	}
 
 	private void initComponents() {
 		setTitle("My Account");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
-				AccountView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-admin-2.png")));
+				CreateUser.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-admin-2.png")));
 		setBounds(100, 100, 997, 653);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -231,57 +218,38 @@ public class AccountView extends JDialog {
 		detailsPanel.add(rights);
 
 		passwordPanel = new JPanel();
-		passwordPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Change password",
-				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		passwordPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Password", TitledBorder.LEADING,
+				TitledBorder.TOP, null, new Color(0, 0, 0)));
 		passwordPanel.setBounds(10, 155, 961, 107);
 		contentPanel.add(passwordPanel);
 		passwordPanel.setLayout(null);
 
-		JLabel lblOld = new JLabel("Actual  :");
-		lblOld.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblOld.setBounds(14, 22, 57, 29);
-		passwordPanel.add(lblOld);
-
-		textFieldOldPassword = new JPasswordField();
-		textFieldOldPassword.setText((String) null);
-		textFieldOldPassword.setColumns(10);
-		textFieldOldPassword.setBounds(81, 26, 218, 20);
-		passwordPanel.add(textFieldOldPassword);
-
 		JLabel lblNew = new JLabel("New :");
 		lblNew.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNew.setBounds(360, 27, 40, 19);
+		lblNew.setBounds(199, 43, 40, 19);
 		passwordPanel.add(lblNew);
 
 		textFieldNewPassword = new JPasswordField();
 		textFieldNewPassword.setText((String) null);
 		textFieldNewPassword.setColumns(10);
-		textFieldNewPassword.setBounds(404, 27, 218, 20);
+		textFieldNewPassword.setBounds(243, 43, 218, 20);
 		passwordPanel.add(textFieldNewPassword);
 
 		JLabel lblRetype = new JLabel("Re-type  :");
 		lblRetype.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblRetype.setBounds(666, 27, 65, 19);
+		lblRetype.setBounds(505, 43, 65, 19);
 		passwordPanel.add(lblRetype);
 
 		textFieldRetypePassword = new JPasswordField();
 		textFieldRetypePassword.setText((String) null);
 		textFieldRetypePassword.setColumns(10);
-		textFieldRetypePassword.setBounds(733, 27, 218, 20);
+		textFieldRetypePassword.setBounds(572, 43, 218, 20);
 		passwordPanel.add(textFieldRetypePassword);
-
-		btnSavePassword = new JButton("Save");
-		btnSavePassword.setBounds(30, 73, 89, 23);
-		passwordPanel.add(btnSavePassword);
 
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
 		lblNewLabel.setBounds(309, 74, 642, 22);
 		passwordPanel.add(lblNewLabel);
-
-		buttonBack2 = new JButton("Back");
-		buttonBack2.setBounds(131, 73, 89, 23);
-		passwordPanel.add(buttonBack2);
 
 		contactPanel = new JPanel();
 		contactPanel.setLayout(null);
@@ -440,22 +408,13 @@ public class AccountView extends JDialog {
 
 	}
 
-	private void initPanelEvents() {
-		getContentPane().addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				lblNewLabel.setText("");
-			}
-		});
-
-	}
-
 	private void initButtonEvents() {
 
 		btnSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				savePanelsData();
+
 				selfReference.dispose();
 			}
 		});
@@ -469,187 +428,67 @@ public class AccountView extends JDialog {
 
 	}
 
-	private void initPasswordPanelEvents() {
-		btnSavePassword.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				changePassword();
-
-			}
-		});
-
-		buttonBack2.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				selfReference.dispose();
-			}
-		});
-	}
-
-	private void loadDetails() {
-		id.setText(user.getUserId());
-		firstname.setText(user.getFirstName());
-		lastname.setText(user.getLastName());
-		gender.setText(user.getGender().name());
-		birthplace.setText(user.getBirthplace());
-		birthday.setText(user.getBirthday().toString());
-		usertype.setText(user.getUserType());
-		rights.setText(user.getRights());
-
-	}
-
-	private void loadContact() {
-		if (userContact != null) {
-			textFieldContactId.setText(String.valueOf(userContact.getContactId()));
-			textFieldTelephone.setText(String.valueOf(userContact.getTelephone()));
-			textFieldCel.setText(String.valueOf(userContact.getCelular()));
-			textFieldEmail.setText(userContact.getEmail());
-			textFieldFax.setText(userContact.getFax());
-		}
-	}
-
-	private void loadAdress() {
-		if (userAdress != null) {
-			textFieldAdressId.setText(String.valueOf(userAdress.getAdressId()));
-			textFieldZipCode.setText(String.valueOf(userAdress.getZipCode()));
-			textFieldStreet.setText(userAdress.getStreetName());
-			textFieldBuilding.setText(userAdress.getBuilding());
-			textFieldCity.setText(userAdress.getCity());
-			Country country = userAdress.getCountry();
-			comboBoxCountry.setSelectedItem(country.getCountryName());
-		}
-	}
-
-	private void loadPanelsData() {
-		loadCountries();
-		loadDetails();
-		loadContact();// selects first element from the list
-		loadAdress();// selects first element from the list
-
-	}
-
 	private void saveDetails() {
-		ArrayList<String> first = new ArrayList<>();
-		ArrayList<String> second = new ArrayList<>();
+		char[] newPassArray = textFieldNewPassword.getPassword();
+		String newPass = String.valueOf(newPassArray);
+		String genderStr = gender.getText();
+		String rightsStr = rights.getText();
+		String userTypeStr = usertype.getText();
+		String birthdayStr = birthday.getText();
 
-		first.add(user.getUserId());
-		first.add(user.getFirstName());
-		first.add(user.getLastName());
-		first.add(user.getGender().toString());
-		first.add(user.getBirthplace());
-		first.add(user.getBirthday().toString());
-		first.add(user.getUserType());
-		first.add(user.getRights());
-
-		second.add(id.getText());
-		second.add(firstname.getText());
-		second.add(lastname.getText());
-		second.add(gender.getText());
-		second.add(birthplace.getText());
-		second.add(birthday.getText());
-		second.add(usertype.getText());
-		second.add(rights.getText());
-
-		if (!MyUtil.areEquals(first, second)) {
-			User newUser = new User(id.getText(), usertype.getText(), firstname.getText(), lastname.getText(),
-					user.getPassword(), LocalDate.parse(birthday.getText()), birthplace.getText(),
-					Gender.valueOf(gender.getText()), rights.getText(), user.getCreatedBy(), user.getUserId(),
-					user.getCreatedDate(), LocalDateTime.now());
-			userController.editUser(user, newUser);
-			userController.setUser(newUser);
-
+		if (birthdayStr.equals("")) {
+			birthdayStr = "1970-12-12";
+		}
+		if (userTypeStr.equals("")) {
+			userTypeStr = "ASSISTANT";
+		}
+		if (genderStr.equals("")) {
+			genderStr = "M";
+		}
+		if (rightsStr.equals("")) {
+			rightsStr = Rights.READ.toString();
 		}
 
+		User newUser = new User(id.getText(), userTypeStr, firstname.getText(), lastname.getText(), newPass,
+				LocalDate.parse(birthdayStr), birthplace.getText(), Gender.valueOf(genderStr), rightsStr,
+				user.getUserId(), user.getUserId(), LocalDateTime.now(), LocalDateTime.now());
+		userController.saveUser(newUser);
+		UtilWindow.showMessage(this, "New user created", MessageType.INFORMATION);
 	}
 
 	private void saveContact() {
-		ArrayList<String> first = new ArrayList<>();
-		ArrayList<String> second = new ArrayList<>();
-		if (userContact != null) {
-			first.add(String.valueOf(userContact.getTelephone()));
-			first.add(String.valueOf(userContact.getCelular()));
-			first.add(userContact.getEmail());
-			first.add(userContact.getFax());
-			second.add(textFieldTelephone.getText());
-			second.add(textFieldCel.getText());
-			second.add(textFieldEmail.getText());
-			second.add(textFieldFax.getText());
+		String telephone = textFieldTelephone.getText();
+		String celular = textFieldCel.getText();
+		if (textFieldTelephone.getText().equals(""))
+			telephone = "0";
+		if (textFieldCel.getText().equals(""))
+			celular = "0";
 
-			if (!MyUtil.areEquals(first, second)) {
-				Contact newContact = new Contact(userContact.getContactId(), userContact.getPersonId(),
-						Integer.parseInt(textFieldTelephone.getText()), Integer.parseInt(textFieldCel.getText()),
-						textFieldEmail.getText(), textFieldFax.getText(), userContact.getCreatedBy(), user.getUserId(),
-						userContact.getCreatedDate(), LocalDateTime.now());
-				userController.editContact(ContactType.USER_CONTACT, userContact, newContact);
-			}
-
-		} else {
-			String telephone = textFieldTelephone.getText();
-			String celular = textFieldCel.getText();
-			if (textFieldTelephone.getText().equals(""))
-				telephone = "0";
-			if (textFieldCel.getText().equals(""))
-				celular = "0";
-
-			Contact newContact = new Contact(1, user.getUserId(), Integer.parseInt(telephone),
-					Integer.parseInt(celular), textFieldEmail.getText(), textFieldFax.getText(), user.getUserId(),
-					user.getUserId(), LocalDateTime.now(), LocalDateTime.now());
-			userController.saveContact(ContactType.USER_CONTACT, newContact);
-		}
-
+		Contact newContact = new Contact(1, id.getText(), Integer.parseInt(telephone), Integer.parseInt(celular),
+				textFieldEmail.getText(), textFieldFax.getText(), user.getUserId(), user.getUserId(),
+				LocalDateTime.now(), LocalDateTime.now());
+		userController.saveContact(ContactType.USER_CONTACT, newContact);
 	}
 
 	private void saveAdress() {
-		ArrayList<String> first = new ArrayList<>();
-		ArrayList<String> second = new ArrayList<>();
-		if (userAdress != null) {
+		String selectedCountryName = (String) comboBoxCountry.getSelectedItem();
+		String zipCode = textFieldZipCode.getText();
+		if (zipCode.equals(""))
+			zipCode = "0";
 
-			String actualCountryName = userAdress.getCountry().getCountryName();
-			String selectedCountryName = (String) comboBoxCountry.getSelectedItem();
+		Adress newAdress = new Adress(1, id.getText(), new Country(selectedCountryName), textFieldCity.getText(),
+				textFieldStreet.getText(), Integer.parseInt(zipCode), textFieldBuilding.getText(), user.getUserId(),
+				user.getUserId(), LocalDateTime.now(), LocalDateTime.now());
+		userController.saveAdress(AdressType.USER_ADRESS, newAdress);
 
-			first.add(String.valueOf(userAdress.getZipCode()));
-			first.add(userAdress.getStreetName());
-			first.add(userAdress.getBuilding());
-			first.add(userAdress.getCity());
-			first.add(actualCountryName);
-			second.add(textFieldZipCode.getText());
-			second.add(textFieldStreet.getText());
-			second.add(textFieldBuilding.getText());
-			second.add(textFieldCity.getText());
-			second.add(selectedCountryName);
-
-			if (!MyUtil.areEquals(first, second)) {
-				String zipCode = textFieldZipCode.getText();
-				if (zipCode.equals(""))
-					zipCode = "0";
-
-				Adress newAdress = new Adress(1, user.getUserId(), new Country(selectedCountryName),
-						textFieldCity.getText(), textFieldStreet.getText(), Integer.parseInt(zipCode),
-						textFieldBuilding.getText(), userAdress.getCreatedBy(), user.getUserId(),
-						userAdress.getCreatedDate(), LocalDateTime.now());
-				userController.editAdress(AdressType.USER_ADRESS, userAdress, newAdress);
-			}
-
-		} else {
-
-			String selectedCountryName = (String) comboBoxCountry.getSelectedItem();
-			String zipCode = textFieldZipCode.getText();
-			if (zipCode.equals(""))
-				zipCode = "0";
-
-			Adress newAdress = new Adress(1, user.getUserId(), new Country(selectedCountryName),
-					textFieldCity.getText(), textFieldStreet.getText(), Integer.parseInt(zipCode),
-					textFieldBuilding.getText(), user.getUserId(), user.getUserId(), LocalDateTime.now(),
-					LocalDateTime.now());
-
-			userController.saveAdress(AdressType.USER_ADRESS, newAdress);
-		}
 	}
 
 	private void savePanelsData() {
-		saveDetails();
-		saveContact();
-		saveAdress();
+		if (validatePasswords()) {
+			saveDetails();
+			saveContact();
+			saveAdress();
+		}
 	}
 
 	private void loadCountries() {
@@ -659,35 +498,17 @@ public class AccountView extends JDialog {
 		}
 	}
 
-	private void changePassword() {
-		char[] oldPassArray = textFieldOldPassword.getPassword();
+	private boolean validatePasswords() {
 		char[] newPassArray = textFieldNewPassword.getPassword();
 		char[] retypedNewPassArray = textFieldRetypePassword.getPassword();
-		String oldPass = String.valueOf(oldPassArray);
 		String newPass = String.valueOf(newPassArray);
 		String reTypedNewPass = String.valueOf(retypedNewPassArray);
 
-		try {
-			if (userController.verifyOldPassword(oldPass)) {
-				if (userController.verifyNewPasswords(newPass, reTypedNewPass)) {
-					User newUser = new User(user.getUserId(), user.getUserType(), user.getFirstName(),
-							user.getLastName(), null, user.getBirthday(), user.getBirthplace(), user.getGender(),
-							user.getRights(), user.getCreatedBy(), user.getUserId(), user.getCreatedDate(),
-							LocalDateTime.now());
-					newUser.setPassword(newPass);
-					userController.editUser(user, newUser);
-					user = newUser;
-					lblNewLabel.setText("Password changed");
-				} else {
-					lblNewLabel.setText("New password don't match");
-				}
-
-			} else {
-				lblNewLabel.setText("Actual password you typed is not the same as actual password");
-			}
-		} catch (Exception e1) {
-			UtilWindow.showMessage(null, e1.getMessage(), MessageType.WARNING);
-
+		if (newPass.equals(reTypedNewPass) && (!newPass.equals(""))) {
+			return true;
+		} else {
+			UtilWindow.showMessage(this, "Passwords don't match !!!", MessageType.INFORMATION);
+			return false;
 		}
 
 	}

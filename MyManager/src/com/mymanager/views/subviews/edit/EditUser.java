@@ -1,4 +1,4 @@
-package com.mymanager.views.subviews;
+package com.mymanager.views.subviews.edit;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -35,7 +35,7 @@ import com.mymanager.utils.MessageType;
 import com.mymanager.utils.MyUtil;
 import com.mymanager.utils.UtilWindow;
 
-public class AccountView extends JDialog {
+public class EditUser extends JDialog {
 
 	/**
 	 * 
@@ -55,6 +55,7 @@ public class AccountView extends JDialog {
 	private JTextField rights;
 
 	private User user;
+	private User oldUser;
 	private UserController userController;
 	private Contact userContact;
 	private Adress userAdress;
@@ -104,13 +105,14 @@ public class AccountView extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public AccountView(UserController userController) {
+	public EditUser(UserController userController, User oldUser) {
 		this.selfReference = this;
 		setResizable(false);
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.userController = userController;
 		this.user = userController.getUser();
+		this.oldUser = oldUser;
 		this.userContact = userController.getContactByPersonId(QueryType.NORMAL, ContactType.USER_CONTACT,
 				user.getUserId());
 		this.userAdress = userController.getAdressByPersonId(QueryType.NORMAL, AdressType.USER_ADRESS,
@@ -130,8 +132,8 @@ public class AccountView extends JDialog {
 
 	private void initComponents() {
 		setTitle("My Account");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(
-				AccountView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-admin-2.png")));
+		setIconImage(Toolkit.getDefaultToolkit()
+				.getImage(EditUser.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-admin-2.png")));
 		setBounds(100, 100, 997, 653);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

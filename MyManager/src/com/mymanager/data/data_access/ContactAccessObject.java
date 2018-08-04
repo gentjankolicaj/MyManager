@@ -351,21 +351,20 @@ public class ContactAccessObject implements ContactAccess {
 	public int insertContact(Contact contact) throws Exception {
 		String query = null;
 		if (contactType.equals(ContactType.EMPLOYEE_CONTACT))
-			query = "INSERT INTO mymanager.employee_contact (contact_id,employee_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
+			query = "INSERT INTO mymanager.employee_contact (employee_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?)";
 		else
-			query = "INSERT INTO mymanager.user_contact (contact_id,user_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
+			query = "INSERT INTO mymanager.user_contact (user_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setInt(1, contact.getContactId());
-		pstmt.setString(2, contact.getPersonId());
-		pstmt.setInt(3, contact.getTelephone());
-		pstmt.setInt(4, contact.getCelular());
-		pstmt.setString(5, contact.getEmail());
-		pstmt.setString(6, contact.getFax());
-		pstmt.setString(7, contact.getCreatedBy());
-		pstmt.setObject(8, contact.getCreatedDate());
-		pstmt.setString(9, contact.getUpdatedBy());
-		pstmt.setObject(10, contact.getUpdatedDate());
+		pstmt.setString(1, contact.getPersonId());
+		pstmt.setInt(2, contact.getTelephone());
+		pstmt.setInt(3, contact.getCelular());
+		pstmt.setString(4, contact.getEmail());
+		pstmt.setString(5, contact.getFax());
+		pstmt.setString(6, contact.getCreatedBy());
+		pstmt.setObject(7, contact.getCreatedDate());
+		pstmt.setString(8, contact.getUpdatedBy());
+		pstmt.setObject(9, contact.getUpdatedDate());
 
 		return pstmt.executeUpdate();
 

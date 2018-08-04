@@ -243,22 +243,21 @@ public class AdressAccessObject implements AdressAccess {
 	public int insertAdress(Adress adress) throws Exception {
 		String query = null;
 		if (adressType.equals(AdressType.EMPLOYEE_ADRESS))
-			query = "INSERT INTO mymanager.employee_adress (adress_id,employee_id,country,city,street_name,zipcode,building,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+			query = "INSERT INTO mymanager.employee_adress (employee_id,country,city,street_name,zipcode,building,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
 		else
-			query = "INSERT INTO mymanager.user_adress (adress_id,user_id,country,city,street_name,zipcode,building,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+			query = "INSERT INTO mymanager.user_adress (user_id,country,city,street_name,zipcode,building,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setInt(1, adress.getAdressId());
-		pstmt.setString(2, adress.getPersonId());
-		pstmt.setString(3, adress.getCountry().getCountryName());
-		pstmt.setString(4, adress.getCity());
-		pstmt.setString(5, adress.getStreetName());
-		pstmt.setInt(6, adress.getZipCode());
-		pstmt.setString(7, adress.getBuilding());
-		pstmt.setString(8, adress.getCreatedBy());
-		pstmt.setObject(9, adress.getCreatedDate());
-		pstmt.setString(10, adress.getUpdatedBy());
-		pstmt.setObject(11, adress.getUpdatedDate());
+		pstmt.setString(1, adress.getPersonId());
+		pstmt.setString(2, adress.getCountry().getCountryName());
+		pstmt.setString(3, adress.getCity());
+		pstmt.setString(4, adress.getStreetName());
+		pstmt.setInt(5, adress.getZipCode());
+		pstmt.setString(6, adress.getBuilding());
+		pstmt.setString(7, adress.getCreatedBy());
+		pstmt.setObject(8, adress.getCreatedDate());
+		pstmt.setString(9, adress.getUpdatedBy());
+		pstmt.setObject(10, adress.getUpdatedDate());
 
 		return pstmt.executeUpdate();
 

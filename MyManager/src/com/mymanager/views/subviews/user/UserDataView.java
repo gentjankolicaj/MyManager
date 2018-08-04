@@ -6,9 +6,9 @@ import java.awt.event.MouseEvent;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import com.mymanager.controllers.UserController;
+import com.mymanager.utils.AppUtil;
 import com.mymanager.views.MainView;
 import com.mymanager.views.subviews.custom.MyPanel;
 
@@ -22,11 +22,11 @@ public class UserDataView extends MyPanel {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	private UserView userView;
-	private AdressView adressView;
-	private ContactView contactView;
+	private UserAdressView adressView;
+	private UserContactView contactView;
 
 	// important for inside navigation
-	private JPanel previousPanel;
+	private MyPanel previousPanel;
 	//
 
 	private JFrame jframe;
@@ -79,12 +79,8 @@ public class UserDataView extends MyPanel {
 		btnUsers.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				selfReference.remove(previousPanel);
 				userView = new UserView(jframe, mainView, userController);
-				selfReference.setSize(selfReference.getWidth() + userView.getMyWidth(), userView.getMyHeight());
-				userView.setBounds(134, 11, userView.getMyWidth(), userView.getMyHeight());
-				selfReference.add(userView);
-				selfReference.repaint();
+				AppUtil.changeUserView(selfReference, userView, previousPanel);
 				previousPanel = userView;
 
 			}
@@ -92,12 +88,8 @@ public class UserDataView extends MyPanel {
 		btnAdresses.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				selfReference.remove(previousPanel);
-				adressView = new AdressView(jframe, mainView, userController);
-				selfReference.setSize(selfReference.getWidth() + adressView.getMyWidth(), adressView.getMyHeight());
-				adressView.setBounds(134, 11, adressView.getMyWidth(), adressView.getMyHeight());
-				selfReference.add(adressView);
-				selfReference.repaint();
+				adressView = new UserAdressView(jframe, mainView, userController);
+				AppUtil.changeUserView(selfReference, adressView, previousPanel);
 				previousPanel = adressView;
 			}
 		});
@@ -105,12 +97,8 @@ public class UserDataView extends MyPanel {
 		btnContacts.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				selfReference.remove(previousPanel);
-				contactView = new ContactView(jframe, mainView, userController);
-				selfReference.setSize(selfReference.getWidth() + contactView.getMyWidth(), contactView.getMyHeight());
-				contactView.setBounds(134, 11, contactView.getMyWidth(), contactView.getMyHeight());
-				selfReference.add(contactView);
-				selfReference.repaint();
+				contactView = new UserContactView(jframe, mainView, userController);
+				AppUtil.changeUserView(selfReference, contactView, previousPanel);
 				previousPanel = contactView;
 			}
 		});

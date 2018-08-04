@@ -242,23 +242,23 @@ public class UserController {
 
 	}
 
-	public Adress getAdress(int adressId) {
+	public Adress getAdress(QueryType queryType, AdressType adressType, int adressId) {
 		try {
+			setQueryType(queryType);
+			setAdressType(adressType);
 			return adressAccess.readAdress(adressId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
 	}
 
-	public List<Adress> getAdressByPersonId(QueryType queryType, AdressType adressType, String personId) {
+	public Adress getAdressByPersonId(QueryType queryType, AdressType adressType, String personId) {
 		try {
 			setQueryType(queryType);
 			setAdressType(adressType);
 			return adressAccess.readAdressesByPersonId(personId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -268,9 +268,8 @@ public class UserController {
 		try {
 			setQueryType(queryType);
 			setAdressType(adressType);
-			return adressAccess.readAdressesByPersonId(city);
+			return adressAccess.readAdressesByCity(city);
 		} catch (Exception e) {
-			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -280,9 +279,8 @@ public class UserController {
 		try {
 			setQueryType(queryType);
 			setAdressType(adressType);
-			return adressAccess.readAdressesByPersonId(country);
+			return adressAccess.readAdressesByCountry(country);
 		} catch (Exception e) {
-			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -292,9 +290,8 @@ public class UserController {
 		try {
 			setQueryType(queryType);
 			setAdressType(adressType);
-			return adressAccess.readAdressesByPersonId(street);
+			return adressAccess.readAdressesByStreet(street);
 		} catch (Exception e) {
-			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -305,7 +302,6 @@ public class UserController {
 			setAdressType(adressType);
 			return adressAccess.insertAdress(adress);
 		} catch (Exception e) {
-			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -316,7 +312,6 @@ public class UserController {
 			setAdressType(adressType);
 			return adressAccess.updateAdress(oldAdress, newAdress);
 		} catch (Exception e) {
-			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -435,8 +430,10 @@ public class UserController {
 
 	}
 
-	public Contact getContact(int contactId) {
+	public Contact getContact(QueryType queryType, ContactType contactType, int contactId) {
 		try {
+			setQueryType(queryType);
+			setContactType(contactType);
 			return contactAccess.readContact(contactId);
 		} catch (Exception e) {
 			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
@@ -469,13 +466,12 @@ public class UserController {
 
 	}
 
-	public List<Contact> getContactByPersonId(QueryType queryType, ContactType contactType, String personId) {
+	public Contact getContactByPersonId(QueryType queryType, ContactType contactType, String personId) {
 		try {
 			setQueryType(queryType);
 			setContactType(contactType);
 			return contactAccess.readContactByPersonId(personId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -486,7 +482,6 @@ public class UserController {
 			setContactType(contactType);
 			return contactAccess.insertContact(contact);
 		} catch (Exception e) {
-			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -1512,7 +1507,6 @@ public class UserController {
 		try {
 			return userAccess.insertUser(user);
 		} catch (Exception e) {
-			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 

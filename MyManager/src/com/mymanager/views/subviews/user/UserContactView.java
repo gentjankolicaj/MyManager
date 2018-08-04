@@ -3,6 +3,7 @@ package com.mymanager.views.subviews.user;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
@@ -14,14 +15,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import com.mymanager.config.Config;
 import com.mymanager.controllers.UserController;
+import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.Contact;
+import com.mymanager.data.models.ContactType;
 import com.mymanager.data.models.MyTable;
 import com.mymanager.utils.AppUtil;
 import com.mymanager.views.MainView;
 import com.mymanager.views.subviews.custom.MyPanel;
 
-public class ContactView extends MyPanel {
+public class UserContactView extends MyPanel {
 
 	/**
 	 * 
@@ -31,29 +35,26 @@ public class ContactView extends MyPanel {
 
 	private DefaultTableModel tableModel;
 	private MyTable table;
-
-	private JButton btnCreate;
-	private JButton btnEdit;
 	private JButton btnDelete;
 	private JButton btnBack;
-	private JRadioButton rdbtnTelephone;
 	private JRadioButton rdbtnEmail;
 	private JButton btnSearch;
 	private final ButtonGroup buttonGroupSearchType = new ButtonGroup();
 	private JRadioButton rdbtnId;
 	private JRadioButton rdbtnPersonId;
 	private JRadioButton rdbtnCelular;
-	private JRadioButton rdbtnFax;
 
 	private JFrame jframe;
 	private UserController userController;
 	private MyPanel selfReference;
 	private MainView mainView;
 
+	private List<Contact> currentContactList;
+
 	/**
 	 * Create the panel.
 	 */
-	public ContactView(JFrame jframe, MainView mainView, UserController userController) {
+	public UserContactView(JFrame jframe, MainView mainView, UserController userController) {
 		super(1200, 550);
 		this.jframe = jframe;
 		this.mainView = mainView;
@@ -88,28 +89,18 @@ public class ContactView extends MyPanel {
 
 		rdbtnPersonId = new JRadioButton("User ID");
 		buttonGroupSearchType.add(rdbtnPersonId);
-		rdbtnPersonId.setBounds(141, 66, 95, 25);
+		rdbtnPersonId.setBounds(141, 66, 81, 25);
 		add(rdbtnPersonId);
-
-		rdbtnTelephone = new JRadioButton("Tel");
-		buttonGroupSearchType.add(rdbtnTelephone);
-		rdbtnTelephone.setBounds(240, 66, 56, 25);
-		add(rdbtnTelephone);
 
 		rdbtnCelular = new JRadioButton("Cel");
 		buttonGroupSearchType.add(rdbtnCelular);
-		rdbtnCelular.setBounds(300, 67, 56, 25);
+		rdbtnCelular.setBounds(229, 66, 56, 25);
 		add(rdbtnCelular);
 
 		rdbtnEmail = new JRadioButton("Email");
 		buttonGroupSearchType.add(rdbtnEmail);
-		rdbtnEmail.setBounds(364, 67, 81, 25);
+		rdbtnEmail.setBounds(293, 66, 81, 25);
 		add(rdbtnEmail);
-
-		rdbtnFax = new JRadioButton("Fax");
-		buttonGroupSearchType.add(rdbtnFax);
-		rdbtnFax.setBounds(443, 66, 83, 25);
-		add(rdbtnFax);
 
 		btnSearch = new JButton("Search");
 		btnSearch.setBounds(940, 92, 138, 31);
@@ -129,40 +120,36 @@ public class ContactView extends MyPanel {
 		scrollPane.setViewportView(table);
 
 		add(scrollPane);
-		btnCreate = new JButton("Create");
-		btnCreate.setBounds(1088, 134, 97, 25);
-		add(btnCreate);
-
-		btnEdit = new JButton("Edit");
-		btnEdit.setBounds(1088, 172, 97, 25);
-		add(btnEdit);
 
 		btnDelete = new JButton("Delete");
-		btnDelete.setBounds(1088, 210, 97, 25);
+		btnDelete.setBounds(1088, 142, 97, 25);
 		add(btnDelete);
 
 		btnBack = new JButton("Back");
-		btnBack.setBounds(1088, 291, 97, 25);
+		btnBack.setBounds(1088, 178, 97, 25);
 		add(btnBack);
 	}
 
 	private void initEvents() {
-		btnCreate.addMouseListener(new MouseAdapter() {
+		btnSearch.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				loadContacts();
 
-				addContacts();
 			}
 		});
-		btnEdit.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-			}
-		});
+
 		btnDelete.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				clearTable();
+				int selectedRow = table.getSelectedRow();
+				int totalRows = table.getRowCount();
+				if ((selectedRow > -1) && (selectedRow < totalRows)) {
+					Contact contactToDelete = currentContactList.get(selectedRow);
+					userController.deleteContact(ContactType.USER_CONTACT, contactToDelete);
+					loadData();
+				}
+
 			}
 		});
 		btnBack.addMouseListener(new MouseAdapter() {
@@ -174,8 +161,34 @@ public class ContactView extends MyPanel {
 
 	}
 
-	private void clearTable() {
-		tableModel.setRowCount(0);
+	private void loadContacts() {
+		String searchValue = textFieldSearch.getText();
+		emptyTable();
+		if (chooseSearchType() == 1) {
+			Contact temp = userController.getContact(QueryType.NORMAL, ContactType.USER_CONTACT,
+					Integer.parseInt(searchValue));
+			currentContactList.add(temp);
+			fillTable(currentContactList);
+		} else if (chooseSearchType() == 2) {
+			Contact temp = userController.getContactByPersonId(QueryType.NORMAL, ContactType.USER_CONTACT, searchValue);
+			currentContactList.add(temp);
+			fillTable(currentContactList);
+		} else if (chooseSearchType() == 3) {
+			currentContactList = userController.getContactsByCelular(QueryType.NORMAL, ContactType.USER_CONTACT,
+					Integer.parseInt(searchValue));
+			fillTable(currentContactList);
+
+		} else if (chooseSearchType() == 4) {
+			currentContactList = userController.getContactsByEmail(QueryType.NORMAL, ContactType.USER_CONTACT,
+					searchValue);
+			fillTable(currentContactList);
+
+		} else {
+
+			// to do some info message
+
+		}
+
 	}
 
 	private int chooseSearchType() {
@@ -183,22 +196,22 @@ public class ContactView extends MyPanel {
 			return 1;
 		} else if (rdbtnPersonId.isSelected()) {
 			return 2;
-		} else if (rdbtnTelephone.isSelected()) {
-			return 3;
 		} else if (rdbtnCelular.isSelected()) {
-			return 4;
+			return 3;
 		} else if (rdbtnEmail.isSelected()) {
-			return 5;
-		} else if (rdbtnFax.isSelected()) {
-			return 6;
+			return 4;
 		} else
 			return 0;
 	}
 
-	private void addContacts() {
-		List<Contact> contactsList = null;
+	private void emptyTable() {
+		currentContactList = new ArrayList<>();
+		tableModel.setRowCount(0);
+	}
+
+	private void fillTable(List<Contact> contactList) {
 		Object[] rowData = new Object[10];
-		for (Contact contact : contactsList) {
+		for (Contact contact : contactList) {
 			rowData[0] = contact.getContactId();
 			rowData[1] = contact.getPersonId();
 			rowData[2] = contact.getTelephone();
@@ -209,7 +222,26 @@ public class ContactView extends MyPanel {
 			rowData[7] = contact.getCreatedDate();
 			rowData[8] = contact.getUpdatedBy();
 			rowData[9] = contact.getUpdatedDate();
+			tableModel.addRow(rowData);
+		}
+	}
 
+	public void loadData() {
+		emptyTable();
+		currentContactList = userController.getAllContacts(QueryType.NORMAL, ContactType.USER_CONTACT, Config.ROW_LIMIT,
+				Config.USER_OFFSET);
+		Object[] rowData = new Object[10];
+		for (Contact contact : currentContactList) {
+			rowData[0] = contact.getContactId();
+			rowData[1] = contact.getPersonId();
+			rowData[2] = contact.getTelephone();
+			rowData[3] = contact.getCelular();
+			rowData[4] = contact.getEmail();
+			rowData[5] = contact.getFax();
+			rowData[6] = contact.getCreatedBy();
+			rowData[7] = contact.getCreatedDate();
+			rowData[8] = contact.getUpdatedBy();
+			rowData[9] = contact.getUpdatedDate();
 			tableModel.addRow(rowData);
 		}
 	}

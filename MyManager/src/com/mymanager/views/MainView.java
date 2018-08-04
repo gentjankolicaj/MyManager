@@ -541,7 +541,6 @@ public class MainView extends MyPanel {
 	}
 
 	public void initConfigEvents() {
-
 		myAccountPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {

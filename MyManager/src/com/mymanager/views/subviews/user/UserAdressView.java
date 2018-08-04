@@ -3,6 +3,7 @@ package com.mymanager.views.subviews.user;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
@@ -14,14 +15,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import com.mymanager.config.Config;
 import com.mymanager.controllers.UserController;
+import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.Adress;
+import com.mymanager.data.models.AdressType;
 import com.mymanager.data.models.MyTable;
 import com.mymanager.utils.AppUtil;
 import com.mymanager.views.MainView;
 import com.mymanager.views.subviews.custom.MyPanel;
 
-public class AdressView extends MyPanel {
+public class UserAdressView extends MyPanel {
 
 	/**
 	 * 
@@ -31,9 +35,6 @@ public class AdressView extends MyPanel {
 
 	private DefaultTableModel tableModel;
 	private MyTable table;
-
-	private JButton btnCreate;
-	private JButton btnEdit;
 	private JButton btnDelete;
 	private JButton btnBack;
 	private JRadioButton rdbtnCountry;
@@ -49,16 +50,18 @@ public class AdressView extends MyPanel {
 	private UserController userController;
 	private MyPanel selfReference;
 	private MainView mainView;
+	private List<Adress> currentAdressList;
 
 	/**
 	 * Create the panel.
 	 */
-	public AdressView(JFrame jframe, MainView mainView, UserController userController) {
+	public UserAdressView(JFrame jframe, MainView mainView, UserController userController) {
 		super(1200, 550);
 		this.jframe = jframe;
 		this.mainView = mainView;
 		this.userController = userController;
 		selfReference = this;
+
 		initComponents();
 		initEvents();
 
@@ -129,40 +132,36 @@ public class AdressView extends MyPanel {
 		scrollPane.setViewportView(table);
 
 		add(scrollPane);
-		btnCreate = new JButton("Create");
-		btnCreate.setBounds(1090, 133, 97, 25);
-		add(btnCreate);
-
-		btnEdit = new JButton("Edit");
-		btnEdit.setBounds(1090, 171, 97, 25);
-		add(btnEdit);
 
 		btnDelete = new JButton("Delete");
-		btnDelete.setBounds(1090, 209, 97, 25);
+		btnDelete.setBounds(1090, 142, 97, 25);
 		add(btnDelete);
 
 		btnBack = new JButton("Back");
-		btnBack.setBounds(1090, 290, 97, 25);
+		btnBack.setBounds(1090, 178, 97, 25);
 		add(btnBack);
 	}
 
 	private void initEvents() {
-		btnCreate.addMouseListener(new MouseAdapter() {
+		btnSearch.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				loadAdresses();
 
-				addAdresses();
 			}
 		});
-		btnEdit.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-			}
-		});
+
 		btnDelete.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				clearTable();
+				int selectedRow = table.getSelectedRow();
+				int totalRows = table.getRowCount();
+				if ((selectedRow > -1) && (selectedRow < totalRows)) {
+					Adress adressToDelete = currentAdressList.get(selectedRow);
+					userController.deleteAdress(AdressType.USER_ADRESS, adressToDelete);
+					loadData();
+				}
+
 			}
 		});
 		btnBack.addMouseListener(new MouseAdapter() {
@@ -174,8 +173,30 @@ public class AdressView extends MyPanel {
 
 	}
 
-	private void clearTable() {
-		tableModel.setRowCount(0);
+	private void loadAdresses() {
+		String searchValue = textFieldSearch.getText();
+		emptyTable();
+		if (chooseSearchType() == 1) {
+			Adress temp = userController.getAdress(QueryType.NORMAL, AdressType.USER_ADRESS,
+					Integer.parseInt(searchValue));
+			currentAdressList.add(temp);
+			fillTable(currentAdressList);
+		} else if (chooseSearchType() == 2) {
+			Adress temp = userController.getAdressByPersonId(QueryType.NORMAL, AdressType.USER_ADRESS, searchValue);
+			currentAdressList.add(temp);
+			fillTable(currentAdressList);
+		} else if (chooseSearchType() == 3) {
+			currentAdressList = userController.getAdressByCity(QueryType.NORMAL, AdressType.USER_ADRESS, searchValue);
+			fillTable(currentAdressList);
+		} else if (chooseSearchType() == 4) {
+			currentAdressList = userController.getAdressByStreet(QueryType.NORMAL, AdressType.USER_ADRESS, searchValue);
+			fillTable(currentAdressList);
+		} else {
+
+			// to do some info message
+
+		}
+
 	}
 
 	private int chooseSearchType() {
@@ -193,10 +214,14 @@ public class AdressView extends MyPanel {
 			return 0;
 	}
 
-	private void addAdresses() {
-		List<Adress> adressesList = null;
+	private void emptyTable() {
+		currentAdressList = new ArrayList<>();
+		tableModel.setRowCount(0);
+	}
+
+	private void fillTable(List<Adress> adressList) {
 		Object[] rowData = new Object[11];
-		for (Adress adress : adressesList) {
+		for (Adress adress : adressList) {
 			rowData[0] = adress.getAdressId();
 			rowData[1] = adress.getPersonId();
 			rowData[2] = adress.getCountry().getCountryName();
@@ -208,7 +233,27 @@ public class AdressView extends MyPanel {
 			rowData[8] = adress.getCreatedDate();
 			rowData[9] = adress.getUpdatedBy();
 			rowData[10] = adress.getUpdatedDate();
+			tableModel.addRow(rowData);
+		}
+	}
 
+	public void loadData() {
+		emptyTable();
+		currentAdressList = userController.getAllAdresses(QueryType.NORMAL, AdressType.USER_ADRESS, Config.ROW_LIMIT,
+				Config.USER_OFFSET);
+		Object[] rowData = new Object[11];
+		for (Adress adress : currentAdressList) {
+			rowData[0] = adress.getAdressId();
+			rowData[1] = adress.getPersonId();
+			rowData[2] = adress.getCountry().getCountryName();
+			rowData[3] = adress.getCity();
+			rowData[4] = adress.getStreetName();
+			rowData[5] = adress.getZipCode();
+			rowData[6] = adress.getBuilding();
+			rowData[7] = adress.getCreatedBy();
+			rowData[8] = adress.getCreatedDate();
+			rowData[9] = adress.getUpdatedBy();
+			rowData[10] = adress.getUpdatedDate();
 			tableModel.addRow(rowData);
 		}
 	}

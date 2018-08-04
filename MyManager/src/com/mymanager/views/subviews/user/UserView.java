@@ -3,6 +3,7 @@ package com.mymanager.views.subviews.user;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
@@ -14,13 +15,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import com.mymanager.config.Config;
 import com.mymanager.controllers.UserController;
 import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.MyTable;
 import com.mymanager.data.models.User;
 import com.mymanager.utils.AppUtil;
 import com.mymanager.views.MainView;
+import com.mymanager.views.subviews.create.CreateUser;
 import com.mymanager.views.subviews.custom.MyPanel;
+import com.mymanager.views.subviews.edit.EditUser;
 
 public class UserView extends MyPanel {
 
@@ -38,12 +42,13 @@ public class UserView extends MyPanel {
 	private JButton btnDelete;
 	private JButton btnBack;
 	private JRadioButton rdbtnFirstname;
-	private JRadioButton rdbtnCreatedBy;
 	private JButton btnSearch;
 	private final ButtonGroup buttonGroupSearchType = new ButtonGroup();
 	private JRadioButton rdbtnId;
 	private JRadioButton rdbtnType;
 	private JRadioButton rdbtnLastname;
+
+	private List<User> currentUserList;
 
 	private JFrame jframe;
 	private UserController userController;
@@ -59,6 +64,7 @@ public class UserView extends MyPanel {
 		this.mainView = mainView;
 		this.userController = userController;
 		selfReference = this;
+
 		initComponents();
 		initEvents();
 
@@ -93,18 +99,13 @@ public class UserView extends MyPanel {
 
 		rdbtnFirstname = new JRadioButton("Firstname");
 		buttonGroupSearchType.add(rdbtnFirstname);
-		rdbtnFirstname.setBounds(240, 66, 95, 25);
+		rdbtnFirstname.setBounds(240, 66, 90, 25);
 		add(rdbtnFirstname);
 
 		rdbtnLastname = new JRadioButton("Lastname");
 		buttonGroupSearchType.add(rdbtnLastname);
-		rdbtnLastname.setBounds(351, 66, 95, 25);
+		rdbtnLastname.setBounds(332, 65, 89, 25);
 		add(rdbtnLastname);
-
-		rdbtnCreatedBy = new JRadioButton("Created by");
-		buttonGroupSearchType.add(rdbtnCreatedBy);
-		rdbtnCreatedBy.setBounds(450, 67, 104, 25);
-		add(rdbtnCreatedBy);
 
 		btnSearch = new JButton("Search");
 		btnSearch.setBounds(942, 93, 138, 31);
@@ -142,24 +143,54 @@ public class UserView extends MyPanel {
 	}
 
 	private void initEvents() {
+
+		btnSearch.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				loadUsers();
+
+			}
+		});
+
 		btnCreate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				CreateUser createUser = new CreateUser(userController);
+				createUser.setModal(true);
+				createUser.setVisible(true);
+				loadData();
 
-				addProjects();
 			}
 		});
+
 		btnEdit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				int selectedRow = table.getSelectedRow();
+				int totalRows = table.getRowCount();
+				if ((selectedRow > -1) && (selectedRow < totalRows)) {
+					User oldUser = currentUserList.get(selectedRow);
+					EditUser editUser = new EditUser(userController, oldUser);
+					editUser.setModal(true);
+					editUser.setVisible(true);
+					loadData();
+				}
 			}
 		});
+
 		btnDelete.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				clearTable();
+				int selectedRow = table.getSelectedRow();
+				int totalRows = table.getRowCount();
+				if ((selectedRow > -1) && (selectedRow < totalRows)) {
+					User userToDelete = currentUserList.get(selectedRow);
+					userController.deleteUser(userToDelete);
+					loadData();
+				}
 			}
 		});
+
 		btnBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -169,7 +200,36 @@ public class UserView extends MyPanel {
 
 	}
 
-	private void clearTable() {
+	private void loadUsers() {
+		String searchValue = textFieldSearch.getText();
+		emptyTable();
+		if (chooseSearchType() == 1) {
+			User temp = userController.getUser(searchValue);
+			currentUserList.add(temp);
+			fillTable(currentUserList);
+
+		} else if (chooseSearchType() == 2) {
+			currentUserList = userController.getUsersByUserType(QueryType.NORMAL, searchValue);
+			fillTable(currentUserList);
+
+		} else if (chooseSearchType() == 3) {
+			currentUserList = userController.getUsersByFirstName(QueryType.NORMAL, searchValue);
+			fillTable(currentUserList);
+
+		} else if (chooseSearchType() == 4) {
+			currentUserList = userController.getUsersByLastName(QueryType.NORMAL, searchValue);
+			fillTable(currentUserList);
+
+		} else {
+
+			// to do some info message
+
+		}
+
+	}
+
+	private void emptyTable() {
+		currentUserList = new ArrayList<>();
 		tableModel.setRowCount(0);
 	}
 
@@ -182,14 +242,11 @@ public class UserView extends MyPanel {
 			return 3;
 		} else if (rdbtnLastname.isSelected()) {
 			return 4;
-		} else if (rdbtnCreatedBy.isSelected()) {
-			return 5;
 		} else
 			return 0;
 	}
 
-	private void addProjects() {
-		List<User> usersList = userController.getAllUsers(QueryType.NORMAL);
+	private void fillTable(List<User> usersList) {
 		Object[] rowData = new Object[12];
 		for (User user : usersList) {
 			rowData[0] = user.getUserId();
@@ -204,8 +261,29 @@ public class UserView extends MyPanel {
 			rowData[9] = user.getCreatedDate();
 			rowData[10] = user.getUpdatedBy();
 			rowData[11] = user.getUpdatedDate();
-
 			tableModel.addRow(rowData);
 		}
 	}
+
+	public void loadData() {
+		emptyTable();
+		currentUserList = userController.getAllUsers(QueryType.NORMAL, Config.ROW_LIMIT, Config.USER_OFFSET);
+		Object[] rowData = new Object[12];
+		for (User user : currentUserList) {
+			rowData[0] = user.getUserId();
+			rowData[1] = user.getUserType();
+			rowData[2] = user.getFirstName();
+			rowData[3] = user.getLastName();
+			rowData[4] = user.getBirthday();
+			rowData[5] = user.getBirthplace();
+			rowData[6] = user.getRights();
+			rowData[7] = user.getGender();
+			rowData[8] = user.getCreatedBy();
+			rowData[9] = user.getCreatedDate();
+			rowData[10] = user.getUpdatedBy();
+			rowData[11] = user.getUpdatedDate();
+			tableModel.addRow(rowData);
+		}
+	}
+
 }
