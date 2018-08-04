@@ -37,14 +37,12 @@ public class UserAdressView extends MyPanel {
 	private MyTable table;
 	private JButton btnDelete;
 	private JButton btnBack;
-	private JRadioButton rdbtnCountry;
 	private JRadioButton rdbtnStreet;
 	private JButton btnSearch;
 	private final ButtonGroup buttonGroupSearchType = new ButtonGroup();
 	private JRadioButton rdbtnId;
 	private JRadioButton rdbtnPersonId;
 	private JRadioButton rdbtnCity;
-	private JRadioButton rdbtnBuilding;
 
 	private JFrame jframe;
 	private UserController userController;
@@ -91,28 +89,18 @@ public class UserAdressView extends MyPanel {
 
 		rdbtnPersonId = new JRadioButton("User ID");
 		buttonGroupSearchType.add(rdbtnPersonId);
-		rdbtnPersonId.setBounds(141, 66, 95, 25);
+		rdbtnPersonId.setBounds(141, 66, 73, 25);
 		add(rdbtnPersonId);
-
-		rdbtnCountry = new JRadioButton("Country");
-		buttonGroupSearchType.add(rdbtnCountry);
-		rdbtnCountry.setBounds(240, 66, 83, 25);
-		add(rdbtnCountry);
 
 		rdbtnCity = new JRadioButton("City");
 		buttonGroupSearchType.add(rdbtnCity);
-		rdbtnCity.setBounds(327, 67, 56, 25);
+		rdbtnCity.setBounds(215, 66, 56, 25);
 		add(rdbtnCity);
 
 		rdbtnStreet = new JRadioButton("Street");
 		buttonGroupSearchType.add(rdbtnStreet);
-		rdbtnStreet.setBounds(387, 66, 83, 25);
+		rdbtnStreet.setBounds(275, 65, 83, 25);
 		add(rdbtnStreet);
-
-		rdbtnBuilding = new JRadioButton("Building");
-		buttonGroupSearchType.add(rdbtnBuilding);
-		rdbtnBuilding.setBounds(474, 66, 83, 25);
-		add(rdbtnBuilding);
 
 		btnSearch = new JButton("Search");
 		btnSearch.setBounds(942, 91, 138, 31);
@@ -204,12 +192,10 @@ public class UserAdressView extends MyPanel {
 			return 1;
 		} else if (rdbtnPersonId.isSelected()) {
 			return 2;
-		} else if (rdbtnCountry.isSelected()) {
-			return 3;
 		} else if (rdbtnCity.isSelected()) {
-			return 4;
+			return 3;
 		} else if (rdbtnStreet.isSelected()) {
-			return 5;
+			return 4;
 		} else
 			return 0;
 	}

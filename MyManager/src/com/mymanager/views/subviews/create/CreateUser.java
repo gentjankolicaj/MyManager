@@ -111,6 +111,8 @@ public class CreateUser extends JDialog {
 
 		initComponents();
 
+		loadCountries();
+
 		initButtonEvents();
 
 	}
