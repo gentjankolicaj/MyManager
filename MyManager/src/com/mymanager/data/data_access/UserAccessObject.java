@@ -156,9 +156,9 @@ public class UserAccessObject implements UserAccess {
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM mymanager.users WHERE user_type=" + userType;
+			query = "SELECT * FROM mymanager.users WHERE user_type LIKE '" + userType + "%'";
 		else
-			query = "SELECT * FROM mymanager.users_history WHERE user_type=" + userType;
+			query = "SELECT * FROM mymanager.users_history WHERE user_type LIKE '" + userType + "%'";
 
 		results = database.selectStatement(query);
 		while (results.next()) {

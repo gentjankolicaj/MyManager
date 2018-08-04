@@ -241,8 +241,8 @@ public class ContactAccessObject implements ContactAccess {
 	}
 
 	@Override
-	public List<Contact> readContactByPersonId(String personId) throws Exception {
-		List<Contact> contactList = new ArrayList<>();
+	public Contact readContactByPersonId(String personId) throws Exception {
+		Contact contact = null;
 		ResultSet results = null;
 		String query = null;
 
@@ -254,15 +254,14 @@ public class ContactAccessObject implements ContactAccess {
 
 			results = database.selectStatement(query);
 			while (results.next()) {
-				Contact temp = new Contact(results.getInt("contact_id"), results.getString("employee_id"),
+				contact = new Contact(results.getInt("contact_id"), results.getString("employee_id"),
 						results.getInt("telephone"), results.getInt("celular"), results.getString("email"),
 						results.getString("fax"), results.getString("created_by"), results.getString("updated_by"),
 						results.getTimestamp("created_date").toLocalDateTime(),
 						results.getTimestamp("updated_date").toLocalDateTime());
-				contactList.add(temp);
 			}
-			PrintUtils.print(contactList, PrintType.QUERY_RESULTS);
-			return contactList;
+			PrintUtils.print(contact, PrintType.QUERY_RESULTS);
+			return contact;
 
 		} else {
 			if (queryType.equals(QueryType.NORMAL))
@@ -272,15 +271,14 @@ public class ContactAccessObject implements ContactAccess {
 
 			results = database.selectStatement(query);
 			while (results.next()) {
-				Contact temp = new Contact(results.getInt("contact_id"), results.getString("user_id"),
+				contact = new Contact(results.getInt("contact_id"), results.getString("user_id"),
 						results.getInt("telephone"), results.getInt("celular"), results.getString("email"),
 						results.getString("fax"), results.getString("created_by"), results.getString("updated_by"),
 						results.getTimestamp("created_date").toLocalDateTime(),
 						results.getTimestamp("updated_date").toLocalDateTime());
-				contactList.add(temp);
 			}
-			PrintUtils.print(contactList, PrintType.QUERY_RESULTS);
-			return contactList;
+			PrintUtils.print(contact, PrintType.QUERY_RESULTS);
+			return contact;
 		}
 	}
 

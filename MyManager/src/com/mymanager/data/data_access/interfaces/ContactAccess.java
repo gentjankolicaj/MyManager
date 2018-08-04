@@ -19,7 +19,7 @@ public interface ContactAccess {
 
 	public abstract List<Contact> readContactsByEmail(String email) throws Exception;
 
-	public abstract List<Contact> readContactByPersonId(String personId) throws Exception;
+	public abstract Contact readContactByPersonId(String personId) throws Exception;
 
 	public abstract Contact readContact(int contactId) throws Exception;
 

@@ -41,7 +41,6 @@ public class AppUtil {
 
 	public static void openMainView(JFrame jframe, JPanel oldPanel, MyPanel newPanel) {
 		jframe.getContentPane().remove(oldPanel);
-		System.out.println(newPanel.getMyWidth() + " ," + newPanel.getMyHeight());
 		jframe.setSize(newPanel.getMyWidth(), newPanel.getMyHeight());
 		jframe.setContentPane(newPanel);
 		jframe.repaint();
@@ -50,7 +49,6 @@ public class AppUtil {
 
 	public static void changeAccountPanel(JFrame jframe, JPanel oldPanel, MyPanel newPanel) {
 		jframe.getContentPane().remove(oldPanel);
-		System.out.println(newPanel.getMyWidth() + " ," + newPanel.getMyHeight());
 		jframe.setSize(newPanel.getMyWidth() + 10, newPanel.getMyHeight() + 50);
 		jframe.setContentPane(newPanel);
 		jframe.repaint();
@@ -59,11 +57,20 @@ public class AppUtil {
 
 	public static void changeView(JFrame jframe, MyPanel oldPanel, MyPanel newPanel) {
 		jframe.getContentPane().remove(oldPanel);
-		System.out.println(newPanel.getMyWidth() + " ," + newPanel.getMyHeight());
 		jframe.setSize(newPanel.getMyWidth() + 10, newPanel.getMyHeight() + 50);
 		newPanel.loadData(); // fills table of new view with data
 		jframe.setContentPane(newPanel);
 		jframe.repaint();
+
+	}
+
+	public static void changeUserView(MyPanel mainPanel, MyPanel newPanel, MyPanel oldPanel) {
+		mainPanel.remove(oldPanel);
+		mainPanel.setSize(mainPanel.getWidth() + newPanel.getMyWidth(), newPanel.getMyHeight());
+		newPanel.setBounds(134, 11, newPanel.getMyWidth(), newPanel.getMyHeight());
+		newPanel.loadData(); // fills table of new view with data
+		mainPanel.add(newPanel);
+		mainPanel.repaint();
 
 	}
 

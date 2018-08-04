@@ -165,8 +165,8 @@ public class AdressAccessObject implements AdressAccess {
 	}
 
 	@Override
-	public List<Adress> readAdressesByPersonId(String personId) throws Exception {
-		List<Adress> adressList = new ArrayList<>();
+	public Adress readAdressesByPersonId(String personId) throws Exception {
+		Adress adress = null;
 		ResultSet results = null;
 		String query = null;
 
@@ -178,16 +178,15 @@ public class AdressAccessObject implements AdressAccess {
 
 			results = database.selectStatement(query);
 			while (results.next()) {
-				Adress temp = new Adress(results.getInt("adress_id"), results.getString("employee_id"),
+				adress = new Adress(results.getInt("adress_id"), results.getString("employee_id"),
 						new Country(results.getString("country")), results.getString("city"),
 						results.getString("street_name"), results.getInt("zipcode"), results.getString("building"),
 						results.getString("created_by"), results.getString("updated_by"),
 						results.getTimestamp("created_date").toLocalDateTime(),
 						results.getTimestamp("updated_date").toLocalDateTime());
-				adressList.add(temp);
 			}
-			PrintUtils.print(adressList, PrintType.QUERY_RESULTS);
-			return adressList;
+			PrintUtils.print(adress, PrintType.QUERY_RESULTS);
+			return adress;
 
 		} else {
 
@@ -198,16 +197,15 @@ public class AdressAccessObject implements AdressAccess {
 
 			results = database.selectStatement(query);
 			while (results.next()) {
-				Adress temp = new Adress(results.getInt("adress_id"), results.getString("user_id"),
+				adress = new Adress(results.getInt("adress_id"), results.getString("user_id"),
 						new Country(results.getString("country")), results.getString("city"),
 						results.getString("street_name"), results.getInt("zipcode"), results.getString("building"),
 						results.getString("created_by"), results.getString("updated_by"),
 						results.getTimestamp("created_date").toLocalDateTime(),
 						results.getTimestamp("updated_date").toLocalDateTime());
-				adressList.add(temp);
 			}
-			PrintUtils.print(adressList, PrintType.QUERY_RESULTS);
-			return adressList;
+			PrintUtils.print(adress, PrintType.QUERY_RESULTS);
+			return adress;
 		}
 
 	}

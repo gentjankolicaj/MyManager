@@ -15,7 +15,7 @@ public class Config {
 
 	// ====================================================
 	// ====================================================
-	public static final int ROW_LIMIT = 10;
+	public static final int ROW_LIMIT = 1000;
 
 	public static final int USER_OFFSET = 0;
 	public static final int EMPLOYEE_OFFSET = 0;
