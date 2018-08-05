@@ -750,6 +750,80 @@ INSERT INTO `mymanager`. `user_type` (user_type) VALUES ('FINANCE');
 
 
 -- -----------------------------------------------------
+-- Initial countries
+-- -----------------------------------------------------
+
+INSERT INTO `mymanager`.`countries` (country) VALUES ("ALBANIA");
+INSERT INTO `mymanager`.`countries` (country) VALUES ("GERMANY");
+INSERT INTO `mymanager`.`countries` (country) VALUES ("ITALY");
+INSERT INTO `mymanager`.`countries` (country) VALUES ("FRANCE");
+INSERT INTO `mymanager`.`countries` (country) VALUES ("SPAIN");
+INSERT INTO `mymanager`.`countries` (country) VALUES ("UNITED KINGDOM");
+INSERT INTO `mymanager`.`countries` (country) VALUES ("RUSSIA");
+INSERT INTO `mymanager`.`countries` (country) VALUES ("AUSTRIA");
+INSERT INTO `mymanager`.`countries` (country) VALUES ("TURKEY");
+INSERT INTO `mymanager`.`countries` (country) VALUES ("USA");
+INSERT INTO `mymanager`.`countries` (country) VALUES ("CHINA");
+INSERT INTO `mymanager`.`countries` (country) VALUES ("JAPAN");
+
+
+-- -----------------------------------------------------
+-- Initial payment types
+-- -----------------------------------------------------
+INSERT INTO `mymanager`.`payment_type`(payment_type) VALUES  ("SALARY");
+INSERT INTO `mymanager`.`payment_type`(payment_type) VALUES  ("EXPENSE");
+INSERT INTO `mymanager`.`payment_type`(payment_type) VALUES  ("BILL");
+INSERT INTO `mymanager`.`payment_type`(payment_type) VALUES  ("BONUS");
+INSERT INTO `mymanager`.`payment_type`(payment_type) VALUES  ("REWARD");
+INSERT INTO `mymanager`.`payment_type`(payment_type) VALUES  ("PRICE");
+INSERT INTO `mymanager`.`payment_type`(payment_type) VALUES  ("OUTSOURCE");
+
+
+
+-- -----------------------------------------------------
+-- Initial currencies
+-- -----------------------------------------------------
+INSERT INTO `mymanager`.`currencies`  (currency) VALUES ("EURO");
+INSERT INTO `mymanager`.`currencies`  (currency) VALUES ("POUND");
+INSERT INTO `mymanager`.`currencies`  (currency) VALUES ("LEK");
+INSERT INTO `mymanager`.`currencies`  (currency) VALUES ("DOLLAR");
+INSERT INTO `mymanager`.`currencies`  (currency) VALUES ("RUBLA");
+INSERT INTO `mymanager`.`currencies`  (currency) VALUES ("PESSOS");
+
+
+
+-- -----------------------------------------------------
+-- Initial file types
+-- -----------------------------------------------------
+INSERT INTO `mymanager`.`file_types` (file_type) VALUES ("jpg");
+INSERT INTO `mymanager`.`file_types` (file_type) VALUES ("svg");
+INSERT INTO `mymanager`.`file_types` (file_type) VALUES ("png");
+INSERT INTO `mymanager`.`file_types` (file_type) VALUES ("pdf");
+INSERT INTO `mymanager`.`file_types` (file_type) VALUES ("doc");
+INSERT INTO `mymanager`.`file_types` (file_type) VALUES ("docx");
+INSERT INTO `mymanager`.`file_types` (file_type) VALUES ("ppt");
+INSERT INTO `mymanager`.`file_types` (file_type) VALUES ("xls");
+INSERT INTO `mymanager`.`file_types` (file_type) VALUES ("java");
+INSERT INTO `mymanager`.`file_types` (file_type) VALUES ("py");
+INSERT INTO `mymanager`.`file_types` (file_type) VALUES ("c");
+INSERT INTO `mymanager`.`file_types` (file_type) VALUES ("cpp");
+INSERT INTO `mymanager`.`file_types` (file_type) VALUES ("txt");
+INSERT INTO `mymanager`.`file_types` (file_type) VALUES ("ico");
+INSERT INTO `mymanager`.`file_types` (file_type) VALUES ("csv");
+INSERT INTO `mymanager`.`file_types` (file_type) VALUES ("sql");
+INSERT INTO `mymanager`.`file_types` (file_type) VALUES ("html");
+INSERT INTO `mymanager`.`file_types` (file_type) VALUES ("js");
+INSERT INTO `mymanager`.`file_types` (file_type) VALUES ("jpeg");
+INSERT INTO `mymanager`.`file_types` (file_type) VALUES ("mp3");
+INSERT INTO `mymanager`.`file_types` (file_type) VALUES ("mp4");
+INSERT INTO `mymanager`.`file_types` (file_type) VALUES ("vlc");
+INSERT INTO `mymanager`.`file_types` (file_type) VALUES ("rtf");
+
+
+
+
+
+-- -----------------------------------------------------
 -- Admin user to login initially on application,change password and username after first login
 -- -----------------------------------------------------
 INSERT INTO `mymanager`. `users` (  user_id,user_type,first_name,last_name,`password`,birthday,birthplace,
@@ -805,6 +879,7 @@ INSERT INTO `mymanager`. `users` (  user_id,user_type,first_name,last_name,`pass
 					                                      INSERT INTO `mymanager`. `employees` (  employee_id,first_name,last_name,middle_name,birthday,birthplace,
   gender,job_id,department_id,project_name,created_by,created_date,updated_by,updated_date) VALUES ("004", "James 4", "Bond", "Arthur",
 					curdate(), "London", 'M', "1","1" ,"Project 1 test","Developer", now(),"Developer", now());
+					
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
