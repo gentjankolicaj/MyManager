@@ -232,17 +232,19 @@ public class JobView extends MyPanel {
 	}
 
 	private void fillTable(List<Job> jobsList) {
-		Object[] rowData = new Object[8];
-		for (Job job : jobsList) {
-			rowData[0] = job.getJobId();
-			rowData[1] = job.getJobTitle();
-			rowData[2] = job.getMaxSalary();
-			rowData[3] = job.getMinSalary();
-			rowData[4] = job.getCreatedBy();
-			rowData[5] = job.getCreatedDate();
-			rowData[6] = job.getUpdatedBy();
-			rowData[7] = job.getUpdatedDate();
-			tableModel.addRow(rowData);
+		if (jobsList != null) {
+			Object[] rowData = new Object[8];
+			for (Job job : jobsList) {
+				rowData[0] = job.getJobId();
+				rowData[1] = job.getJobTitle();
+				rowData[2] = job.getMaxSalary();
+				rowData[3] = job.getMinSalary();
+				rowData[4] = job.getCreatedBy();
+				rowData[5] = job.getCreatedDate();
+				rowData[6] = job.getUpdatedBy();
+				rowData[7] = job.getUpdatedDate();
+				tableModel.addRow(rowData);
+			}
 		}
 	}
 

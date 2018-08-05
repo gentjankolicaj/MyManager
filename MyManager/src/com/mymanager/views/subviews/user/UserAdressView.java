@@ -205,21 +205,23 @@ public class UserAdressView extends MyPanel {
 		tableModel.setRowCount(0);
 	}
 
-	private void fillTable(List<Adress> adressList) {
-		Object[] rowData = new Object[11];
-		for (Adress adress : adressList) {
-			rowData[0] = adress.getAdressId();
-			rowData[1] = adress.getPersonId();
-			rowData[2] = adress.getCountry().getCountryName();
-			rowData[3] = adress.getCity();
-			rowData[4] = adress.getStreetName();
-			rowData[5] = adress.getZipCode();
-			rowData[6] = adress.getBuilding();
-			rowData[7] = adress.getCreatedBy();
-			rowData[8] = adress.getCreatedDate();
-			rowData[9] = adress.getUpdatedBy();
-			rowData[10] = adress.getUpdatedDate();
-			tableModel.addRow(rowData);
+	private void fillTable(List<Adress> adressesList) {
+		if (adressesList != null) {
+			Object[] rowData = new Object[11];
+			for (Adress adress : adressesList) {
+				rowData[0] = adress.getAdressId();
+				rowData[1] = adress.getPersonId();
+				rowData[2] = adress.getCountry().getCountryName();
+				rowData[3] = adress.getCity();
+				rowData[4] = adress.getStreetName();
+				rowData[5] = adress.getZipCode();
+				rowData[6] = adress.getBuilding();
+				rowData[7] = adress.getCreatedBy();
+				rowData[8] = adress.getCreatedDate();
+				rowData[9] = adress.getUpdatedBy();
+				rowData[10] = adress.getUpdatedDate();
+				tableModel.addRow(rowData);
+			}
 		}
 	}
 

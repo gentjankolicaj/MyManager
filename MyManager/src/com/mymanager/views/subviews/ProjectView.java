@@ -226,18 +226,20 @@ public class ProjectView extends MyPanel {
 			return 0;
 	}
 
-	private void fillTable(List<Project> projectList) {
-		Object[] rowData = new Object[8];
-		for (Project project : projectList) {
-			rowData[0] = project.getProjectName();
-			rowData[1] = project.getDescription();
-			rowData[2] = project.getCustomer();
-			rowData[3] = project.getCountry().getCountryName();
-			rowData[4] = project.getCreatedBy();
-			rowData[5] = project.getCreatedDate();
-			rowData[6] = project.getUpdatedBy();
-			rowData[7] = project.getUpdatedDate();
-			tableModel.addRow(rowData);
+	private void fillTable(List<Project> projectsList) {
+		if (projectsList != null) {
+			Object[] rowData = new Object[8];
+			for (Project project : projectsList) {
+				rowData[0] = project.getProjectName();
+				rowData[1] = project.getDescription();
+				rowData[2] = project.getCustomer();
+				rowData[3] = project.getCountry().getCountryName();
+				rowData[4] = project.getCreatedBy();
+				rowData[5] = project.getCreatedDate();
+				rowData[6] = project.getUpdatedBy();
+				rowData[7] = project.getUpdatedDate();
+				tableModel.addRow(rowData);
+			}
 		}
 	}
 

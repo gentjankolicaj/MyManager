@@ -248,9 +248,9 @@ public class ContactAccessObject implements ContactAccess {
 
 		if (contactType.equals(ContactType.EMPLOYEE_CONTACT)) {
 			if (queryType.equals(QueryType.NORMAL))
-				query = "SELECT * FROM mymanager.employee_contact WHERE employee_id=" + personId;
+				query = "SELECT * FROM mymanager.employee_contact WHERE employee_id LIKE '" + personId + "'";
 			else
-				query = "SELECT * FROM mymanager.employee_contact_history WHERE employee_id=" + personId;
+				query = "SELECT * FROM mymanager.employee_contact_history WHERE employee_id LIKE '" + personId + "'";
 
 			results = database.selectStatement(query);
 			while (results.next()) {
@@ -265,9 +265,9 @@ public class ContactAccessObject implements ContactAccess {
 
 		} else {
 			if (queryType.equals(QueryType.NORMAL))
-				query = "SELECT * FROM mymanager.user_contact WHERE user_id=" + personId;
+				query = "SELECT * FROM mymanager.user_contact WHERE user_id LIKE '" + personId + "'";
 			else
-				query = "SELECT * FROM mymanager.user_contact_history WHERE user_id=" + personId;
+				query = "SELECT * FROM mymanager.user_contact_history WHERE user_id LIKE '" + personId + "'";
 
 			results = database.selectStatement(query);
 			while (results.next()) {

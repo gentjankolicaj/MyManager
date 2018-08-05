@@ -209,20 +209,22 @@ public class UserContactView extends MyPanel {
 		tableModel.setRowCount(0);
 	}
 
-	private void fillTable(List<Contact> contactList) {
-		Object[] rowData = new Object[10];
-		for (Contact contact : contactList) {
-			rowData[0] = contact.getContactId();
-			rowData[1] = contact.getPersonId();
-			rowData[2] = contact.getTelephone();
-			rowData[3] = contact.getCelular();
-			rowData[4] = contact.getEmail();
-			rowData[5] = contact.getFax();
-			rowData[6] = contact.getCreatedBy();
-			rowData[7] = contact.getCreatedDate();
-			rowData[8] = contact.getUpdatedBy();
-			rowData[9] = contact.getUpdatedDate();
-			tableModel.addRow(rowData);
+	private void fillTable(List<Contact> contactsList) {
+		if (contactsList != null) {
+			Object[] rowData = new Object[10];
+			for (Contact contact : contactsList) {
+				rowData[0] = contact.getContactId();
+				rowData[1] = contact.getPersonId();
+				rowData[2] = contact.getTelephone();
+				rowData[3] = contact.getCelular();
+				rowData[4] = contact.getEmail();
+				rowData[5] = contact.getFax();
+				rowData[6] = contact.getCreatedBy();
+				rowData[7] = contact.getCreatedDate();
+				rowData[8] = contact.getUpdatedBy();
+				rowData[9] = contact.getUpdatedDate();
+				tableModel.addRow(rowData);
+			}
 		}
 	}
 

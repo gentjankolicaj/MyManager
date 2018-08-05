@@ -172,9 +172,9 @@ public class AdressAccessObject implements AdressAccess {
 
 		if (adressType.equals(AdressType.EMPLOYEE_ADRESS)) {
 			if (queryType.equals(QueryType.NORMAL))
-				query = "SELECT * FROM mymanager.employee_adress WHERE employee_id=" + personId;
+				query = "SELECT * FROM mymanager.employee_adress WHERE employee_id LIKE '" + personId + "'";
 			else
-				query = "SELECT * FROM mymanager.employee_adress_history WHERE employee_id=" + personId;
+				query = "SELECT * FROM mymanager.employee_adress_history WHERE employee_id LIKE '" + personId + "'";
 
 			results = database.selectStatement(query);
 			while (results.next()) {
@@ -191,9 +191,9 @@ public class AdressAccessObject implements AdressAccess {
 		} else {
 
 			if (queryType.equals(QueryType.NORMAL))
-				query = "SELECT * FROM mymanager.user_adress WHERE user_id=" + personId;
+				query = "SELECT * FROM mymanager.user_adress WHERE user_id LIKE '" + personId + "'";
 			else
-				query = "SELECT * FROM mymanager.user_adress_history WHERE user_id=" + personId;
+				query = "SELECT * FROM mymanager.user_adress_history WHERE user_id LIKE '" + personId + "'";
 
 			results = database.selectStatement(query);
 			while (results.next()) {

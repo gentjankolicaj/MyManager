@@ -219,17 +219,19 @@ public class DepartmentView extends MyPanel {
 			return 0;
 	}
 
-	private void fillTable(List<Department> departmentList) {
-		Object[] rowData = new Object[7];
-		for (Department department : departmentList) {
-			rowData[0] = department.getDepartmentId();
-			rowData[1] = department.getDepartmentName();
-			rowData[2] = department.getManagerId();
-			rowData[3] = department.getCreatedBy();
-			rowData[4] = department.getCreatedDate();
-			rowData[5] = department.getUpdatedBy();
-			rowData[6] = department.getUpdatedDate();
-			tableModel.addRow(rowData);
+	private void fillTable(List<Department> departmentsList) {
+		if (departmentsList != null) {
+			Object[] rowData = new Object[7];
+			for (Department department : departmentsList) {
+				rowData[0] = department.getDepartmentId();
+				rowData[1] = department.getDepartmentName();
+				rowData[2] = department.getManagerId();
+				rowData[3] = department.getCreatedBy();
+				rowData[4] = department.getCreatedDate();
+				rowData[5] = department.getUpdatedBy();
+				rowData[6] = department.getUpdatedDate();
+				tableModel.addRow(rowData);
+			}
 		}
 	}
 

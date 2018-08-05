@@ -492,7 +492,6 @@ public class UserController {
 			setContactType(contactType);
 			return contactAccess.updateContact(oldContact, newContact);
 		} catch (Exception e) {
-			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 
@@ -1487,7 +1486,6 @@ public class UserController {
 		try {
 			return userAccess.readUser(userId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 
@@ -1497,7 +1495,6 @@ public class UserController {
 		try {
 			return userAccess.updateUser(oldUser, newUser);
 		} catch (Exception e) {
-			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return 0;
 		}
 

@@ -175,6 +175,7 @@ public class EditUser extends JDialog {
 		detailsPanel.add(label_7);
 
 		id = new JTextField();
+		id.setEditable(false);
 		id.setBounds(84, 47, 218, 20);
 		detailsPanel.add(id);
 		id.setColumns(10);
@@ -495,30 +496,56 @@ public class EditUser extends JDialog {
 	}
 
 	private void saveContact() {
-		String telephone = textFieldTelephone.getText();
-		String celular = textFieldCel.getText();
-		if (textFieldTelephone.getText().equals(""))
-			telephone = "0";
-		if (textFieldCel.getText().equals(""))
-			celular = "0";
+		if (oldContact != null) {
+			String telephone = textFieldTelephone.getText();
+			String celular = textFieldCel.getText();
+			if (textFieldTelephone.getText().equals(""))
+				telephone = "0";
+			if (textFieldCel.getText().equals(""))
+				celular = "0";
 
-		Contact newContact = new Contact(1, id.getText(), Integer.parseInt(telephone), Integer.parseInt(celular),
-				textFieldEmail.getText(), textFieldFax.getText(), oldUser.getUserId(), currentUser.getUserId(),
-				LocalDateTime.now(), LocalDateTime.now());
-		userController.editContact(ContactType.USER_CONTACT, oldContact, newContact);
+			Contact newContact = new Contact(1, id.getText(), Integer.parseInt(telephone), Integer.parseInt(celular),
+					textFieldEmail.getText(), textFieldFax.getText(), oldUser.getUserId(), currentUser.getUserId(),
+					LocalDateTime.now(), LocalDateTime.now());
+			userController.editContact(ContactType.USER_CONTACT, oldContact, newContact);
+		} else {
+			String telephone = textFieldTelephone.getText();
+			String celular = textFieldCel.getText();
+			if (textFieldTelephone.getText().equals(""))
+				telephone = "0";
+			if (textFieldCel.getText().equals(""))
+				celular = "0";
 
+			Contact newContact = new Contact(1, id.getText(), Integer.parseInt(telephone), Integer.parseInt(celular),
+					textFieldEmail.getText(), textFieldFax.getText(), oldUser.getUserId(), currentUser.getUserId(),
+					LocalDateTime.now(), LocalDateTime.now());
+			userController.saveContact(ContactType.USER_CONTACT, newContact);
+		}
 	}
 
 	private void saveAdress() {
-		String selectedCountryName = (String) comboBoxCountry.getSelectedItem();
-		String zipCode = textFieldZipCode.getText();
-		if (zipCode.equals(""))
-			zipCode = "0";
+		if (oldAdress != null) {
+			String selectedCountryName = (String) comboBoxCountry.getSelectedItem();
+			String zipCode = textFieldZipCode.getText();
+			if (zipCode.equals(""))
+				zipCode = "0";
 
-		Adress newAdress = new Adress(1, id.getText(), new Country(selectedCountryName), textFieldCity.getText(),
-				textFieldStreet.getText(), Integer.parseInt(zipCode), textFieldBuilding.getText(), oldUser.getUserId(),
-				currentUser.getUserId(), LocalDateTime.now(), LocalDateTime.now());
-		userController.editAdress(AdressType.USER_ADRESS, oldAdress, newAdress);
+			Adress newAdress = new Adress(1, id.getText(), new Country(selectedCountryName), textFieldCity.getText(),
+					textFieldStreet.getText(), Integer.parseInt(zipCode), textFieldBuilding.getText(),
+					oldUser.getUserId(), currentUser.getUserId(), LocalDateTime.now(), LocalDateTime.now());
+			userController.editAdress(AdressType.USER_ADRESS, oldAdress, newAdress);
+
+		} else {
+			String selectedCountryName = (String) comboBoxCountry.getSelectedItem();
+			String zipCode = textFieldZipCode.getText();
+			if (zipCode.equals(""))
+				zipCode = "0";
+
+			Adress newAdress = new Adress(1, id.getText(), new Country(selectedCountryName), textFieldCity.getText(),
+					textFieldStreet.getText(), Integer.parseInt(zipCode), textFieldBuilding.getText(),
+					oldUser.getUserId(), currentUser.getUserId(), LocalDateTime.now(), LocalDateTime.now());
+			userController.saveAdress(AdressType.USER_ADRESS, newAdress);
+		}
 	}
 
 	private void savePanelsData() {

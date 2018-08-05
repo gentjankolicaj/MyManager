@@ -207,7 +207,7 @@ public class UserAccessObject implements UserAccess {
 	public User readUser(String userId) throws Exception {
 		ResultSet results = null;
 		User userLocal = null;
-		String query = "SELECT * FROM mymanager.users WHERE user_id=" + userId;
+		String query = "SELECT * FROM mymanager.users WHERE user_id LIKE '" + userId + "'";
 
 		results = database.selectStatement(query);
 		while (results.next()) {

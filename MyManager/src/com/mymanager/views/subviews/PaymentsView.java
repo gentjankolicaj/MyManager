@@ -1,3 +1,4 @@
+
 package com.mymanager.views.subviews;
 
 import java.awt.Font;
@@ -217,20 +218,22 @@ public class PaymentsView extends MyPanel {
 			return 0;
 	}
 
-	private void fillTable(List<Payment> paymentList) {
-		Object[] rowData = new Object[10];
-		for (Payment payment : paymentList) {
-			rowData[0] = payment.getPaymentId();
-			rowData[1] = payment.getPaymentType().getPayment();
-			rowData[2] = payment.getEmployeeId();
-			rowData[3] = payment.getPaymentAmount();
-			rowData[4] = payment.getCurrency().getCurrencyName();
-			rowData[5] = payment.getPaymentDescription();
-			rowData[6] = payment.getCreatedBy();
-			rowData[7] = payment.getCreatedDate();
-			rowData[8] = payment.getUpdatedBy();
-			rowData[9] = payment.getUpdatedDate();
-			tableModel.addRow(rowData);
+	private void fillTable(List<Payment> paymentsList) {
+		if (paymentsList != null) {
+			Object[] rowData = new Object[10];
+			for (Payment payment : paymentsList) {
+				rowData[0] = payment.getPaymentId();
+				rowData[1] = payment.getPaymentType().getPayment();
+				rowData[2] = payment.getEmployeeId();
+				rowData[3] = payment.getPaymentAmount();
+				rowData[4] = payment.getCurrency().getCurrencyName();
+				rowData[5] = payment.getPaymentDescription();
+				rowData[6] = payment.getCreatedBy();
+				rowData[7] = payment.getCreatedDate();
+				rowData[8] = payment.getUpdatedBy();
+				rowData[9] = payment.getUpdatedDate();
+				tableModel.addRow(rowData);
+			}
 		}
 	}
 

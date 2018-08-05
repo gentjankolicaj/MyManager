@@ -256,21 +256,23 @@ public class UserView extends MyPanel {
 	}
 
 	private void fillTable(List<User> usersList) {
-		Object[] rowData = new Object[12];
-		for (User user : usersList) {
-			rowData[0] = user.getUserId();
-			rowData[1] = user.getUserType();
-			rowData[2] = user.getFirstName();
-			rowData[3] = user.getLastName();
-			rowData[4] = user.getBirthday();
-			rowData[5] = user.getBirthplace();
-			rowData[6] = user.getRights();
-			rowData[7] = user.getGender();
-			rowData[8] = user.getCreatedBy();
-			rowData[9] = user.getCreatedDate();
-			rowData[10] = user.getUpdatedBy();
-			rowData[11] = user.getUpdatedDate();
-			tableModel.addRow(rowData);
+		if (usersList != null) {
+			Object[] rowData = new Object[12];
+			for (User user : usersList) {
+				rowData[0] = user.getUserId();
+				rowData[1] = user.getUserType();
+				rowData[2] = user.getFirstName();
+				rowData[3] = user.getLastName();
+				rowData[4] = user.getBirthday();
+				rowData[5] = user.getBirthplace();
+				rowData[6] = user.getRights();
+				rowData[7] = user.getGender();
+				rowData[8] = user.getCreatedBy();
+				rowData[9] = user.getCreatedDate();
+				rowData[10] = user.getUpdatedBy();
+				rowData[11] = user.getUpdatedDate();
+				tableModel.addRow(rowData);
+			}
 		}
 	}
 

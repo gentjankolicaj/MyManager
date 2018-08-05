@@ -227,7 +227,7 @@ public class EmployeeAccessObject implements EmployeeAccess {
 	@Override
 	public Employee readEmployee(String employeeId) throws Exception {
 		Employee employee = null;
-		String query = "Select * from mymanager.employees WHERE employee_id=" + employeeId;
+		String query = "Select * from mymanager.employees WHERE employee_id LIKE '" + employeeId + "'";
 		ResultSet results = null;
 
 		results = database.selectStatement(query);

@@ -200,15 +200,17 @@ public class AttemptView extends MyPanel {
 		tableModel.setRowCount(0);
 	}
 
-	private void fillTable(List<Attempt> attemptList) {
-		Object[] rowData = new Object[5];
-		for (Attempt attempt : attemptList) {
-			rowData[0] = attempt.getIndex();
-			rowData[1] = attempt.getUser();
-			rowData[2] = attempt.getStatus();
-			rowData[3] = attempt.getDescription();
-			rowData[4] = attempt.getDateTime();
-			tableModel.addRow(rowData);
+	private void fillTable(List<Attempt> attemptsList) {
+		if (attemptsList != null) {
+			Object[] rowData = new Object[5];
+			for (Attempt attempt : attemptsList) {
+				rowData[0] = attempt.getIndex();
+				rowData[1] = attempt.getUser();
+				rowData[2] = attempt.getStatus();
+				rowData[3] = attempt.getDescription();
+				rowData[4] = attempt.getDateTime();
+				tableModel.addRow(rowData);
+			}
 		}
 	}
 

@@ -230,18 +230,20 @@ public class WorkingHourView extends MyPanel {
 			return 0;
 	}
 
-	private void fillTable(List<WorkingHour> workingHourList) {
-		Object[] rowData = new Object[8];
-		for (WorkingHour workingHour : workingHourList) {
-			rowData[0] = workingHour.getIndex();
-			rowData[1] = workingHour.getEmployeeId();
-			rowData[2] = workingHour.getDate();
-			rowData[3] = workingHour.getAmount();
-			rowData[4] = workingHour.getCreatedBy();
-			rowData[5] = workingHour.getCreatedDate();
-			rowData[6] = workingHour.getUpdatedBy();
-			rowData[7] = workingHour.getUpdatedDate();
-			tableModel.addRow(rowData);
+	private void fillTable(List<WorkingHour> workingHoursList) {
+		if (workingHoursList != null) {
+			Object[] rowData = new Object[8];
+			for (WorkingHour workingHour : workingHoursList) {
+				rowData[0] = workingHour.getIndex();
+				rowData[1] = workingHour.getEmployeeId();
+				rowData[2] = workingHour.getDate();
+				rowData[3] = workingHour.getAmount();
+				rowData[4] = workingHour.getCreatedBy();
+				rowData[5] = workingHour.getCreatedDate();
+				rowData[6] = workingHour.getUpdatedBy();
+				rowData[7] = workingHour.getUpdatedDate();
+				tableModel.addRow(rowData);
+			}
 		}
 	}
 
