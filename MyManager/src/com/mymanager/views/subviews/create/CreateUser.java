@@ -60,7 +60,6 @@ public class CreateUser extends JDialog {
 	private JPasswordField textFieldNewPassword;
 	private JPasswordField textFieldRetypePassword;
 	private JPanel passwordPanel;
-	private JLabel lblNewLabel;
 
 	private JPanel contactPanel;
 	private JLabel lblContactId;
@@ -118,7 +117,7 @@ public class CreateUser extends JDialog {
 	}
 
 	private void initComponents() {
-		setTitle("My Account");
+		setTitle("Create new user ");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
 				CreateUser.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-admin-2.png")));
 		setBounds(100, 100, 997, 653);
@@ -189,6 +188,7 @@ public class CreateUser extends JDialog {
 		detailsPanel.add(lastname);
 
 		gender = new JTextField();
+		gender.setToolTipText("M or F");
 		gender.setColumns(10);
 		gender.setBounds(84, 87, 218, 20);
 		detailsPanel.add(gender);
@@ -199,11 +199,13 @@ public class CreateUser extends JDialog {
 		detailsPanel.add(birthplace);
 
 		birthday = new JTextField();
+		birthday.setToolTipText("YYYY-DD-MM");
 		birthday.setColumns(10);
 		birthday.setBounds(736, 48, 218, 20);
 		detailsPanel.add(birthday);
 
 		usertype = new JTextField();
+		usertype.setToolTipText("ADMIN or MANAGER or HR or ASSISTANT");
 		usertype.setColumns(10);
 		usertype.setBounds(404, 87, 221, 19);
 		detailsPanel.add(usertype);
@@ -214,6 +216,7 @@ public class CreateUser extends JDialog {
 		detailsPanel.add(lblRights);
 
 		rights = new JTextField();
+		rights.setToolTipText("READ,WRITE,UPDATE,DELETE");
 		rights.setText((String) null);
 		rights.setColumns(10);
 		rights.setBounds(736, 86, 218, 20);
@@ -247,11 +250,6 @@ public class CreateUser extends JDialog {
 		textFieldRetypePassword.setColumns(10);
 		textFieldRetypePassword.setBounds(572, 43, 218, 20);
 		passwordPanel.add(textFieldRetypePassword);
-
-		lblNewLabel = new JLabel("");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
-		lblNewLabel.setBounds(309, 74, 642, 22);
-		passwordPanel.add(lblNewLabel);
 
 		contactPanel = new JPanel();
 		contactPanel.setLayout(null);
@@ -416,7 +414,6 @@ public class CreateUser extends JDialog {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				savePanelsData();
-
 				selfReference.dispose();
 			}
 		});

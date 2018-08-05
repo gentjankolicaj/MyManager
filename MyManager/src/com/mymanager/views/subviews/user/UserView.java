@@ -18,6 +18,10 @@ import javax.swing.table.DefaultTableModel;
 import com.mymanager.config.Config;
 import com.mymanager.controllers.UserController;
 import com.mymanager.data.database.QueryType;
+import com.mymanager.data.models.Adress;
+import com.mymanager.data.models.AdressType;
+import com.mymanager.data.models.Contact;
+import com.mymanager.data.models.ContactType;
 import com.mymanager.data.models.MyTable;
 import com.mymanager.data.models.User;
 import com.mymanager.utils.AppUtil;
@@ -170,7 +174,12 @@ public class UserView extends MyPanel {
 				int totalRows = table.getRowCount();
 				if ((selectedRow > -1) && (selectedRow < totalRows)) {
 					User oldUser = currentUserList.get(selectedRow);
-					EditUser editUser = new EditUser(userController, oldUser);
+					Contact oldContact = userController.getContactByPersonId(QueryType.NORMAL, ContactType.USER_CONTACT,
+							oldUser.getUserId());
+					Adress oldAdress = userController.getAdressByPersonId(QueryType.NORMAL, AdressType.USER_ADRESS,
+							oldUser.getUserId());
+
+					EditUser editUser = new EditUser(userController, oldUser, oldAdress, oldContact);
 					editUser.setModal(true);
 					editUser.setVisible(true);
 					loadData();
