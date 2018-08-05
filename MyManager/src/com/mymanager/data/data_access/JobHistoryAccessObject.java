@@ -3,7 +3,6 @@ package com.mymanager.data.data_access;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -194,21 +193,22 @@ public class JobHistoryAccessObject implements JobHistoryAccess {
 	}
 
 	@Override
-	public JobHistory readJobHistoryByEmployeeId(String employeeId, LocalDateTime createdDateTime) throws Exception {
-		JobHistory jobHistory = null;
+	public List<JobHistory> readJobHistoryByEmployeeId(String employeeId) throws Exception {
+		List<JobHistory> jobHistoryList = new ArrayList<>();
 		ResultSet results = null;
-		String query = "SELECT * FROM mymanager.job_history WHERE employee_id=? AND created_date=?";
+		String query = "SELECT * FROM mymanager.job_history WHERE employee_id LIKE '" + employeeId + "'";
 
-		results = database.selectStatement(query, Arrays.asList(employeeId, createdDateTime));
+		results = database.selectStatement(query, Arrays.asList(employeeId));
 		while (results.next()) {
-			jobHistory = new JobHistory(results.getString("employee_id"), results.getDate("start_date").toLocalDate(),
-					results.getDate("end_date").toLocalDate(), results.getString("job_id"),
-					results.getString("department_id"), results.getString("created_by"),
+			JobHistory jobHistory = new JobHistory(results.getString("employee_id"),
+					results.getDate("start_date").toLocalDate(), results.getDate("end_date").toLocalDate(),
+					results.getString("job_id"), results.getString("department_id"), results.getString("created_by"),
 					results.getString("updated_by"), results.getTimestamp("created_date").toLocalDateTime(),
 					results.getTimestamp("updated_date").toLocalDateTime());
+			jobHistoryList.add(jobHistory);
 		}
-		PrintUtils.print(jobHistory, PrintType.QUERY_RESULTS);
-		return jobHistory;
+		PrintUtils.print(jobHistoryList, PrintType.QUERY_RESULTS);
+		return jobHistoryList;
 	}
 
 	@Override
@@ -217,7 +217,12 @@ public class JobHistoryAccessObject implements JobHistoryAccess {
 				+ "created_by=?,created_date=?,updated_by=?,updated_date=? WHERE employee_id=? AND created_date=?";
 
 		setQueryType(QueryType.NORMAL);
-		JobHistory temp = readJobHistoryByEmployeeId(oldJobHistory.getDepartmentId(), oldJobHistory.getCreatedDate());
+		JobHistory temp = readJobHistoryByEmployeeId(oldJobHistory.getDepartmentId()).get(0); // gets
+																								// the
+																								// first
+																								// jobhistory
+																								// from
+																								// list
 		savePreviousRow(temp);
 
 		PreparedStatement pstmt = database.updateStatement(query);

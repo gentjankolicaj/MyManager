@@ -1178,11 +1178,10 @@ public class UserController {
 
 	}
 
-	public JobHistory getJobHistory(String employeeId, LocalDateTime createdDateTime) {
+	public List<JobHistory> getJobHistory(String employeeId) {
 		try {
-			return jobHistoryAccess.readJobHistoryByEmployeeId(employeeId, createdDateTime);
+			return jobHistoryAccess.readJobHistoryByEmployeeId(employeeId);
 		} catch (Exception e) {
-			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
 			return null;
 		}
 

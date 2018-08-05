@@ -76,7 +76,6 @@ public class AppUtil {
 
 	public static void returnToMainView(JFrame jframe, MyPanel oldPanel, MyPanel mainView) {
 		jframe.getContentPane().remove(oldPanel);
-		System.out.println(mainView.getMyWidth() + " ," + mainView.getMyHeight());
 		jframe.setSize(mainView.getMyWidth(), mainView.getMyHeight());
 		jframe.setContentPane(mainView);
 		jframe.repaint();
