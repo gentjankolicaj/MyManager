@@ -25,7 +25,7 @@ public class ConsolePrinter {
 	public static void print(Object object) {
 		if (object instanceof MyModel) {
 			MyModel model = (MyModel) object;
-			print("|" + model.toNormal() + "|");
+			print("|" + model.toString() + "|");
 		} else {
 			System.out.println("-  " + object.toString());
 		}
@@ -60,7 +60,7 @@ public class ConsolePrinter {
 			i++;
 			if (object instanceof MyModel) {
 				MyModel model = (MyModel) object;
-				print(i + "-|" + model.toNormal() + "|");
+				print(i + "-|" + model.toString() + "|");
 			} else
 				print(i + "." + object.toString());
 		}
