@@ -1,0 +1,205 @@
+package com.mymanager.desktop.views.subviews.employee;
+
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+import com.mymanager.data.models.MyTable;
+import com.mymanager.data.models.User;
+
+public class EmployeeView extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2586092764218526222L;
+	private JTextField textFieldSearch;
+
+	private int width = 1250;
+	private int height = 650;
+	private DefaultTableModel tableModel;
+	private MyTable table;
+
+	private JButton btnCreate;
+	private JButton btnEdit;
+	private JButton btnDelete;
+	private JButton btnBack;
+	private JRadioButton rdbtnFirstname;
+	private JRadioButton rdbtnCreatedBy;
+	private JButton btnSearch;
+	private final ButtonGroup buttonGroupSearchType = new ButtonGroup();
+	private JRadioButton rdbtnId;
+	private JRadioButton rdbtnType;
+	private JRadioButton rdbtnLastname;
+
+	/**
+	 * Create the panel.
+	 */
+	public EmployeeView() {
+		initComponents();
+		initEvents();
+
+	}
+
+	private void initComponents() {
+		setLayout(null);
+
+		JLabel lblNewLabel = new JLabel("All registered users");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel.setBounds(341, 13, 230, 45);
+		add(lblNewLabel);
+
+		textFieldSearch = new JTextField();
+		textFieldSearch.setBounds(12, 115, 913, 31);
+		add(textFieldSearch);
+		textFieldSearch.setColumns(10);
+
+		JLabel lblSearcchBy = new JLabel("Search by :");
+		lblSearcchBy.setBounds(12, 63, 89, 31);
+		add(lblSearcchBy);
+
+		rdbtnId = new JRadioButton("Id");
+		buttonGroupSearchType.add(rdbtnId);
+		rdbtnId.setBounds(83, 66, 56, 25);
+		add(rdbtnId);
+
+		rdbtnType = new JRadioButton("User type");
+		buttonGroupSearchType.add(rdbtnType);
+		rdbtnType.setBounds(141, 66, 95, 25);
+		add(rdbtnType);
+
+		rdbtnFirstname = new JRadioButton("Firstname");
+		buttonGroupSearchType.add(rdbtnFirstname);
+		rdbtnFirstname.setBounds(240, 66, 95, 25);
+		add(rdbtnFirstname);
+
+		rdbtnLastname = new JRadioButton("Lastname");
+		buttonGroupSearchType.add(rdbtnLastname);
+		rdbtnLastname.setBounds(351, 66, 95, 25);
+		add(rdbtnLastname);
+
+		rdbtnCreatedBy = new JRadioButton("Created by");
+		buttonGroupSearchType.add(rdbtnCreatedBy);
+		rdbtnCreatedBy.setBounds(450, 67, 104, 25);
+		add(rdbtnCreatedBy);
+
+		btnSearch = new JButton("Search");
+		btnSearch.setBounds(937, 115, 138, 31);
+		add(btnSearch);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(12, 174, 1068, 460);
+
+		table = new MyTable();
+		table.setFillsViewportHeight(true);
+
+		tableModel = new DefaultTableModel();
+		tableModel.setColumnIdentifiers(new String[] { "ID", "User type", "Firstname", "Lastname", "Birthday",
+				"Birthplace", "Rights", "Gender", "Created by", "Created date", "Updated by", "Updated date" });
+
+		table.setModel(tableModel);
+		scrollPane.setViewportView(table);
+
+		add(scrollPane);
+		btnCreate = new JButton("Create");
+		btnCreate.setBounds(1092, 184, 97, 25);
+		add(btnCreate);
+
+		btnEdit = new JButton("Edit");
+		btnEdit.setBounds(1092, 222, 97, 25);
+		add(btnEdit);
+
+		btnDelete = new JButton("Delete");
+		btnDelete.setBounds(1092, 260, 97, 25);
+		add(btnDelete);
+
+		btnBack = new JButton("Back");
+		btnBack.setBounds(1092, 319, 97, 25);
+		add(btnBack);
+	}
+
+	private void initEvents() {
+		btnCreate.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+
+				addProjects();
+			}
+		});
+		btnEdit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+		});
+		btnDelete.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				clearTable();
+			}
+		});
+		btnBack.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+		});
+
+	}
+
+	public int getMyHeight() {
+		return height;
+	}
+
+	public int getMyWidth() {
+		return width;
+	}
+
+	private void clearTable() {
+		tableModel.setRowCount(0);
+	}
+
+	private int chooseSearchType() {
+		if (rdbtnId.isSelected()) {
+			return 1;
+		} else if (rdbtnType.isSelected()) {
+			return 2;
+		} else if (rdbtnFirstname.isSelected()) {
+			return 3;
+		} else if (rdbtnLastname.isSelected()) {
+			return 4;
+		} else if (rdbtnCreatedBy.isSelected()) {
+			return 5;
+		} else
+			return 0;
+	}
+
+	private void addProjects() {
+		List<User> usersList = null;
+		Object[] rowData = new Object[12];
+		for (User user : usersList) {
+			rowData[0] = user.getUserId();
+			rowData[1] = user.getUserType();
+			rowData[2] = user.getFirstName();
+			rowData[3] = user.getLastName();
+			rowData[4] = user.getBirthday();
+			rowData[5] = user.getBirthplace();
+			rowData[6] = user.getRights();
+			rowData[7] = user.getGender();
+			rowData[8] = user.getCreatedBy();
+			rowData[9] = user.getCreatedDate();
+			rowData[10] = user.getUpdatedBy();
+			rowData[11] = user.getUpdatedDate();
+
+			tableModel.addRow(rowData);
+		}
+	}
+}

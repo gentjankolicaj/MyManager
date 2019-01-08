@@ -4,8 +4,8 @@ import java.awt.EventQueue;
 
 import com.mymanager.data.database.DatabaseManager;
 import com.mymanager.data.database.RDBMSType;
-import com.mymanager.views.LoginView;
-import com.mymanager.views.MyFrame;
+import com.mymanager.desktop.views.LoginView;
+import com.mymanager.desktop.views.MyFrame;
 
 /**
  * 

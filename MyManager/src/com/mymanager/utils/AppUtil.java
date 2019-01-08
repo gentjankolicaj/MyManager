@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.mymanager.data.models.User;
-import com.mymanager.views.subviews.custom.MyPanel;
+import com.mymanager.desktop.views.subviews.custom.MyPanel;
 
 /**
  * 
