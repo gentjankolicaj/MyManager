@@ -70,8 +70,10 @@ public class ConnectionUrlBuilder {
 		if (schema == null)
 			schema = "";
 
-		if (SSL = true)
+		if (SSL == true)
 			sslParam = "?useSSL=true";
+		else 
+			sslParam="?useSSL=false";
 
 		return api + ":" + database + "://" + server + ":" + port + "/" + schema + sslParam;
 
