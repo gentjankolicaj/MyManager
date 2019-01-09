@@ -16,9 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.Country;
 import com.mymanager.desktop.views.subviews.CurrencyView;
+import com.mymanager.services.CountryService;
 
 public class EditCountry extends JDialog {
 
@@ -28,18 +28,20 @@ public class EditCountry extends JDialog {
 	private static final long serialVersionUID = -8373954310692448463L;
 	private JDialog selfReference;
 	private final JPanel contentPanel = new JPanel();
-	private JButton btnCreate;
+	private JButton btnEdit;
 	private JTextField textFieldCountry;
-	private UserController userController;
 	private Country oldCountry;
+	
+	private CountryService countryService;
 
 	/**
 	 * Create the dialog.
 	 */
-	public EditCountry(UserController userController, Country oldCountry) {
+	public EditCountry(CountryService countryService, Country oldCountry) {
 		selfReference = this;
-		this.userController = userController;
+		this.countryService=countryService;
 		this.oldCountry = oldCountry;
+		
 		initComponents();
 		textFieldCountry.setText(oldCountry.getCountryName());
 		initEvents();
@@ -47,11 +49,19 @@ public class EditCountry extends JDialog {
 	}
 
 	private void initEvents() {
-		btnCreate.addMouseListener(new MouseAdapter() {
+		btnEdit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				String newCountry = textFieldCountry.getText();
-				userController.editCountry(oldCountry, new Country(newCountry));
+				try {
+					
+					countryService.updateCountry(oldCountry, new Country(newCountry));
+					
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 				selfReference.dispose();
 			}
 		});
@@ -61,7 +71,16 @@ public class EditCountry extends JDialog {
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					String newCountry = textFieldCountry.getText();
-					userController.editCountry(oldCountry, new Country(newCountry));
+					
+					try {
+						
+						countryService.updateCountry(oldCountry, new Country(newCountry));
+						
+					} catch (Exception e1) {
+						
+						e1.printStackTrace();
+					}
+					
 					selfReference.dispose();
 				}
 			}
@@ -83,12 +102,12 @@ public class EditCountry extends JDialog {
 		lblCurrencies.setBounds(110, 0, 103, 24);
 		contentPanel.add(lblCurrencies);
 
-		btnCreate = new JButton("Save");
+		btnEdit = new JButton("Save");
 
-		btnCreate.setIcon(new ImageIcon(
+		btnEdit.setIcon(new ImageIcon(
 				EditCountry.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-save-2.png")));
-		btnCreate.setBounds(217, 67, 108, 23);
-		contentPanel.add(btnCreate);
+		btnEdit.setBounds(217, 67, 108, 23);
+		contentPanel.add(btnEdit);
 
 		textFieldCountry = new JTextField();
 		textFieldCountry.setBounds(10, 67, 185, 22);

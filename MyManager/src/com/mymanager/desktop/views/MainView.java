@@ -612,7 +612,7 @@ public class MainView extends MyPanel {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				if (user.getUserType().equals(UserType.ADMIN.toString())) {
-					CountryView countryView = new CountryView(userController);
+					CountryView countryView = new CountryView();
 					countryView.setModal(true);
 					countryView.setVisible(true);
 

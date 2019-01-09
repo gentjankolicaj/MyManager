@@ -16,9 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.Country;
 import com.mymanager.desktop.views.subviews.CurrencyView;
+import com.mymanager.services.CountryService;
 
 public class CreateCountry extends JDialog {
 
@@ -30,14 +30,16 @@ public class CreateCountry extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JButton btnCreate;
 	private JTextField textFieldCountry;
-	private UserController userController;
+
+	private CountryService countryService;
 
 	/**
 	 * Create the dialog.
 	 */
-	public CreateCountry(UserController userController) {
+	public CreateCountry(CountryService countryService) {
 		selfReference = this;
-		this.userController = userController;
+		this.countryService=countryService;
+		
 		initComponents();
 		initEvents();
 
@@ -48,7 +50,14 @@ public class CreateCountry extends JDialog {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				String newCountry = textFieldCountry.getText();
-				userController.saveCountry(new Country(newCountry));
+				try {
+					
+					countryService.saveCountry(new Country(newCountry));
+					
+				} catch (Exception e1) {
+					
+					e1.printStackTrace();
+				}
 				selfReference.dispose();
 			}
 		});
@@ -58,7 +67,15 @@ public class CreateCountry extends JDialog {
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					String newCountry = textFieldCountry.getText();
-					userController.saveCountry(new Country(newCountry));
+					try {
+						
+						countryService.saveCountry(new Country(newCountry));
+						
+					} catch (Exception e1) {
+						
+						e1.printStackTrace();
+					}
+					
 					selfReference.dispose();
 				}
 			}
