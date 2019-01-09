@@ -19,7 +19,6 @@ import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 
 import com.mymanager.config.AppText;
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.data_access.AttemptAccessObject;
 import com.mymanager.data.data_access.UserAccessObject;
 import com.mymanager.data.data_access.interfaces.AttemptAccess;

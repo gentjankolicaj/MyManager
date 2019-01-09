@@ -15,7 +15,6 @@ import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.User;
 import com.mymanager.data.models.UserType;
 import com.mymanager.desktop.views.subviews.AccountView;
