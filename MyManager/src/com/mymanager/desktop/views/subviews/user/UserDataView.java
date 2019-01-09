@@ -8,8 +8,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import com.mymanager.controllers.UserController;
+import com.mymanager.data.models.User;
 import com.mymanager.desktop.views.MainView;
 import com.mymanager.desktop.views.subviews.custom.MyPanel;
+import com.mymanager.services.UserService;
 import com.mymanager.utils.AppUtil;
 
 public class UserDataView extends MyPanel {
@@ -30,22 +32,28 @@ public class UserDataView extends MyPanel {
 	//
 
 	private JFrame jframe;
-	private UserController userController;
 	private MyPanel selfReference;
 	private MainView mainView;
 
 	private JButton btnContacts;
 	private JButton btnAdresses;
 	private JButton btnUsers;
+	
+	
+	//
+	private UserService userService;
+	private User user;
 
 	/**
 	 * Create the panel.
 	 */
-	public UserDataView(JFrame jframe, MainView mainView, UserController userController) {
+	public UserDataView(JFrame jframe, MainView mainView, UserService userService,User user) {
 		super(1335, 577);
 		this.jframe = jframe;
 		this.mainView = mainView;
-		this.userController = userController;
+		this.userService=userService;
+		this.user=user;
+		
 		selfReference = this;
 		initComponents();
 		initEvents();
@@ -54,7 +62,7 @@ public class UserDataView extends MyPanel {
 	private void initComponents() {
 		setLayout(null);
 
-		userView = new UserView(jframe, mainView, userController);
+		userView = new UserView(jframe, mainView, userService,user);
 		previousPanel = userView;
 		userView.setBounds(134, 11, 1221, 650);
 		add(userView);
@@ -79,7 +87,7 @@ public class UserDataView extends MyPanel {
 		btnUsers.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				userView = new UserView(jframe, mainView, userController);
+				userView = new UserView(jframe, mainView, userService,user);
 				AppUtil.changeUserView(selfReference, userView, previousPanel);
 				previousPanel = userView;
 
@@ -88,7 +96,7 @@ public class UserDataView extends MyPanel {
 		btnAdresses.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				adressView = new UserAdressView(jframe, mainView, userController);
+				adressView = new UserAdressView(jframe, mainView,user);
 				AppUtil.changeUserView(selfReference, adressView, previousPanel);
 				previousPanel = adressView;
 			}
@@ -97,7 +105,7 @@ public class UserDataView extends MyPanel {
 		btnContacts.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				contactView = new UserContactView(jframe, mainView, userController);
+				contactView = new UserContactView(jframe, mainView, user);
 				AppUtil.changeUserView(selfReference, contactView, previousPanel);
 				previousPanel = contactView;
 			}

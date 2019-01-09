@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -22,14 +23,19 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import com.mymanager.controllers.UserController;
-import com.mymanager.data.models.Adress;
-import com.mymanager.data.models.AdressType;
-import com.mymanager.data.models.Contact;
-import com.mymanager.data.models.ContactType;
 import com.mymanager.data.models.Country;
 import com.mymanager.data.models.Gender;
 import com.mymanager.data.models.Rights;
 import com.mymanager.data.models.User;
+import com.mymanager.data.models.UserAdress;
+import com.mymanager.data.models.UserContact;
+import com.mymanager.services.CountryService;
+import com.mymanager.services.CountryServiceImpl;
+import com.mymanager.services.UserAdressService;
+import com.mymanager.services.UserAdressServiceImpl;
+import com.mymanager.services.UserContactService;
+import com.mymanager.services.UserContactServiceImpl;
+import com.mymanager.services.UserService;
 import com.mymanager.utils.MessageType;
 import com.mymanager.utils.UtilWindow;
 
@@ -52,12 +58,6 @@ public class EditUser extends JDialog {
 	private JTextField usertype;
 	private JTextField rights;
 
-	private User currentUser;
-	private User oldUser;
-	private Adress oldAdress;
-	private Contact oldContact;
-
-	private UserController userController;
 	private JPasswordField textFieldNewPassword;
 	private JPasswordField textFieldRetypePassword;
 	private JPanel passwordPanel;
@@ -94,18 +94,34 @@ public class EditUser extends JDialog {
 	private JButton btnSave;
 	private JButton btnBack;
 
+	// ================================================================
+	// Field services
+	private UserService userService;
+	private UserContactService userContactService;
+	private UserAdressService userAdressService;
+	private CountryService countryService;
+
+	private User currentUser;
+	private User oldUser;
+	private UserAdress oldAdress;
+	private UserContact oldContact;
+
 	/**
 	 * Create the dialog.
 	 */
-	public EditUser(UserController userController, User oldUser, Adress oldAdress, Contact oldContact) {
+	public EditUser(UserService userService, UserContactService userContactService, UserAdressService userAdressService,
+			User currentUser, User oldUser, UserContact oldContact,UserAdress oldAdress) {
 		this.selfReference = this;
 		setResizable(false);
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
-		this.userController = userController;
-		this.currentUser = userController.getUser();
+		this.userService = userService;
+		this.userContactService = userContactService;
+		this.userAdressService = userAdressService;
+		this.countryService = new CountryServiceImpl();
 
+		this.currentUser = currentUser;
 		this.oldUser = oldUser;
 		this.oldAdress = oldAdress;
 		this.oldContact = oldContact;
@@ -492,7 +508,15 @@ public class EditUser extends JDialog {
 		User newUser = new User(id.getText(), userTypeStr, firstname.getText(), lastname.getText(), newPass,
 				LocalDate.parse(birthdayStr), birthplace.getText(), Gender.valueOf(genderStr), rightsStr,
 				oldUser.getUserId(), currentUser.getUserId(), LocalDateTime.now(), LocalDateTime.now());
-		userController.editUser(oldUser, newUser);
+
+		try {
+
+			userService.updateUser(oldUser, newUser);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void saveContact() {
@@ -504,10 +528,19 @@ public class EditUser extends JDialog {
 			if (textFieldCel.getText().equals(""))
 				celular = "0";
 
-			Contact newContact = new Contact(1, id.getText(), Integer.parseInt(telephone), Integer.parseInt(celular),
-					textFieldEmail.getText(), textFieldFax.getText(), oldUser.getUserId(), currentUser.getUserId(),
-					LocalDateTime.now(), LocalDateTime.now());
-			userController.editContact(ContactType.USER_CONTACT, oldContact, newContact);
+			UserContact newContact = new UserContact(1, id.getText(), Integer.parseInt(telephone),
+					Integer.parseInt(celular), textFieldEmail.getText(), textFieldFax.getText(), oldUser.getUserId(),
+					currentUser.getUserId(), LocalDateTime.now(), LocalDateTime.now());
+
+			try {
+
+				userContactService.updateContact(oldContact, newContact);
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		} else {
 			String telephone = textFieldTelephone.getText();
 			String celular = textFieldCel.getText();
@@ -516,10 +549,18 @@ public class EditUser extends JDialog {
 			if (textFieldCel.getText().equals(""))
 				celular = "0";
 
-			Contact newContact = new Contact(1, id.getText(), Integer.parseInt(telephone), Integer.parseInt(celular),
-					textFieldEmail.getText(), textFieldFax.getText(), oldUser.getUserId(), currentUser.getUserId(),
-					LocalDateTime.now(), LocalDateTime.now());
-			userController.saveContact(ContactType.USER_CONTACT, newContact);
+			UserContact newContact = new UserContact(1, id.getText(), Integer.parseInt(telephone),
+					Integer.parseInt(celular), textFieldEmail.getText(), textFieldFax.getText(), oldUser.getUserId(),
+					currentUser.getUserId(), LocalDateTime.now(), LocalDateTime.now());
+
+			try {
+
+				userContactService.saveContact(newContact);
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -530,10 +571,20 @@ public class EditUser extends JDialog {
 			if (zipCode.equals(""))
 				zipCode = "0";
 
-			Adress newAdress = new Adress(1, id.getText(), new Country(selectedCountryName), textFieldCity.getText(),
-					textFieldStreet.getText(), Integer.parseInt(zipCode), textFieldBuilding.getText(),
-					oldUser.getUserId(), currentUser.getUserId(), LocalDateTime.now(), LocalDateTime.now());
-			userController.editAdress(AdressType.USER_ADRESS, oldAdress, newAdress);
+			UserAdress newAdress = new UserAdress(1, id.getText(), new Country(selectedCountryName),
+					textFieldCity.getText(), textFieldStreet.getText(), Integer.parseInt(zipCode),
+					textFieldBuilding.getText(), oldUser.getUserId(), currentUser.getUserId(), LocalDateTime.now(),
+					LocalDateTime.now());
+
+			try {
+
+				userAdressService.updateAdress(oldAdress, newAdress);
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+
+			}
 
 		} else {
 			String selectedCountryName = (String) comboBoxCountry.getSelectedItem();
@@ -541,10 +592,20 @@ public class EditUser extends JDialog {
 			if (zipCode.equals(""))
 				zipCode = "0";
 
-			Adress newAdress = new Adress(1, id.getText(), new Country(selectedCountryName), textFieldCity.getText(),
-					textFieldStreet.getText(), Integer.parseInt(zipCode), textFieldBuilding.getText(),
-					oldUser.getUserId(), currentUser.getUserId(), LocalDateTime.now(), LocalDateTime.now());
-			userController.saveAdress(AdressType.USER_ADRESS, newAdress);
+			UserAdress newAdress = new UserAdress(1, id.getText(), new Country(selectedCountryName),
+					textFieldCity.getText(), textFieldStreet.getText(), Integer.parseInt(zipCode),
+					textFieldBuilding.getText(), oldUser.getUserId(), currentUser.getUserId(), LocalDateTime.now(),
+					LocalDateTime.now());
+
+			try {
+
+				userAdressService.saveAdress(newAdress);
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
 	}
 
@@ -574,8 +635,18 @@ public class EditUser extends JDialog {
 
 	private void loadCountries() {
 		comboBoxModel.removeAllElements();
-		for (Country country : userController.getAllCountries()) {
-			comboBoxModel.addElement(country.getCountryName());
+		List<Country> temp = null;
+		try {
+			temp = countryService.getAllCountries();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (temp != null && temp.size() != 0) {
+			for (Country country : temp)
+				comboBoxModel.addElement(country.getCountryName());
+
 		}
 	}
+
 }

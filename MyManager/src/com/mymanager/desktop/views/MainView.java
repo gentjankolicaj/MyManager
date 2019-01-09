@@ -33,6 +33,8 @@ import com.mymanager.desktop.views.subviews.WorkingHourView;
 import com.mymanager.desktop.views.subviews.custom.MyPanel;
 import com.mymanager.desktop.views.subviews.employee.EmployeeDataView;
 import com.mymanager.desktop.views.subviews.user.UserDataView;
+import com.mymanager.services.AttemptService;
+import com.mymanager.services.UserService;
 import com.mymanager.utils.AppUtil;
 import com.mymanager.utils.MessageType;
 import com.mymanager.utils.UtilWindow;
@@ -70,8 +72,7 @@ public class MainView extends MyPanel {
 	private JPanel fileTypePanel;
 	private JPanel countryPanel;
 
-	private User user;
-	private UserController userController;
+
 	private JLabel labelUserId;
 
 	// Views
@@ -91,22 +92,29 @@ public class MainView extends MyPanel {
 	private JPanel paymentsPanel;
 	private JPanel historyPanel;
 	private JPanel dataPanel;
+	
+	
+	//User and services
+	private UserService userService;
+	private User user;
 
 	/**
 	 * Create the panel.
 	 */
-	public MainView(JFrame jframe, UserController userController) {
+	public MainView(JFrame jframe, UserService userService,User user) {
 		super(900, 690);
 		selfReference = this;
 		this.jframe = jframe;
-		this.userController = userController;
-		this.user = userController.getUser();
-		usersDataView = new UserDataView(jframe, selfReference, userController);
+		this.user=user;
+		this.userService=userService;
+		
+		
+		usersDataView = new UserDataView(jframe, selfReference, userService,user);
 		employeesDataView = new EmployeeDataView(jframe, selfReference, userController);
 		projectsView = new ProjectView(jframe, selfReference, userController);
 		jobsView = new JobView(jframe, selfReference, userController);
 		workingHoursView = new WorkingHourView(jframe, selfReference, userController);
-		attemptsView = new AttemptView(jframe, selfReference, userController);
+		attemptsView = new AttemptView(jframe, selfReference, user);
 		departmentsView = new DepartmentView(jframe, selfReference, userController);
 		paymentsView = new PaymentsView(jframe, selfReference, userController);
 

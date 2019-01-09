@@ -27,6 +27,10 @@ import com.mymanager.data.data_access.interfaces.UserAccess;
 import com.mymanager.data.models.Attempt;
 import com.mymanager.data.models.Status;
 import com.mymanager.data.models.User;
+import com.mymanager.services.AttemptService;
+import com.mymanager.services.AttemptServiceImpl;
+import com.mymanager.services.UserService;
+import com.mymanager.services.UserServiceImpl;
 import com.mymanager.utils.AppUtil;
 import com.mymanager.utils.MessageType;
 import com.mymanager.utils.PrintType;
@@ -58,11 +62,15 @@ public class LoginView extends JPanel {
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel;
 
-	private UserController userController;
-	private UserAccess userAccess;
+	
+
 	private User user;
-	private AttemptAccess attemptAccess;
 	private JPanel selfReference;
+	
+	//service references
+	private AttemptService attemptService;
+	private UserService userService;
+	
 
 	/**
 	 * Create the panel.
@@ -70,8 +78,10 @@ public class LoginView extends JPanel {
 	public LoginView(JFrame jframe) {
 		selfReference = this;
 		this.jframe = jframe;
-		userAccess = new UserAccessObject();
-		attemptAccess = new AttemptAccessObject();
+		
+		//services init
+		this.userService=new UserServiceImpl();
+	    this.attemptService=new AttemptServiceImpl();
 
 		initComponents();
 		initButtonEvents();
@@ -156,7 +166,7 @@ public class LoginView extends JPanel {
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					if (authenticate()) {
-						mainView = new MainView(jframe, userController);
+						mainView = new MainView(jframe, userService,user);
 						AppUtil.openMainView(jframe, selfReference, mainView);
 
 					}
@@ -169,7 +179,7 @@ public class LoginView extends JPanel {
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					if (authenticate()) {
-						mainView = new MainView(jframe, userController);
+						mainView = new MainView(jframe, userService,user);
 						AppUtil.openMainView(jframe, selfReference, mainView);
 
 					}
@@ -184,7 +194,7 @@ public class LoginView extends JPanel {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				if (authenticate()) {
-					mainView = new MainView(jframe, userController);
+					mainView = new MainView(jframe, userService,user);
 					AppUtil.openMainView(jframe, selfReference, mainView);
 
 				}
@@ -205,15 +215,16 @@ public class LoginView extends JPanel {
 		char[] pass = textFieldPassword.getPassword();
 		String password = String.valueOf(pass);
 		try {
-			user = userAccess.readUser(userId);
+			user = userService.getUser(userId);
 			if (user != null) {
-				if (AppUtil.validateUser(user, userId, password)) {
-					userController = new UserController(user);
+				if (validateUser(user, userId, password)) {
 					registerAttempt(user, Status.SUCCESS, "login");
 					return true;
 				} else {
 					UtilWindow.showMessage(jframe, "User and password don't match.", MessageType.WARNING);
 					registerAttempt(user, Status.FAILURE, "login");
+					user=null;
+					return false;
 				}
 			} else {
 				UtilWindow.showMessage(jframe, "User with ID :" + userId + " not found in database.",
@@ -235,11 +246,11 @@ public class LoginView extends JPanel {
 			if (status.equals(Status.SUCCESS)) {
 				Attempt attempt = new Attempt(0, user.getUserId(), user.getPassword(), status, intent + " successfully",
 						LocalDateTime.now());
-				attemptAccess.insertAttempt(attempt);
+				attemptService.saveAttempt(attempt);
 			} else {
 				Attempt attempt = new Attempt(0, user.getUserId(), user.getPassword(), status, "Failed " + intent,
 						LocalDateTime.now());
-				attemptAccess.insertAttempt(attempt);
+				attemptService.saveAttempt(attempt);
 			}
 
 		} catch (Exception e) {
@@ -254,4 +265,16 @@ public class LoginView extends JPanel {
 	public int getMyWidth() {
 		return width;
 	}
+	
+	
+	public boolean validateUser(User user, String userId, String password) {
+		boolean status = false;
+		String userIdTemp = user.getUserId();
+		String userPassTemp = user.getPassword();
+		if ((userIdTemp.equals(userId)) && (userPassTemp.equals(password))) {
+			status = true;
+		}
+		return status;
+	}
+
 }

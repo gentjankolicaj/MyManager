@@ -27,6 +27,8 @@ import com.mymanager.data.models.Status;
 import com.mymanager.data.models.User;
 import com.mymanager.desktop.views.MainView;
 import com.mymanager.desktop.views.subviews.custom.MyPanel;
+import com.mymanager.services.AttemptService;
+import com.mymanager.services.AttemptServiceImpl;
 import com.mymanager.utils.AppUtil;
 
 public class AttemptView extends MyPanel {
@@ -48,18 +50,25 @@ public class AttemptView extends MyPanel {
 	private List<Attempt> currentAttemptList;
 
 	private JFrame jframe;
-	private UserController userController;
 	private MyPanel selfReference;
 	private MainView mainView;
+	
+	
+
+	// User
+	private User user;
+	private AttemptService attemptService;
 
 	/**
 	 * Create the panel.
 	 */
-	public AttemptView(JFrame jframe, MainView mainView, UserController userController) {
+	public AttemptView(JFrame jframe, MainView mainView, User user) {
 		super(900, 520);
 		this.jframe = jframe;
 		this.mainView = mainView;
-		this.userController = userController;
+		this.user = user;
+		this.attemptService = new AttemptServiceImpl();
+
 		selfReference = this;
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 
@@ -129,7 +138,12 @@ public class AttemptView extends MyPanel {
 	private void initEvents() {
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				loadAttempts();
+				try {
+					searchAttempts();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnDelete.addMouseListener(new MouseAdapter() {
@@ -139,7 +153,12 @@ public class AttemptView extends MyPanel {
 				int totalRows = table.getRowCount();
 				if ((selectedRow > -1) && (selectedRow < totalRows)) {
 					Attempt attemptToDelete = currentAttemptList.get(selectedRow);
-					userController.deleteAttempt(attemptToDelete);
+					try {
+						attemptService.deleteAttempt(attemptToDelete);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					loadData();
 				}
 
@@ -154,17 +173,17 @@ public class AttemptView extends MyPanel {
 
 	}
 
-	private void loadAttempts() {
+	private void searchAttempts() throws Exception {
 		String searchValue = textFieldSearch.getText();
 		emptyTable();
 		if (chooseSearchType() == 1) {
-			currentAttemptList = userController.getAttemptsById(searchValue);
+			currentAttemptList = attemptService.getAttempts(searchValue);
 			fillTable(currentAttemptList);
 
 		} else if (chooseSearchType() == 2) {
 			User temp = new User();
 			temp.setUserId(searchValue);
-			currentAttemptList = userController.getAttemptsByUser(temp);
+			currentAttemptList = attemptService.getAttempts(temp);
 			fillTable(currentAttemptList);
 
 		} else if (chooseSearchType() == 3) {
@@ -172,10 +191,10 @@ public class AttemptView extends MyPanel {
 			String successStatus = Status.SUCCESS.toString();
 
 			if (successStatus.contains(searchValue.toUpperCase())) {
-				currentAttemptList = userController.getAttemptsByStatus(Status.SUCCESS);
+				currentAttemptList = attemptService.getAttempts(Status.SUCCESS);
 				fillTable(currentAttemptList);
 			} else if (failStaus.contains(searchValue.toUpperCase())) {
-				currentAttemptList = userController.getAttemptsByStatus(Status.FAILURE);
+				currentAttemptList = attemptService.getAttempts(Status.FAILURE);
 				fillTable(currentAttemptList);
 			}
 
@@ -216,16 +235,26 @@ public class AttemptView extends MyPanel {
 
 	public void loadData() {
 		emptyTable();
-		currentAttemptList = userController.getAllAttempts(Config.ROW_LIMIT, Config.ATTEMPT_OFFSET);
-		Object[] rowData = new Object[5];
-		for (Attempt attempt : currentAttemptList) {
-			rowData[0] = attempt.getIndex();
-			rowData[1] = attempt.getUser();
-			rowData[2] = attempt.getStatus();
-			rowData[3] = attempt.getDescription();
-			rowData[4] = attempt.getDateTime();
-			tableModel.addRow(rowData);
+
+		try {
+			currentAttemptList = attemptService.getAllAttempts(Config.ROW_LIMIT, Config.ATTEMPT_OFFSET);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
+		if (currentAttemptList != null && currentAttemptList.size() != 0) {
+			Object[] rowData = new Object[5];
+			for (Attempt attempt : currentAttemptList) {
+				rowData[0] = attempt.getIndex();
+				rowData[1] = attempt.getUser();
+				rowData[2] = attempt.getStatus();
+				rowData[3] = attempt.getDescription();
+				rowData[4] = attempt.getDateTime();
+				tableModel.addRow(rowData);
+			}
+		}
+
 	}
 
 }

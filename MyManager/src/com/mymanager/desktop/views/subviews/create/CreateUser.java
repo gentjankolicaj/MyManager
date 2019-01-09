@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -23,14 +24,19 @@ import javax.swing.border.TitledBorder;
 
 import com.mymanager.controllers.UserController;
 import com.mymanager.data.database.QueryType;
-import com.mymanager.data.models.Adress;
 import com.mymanager.data.models.AdressType;
-import com.mymanager.data.models.Contact;
 import com.mymanager.data.models.ContactType;
 import com.mymanager.data.models.Country;
 import com.mymanager.data.models.Gender;
 import com.mymanager.data.models.Rights;
 import com.mymanager.data.models.User;
+import com.mymanager.data.models.UserAdress;
+import com.mymanager.data.models.UserContact;
+import com.mymanager.services.CountryService;
+import com.mymanager.services.CountryServiceImpl;
+import com.mymanager.services.UserAdressService;
+import com.mymanager.services.UserContactService;
+import com.mymanager.services.UserService;
 import com.mymanager.utils.MessageType;
 import com.mymanager.utils.UtilWindow;
 
@@ -53,10 +59,6 @@ public class CreateUser extends JDialog {
 	private JTextField usertype;
 	private JTextField rights;
 
-	private User user;
-	private UserController userController;
-	private Contact userContact;
-	private Adress userAdress;
 	private JPasswordField textFieldNewPassword;
 	private JPasswordField textFieldRetypePassword;
 	private JPanel passwordPanel;
@@ -93,20 +95,28 @@ public class CreateUser extends JDialog {
 	private JButton btnSave;
 	private JButton btnBack;
 
+	// ================================================================
+	// Field services
+	private UserService userService;
+	private User user;
+	private UserContactService userContactService;
+	private UserAdressService userAdressService;
+	private CountryService countryService;
+
 	/**
 	 * Create the dialog.
 	 */
-	public CreateUser(UserController userController) {
+	public CreateUser(UserService userService, UserContactService userContactService,
+			UserAdressService userAdressService, User user) {
 		this.selfReference = this;
 		setResizable(false);
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		this.userController = userController;
-		this.user = userController.getUser();
-		this.userContact = userController.getContactByPersonId(QueryType.NORMAL, ContactType.USER_CONTACT,
-				user.getUserId());
-		this.userAdress = userController.getAdressByPersonId(QueryType.NORMAL, AdressType.USER_ADRESS,
-				user.getUserId());
+		this.userService = userService;
+		this.user = user;
+		this.userContactService = userContactService;
+		this.userAdressService = userAdressService;
+		this.countryService = new CountryServiceImpl();
 
 		initComponents();
 
@@ -393,7 +403,7 @@ public class CreateUser extends JDialog {
 		comboBoxCountry = new JComboBox();
 		comboBoxCountry.setBounds(736, 100, 218, 20);
 
-		comboBoxModel = new DefaultComboBoxModel();
+		comboBoxModel = new DefaultComboBoxModel<>();
 		comboBoxCountry.setModel(comboBoxModel);
 
 		adressPanel.add(comboBoxCountry);
@@ -451,8 +461,16 @@ public class CreateUser extends JDialog {
 		User newUser = new User(id.getText(), userTypeStr, firstname.getText(), lastname.getText(), newPass,
 				LocalDate.parse(birthdayStr), birthplace.getText(), Gender.valueOf(genderStr), rightsStr,
 				user.getUserId(), user.getUserId(), LocalDateTime.now(), LocalDateTime.now());
-		userController.saveUser(newUser);
-		UtilWindow.showMessage(this, "New user created", MessageType.INFORMATION);
+		try {
+
+			userService.saveUser(newUser);
+			UtilWindow.showMessage(this, "New user created", MessageType.INFORMATION);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	private void saveContact() {
@@ -463,10 +481,19 @@ public class CreateUser extends JDialog {
 		if (textFieldCel.getText().equals(""))
 			celular = "0";
 
-		Contact newContact = new Contact(1, id.getText(), Integer.parseInt(telephone), Integer.parseInt(celular),
-				textFieldEmail.getText(), textFieldFax.getText(), user.getUserId(), user.getUserId(),
-				LocalDateTime.now(), LocalDateTime.now());
-		userController.saveContact(ContactType.USER_CONTACT, newContact);
+		UserContact newContact = new UserContact(1, id.getText(), Integer.parseInt(telephone),
+				Integer.parseInt(celular), textFieldEmail.getText(), textFieldFax.getText(), user.getUserId(),
+				user.getUserId(), LocalDateTime.now(), LocalDateTime.now());
+
+		try {
+
+			userContactService.saveContact(newContact);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	private void saveAdress() {
@@ -475,10 +502,18 @@ public class CreateUser extends JDialog {
 		if (zipCode.equals(""))
 			zipCode = "0";
 
-		Adress newAdress = new Adress(1, id.getText(), new Country(selectedCountryName), textFieldCity.getText(),
-				textFieldStreet.getText(), Integer.parseInt(zipCode), textFieldBuilding.getText(), user.getUserId(),
-				user.getUserId(), LocalDateTime.now(), LocalDateTime.now());
-		userController.saveAdress(AdressType.USER_ADRESS, newAdress);
+		UserAdress newAdress = new UserAdress(1, id.getText(), new Country(selectedCountryName),
+				textFieldCity.getText(), textFieldStreet.getText(), Integer.parseInt(zipCode),
+				textFieldBuilding.getText(), user.getUserId(), user.getUserId(), LocalDateTime.now(),
+				LocalDateTime.now());
+
+		try {
+
+			userAdressService.saveAdress(newAdress);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -492,8 +527,17 @@ public class CreateUser extends JDialog {
 
 	private void loadCountries() {
 		comboBoxModel.removeAllElements();
-		for (Country country : userController.getAllCountries()) {
-			comboBoxModel.addElement(country.getCountryName());
+		List<Country> temp = null;
+		try {
+			temp = countryService.getAllCountries();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (temp != null && temp.size() != 0) {
+			for (Country country : temp)
+				comboBoxModel.addElement(country.getCountryName());
+
 		}
 	}
 
@@ -511,4 +555,5 @@ public class CreateUser extends JDialog {
 		}
 
 	}
+	
 }

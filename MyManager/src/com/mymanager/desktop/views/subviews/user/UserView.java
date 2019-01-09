@@ -18,16 +18,21 @@ import javax.swing.table.DefaultTableModel;
 import com.mymanager.config.Config;
 import com.mymanager.controllers.UserController;
 import com.mymanager.data.database.QueryType;
-import com.mymanager.data.models.Adress;
 import com.mymanager.data.models.AdressType;
-import com.mymanager.data.models.Contact;
 import com.mymanager.data.models.ContactType;
 import com.mymanager.data.models.MyTable;
 import com.mymanager.data.models.User;
+import com.mymanager.data.models.UserAdress;
+import com.mymanager.data.models.UserContact;
 import com.mymanager.desktop.views.MainView;
 import com.mymanager.desktop.views.subviews.create.CreateUser;
 import com.mymanager.desktop.views.subviews.custom.MyPanel;
 import com.mymanager.desktop.views.subviews.edit.EditUser;
+import com.mymanager.services.UserAdressService;
+import com.mymanager.services.UserAdressServiceImpl;
+import com.mymanager.services.UserContactService;
+import com.mymanager.services.UserContactServiceImpl;
+import com.mymanager.services.UserService;
 import com.mymanager.utils.AppUtil;
 
 public class UserView extends MyPanel {
@@ -55,18 +60,30 @@ public class UserView extends MyPanel {
 	private List<User> currentUserList;
 
 	private JFrame jframe;
-	private UserController userController;
 	private MyPanel selfReference;
 	private MainView mainView;
+	
+	
+	
+	//================================================================
+	//Field services
+	private UserService userService;
+	private User user;
+	private UserContactService userContactService;
+	private UserAdressService userAdressService;
 
 	/**
 	 * Create the panel.
 	 */
-	public UserView(JFrame jframe, MainView mainView, UserController userController) {
+	public UserView(JFrame jframe, MainView mainView, UserService userService,User user) {
 		super(1200, 550);
 		this.jframe = jframe;
 		this.mainView = mainView;
-		this.userController = userController;
+		this.userService=userService;
+		this.user=user;
+		this.userContactService=new UserContactServiceImpl();
+		this.userAdressService=new UserAdressServiceImpl();
+		
 		selfReference = this;
 
 		initComponents();
@@ -151,7 +168,12 @@ public class UserView extends MyPanel {
 		btnSearch.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				loadUsers();
+				try {
+					searchUsers();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
 			}
 		});
@@ -159,7 +181,7 @@ public class UserView extends MyPanel {
 		btnCreate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				CreateUser createUser = new CreateUser(userController);
+				CreateUser createUser = new CreateUser(userService ,userContactService,userAdressService,user);
 				createUser.setModal(true);
 				createUser.setVisible(true);
 				loadData();
@@ -174,12 +196,19 @@ public class UserView extends MyPanel {
 				int totalRows = table.getRowCount();
 				if ((selectedRow > -1) && (selectedRow < totalRows)) {
 					User oldUser = currentUserList.get(selectedRow);
-					Contact oldContact = userController.getContactByPersonId(QueryType.NORMAL, ContactType.USER_CONTACT,
-							oldUser.getUserId());
-					Adress oldAdress = userController.getAdressByPersonId(QueryType.NORMAL, AdressType.USER_ADRESS,
-							oldUser.getUserId());
+					
+					UserContact oldContact=null;
+					UserAdress oldAdress=null;
+					try {
+						oldContact = userContactService.getContactByPersonId(oldUser.getUserId());
+					    oldAdress = userAdressService.getAdressesByPersonId(oldUser.getUserId());
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				
 
-					EditUser editUser = new EditUser(userController, oldUser, oldAdress, oldContact);
+					EditUser editUser = new EditUser(userService,userContactService,userAdressService,user, oldUser, oldContact,oldAdress);
 					editUser.setModal(true);
 					editUser.setVisible(true);
 					loadData();
@@ -194,7 +223,12 @@ public class UserView extends MyPanel {
 				int totalRows = table.getRowCount();
 				if ((selectedRow > -1) && (selectedRow < totalRows)) {
 					User userToDelete = currentUserList.get(selectedRow);
-					userController.deleteUser(userToDelete);
+					try {
+						userService.deleteUser(userToDelete);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					loadData();
 				}
 			}
@@ -209,24 +243,24 @@ public class UserView extends MyPanel {
 
 	}
 
-	private void loadUsers() {
+	private void searchUsers() throws Exception {
 		String searchValue = textFieldSearch.getText();
 		emptyTable();
 		if (chooseSearchType() == 1) {
-			User temp = userController.getUser(searchValue);
+			User temp = userService.getUser(searchValue);
 			currentUserList.add(temp);
 			fillTable(currentUserList);
 
 		} else if (chooseSearchType() == 2) {
-			currentUserList = userController.getUsersByUserType(QueryType.NORMAL, searchValue);
+			currentUserList = userService.getUsersByUserType(searchValue);
 			fillTable(currentUserList);
 
 		} else if (chooseSearchType() == 3) {
-			currentUserList = userController.getUsersByFirstName(QueryType.NORMAL, searchValue);
+			currentUserList =userService.getUsersByFirstName( searchValue);
 			fillTable(currentUserList);
 
 		} else if (chooseSearchType() == 4) {
-			currentUserList = userController.getUsersByLastName(QueryType.NORMAL, searchValue);
+			currentUserList = userService.getUsersByLastName(searchValue);
 			fillTable(currentUserList);
 
 		} else {
@@ -278,7 +312,15 @@ public class UserView extends MyPanel {
 
 	public void loadData() {
 		emptyTable();
-		currentUserList = userController.getAllUsers(QueryType.NORMAL, Config.ROW_LIMIT, Config.USER_OFFSET);
+		try {
+			currentUserList = userService.getAllUsers(Config.ROW_LIMIT, Config.USER_OFFSET);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(currentUserList!=null&&currentUserList.size()!=0) {
+			
 		Object[] rowData = new Object[12];
 		for (User user : currentUserList) {
 			rowData[0] = user.getUserId();
@@ -295,6 +337,9 @@ public class UserView extends MyPanel {
 			rowData[11] = user.getUpdatedDate();
 			tableModel.addRow(rowData);
 		}
+		
+	   }
+		
 	}
 
 }
