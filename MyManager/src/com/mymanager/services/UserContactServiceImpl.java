@@ -5,7 +5,11 @@ import java.util.List;
 import com.mymanager.data.data_access.UserContactAccessObject;
 import com.mymanager.data.data_access.interfaces.UserContactAccess;
 import com.mymanager.data.models.UserContact;
-
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public class UserContactServiceImpl implements UserContactService{
 	
 	private UserContactAccess userContactAccess;

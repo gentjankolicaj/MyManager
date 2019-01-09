@@ -3,7 +3,11 @@ package com.mymanager.services;
 import java.util.List;
 
 import com.mymanager.data.models.UserContact;
-
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public interface UserContactService {
 	
 	

@@ -4,9 +4,12 @@ import java.util.List;
 
 import com.mymanager.data.data_access.UserAdressAccessObject;
 import com.mymanager.data.data_access.interfaces.UserAdressAccess;
-import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.UserAdress;
-
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public class UserAdressServiceImpl implements UserAdressService {
 	
 	private UserAdressAccess userAdressAccess;

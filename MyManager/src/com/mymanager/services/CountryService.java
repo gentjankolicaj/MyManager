@@ -3,7 +3,11 @@ package com.mymanager.services;
 import java.util.List;
 
 import com.mymanager.data.models.Country;
-
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public interface CountryService {
 
 	public abstract List<Country> getAllCountries() throws Exception;

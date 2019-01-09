@@ -39,6 +39,11 @@ import com.mymanager.utils.AppUtil;
 import com.mymanager.utils.MessageType;
 import com.mymanager.utils.UtilWindow;
 
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public class MainView extends MyPanel {
 
 	/**

@@ -5,7 +5,11 @@ import java.util.List;
 import com.mymanager.data.models.Attempt;
 import com.mymanager.data.models.Status;
 import com.mymanager.data.models.User;
-
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public interface AttemptService {
 
 	public abstract List<Attempt> getAllAttempts() throws Exception;

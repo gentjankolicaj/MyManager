@@ -7,7 +7,11 @@ import com.mymanager.data.data_access.interfaces.AttemptAccess;
 import com.mymanager.data.models.Attempt;
 import com.mymanager.data.models.Status;
 import com.mymanager.data.models.User;
-
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public class AttemptServiceImpl implements AttemptService {
 	
 	

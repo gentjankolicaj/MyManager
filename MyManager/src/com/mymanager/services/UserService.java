@@ -3,7 +3,11 @@ package com.mymanager.services;
 import java.util.List;
 
 import com.mymanager.data.models.User;
-
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public interface UserService {
 	
 	public abstract List<User> getAllUsers() throws Exception;

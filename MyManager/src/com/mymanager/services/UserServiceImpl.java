@@ -5,7 +5,11 @@ import java.util.List;
 import com.mymanager.data.data_access.UserAccessObject;
 import com.mymanager.data.data_access.interfaces.UserAccess;
 import com.mymanager.data.models.User;
-
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public class UserServiceImpl implements UserService {
 	
 	private UserAccess userAccess;

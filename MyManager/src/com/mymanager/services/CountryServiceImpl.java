@@ -5,7 +5,11 @@ import java.util.List;
 import com.mymanager.data.data_access.CountryAccessObject;
 import com.mymanager.data.data_access.interfaces.CountryAccess;
 import com.mymanager.data.models.Country;
-
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public class CountryServiceImpl implements CountryService{
 	
 	private CountryAccess countryAccess;

@@ -2,9 +2,12 @@ package com.mymanager.services;
 
 import java.util.List;
 
-import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.UserAdress;
-
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public interface UserAdressService {
 	
 	public abstract List<UserAdress> getAllAdresses() throws Exception;
