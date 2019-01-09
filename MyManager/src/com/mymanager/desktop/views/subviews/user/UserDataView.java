@@ -6,14 +6,17 @@ import java.awt.event.MouseEvent;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.User;
 import com.mymanager.desktop.views.MainView;
 import com.mymanager.desktop.views.subviews.custom.MyPanel;
 import com.mymanager.services.UserService;
 import com.mymanager.utils.AppUtil;
 
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public class UserDataView extends MyPanel {
 
 	/**
@@ -96,7 +99,7 @@ public class UserDataView extends MyPanel {
 		btnAdresses.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				adressView = new UserAdressView(jframe, mainView,user);
+				adressView = new UserAdressView(jframe, mainView);
 				AppUtil.changeUserView(selfReference, adressView, previousPanel);
 				previousPanel = adressView;
 			}
@@ -105,7 +108,7 @@ public class UserDataView extends MyPanel {
 		btnContacts.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				contactView = new UserContactView(jframe, mainView, user);
+				contactView = new UserContactView(jframe, mainView);
 				AppUtil.changeUserView(selfReference, contactView, previousPanel);
 				previousPanel = contactView;
 			}

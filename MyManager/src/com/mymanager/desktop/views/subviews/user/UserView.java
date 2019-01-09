@@ -16,10 +16,6 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.mymanager.config.Config;
-import com.mymanager.controllers.UserController;
-import com.mymanager.data.database.QueryType;
-import com.mymanager.data.models.AdressType;
-import com.mymanager.data.models.ContactType;
 import com.mymanager.data.models.MyTable;
 import com.mymanager.data.models.User;
 import com.mymanager.data.models.UserAdress;
@@ -34,12 +30,13 @@ import com.mymanager.services.UserContactService;
 import com.mymanager.services.UserContactServiceImpl;
 import com.mymanager.services.UserService;
 import com.mymanager.utils.AppUtil;
-
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public class UserView extends MyPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2586092764218526222L;
 	private JTextField textFieldSearch;
 
@@ -246,20 +243,20 @@ public class UserView extends MyPanel {
 	private void searchUsers() throws Exception {
 		String searchValue = textFieldSearch.getText();
 		emptyTable();
-		if (chooseSearchType() == 1) {
+		if (rdbtnId.isSelected()) {
 			User temp = userService.getUser(searchValue);
 			currentUserList.add(temp);
 			fillTable(currentUserList);
 
-		} else if (chooseSearchType() == 2) {
+		} else if (rdbtnType.isSelected()) {
 			currentUserList = userService.getUsersByUserType(searchValue);
 			fillTable(currentUserList);
 
-		} else if (chooseSearchType() == 3) {
+		} else if (rdbtnFirstname.isSelected()) {
 			currentUserList =userService.getUsersByFirstName( searchValue);
 			fillTable(currentUserList);
 
-		} else if (chooseSearchType() == 4) {
+		} else if (rdbtnLastname.isSelected()) {
 			currentUserList = userService.getUsersByLastName(searchValue);
 			fillTable(currentUserList);
 
@@ -276,18 +273,6 @@ public class UserView extends MyPanel {
 		tableModel.setRowCount(0);
 	}
 
-	private int chooseSearchType() {
-		if (rdbtnId.isSelected()) {
-			return 1;
-		} else if (rdbtnType.isSelected()) {
-			return 2;
-		} else if (rdbtnFirstname.isSelected()) {
-			return 3;
-		} else if (rdbtnLastname.isSelected()) {
-			return 4;
-		} else
-			return 0;
-	}
 
 	private void fillTable(List<User> usersList) {
 		if (usersList != null) {
@@ -312,8 +297,11 @@ public class UserView extends MyPanel {
 
 	public void loadData() {
 		emptyTable();
+		
 		try {
+			
 			currentUserList = userService.getAllUsers(Config.ROW_LIMIT, Config.USER_OFFSET);
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

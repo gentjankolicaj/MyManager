@@ -16,20 +16,21 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.mymanager.config.Config;
-import com.mymanager.controllers.UserController;
-import com.mymanager.data.database.QueryType;
-import com.mymanager.data.models.Adress;
-import com.mymanager.data.models.AdressType;
 import com.mymanager.data.models.MyTable;
+import com.mymanager.data.models.UserAdress;
 import com.mymanager.desktop.views.MainView;
 import com.mymanager.desktop.views.subviews.custom.MyPanel;
+import com.mymanager.services.UserAdressService;
+import com.mymanager.services.UserAdressServiceImpl;
 import com.mymanager.utils.AppUtil;
 
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public class UserAdressView extends MyPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2586092764218526222L;
 	private JTextField textFieldSearch;
 
@@ -45,22 +46,26 @@ public class UserAdressView extends MyPanel {
 	private JRadioButton rdbtnCity;
 
 	private JFrame jframe;
-	private UserController userController;
 	private MyPanel selfReference;
 	private MainView mainView;
-	private List<Adress> currentAdressList;
+	private List<UserAdress> currentAdressList;
+	
+	private UserAdressService userAdressService;
 
 	/**
 	 * Create the panel.
 	 */
-	public UserAdressView(JFrame jframe, MainView mainView, UserController userController) {
+	public UserAdressView(JFrame jframe, MainView mainView) {
 		super(1200, 550);
 		this.jframe = jframe;
 		this.mainView = mainView;
-		this.userController = userController;
+		
+		this.userAdressService=new UserAdressServiceImpl();
+		
 		selfReference = this;
 
 		initComponents();
+		
 		initEvents();
 
 	}
@@ -134,7 +139,20 @@ public class UserAdressView extends MyPanel {
 		btnSearch.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				loadAdresses();
+				
+				try {
+					
+					searchAdresses();
+					
+				}catch (NumberFormatException n) {
+					
+					n.printStackTrace();
+					
+				}catch (Exception e1) {
+					
+					e1.printStackTrace();
+					
+				}
 
 			}
 		});
@@ -145,8 +163,18 @@ public class UserAdressView extends MyPanel {
 				int selectedRow = table.getSelectedRow();
 				int totalRows = table.getRowCount();
 				if ((selectedRow > -1) && (selectedRow < totalRows)) {
-					Adress adressToDelete = currentAdressList.get(selectedRow);
-					userController.deleteAdress(AdressType.USER_ADRESS, adressToDelete);
+					
+					UserAdress adressToDelete = currentAdressList.get(selectedRow);
+					
+					try {
+						
+						userAdressService.deleteAdress( adressToDelete);
+						
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
 					loadData();
 				}
 
@@ -155,60 +183,49 @@ public class UserAdressView extends MyPanel {
 		btnBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				
 				AppUtil.returnToMainView(jframe, selfReference, mainView);
+				
 			}
 		});
 
 	}
 
-	private void loadAdresses() {
+	private void searchAdresses() throws Exception{
 		String searchValue = textFieldSearch.getText();
 		emptyTable();
-		if (chooseSearchType() == 1) {
-			Adress temp = userController.getAdress(QueryType.NORMAL, AdressType.USER_ADRESS,
-					Integer.parseInt(searchValue));
+		if (rdbtnId.isSelected()) {
+			UserAdress temp = userAdressService.getAdress(Integer.parseInt(searchValue));
 			currentAdressList.add(temp);
 			fillTable(currentAdressList);
-		} else if (chooseSearchType() == 2) {
-			Adress temp = userController.getAdressByPersonId(QueryType.NORMAL, AdressType.USER_ADRESS, searchValue);
+		} else if (rdbtnPersonId.isSelected()) {
+			UserAdress temp = userAdressService.getAdressesByPersonId( searchValue);
 			currentAdressList.add(temp);
 			fillTable(currentAdressList);
-		} else if (chooseSearchType() == 3) {
-			currentAdressList = userController.getAdressByCity(QueryType.NORMAL, AdressType.USER_ADRESS, searchValue);
+		} else if (rdbtnCity.isSelected()) {
+			currentAdressList =userAdressService.getAdressesByCity( searchValue);
 			fillTable(currentAdressList);
-		} else if (chooseSearchType() == 4) {
-			currentAdressList = userController.getAdressByStreet(QueryType.NORMAL, AdressType.USER_ADRESS, searchValue);
+		} else if (rdbtnStreet.isSelected()) {
+			currentAdressList = userAdressService.getAdressesByStreet(searchValue);
 			fillTable(currentAdressList);
 		} else {
 
 			// to do some info message
-
 		}
 
 	}
 
-	private int chooseSearchType() {
-		if (rdbtnId.isSelected()) {
-			return 1;
-		} else if (rdbtnPersonId.isSelected()) {
-			return 2;
-		} else if (rdbtnCity.isSelected()) {
-			return 3;
-		} else if (rdbtnStreet.isSelected()) {
-			return 4;
-		} else
-			return 0;
-	}
+	
 
 	private void emptyTable() {
 		currentAdressList = new ArrayList<>();
 		tableModel.setRowCount(0);
 	}
 
-	private void fillTable(List<Adress> adressesList) {
+	private void fillTable(List<UserAdress> adressesList) {
 		if (adressesList != null) {
 			Object[] rowData = new Object[11];
-			for (Adress adress : adressesList) {
+			for (UserAdress adress : adressesList) {
 				rowData[0] = adress.getAdressId();
 				rowData[1] = adress.getPersonId();
 				rowData[2] = adress.getCountry().getCountryName();
@@ -227,10 +244,17 @@ public class UserAdressView extends MyPanel {
 
 	public void loadData() {
 		emptyTable();
-		currentAdressList = userController.getAllAdresses(QueryType.NORMAL, AdressType.USER_ADRESS, Config.ROW_LIMIT,
-				Config.USER_OFFSET);
+		try {
+			currentAdressList = userAdressService.getAllAdresses(Config.ROW_LIMIT,
+					Config.USER_OFFSET);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(currentAdressList!=null&&currentAdressList.size()!=0) {
 		Object[] rowData = new Object[11];
-		for (Adress adress : currentAdressList) {
+		for (UserAdress adress : currentAdressList) {
 			rowData[0] = adress.getAdressId();
 			rowData[1] = adress.getPersonId();
 			rowData[2] = adress.getCountry().getCountryName();
@@ -244,5 +268,6 @@ public class UserAdressView extends MyPanel {
 			rowData[10] = adress.getUpdatedDate();
 			tableModel.addRow(rowData);
 		}
+	  }
 	}
 }
