@@ -14,23 +14,23 @@ import com.mymanager.data.models.UserAdress;
  */
 public interface UserAdressAccess {
 	
-	public abstract List<UserAdress> readAllAdresses() throws Exception;
+	public abstract List<UserAdress> findAllAdresses() throws Exception;
 
-	public abstract List<UserAdress> readAllAdresses(int limit, int offset) throws Exception;
+	public abstract List<UserAdress> findAllAdresses(int limit, int offset) throws Exception;
 
-	public abstract UserAdress readAdressesByPersonId(String personId) throws Exception;
+	public abstract UserAdress findAdressesByPersonId(String personId) throws Exception;
 
-	public abstract List<UserAdress> readAdressesByCity(String city) throws Exception;
+	public abstract List<UserAdress> findAdressesByCity(String city) throws Exception;
 
-	public abstract List<UserAdress> readAdressesByCountry(String country) throws Exception;
+	public abstract List<UserAdress> findAdressesByCountry(String country) throws Exception;
 
-	public abstract List<UserAdress> readAdressesByStreet(String streetName) throws Exception;
+	public abstract List<UserAdress> findAdressesByStreet(String streetName) throws Exception;
 
-	public abstract UserAdress readAdress(int adressId) throws Exception;
+	public abstract UserAdress findAdress(int adressId) throws Exception;
 
 	public abstract int updateAdress(UserAdress oldAdress, UserAdress newAdress) throws Exception;
 
-	public abstract int insertAdress(UserAdress adress) throws Exception;
+	public abstract int saveAdress(UserAdress adress) throws Exception;
 
 	public abstract int deleteAdress(UserAdress adress) throws Exception;
 

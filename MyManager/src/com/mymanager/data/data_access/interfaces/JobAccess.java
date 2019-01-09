@@ -11,19 +11,19 @@ import com.mymanager.data.models.Job;
  */
 public interface JobAccess {
 
-	public abstract List<Job> readAllJobs() throws Exception;
+	public abstract List<Job> findAllJobs() throws Exception;
 
-	public abstract List<Job> readAllJobs(int limit, int offset) throws Exception;
+	public abstract List<Job> findAllJobs(int limit, int offset) throws Exception;
 
-	public abstract List<Job> readAllJobsBetweenSalary(float minSalary, float maxSalary) throws Exception;
+	public abstract List<Job> findAllJobsBetweenSalary(float minSalary, float maxSalary) throws Exception;
 
-	public abstract List<Job> readAllJobsByTitle(String jobTitle) throws Exception;
+	public abstract List<Job> findAllJobsByTitle(String jobTitle) throws Exception;
 
-	public abstract Job readJob(int jobId) throws Exception;
+	public abstract Job findJob(int jobId) throws Exception;
 
 	public abstract int updateJob(Job oldJob, Job newJob) throws Exception;
 
-	public abstract int insertJob(Job job) throws Exception;
+	public abstract int saveJob(Job job) throws Exception;
 
 	public abstract int deleteJob(Job job) throws Exception;
 

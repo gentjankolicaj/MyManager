@@ -11,25 +11,25 @@ import com.mymanager.data.models.User;
  */
 public interface UserAccess {
 
-	public abstract List<User> readAllUsers() throws Exception;
+	public abstract List<User> findAllUsers() throws Exception;
 
-	public abstract List<User> readAllUsers(int limit, int offset) throws Exception;
+	public abstract List<User> findAllUsers(int limit, int offset) throws Exception;
 
-	public abstract List<User> readAllUsersId() throws Exception;
+	public abstract List<User> findAllUsersId() throws Exception;
 
-	public abstract List<User> readUsersByFirstName(String firstName) throws Exception;
+	public abstract List<User> findUsersByFirstName(String firstName) throws Exception;
 
-	public abstract List<User> readUsersByLastName(String lastName) throws Exception;
+	public abstract List<User> findUsersByLastName(String lastName) throws Exception;
 
-	public abstract List<User> readUsersByUserType(String userType) throws Exception;
+	public abstract List<User> findUsersByUserType(String userType) throws Exception;
 
-	public abstract List<User> readUsersByRights(String rights) throws Exception;
+	public abstract List<User> findUsersByRights(String rights) throws Exception;
 
-	public abstract User readUser(String userId) throws Exception;
+	public abstract User findUser(String userId) throws Exception;
 
 	public abstract int updateUser(User oldUser, User newUser) throws Exception;
 
-	public abstract int insertUser(User user) throws Exception;
+	public abstract int saveUser(User user) throws Exception;
 
 	public abstract int deleteUser(User user) throws Exception;
 

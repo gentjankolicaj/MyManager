@@ -11,19 +11,19 @@ import com.mymanager.data.models.Document;
  */
 public interface DocumentAccess {
 
-	public abstract List<Document> readAllDocuments() throws Exception;
+	public abstract List<Document> findAllDocuments() throws Exception;
 
-	public abstract List<Document> readAllDocuments(int limit, int offset) throws Exception;
+	public abstract List<Document> findAllDocuments(int limit, int offset) throws Exception;
 
-	public abstract List<Document> readDocuments(String documentName) throws Exception;
+	public abstract List<Document> findDocuments(String documentName) throws Exception;
 
-	public abstract Document readDocument(int documentNumber) throws Exception;
+	public abstract Document findDocument(int documentNumber) throws Exception;
 
-	public abstract List<Document> readDocumentByEmployeeId(String employeeId) throws Exception;
+	public abstract List<Document> findDocumentByEmployeeId(String employeeId) throws Exception;
 
 	public abstract int updateDocument(Document oldDocument, Document newDocument) throws Exception;
 
-	public abstract int insertDocument(Document document) throws Exception;
+	public abstract int saveDocument(Document document) throws Exception;
 
 	public abstract int deleteDocument(Document document) throws Exception;
 

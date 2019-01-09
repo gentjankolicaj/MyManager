@@ -6,21 +6,21 @@ import com.mymanager.data.models.UserContact;
 
 public interface UserContactAccess {
 
-	public abstract List<UserContact> readAllContacts() throws Exception;
+	public abstract List<UserContact> findAllContacts() throws Exception;
 
-	public abstract List<UserContact> readAllContacts(int limit, int offset) throws Exception;
+	public abstract List<UserContact> findAllContacts(int limit, int offset) throws Exception;
 
-	public abstract List<UserContact> readContactsByCelular(int celular) throws Exception;
+	public abstract List<UserContact> findContactsByCelular(int celular) throws Exception;
 
-	public abstract List<UserContact> readContactsByEmail(String email) throws Exception;
+	public abstract List<UserContact> findContactsByEmail(String email) throws Exception;
 
-	public abstract UserContact readContactByPersonId(String personId) throws Exception;
+	public abstract UserContact findContactByPersonId(String personId) throws Exception;
 
-	public abstract UserContact readContact(int contactId) throws Exception;
+	public abstract UserContact findContact(int contactId) throws Exception;
 
 	public abstract int updateContact(UserContact oldContact, UserContact newContact) throws Exception;
 
-	public abstract int insertContact(UserContact contact) throws Exception;
+	public abstract int saveContact(UserContact contact) throws Exception;
 
 	public abstract int deleteContact(UserContact contact) throws Exception;
 }

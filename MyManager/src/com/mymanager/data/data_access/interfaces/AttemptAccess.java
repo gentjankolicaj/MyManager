@@ -13,17 +13,17 @@ import com.mymanager.data.models.User;
  */
 public interface AttemptAccess {
 
-	public abstract List<Attempt> readAllAttempts() throws Exception;
+	public abstract List<Attempt> findAllAttempts() throws Exception;
 
-	public abstract List<Attempt> readAllAttempts(int limit, int offset) throws Exception;
+	public abstract List<Attempt> findAllAttempts(int limit, int offset) throws Exception;
 
-	public abstract List<Attempt> readAttempts(User user) throws Exception;
+	public abstract List<Attempt> findAttempts(User user) throws Exception;
 
-	public abstract List<Attempt> readAttempts(String id) throws Exception;
+	public abstract List<Attempt> findAttempts(String id) throws Exception;
 
-	public abstract List<Attempt> readAttempts(Status status) throws Exception;
+	public abstract List<Attempt> findAttempts(Status status) throws Exception;
 
-	public abstract int insertAttempt(Attempt attempt) throws Exception;
+	public abstract int saveAttempt(Attempt attempt) throws Exception;
 
 	public abstract int deleteAttempt(Attempt attempt) throws Exception;
 

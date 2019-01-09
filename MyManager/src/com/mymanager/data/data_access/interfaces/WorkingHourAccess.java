@@ -12,21 +12,21 @@ import com.mymanager.data.models.WorkingHour;
  */
 public interface WorkingHourAccess {
 
-	public abstract List<WorkingHour> readAllWorkingHour() throws Exception;
+	public abstract List<WorkingHour> findAllWorkingHour() throws Exception;
 
-	public abstract List<WorkingHour> readAllWorkingHour(int limit, int offset) throws Exception;
+	public abstract List<WorkingHour> findAllWorkingHour(int limit, int offset) throws Exception;
 
-	public abstract List<WorkingHour> readWorkingHourByEmplyeeId(String employeeId) throws Exception;
+	public abstract List<WorkingHour> findWorkingHourByEmplyeeId(String employeeId) throws Exception;
 
-	public abstract List<WorkingHour> readWorkingHourByDate(LocalDate date) throws Exception;
+	public abstract List<WorkingHour> findWorkingHourByDate(LocalDate date) throws Exception;
 
-	public abstract List<WorkingHour> readWorkingHourByBetween(float minHours, float maxHours) throws Exception;
+	public abstract List<WorkingHour> findWorkingHourByBetween(float minHours, float maxHours) throws Exception;
 
-	public abstract WorkingHour readWorkingHourByIndex(int index) throws Exception;
+	public abstract WorkingHour findWorkingHourByIndex(int index) throws Exception;
 
 	public abstract int updateWorkingHour(WorkingHour oldWorkingHour, WorkingHour newWorkingHour) throws Exception;
 
-	public abstract int insertWorkingHour(WorkingHour workingHour) throws Exception;
+	public abstract int saveWorkingHour(WorkingHour workingHour) throws Exception;
 
 	public abstract int deleteWorkingHour(WorkingHour workingHour) throws Exception;
 
