@@ -48,7 +48,7 @@ public class WorkingHourAccessObject implements WorkingHourAccess {
 	}
 
 	@Override
-	public List<WorkingHour> readAllWorkingHour() throws Exception {
+	public List<WorkingHour> findAllWorkingHour() throws Exception {
 		List<WorkingHour> workingHoursList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -71,7 +71,7 @@ public class WorkingHourAccessObject implements WorkingHourAccess {
 	}
 
 	@Override
-	public List<WorkingHour> readAllWorkingHour(int limit, int offset) throws Exception {
+	public List<WorkingHour> findAllWorkingHour(int limit, int offset) throws Exception {
 		List<WorkingHour> workingHoursList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -94,7 +94,7 @@ public class WorkingHourAccessObject implements WorkingHourAccess {
 	}
 
 	@Override
-	public List<WorkingHour> readWorkingHourByEmplyeeId(String employeeId) throws Exception {
+	public List<WorkingHour> findWorkingHourByEmplyeeId(String employeeId) throws Exception {
 		List<WorkingHour> workingHoursList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -117,7 +117,7 @@ public class WorkingHourAccessObject implements WorkingHourAccess {
 	}
 
 	@Override
-	public List<WorkingHour> readWorkingHourByDate(LocalDate date) throws Exception {
+	public List<WorkingHour> findWorkingHourByDate(LocalDate date) throws Exception {
 		List<WorkingHour> workingHoursList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -140,7 +140,7 @@ public class WorkingHourAccessObject implements WorkingHourAccess {
 	}
 
 	@Override
-	public List<WorkingHour> readWorkingHourByBetween(float minHours, float maxHours) throws Exception {
+	public List<WorkingHour> findWorkingHourByBetween(float minHours, float maxHours) throws Exception {
 		List<WorkingHour> workingHoursList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -162,7 +162,7 @@ public class WorkingHourAccessObject implements WorkingHourAccess {
 		return workingHoursList;
 	}
 
-	public WorkingHour readWorkingHourByIndex(int index) throws Exception {
+	public WorkingHour findWorkingHourByIndex(int index) throws Exception {
 		WorkingHour workingHour = null;
 		ResultSet results = null;
 		String query = "SELECT * FROM mymanager.working_hours WHERE `index`=" + index;
@@ -184,7 +184,7 @@ public class WorkingHourAccessObject implements WorkingHourAccess {
 		String query = "UPDATE mymanager.working_hours SET `index`=?,employee_id=?,date=?,amount=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE `index`=?";
 
 		setQueryType(QueryType.NORMAL);
-		WorkingHour temp = readWorkingHourByIndex(oldWorkingHour.getIndex());
+		WorkingHour temp = findWorkingHourByIndex(oldWorkingHour.getIndex());
 		savePreviousRow(temp);
 
 		PreparedStatement pstmt = database.updateStatement(query);
@@ -202,7 +202,7 @@ public class WorkingHourAccessObject implements WorkingHourAccess {
 	}
 
 	@Override
-	public int insertWorkingHour(WorkingHour workingHour) throws Exception {
+	public int saveWorkingHour(WorkingHour workingHour) throws Exception {
 		String query = "INSERT INTO mymanager.working_hours (employee_id,date,amount,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?)";
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, workingHour.getEmployeeId());

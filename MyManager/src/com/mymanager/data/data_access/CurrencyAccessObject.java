@@ -28,7 +28,7 @@ public class CurrencyAccessObject implements CurrencyAccess {
 	}
 
 	@Override
-	public List<Currency> readAllCurrencies() throws Exception {
+	public List<Currency> findAllCurrencies() throws Exception {
 		List<Currency> currencyList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -45,7 +45,7 @@ public class CurrencyAccessObject implements CurrencyAccess {
 	}
 
 	@Override
-	public List<Currency> readCurrencies(String currencyName) throws Exception {
+	public List<Currency> findCurrencies(String currencyName) throws Exception {
 		List<Currency> currencyList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -74,7 +74,7 @@ public class CurrencyAccessObject implements CurrencyAccess {
 	}
 
 	@Override
-	public int insertCurrency(Currency currency) throws Exception {
+	public int saveCurrency(Currency currency) throws Exception {
 		String query = "INSERT INTO mymanager.currencies (currency) VALUES (?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);

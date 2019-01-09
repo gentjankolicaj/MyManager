@@ -48,7 +48,7 @@ public class EmployeeAccessObject implements EmployeeAccess {
 	}
 
 	@Override
-	public List<Employee> readAllEmployees() throws Exception {
+	public List<Employee> findAllEmployees() throws Exception {
 		List<Employee> employeeList = new ArrayList<>();
 		String query = null;
 		ResultSet results = null;
@@ -74,7 +74,7 @@ public class EmployeeAccessObject implements EmployeeAccess {
 	}
 
 	@Override
-	public List<Employee> readAllEmployees(int limit, int offset) throws Exception {
+	public List<Employee> findAllEmployees(int limit, int offset) throws Exception {
 		List<Employee> employeeList = new ArrayList<>();
 		String query = null;
 		ResultSet results = null;
@@ -100,7 +100,7 @@ public class EmployeeAccessObject implements EmployeeAccess {
 	}
 
 	@Override
-	public List<Employee> readEmployeesByFirstName(String firstName) throws Exception {
+	public List<Employee> findEmployeesByFirstName(String firstName) throws Exception {
 		List<Employee> employeeList = new ArrayList<>();
 		String query = null;
 		ResultSet results = null;
@@ -125,7 +125,7 @@ public class EmployeeAccessObject implements EmployeeAccess {
 	}
 
 	@Override
-	public List<Employee> readEmployeesByLastName(String lastName) throws Exception {
+	public List<Employee> findEmployeesByLastName(String lastName) throws Exception {
 		List<Employee> employeeList = new ArrayList<>();
 		String query = null;
 		ResultSet results = null;
@@ -150,7 +150,7 @@ public class EmployeeAccessObject implements EmployeeAccess {
 	}
 
 	@Override
-	public List<Employee> readEmployeesByJobId(int jobId) throws Exception {
+	public List<Employee> findEmployeesByJobId(int jobId) throws Exception {
 		List<Employee> employeeList = new ArrayList<>();
 		String query = null;
 		ResultSet results = null;
@@ -175,7 +175,7 @@ public class EmployeeAccessObject implements EmployeeAccess {
 	}
 
 	@Override
-	public List<Employee> readEmployeesByDepartmentId(int departmentId) throws Exception {
+	public List<Employee> findEmployeesByDepartmentId(int departmentId) throws Exception {
 		List<Employee> employeeList = new ArrayList<>();
 		String query = null;
 		ResultSet results = null;
@@ -200,7 +200,7 @@ public class EmployeeAccessObject implements EmployeeAccess {
 	}
 
 	@Override
-	public List<Employee> readEmployeesByProjectName(String projectName) throws Exception {
+	public List<Employee> findEmployeesByProjectName(String projectName) throws Exception {
 		List<Employee> employeeList = new ArrayList<>();
 		String query = null;
 		ResultSet results = null;
@@ -225,7 +225,7 @@ public class EmployeeAccessObject implements EmployeeAccess {
 	}
 
 	@Override
-	public Employee readEmployee(String employeeId) throws Exception {
+	public Employee findEmployee(String employeeId) throws Exception {
 		Employee employee = null;
 		String query = "Select * from mymanager.employees WHERE employee_id LIKE '" + employeeId + "'";
 		ResultSet results = null;
@@ -251,7 +251,7 @@ public class EmployeeAccessObject implements EmployeeAccess {
 				+ "created_by=?," + "created_date=?," + "updated_by=?," + "updated_date=? WHERE employee_id=?";
 
 		setQueryType(QueryType.NORMAL);
-		Employee temp = readEmployee(oldEmployee.getEmployeeId());
+		Employee temp = findEmployee(oldEmployee.getEmployeeId());
 		savePreviousRow(temp);
 
 		PreparedStatement pstmt = database.updateStatement(query);
@@ -275,7 +275,7 @@ public class EmployeeAccessObject implements EmployeeAccess {
 	}
 
 	@Override
-	public int insertEmployee(Employee employee) throws Exception {
+	public int saveEmployee(Employee employee) throws Exception {
 		String query = "INSERT INTO mymanager.employees (employee_id,first_name,last_name,middle_name,"
 				+ "birthday,birthplace,gender,job_id,department_id,project_name,created_by,created_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 

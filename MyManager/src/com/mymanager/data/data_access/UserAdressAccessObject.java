@@ -45,7 +45,7 @@ public class UserAdressAccessObject implements UserAdressAccess {
 
 
 	@Override
-	public List<UserAdress> readAllAdresses() throws Exception {
+	public List<UserAdress> findAllAdresses() throws Exception {
 		List<UserAdress> adressList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -70,7 +70,7 @@ public class UserAdressAccessObject implements UserAdressAccess {
 	}
 
 	@Override
-	public List<UserAdress> readAllAdresses(int limit, int offset) throws Exception {
+	public List<UserAdress> findAllAdresses(int limit, int offset) throws Exception {
 		List<UserAdress> adressList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -95,7 +95,7 @@ public class UserAdressAccessObject implements UserAdressAccess {
 	}
 
 	@Override
-	public UserAdress readAdressesByPersonId(String personId) throws Exception {
+	public UserAdress findAdressesByPersonId(String personId) throws Exception {
 		UserAdress adress = null;
 		ResultSet results = null;
 		String query = null;
@@ -120,7 +120,7 @@ public class UserAdressAccessObject implements UserAdressAccess {
 	}
 
 	@Override
-	public List<UserAdress> readAdressesByCity(String city) throws Exception {
+	public List<UserAdress> findAdressesByCity(String city) throws Exception {
 		List<UserAdress> adressList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -146,7 +146,7 @@ public class UserAdressAccessObject implements UserAdressAccess {
 	}
 
 	@Override
-	public List<UserAdress> readAdressesByCountry(String country) throws Exception {
+	public List<UserAdress> findAdressesByCountry(String country) throws Exception {
 		List<UserAdress> adressList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -173,7 +173,7 @@ public class UserAdressAccessObject implements UserAdressAccess {
 	}
 
 	@Override
-	public List<UserAdress> readAdressesByStreet(String streetName) throws Exception {
+	public List<UserAdress> findAdressesByStreet(String streetName) throws Exception {
 		List<UserAdress> adressList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -200,7 +200,7 @@ public class UserAdressAccessObject implements UserAdressAccess {
 	}
 
 	@Override
-	public UserAdress readAdress(int adressId) throws Exception {
+	public UserAdress findAdress(int adressId) throws Exception {
 		UserAdress adress = null;
 		ResultSet results = null;
 		String query = "SELECT * FROM mymanager.user_adress WHERE adress_id=" + adressId;
@@ -223,7 +223,7 @@ public class UserAdressAccessObject implements UserAdressAccess {
 		
 		setQueryType(QueryType.NORMAL);
 		
-		UserAdress temp = readAdress(oldAdress.getAdressId());
+		UserAdress temp = findAdress(oldAdress.getAdressId());
 		savePreviousRow(temp);
 
 		PreparedStatement pstmt = database.updateStatement(query);
@@ -244,7 +244,7 @@ public class UserAdressAccessObject implements UserAdressAccess {
 	}
 
 	@Override
-	public int insertAdress(UserAdress adress) throws Exception {
+	public int saveAdress(UserAdress adress) throws Exception {
 		String query = "INSERT INTO mymanager.user_adress (user_id,country,city,street_name,zipcode,building,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);

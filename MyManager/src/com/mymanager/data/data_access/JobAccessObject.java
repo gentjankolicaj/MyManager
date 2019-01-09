@@ -41,7 +41,7 @@ public class JobAccessObject implements JobAccess {
 	}
 
 	@Override
-	public List<Job> readAllJobs() throws Exception {
+	public List<Job> findAllJobs() throws Exception {
 		List<Job> jobList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -65,7 +65,7 @@ public class JobAccessObject implements JobAccess {
 	}
 
 	@Override
-	public List<Job> readAllJobs(int limit, int offset) throws Exception {
+	public List<Job> findAllJobs(int limit, int offset) throws Exception {
 		List<Job> jobList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -89,7 +89,7 @@ public class JobAccessObject implements JobAccess {
 	}
 
 	@Override
-	public List<Job> readAllJobsBetweenSalary(float minSalary, float maxSalary) throws Exception {
+	public List<Job> findAllJobsBetweenSalary(float minSalary, float maxSalary) throws Exception {
 		List<Job> jobList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -113,7 +113,7 @@ public class JobAccessObject implements JobAccess {
 	}
 
 	@Override
-	public List<Job> readAllJobsByTitle(String jobTitle) throws Exception {
+	public List<Job> findAllJobsByTitle(String jobTitle) throws Exception {
 		List<Job> jobList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -136,7 +136,7 @@ public class JobAccessObject implements JobAccess {
 	}
 
 	@Override
-	public Job readJob(int jobId) throws Exception {
+	public Job findJob(int jobId) throws Exception {
 		ResultSet results = null;
 		Job temp = null;
 		String query = "SELECT * FROM mymanager.jobs WHERE job_id=" + jobId;
@@ -158,7 +158,7 @@ public class JobAccessObject implements JobAccess {
 		String query = "UPDATE mymanager.jobs SET job_id=?,job_title=?,min_salary=?,max_salary=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE job_id=?";
 
 		setQueryType(QueryType.NORMAL);
-		Job temp = readJob(oldJob.getJobId());
+		Job temp = findJob(oldJob.getJobId());
 		savePreviousRow(temp);
 
 		PreparedStatement pstmt = database.updateStatement(query);
@@ -177,7 +177,7 @@ public class JobAccessObject implements JobAccess {
 	}
 
 	@Override
-	public int insertJob(Job job) throws Exception {
+	public int saveJob(Job job) throws Exception {
 		String query = "INSERT INTO mymanager.jobs (job_title,min_salary,max_salary,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);

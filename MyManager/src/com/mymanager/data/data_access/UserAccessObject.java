@@ -47,7 +47,7 @@ public class UserAccessObject implements UserAccess {
 	}
 
 	@Override
-	public List<User> readAllUsers() throws Exception {
+	public List<User> findAllUsers() throws Exception {
 		List<User> userList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -73,7 +73,7 @@ public class UserAccessObject implements UserAccess {
 	}
 
 	@Override
-	public List<User> readAllUsers(int limit, int offset) throws Exception {
+	public List<User> findAllUsers(int limit, int offset) throws Exception {
 		List<User> userList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -99,7 +99,7 @@ public class UserAccessObject implements UserAccess {
 	}
 
 	@Override
-	public List<User> readUsersByFirstName(String firstName) throws Exception {
+	public List<User> findUsersByFirstName(String firstName) throws Exception {
 		List<User> userList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -125,7 +125,7 @@ public class UserAccessObject implements UserAccess {
 	}
 
 	@Override
-	public List<User> readUsersByLastName(String lastName) throws Exception {
+	public List<User> findUsersByLastName(String lastName) throws Exception {
 		List<User> userList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -151,7 +151,7 @@ public class UserAccessObject implements UserAccess {
 	}
 
 	@Override
-	public List<User> readUsersByUserType(String userType) throws Exception {
+	public List<User> findUsersByUserType(String userType) throws Exception {
 		List<User> userList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -177,7 +177,7 @@ public class UserAccessObject implements UserAccess {
 	}
 
 	@Override
-	public List<User> readUsersByRights(String rights) throws Exception {
+	public List<User> findUsersByRights(String rights) throws Exception {
 		List<User> userList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -204,7 +204,7 @@ public class UserAccessObject implements UserAccess {
 	}
 
 	@Override
-	public User readUser(String userId) throws Exception {
+	public User findUser(String userId) throws Exception {
 		ResultSet results = null;
 		User userLocal = null;
 		String query = "SELECT * FROM mymanager.users WHERE user_id LIKE '" + userId + "'";
@@ -230,7 +230,7 @@ public class UserAccessObject implements UserAccess {
 				+ "birthplace=?,gender=?,rights=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE user_id=?";
 
 		setQueryType(QueryType.NORMAL);
-		User temp = readUser(oldUser.getUserId());
+		User temp = findUser(oldUser.getUserId());
 		savePreviousRow(temp);
 
 		PreparedStatement pstmt = database.updateStatement(query);
@@ -253,7 +253,7 @@ public class UserAccessObject implements UserAccess {
 	}
 
 	@Override
-	public int insertUser(User user) throws Exception {
+	public int saveUser(User user) throws Exception {
 		String query = "INSERT INTO mymanager.users (user_id,user_type,first_name,last_name,password,"
 				+ "birthday,birthplace,gender,rights,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
@@ -309,7 +309,7 @@ public class UserAccessObject implements UserAccess {
 	}
 
 	@Override
-	public List<User> readAllUsersId() throws Exception {
+	public List<User> findAllUsersId() throws Exception {
 		List<User> userList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;

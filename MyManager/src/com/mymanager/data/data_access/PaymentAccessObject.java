@@ -48,7 +48,7 @@ public class PaymentAccessObject implements PaymentAccess {
 	}
 
 	@Override
-	public List<Payment> readAllPayments() throws Exception {
+	public List<Payment> findAllPayments() throws Exception {
 		List<Payment> paymentList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -72,7 +72,7 @@ public class PaymentAccessObject implements PaymentAccess {
 	}
 
 	@Override
-	public List<Payment> readAllPayments(int limit, int offset) throws Exception {
+	public List<Payment> findAllPayments(int limit, int offset) throws Exception {
 		List<Payment> paymentList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -96,7 +96,7 @@ public class PaymentAccessObject implements PaymentAccess {
 	}
 
 	@Override
-	public List<Payment> readAllPaymentsByPaymentType(PaymentType paymentType) throws Exception {
+	public List<Payment> findAllPaymentsByPaymentType(PaymentType paymentType) throws Exception {
 		List<Payment> paymentList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -122,7 +122,7 @@ public class PaymentAccessObject implements PaymentAccess {
 	}
 
 	@Override
-	public List<Payment> readAllPaymentsByDescription(String paymentDescription) throws Exception {
+	public List<Payment> findAllPaymentsByDescription(String paymentDescription) throws Exception {
 		List<Payment> paymentList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -147,7 +147,7 @@ public class PaymentAccessObject implements PaymentAccess {
 	}
 
 	@Override
-	public List<Payment> readAllPaymentsByEmployeeId(String employeeId) throws Exception {
+	public List<Payment> findAllPaymentsByEmployeeId(String employeeId) throws Exception {
 		List<Payment> paymentList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -171,7 +171,7 @@ public class PaymentAccessObject implements PaymentAccess {
 	}
 
 	@Override
-	public Payment readPayment(int paymentId) throws Exception {
+	public Payment findPayment(int paymentId) throws Exception {
 		Payment payment = null;
 		ResultSet results = null;
 		String query = "SELECT * FROM mymanager.employee_payments WHERE payment_id=" + paymentId;
@@ -195,7 +195,7 @@ public class PaymentAccessObject implements PaymentAccess {
 				+ "created_by,created_date=?,updated_by=?,updated_date=? WHERE payment_id=?";
 
 		setQueryType(QueryType.NORMAL);
-		Payment temp = readPayment(oldPayment.getPaymentId());
+		Payment temp = findPayment(oldPayment.getPaymentId());
 		savePreviousRow(temp);
 
 		PreparedStatement pstmt = database.updateStatement(query);
@@ -215,7 +215,7 @@ public class PaymentAccessObject implements PaymentAccess {
 	}
 
 	@Override
-	public int insertPayment(Payment payment) throws Exception {
+	public int savePayment(Payment payment) throws Exception {
 		String query = "INSERT INTO mymanager.employee_payments (payment_type,employee_id,currency,payment_amount,payment_desc,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);

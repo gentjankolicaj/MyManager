@@ -30,7 +30,7 @@ public class CountryAccessObject implements CountryAccess {
 	}
 
 	@Override
-	public List<Country> readAllCountries() throws Exception {
+	public List<Country> findAllCountries() throws Exception {
 		List<Country> countryList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -47,7 +47,7 @@ public class CountryAccessObject implements CountryAccess {
 	}
 
 	@Override
-	public List<Country> readCountries(String countryName) throws Exception {
+	public List<Country> findCountries(String countryName) throws Exception {
 		List<Country> countryList = new ArrayList<>();
 		ResultSet results = null;
 		String query = "SELECT * FROM mymanager.countries WHERE country LIKE'" + countryName + "%'";
@@ -62,7 +62,7 @@ public class CountryAccessObject implements CountryAccess {
 	}
 
 	@Override
-	public Country readCountry(String countryName) throws Exception {
+	public Country findCountry(String countryName) throws Exception {
 		Country country = null;
 		ResultSet results = null;
 		String query = "SELECT * FROM mymanager.countries WHERE country=" + countryName;
@@ -88,7 +88,7 @@ public class CountryAccessObject implements CountryAccess {
 	}
 
 	@Override
-	public int insertCountry(Country country) throws Exception {
+	public int saveCountry(Country country) throws Exception {
 		String query = "INSERT INTO mymanager.countries (country) VALUES (?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);

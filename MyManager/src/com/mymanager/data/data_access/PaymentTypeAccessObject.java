@@ -23,7 +23,7 @@ public class PaymentTypeAccessObject implements PaymentTypeAccess {
 	protected static Database database = DatabasePool.getReference(DatabaseManager.getRecentInstanceNumber());
 
 	@Override
-	public List<PaymentType> readAllPaymentTypes() throws Exception {
+	public List<PaymentType> findAllPaymentTypes() throws Exception {
 		List<PaymentType> paymentTypeList = new ArrayList<>();
 		ResultSet results = null;
 		String query = "Select * FROM mymanager.payment_type";
@@ -39,7 +39,7 @@ public class PaymentTypeAccessObject implements PaymentTypeAccess {
 	}
 
 	@Override
-	public PaymentType readPaymentType(String paymentType) throws Exception {
+	public PaymentType findPaymentType(String paymentType) throws Exception {
 		PaymentType paymentTypeObj = null;
 		ResultSet results = null;
 		String query = "Select * FROM mymanager.payment_type WHERE payment_type=" + paymentType;
@@ -54,7 +54,7 @@ public class PaymentTypeAccessObject implements PaymentTypeAccess {
 	}
 
 	@Override
-	public int insertPaymentType(PaymentType paymentType) throws Exception {
+	public int savePaymentType(PaymentType paymentType) throws Exception {
 		String query = "INSERT INTO mymanager.payment_type (payment_type) VALUES (?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);

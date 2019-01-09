@@ -28,7 +28,7 @@ public class ProjectAccessObject implements ProjectAccess {
 	}
 
 	@Override
-	public List<Project> readAllProjects() throws Exception {
+	public List<Project> findAllProjects() throws Exception {
 		List<Project> projectList = new ArrayList<>();
 		ResultSet results = null;
 		String query = "SELECT * FROM mymanager.projects";
@@ -48,7 +48,7 @@ public class ProjectAccessObject implements ProjectAccess {
 	}
 
 	@Override
-	public List<Project> readAllProjects(int limit, int offset) throws Exception {
+	public List<Project> findAllProjects(int limit, int offset) throws Exception {
 		List<Project> projectList = new ArrayList<>();
 		ResultSet results = null;
 		String query = "SELECT * FROM mymanager.projects LIMIT " + limit + " OFFSET " + offset;
@@ -68,7 +68,7 @@ public class ProjectAccessObject implements ProjectAccess {
 	}
 
 	@Override
-	public List<Project> readAllProjectsByCustomer(String customer) throws Exception {
+	public List<Project> findAllProjectsByCustomer(String customer) throws Exception {
 		List<Project> projectList = new ArrayList<>();
 		ResultSet results = null;
 		String query = "SELECT * FROM mymanager.projects WHERE customer LIKE '" + customer + "%'";
@@ -87,7 +87,7 @@ public class ProjectAccessObject implements ProjectAccess {
 	}
 
 	@Override
-	public List<Project> readAllProjectsByDescription(String projectDescription) throws Exception {
+	public List<Project> findAllProjectsByDescription(String projectDescription) throws Exception {
 		List<Project> projectList = new ArrayList<>();
 		ResultSet results = null;
 		String query = "SELECT * FROM mymanager.projects WHERE description LIKE '" + projectDescription + "%'";
@@ -106,7 +106,7 @@ public class ProjectAccessObject implements ProjectAccess {
 	}
 
 	@Override
-	public Project readProjectByName(String projectName) throws Exception {
+	public Project findProjectByName(String projectName) throws Exception {
 		Project project = null;
 		ResultSet results = null;
 		String query = "SELECT * FROM mymanager.projects WHERE project_name=" + projectName;
@@ -142,7 +142,7 @@ public class ProjectAccessObject implements ProjectAccess {
 	}
 
 	@Override
-	public int insertProject(Project project) throws Exception {
+	public int saveProject(Project project) throws Exception {
 		String query = "INSERT INTO mymanager.projects (project_name,description,customer,country,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);

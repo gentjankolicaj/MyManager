@@ -39,7 +39,7 @@ public class AdditionalAccessObject implements AdditionalAccess {
 	}
 
 	@Override
-	public List<Additional> readAllAdditionals() throws Exception {
+	public List<Additional> findAllAdditionals() throws Exception {
 		List<Additional> additionalList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -63,7 +63,7 @@ public class AdditionalAccessObject implements AdditionalAccess {
 	}
 
 	@Override
-	public List<Additional> readAllAdditionals(int limit, int offset) throws Exception {
+	public List<Additional> findAllAdditionals(int limit, int offset) throws Exception {
 		List<Additional> additionalList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -87,7 +87,7 @@ public class AdditionalAccessObject implements AdditionalAccess {
 	}
 
 	@Override
-	public Additional readAdditional(String employeeId) throws Exception {
+	public Additional findAdditional(String employeeId) throws Exception {
 		Additional additional = null;
 		ResultSet results = null;
 		String query = "SELECT * FROM mymanager.employee_additional WHERE employee_id=" + employeeId;
@@ -108,7 +108,7 @@ public class AdditionalAccessObject implements AdditionalAccess {
 		String query = "UPDATE mymanager.employee_additional SET employee_id=?,salary_amount=?,hire_date=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE employee_id=?";
 
 		setQueryType(QueryType.NORMAL);
-		Additional temp = readAdditional(oldAdditional.getEmployeeId());
+		Additional temp = findAdditional(oldAdditional.getEmployeeId());
 		savePreviousRow(temp);
 
 		PreparedStatement pstmt = database.updateStatement(query);
@@ -126,7 +126,7 @@ public class AdditionalAccessObject implements AdditionalAccess {
 	}
 
 	@Override
-	public int insertAdditional(Additional additional) throws Exception {
+	public int saveAdditional(Additional additional) throws Exception {
 		String query = "INSERT INTO mymanager.employee_additional (employee_id,salary_amount,hire_date,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);

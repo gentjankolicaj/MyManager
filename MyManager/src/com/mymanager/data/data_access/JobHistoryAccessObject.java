@@ -48,7 +48,7 @@ public class JobHistoryAccessObject implements JobHistoryAccess {
 	}
 
 	@Override
-	public List<JobHistory> readAllJobHistories() throws Exception {
+	public List<JobHistory> findAllJobHistories() throws Exception {
 		List<JobHistory> jobHistoryList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -72,7 +72,7 @@ public class JobHistoryAccessObject implements JobHistoryAccess {
 	}
 
 	@Override
-	public List<JobHistory> readAllJobHistories(int limit, int offset) throws Exception {
+	public List<JobHistory> findAllJobHistories(int limit, int offset) throws Exception {
 		List<JobHistory> jobHistoryList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -96,7 +96,7 @@ public class JobHistoryAccessObject implements JobHistoryAccess {
 	}
 
 	@Override
-	public List<JobHistory> readAllJobHistoryBetweenDates(LocalDate startDate, LocalDate endDate) throws Exception {
+	public List<JobHistory> findAllJobHistoryBetweenDates(LocalDate startDate, LocalDate endDate) throws Exception {
 		List<JobHistory> jobHistoryList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -121,7 +121,7 @@ public class JobHistoryAccessObject implements JobHistoryAccess {
 	}
 
 	@Override
-	public List<JobHistory> readAllJobHistoryByJobId(String jobId) throws Exception {
+	public List<JobHistory> findAllJobHistoryByJobId(String jobId) throws Exception {
 		List<JobHistory> jobHistoryList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -145,7 +145,7 @@ public class JobHistoryAccessObject implements JobHistoryAccess {
 	}
 
 	@Override
-	public List<JobHistory> readAllJobHistoryByDepartmentId(String departmentId) throws Exception {
+	public List<JobHistory> findAllJobHistoryByDepartmentId(String departmentId) throws Exception {
 		List<JobHistory> jobHistoryList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -169,7 +169,7 @@ public class JobHistoryAccessObject implements JobHistoryAccess {
 	}
 
 	@Override
-	public List<JobHistory> readAllJobHistoryByEmployeeId(String employeeId) throws Exception {
+	public List<JobHistory> findAllJobHistoryByEmployeeId(String employeeId) throws Exception {
 		List<JobHistory> jobHistoryList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -193,7 +193,7 @@ public class JobHistoryAccessObject implements JobHistoryAccess {
 	}
 
 	@Override
-	public List<JobHistory> readJobHistoryByEmployeeId(String employeeId) throws Exception {
+	public List<JobHistory> findJobHistoryByEmployeeId(String employeeId) throws Exception {
 		List<JobHistory> jobHistoryList = new ArrayList<>();
 		ResultSet results = null;
 		String query = "SELECT * FROM mymanager.job_history WHERE employee_id LIKE '" + employeeId + "'";
@@ -217,7 +217,7 @@ public class JobHistoryAccessObject implements JobHistoryAccess {
 				+ "created_by=?,created_date=?,updated_by=?,updated_date=? WHERE employee_id=? AND created_date=?";
 
 		setQueryType(QueryType.NORMAL);
-		JobHistory temp = readJobHistoryByEmployeeId(oldJobHistory.getDepartmentId()).get(0); // gets
+		JobHistory temp = findJobHistoryByEmployeeId(oldJobHistory.getDepartmentId()).get(0); // gets
 																								// the
 																								// first
 																								// jobhistory
@@ -243,7 +243,7 @@ public class JobHistoryAccessObject implements JobHistoryAccess {
 	}
 
 	@Override
-	public int insertJobHistory(JobHistory jobHistory) throws Exception {
+	public int saveJobHistory(JobHistory jobHistory) throws Exception {
 		String query = "INSERT INTO mymanager.job_history (employee_id,start_date,end_date,job_id,department_id,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);

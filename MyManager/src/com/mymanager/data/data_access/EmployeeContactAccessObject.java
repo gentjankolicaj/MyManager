@@ -35,7 +35,7 @@ public class EmployeeContactAccessObject implements EmployeeContactAccess {
 	}
 
 	@Override
-	public List<EmployeeContact> readAllContacts() throws Exception {
+	public List<EmployeeContact> findAllContacts() throws Exception {
 		List<EmployeeContact> contactList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -59,7 +59,7 @@ public class EmployeeContactAccessObject implements EmployeeContactAccess {
 	}
 
 	@Override
-	public List<EmployeeContact> readAllContacts(int limit, int offset) throws Exception {
+	public List<EmployeeContact> findAllContacts(int limit, int offset) throws Exception {
 		List<EmployeeContact> contactList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -84,7 +84,7 @@ public class EmployeeContactAccessObject implements EmployeeContactAccess {
 	}
 
 	@Override
-	public List<EmployeeContact> readContactsByCelular(int celular) throws Exception {
+	public List<EmployeeContact> findContactsByCelular(int celular) throws Exception {
 		List<EmployeeContact> contactList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -108,7 +108,7 @@ public class EmployeeContactAccessObject implements EmployeeContactAccess {
 	}
 
 	@Override
-	public List<EmployeeContact> readContactsByEmail(String email) throws Exception {
+	public List<EmployeeContact> findContactsByEmail(String email) throws Exception {
 		List<EmployeeContact> contactList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -132,7 +132,7 @@ public class EmployeeContactAccessObject implements EmployeeContactAccess {
 	}
 
 	@Override
-	public EmployeeContact readContactByPersonId(String personId) throws Exception {
+	public EmployeeContact findContactByPersonId(String personId) throws Exception {
 		EmployeeContact contact = null;
 		ResultSet results = null;
 		String query = null;
@@ -155,7 +155,7 @@ public class EmployeeContactAccessObject implements EmployeeContactAccess {
 	}
 
 	@Override
-	public EmployeeContact readContact(int contactId) throws Exception {
+	public EmployeeContact findContact(int contactId) throws Exception {
 		EmployeeContact contact = null;
 		ResultSet results = null;
 
@@ -180,8 +180,8 @@ public class EmployeeContactAccessObject implements EmployeeContactAccess {
 
 		setQueryType(QueryType.NORMAL);
 
-		// reads previous row and saves it into history tables
-		EmployeeContact temp = readContact(oldContact.getContactId());
+		// finds previous row and saves it into history tables
+		EmployeeContact temp = findContact(oldContact.getContactId());
 		savePreviousRow(temp);
 
 		PreparedStatement pstmt = database.updateStatement(query);
@@ -201,7 +201,7 @@ public class EmployeeContactAccessObject implements EmployeeContactAccess {
 	}
 
 	@Override
-	public int insertContact(EmployeeContact contact) throws Exception {
+	public int saveContact(EmployeeContact contact) throws Exception {
 		String query = "INSERT INTO mymanager.employee_contact (employee_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);

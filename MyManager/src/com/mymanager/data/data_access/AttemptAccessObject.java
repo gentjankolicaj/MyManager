@@ -30,7 +30,7 @@ public class AttemptAccessObject implements AttemptAccess {
 	}
 
 	@Override
-	public List<Attempt> readAllAttempts() throws Exception {
+	public List<Attempt> findAllAttempts() throws Exception {
 		List<Attempt> atemptList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -49,7 +49,7 @@ public class AttemptAccessObject implements AttemptAccess {
 	}
 
 	@Override
-	public List<Attempt> readAllAttempts(int limit, int offset) throws Exception {
+	public List<Attempt> findAllAttempts(int limit, int offset) throws Exception {
 		List<Attempt> atemptList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -68,7 +68,7 @@ public class AttemptAccessObject implements AttemptAccess {
 	}
 
 	@Override
-	public List<Attempt> readAttempts(User user) throws Exception {
+	public List<Attempt> findAttempts(User user) throws Exception {
 		List<Attempt> atemptList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -87,7 +87,7 @@ public class AttemptAccessObject implements AttemptAccess {
 	}
 
 	@Override
-	public List<Attempt> readAttempts(Status status) throws Exception {
+	public List<Attempt> findAttempts(Status status) throws Exception {
 		List<Attempt> atemptList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -105,7 +105,7 @@ public class AttemptAccessObject implements AttemptAccess {
 	}
 
 	@Override
-	public List<Attempt> readAttempts(String id) throws Exception {
+	public List<Attempt> findAttempts(String id) throws Exception {
 		List<Attempt> attemptList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -123,7 +123,7 @@ public class AttemptAccessObject implements AttemptAccess {
 	}
 
 	@Override
-	public int insertAttempt(Attempt atempt) throws Exception {
+	public int saveAttempt(Attempt atempt) throws Exception {
 		String query = "INSERT INTO mymanager.attempts (user,password,status,description,date_time) VALUES (?,?,?,?,?)";
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, atempt.getUser());

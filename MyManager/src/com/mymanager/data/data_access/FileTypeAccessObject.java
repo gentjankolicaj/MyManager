@@ -18,7 +18,7 @@ public class FileTypeAccessObject implements FileTypeAccess {
 	protected static Database database = DatabasePool.getReference(DatabaseManager.getRecentInstanceNumber());
 
 	@Override
-	public List<FileType> readAllFileTypes() throws Exception {
+	public List<FileType> findAllFileTypes() throws Exception {
 		List<FileType> fileTypeList = new ArrayList<>();
 		ResultSet results = null;
 		String query = "Select * FROM mymanager.file_types";
@@ -34,7 +34,7 @@ public class FileTypeAccessObject implements FileTypeAccess {
 	}
 
 	@Override
-	public FileType readFileType(String fileType) throws Exception {
+	public FileType findFileType(String fileType) throws Exception {
 		FileType fileTypeObj = null;
 		ResultSet results = null;
 		String query = "Select * FROM mymanager.file_types WHERE file_type=" + fileType;
@@ -49,7 +49,7 @@ public class FileTypeAccessObject implements FileTypeAccess {
 	}
 
 	@Override
-	public int insertFileType(FileType fileType) throws Exception {
+	public int saveFileType(FileType fileType) throws Exception {
 		String query = "INSERT INTO mymanager.file_types (file_type) VALUES (?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);

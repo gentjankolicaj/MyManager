@@ -37,7 +37,7 @@ public class UserContactAccessObject implements UserContactAccess{
 
 
 	@Override
-	public List<UserContact> readAllContacts() throws Exception {
+	public List<UserContact> findAllContacts() throws Exception {
 		List<UserContact> contactList = new ArrayList<>();
 		ResultSet results = null;
 		String query="";
@@ -60,7 +60,7 @@ public class UserContactAccessObject implements UserContactAccess{
 	}
 
 	@Override
-	public List<UserContact> readAllContacts(int limit, int offset) throws Exception {
+	public List<UserContact> findAllContacts(int limit, int offset) throws Exception {
 		List<UserContact> contactList = new ArrayList<>();
 		ResultSet results = null;
 		String query="";
@@ -84,7 +84,7 @@ public class UserContactAccessObject implements UserContactAccess{
 	}
 
 	@Override
-	public List<UserContact> readContactsByCelular(int celular) throws Exception {
+	public List<UserContact> findContactsByCelular(int celular) throws Exception {
 		List<UserContact> contactList = new ArrayList<>();
 		ResultSet results = null;
 		String query="";
@@ -108,7 +108,7 @@ public class UserContactAccessObject implements UserContactAccess{
 	}
 
 	@Override
-	public List<UserContact> readContactsByEmail(String email) throws Exception {
+	public List<UserContact> findContactsByEmail(String email) throws Exception {
 		List<UserContact> contactList = new ArrayList<>();
 		ResultSet results = null;
 		String query="";
@@ -132,7 +132,7 @@ public class UserContactAccessObject implements UserContactAccess{
 	}
 
 	@Override
-	public UserContact readContactByPersonId(String personId) throws Exception {
+	public UserContact findContactByPersonId(String personId) throws Exception {
 		UserContact contact=null;
 		ResultSet results = null;
 		String query="";
@@ -155,7 +155,7 @@ public class UserContactAccessObject implements UserContactAccess{
 	}
 
 	@Override
-	public UserContact readContact(int contactId) throws Exception {
+	public UserContact findContact(int contactId) throws Exception {
 		UserContact contact=null;
 		ResultSet results = null;
 		String query="";
@@ -179,8 +179,8 @@ public class UserContactAccessObject implements UserContactAccess{
 
 		setQueryType(QueryType.NORMAL);
 		
-		//reads previous row and saves it into history tables
-		UserContact temp = readContact(oldContact.getContactId());
+		//finds previous row and saves it into history tables
+		UserContact temp = findContact(oldContact.getContactId());
 		savePreviousRow(temp);
 		
 
@@ -202,7 +202,7 @@ public class UserContactAccessObject implements UserContactAccess{
 	}
 
 	@Override
-	public int insertContact(UserContact contact) throws Exception {
+	public int saveContact(UserContact contact) throws Exception {
 		String query = "INSERT INTO mymanager.user_contact (user_id,telephone,celular,email,fax,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);

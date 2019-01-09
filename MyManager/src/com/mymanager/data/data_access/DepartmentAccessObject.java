@@ -46,7 +46,7 @@ public class DepartmentAccessObject implements DepartmentAccess {
 	}
 
 	@Override
-	public List<Department> readAllDepartments() throws Exception {
+	public List<Department> findAllDepartments() throws Exception {
 		List<Department> departmentList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -69,7 +69,7 @@ public class DepartmentAccessObject implements DepartmentAccess {
 	}
 
 	@Override
-	public List<Department> readAllDepartments(int limit, int offset) throws Exception {
+	public List<Department> findAllDepartments(int limit, int offset) throws Exception {
 		List<Department> departmentList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -92,7 +92,7 @@ public class DepartmentAccessObject implements DepartmentAccess {
 	}
 
 	@Override
-	public List<Department> readDepartments(String departmentName) throws Exception {
+	public List<Department> findDepartments(String departmentName) throws Exception {
 		List<Department> departmentList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -115,7 +115,7 @@ public class DepartmentAccessObject implements DepartmentAccess {
 	}
 
 	@Override
-	public Department readDepartment(String departmentId) throws Exception {
+	public Department findDepartment(String departmentId) throws Exception {
 		Department department = null;
 		ResultSet results = null;
 		String query = "SELECT * FROM mymanager.departments WHERE department_id=" + departmentId;
@@ -136,7 +136,7 @@ public class DepartmentAccessObject implements DepartmentAccess {
 		String query = "UPDATE mymanager.departments SET department_id=?,department_name=?,manager_id=?,created_by=?,"
 				+ "created_date=?," + "updated_by=?," + "updated_date=? WHERE department_id=?";
 		setQueryType(QueryType.NORMAL);
-		Department temp = readDepartment(String.valueOf(oldDepartment.getDepartmentId()));
+		Department temp = findDepartment(String.valueOf(oldDepartment.getDepartmentId()));
 		savePreviousRow(temp);
 
 		PreparedStatement pstmt = database.updateStatement(query);
@@ -154,7 +154,7 @@ public class DepartmentAccessObject implements DepartmentAccess {
 	}
 
 	@Override
-	public int insertDepartment(Department department) throws Exception {
+	public int saveDepartment(Department department) throws Exception {
 		String query = "INSERT INTO mymanager.departments (department_name,manager_id,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);

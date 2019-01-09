@@ -47,7 +47,7 @@ public class DocumentAccessObject implements DocumentAccess {
 	}
 
 	@Override
-	public List<Document> readAllDocuments() throws Exception {
+	public List<Document> findAllDocuments() throws Exception {
 		List<Document> documentList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -72,7 +72,7 @@ public class DocumentAccessObject implements DocumentAccess {
 	}
 
 	@Override
-	public List<Document> readAllDocuments(int limit, int offset) throws Exception {
+	public List<Document> findAllDocuments(int limit, int offset) throws Exception {
 		List<Document> documentList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -97,7 +97,7 @@ public class DocumentAccessObject implements DocumentAccess {
 	}
 
 	@Override
-	public List<Document> readDocuments(String documentName) throws Exception {
+	public List<Document> findDocuments(String documentName) throws Exception {
 		List<Document> documentList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -122,7 +122,7 @@ public class DocumentAccessObject implements DocumentAccess {
 	}
 
 	@Override
-	public List<Document> readDocumentByEmployeeId(String employeeId) throws Exception {
+	public List<Document> findDocumentByEmployeeId(String employeeId) throws Exception {
 		List<Document> documentList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -147,7 +147,7 @@ public class DocumentAccessObject implements DocumentAccess {
 	}
 
 	@Override
-	public Document readDocument(int documentNumber) throws Exception {
+	public Document findDocument(int documentNumber) throws Exception {
 		Document document = null;
 		ResultSet results = null;
 		String query = "SELECT * FROM mymanager.employee_documents WHERE document_number=" + documentNumber;
@@ -169,7 +169,7 @@ public class DocumentAccessObject implements DocumentAccess {
 	public int updateDocument(Document oldDocument, Document newDocument) throws Exception {
 		String query = "UPDATE mymanager.employee_documents SET document_number=?,document_name=?,document_type=?,document_file=?,file_type=?,employee_id=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE document_number=?";
 		setQueryType(QueryType.NORMAL);
-		Document temp = readDocument(oldDocument.getNumber());
+		Document temp = findDocument(oldDocument.getNumber());
 		savePreviousRow(temp);
 
 		PreparedStatement pstmt = database.updateStatement(query);
@@ -190,7 +190,7 @@ public class DocumentAccessObject implements DocumentAccess {
 	}
 
 	@Override
-	public int insertDocument(Document document) throws Exception {
+	public int saveDocument(Document document) throws Exception {
 		String query = "INSERT INTO mymanager.employee_documents (document_name,document_type,document_file,file_type,document_number,employee_id,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = database.updateStatement(query);

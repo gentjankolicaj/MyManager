@@ -44,7 +44,7 @@ public class EmployeeAdressAcessObject implements EmployeeAdressAccess {
 	
 	
 	@Override
-	public List<EmployeeAdress> readAllAdresses() throws Exception {
+	public List<EmployeeAdress> findAllAdresses() throws Exception {
 		List<EmployeeAdress> adressList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -71,7 +71,7 @@ public class EmployeeAdressAcessObject implements EmployeeAdressAccess {
 	}
 
 	@Override
-	public List<EmployeeAdress> readAllAdresses(int limit, int offset) throws Exception {
+	public List<EmployeeAdress> findAllAdresses(int limit, int offset) throws Exception {
 		List<EmployeeAdress> adressList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -96,7 +96,7 @@ public class EmployeeAdressAcessObject implements EmployeeAdressAccess {
 	}
 
 	@Override
-	public EmployeeAdress readAdressesByPersonId(String personId) throws Exception {
+	public EmployeeAdress findAdressesByPersonId(String personId) throws Exception {
 		EmployeeAdress adress = null;
 		ResultSet results = null;
 		String query = null;
@@ -120,7 +120,7 @@ public class EmployeeAdressAcessObject implements EmployeeAdressAccess {
 	}
 
 	@Override
-	public List<EmployeeAdress> readAdressesByCity(String city) throws Exception {
+	public List<EmployeeAdress> findAdressesByCity(String city) throws Exception {
 		List<EmployeeAdress> adressList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -146,7 +146,7 @@ public class EmployeeAdressAcessObject implements EmployeeAdressAccess {
 	}
 
 	@Override
-	public List<EmployeeAdress> readAdressesByCountry(String country) throws Exception {
+	public List<EmployeeAdress> findAdressesByCountry(String country) throws Exception {
 		List<EmployeeAdress> adressList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -172,7 +172,7 @@ public class EmployeeAdressAcessObject implements EmployeeAdressAccess {
 	}
 
 	@Override
-	public List<EmployeeAdress> readAdressesByStreet(String streetName) throws Exception {
+	public List<EmployeeAdress> findAdressesByStreet(String streetName) throws Exception {
 		List<EmployeeAdress> adressList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -198,7 +198,7 @@ public class EmployeeAdressAcessObject implements EmployeeAdressAccess {
 	}
 
 	@Override
-	public EmployeeAdress readAdress(int adressId) throws Exception {
+	public EmployeeAdress findAdress(int adressId) throws Exception {
 		EmployeeAdress adress = null;
 		ResultSet results = null;
 		String query= "SELECT * FROM mymanager.employee_adress WHERE adress_id=" + adressId;
@@ -221,7 +221,7 @@ public class EmployeeAdressAcessObject implements EmployeeAdressAccess {
 		String query = "UPDATE mymanager.employee_adress SET adress_id=?,employee_id=?,country=?,city=?,street_name=?,zipcode=?,building=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE adress_id=?";
 			
 		setQueryType(QueryType.NORMAL);
-		EmployeeAdress temp = readAdress(oldAdress.getAdressId());
+		EmployeeAdress temp = findAdress(oldAdress.getAdressId());
 		savePreviousRow(temp);
 
 		PreparedStatement pstmt = database.updateStatement(query);
@@ -242,7 +242,7 @@ public class EmployeeAdressAcessObject implements EmployeeAdressAccess {
 	}
 
 	@Override
-	public int insertAdress(EmployeeAdress adress) throws Exception {
+	public int saveAdress(EmployeeAdress adress) throws Exception {
 	    String query = "INSERT INTO mymanager.employee_adress (employee_id,country,city,street_name,zipcode,building,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?)";
 	
 		PreparedStatement pstmt = database.updateStatement(query);
