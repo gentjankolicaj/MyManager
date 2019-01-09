@@ -31,6 +31,12 @@ public class UserContactAccessObject implements UserContactAccess{
 	}
 
 
+	public UserContactAccessObject() {
+		super();
+		this.queryType=QueryType.NORMAL;
+	}
+
+
 	public void setQueryType(QueryType queryType) {
 		this.queryType = queryType;
 	}

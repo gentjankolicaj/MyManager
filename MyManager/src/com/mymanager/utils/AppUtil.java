@@ -92,14 +92,5 @@ public class AppUtil {
 
 	}
 
-	public static boolean validateUser(User user, String userId, String password) {
-		boolean status = false;
-		String userIdTemp = user.getUserId();
-		String userPassTemp = user.getPassword();
-		if ((userIdTemp.equals(userId)) && (userPassTemp.equals(password))) {
-			status = true;
-		}
-		return status;
-	}
 
 }
