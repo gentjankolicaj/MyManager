@@ -9,7 +9,6 @@ import javax.swing.JDialog;
 import com.mymanager.data.data_access.AdditionalAccessObject;
 import com.mymanager.data.data_access.AdressAccessObject;
 import com.mymanager.data.data_access.AttemptAccessObject;
-import com.mymanager.data.data_access.ContactAccessObject;
 import com.mymanager.data.data_access.CountryAccessObject;
 import com.mymanager.data.data_access.CurrencyAccessObject;
 import com.mymanager.data.data_access.DepartmentAccessObject;
@@ -26,7 +25,6 @@ import com.mymanager.data.data_access.WorkingHourAccessObject;
 import com.mymanager.data.data_access.interfaces.AdditionalAccess;
 import com.mymanager.data.data_access.interfaces.AdressAccess;
 import com.mymanager.data.data_access.interfaces.AttemptAccess;
-import com.mymanager.data.data_access.interfaces.ContactAccess;
 import com.mymanager.data.data_access.interfaces.CountryAccess;
 import com.mymanager.data.data_access.interfaces.CurrencyAccess;
 import com.mymanager.data.data_access.interfaces.DepartmentAccess;
@@ -42,10 +40,8 @@ import com.mymanager.data.data_access.interfaces.UserAccess;
 import com.mymanager.data.data_access.interfaces.WorkingHourAccess;
 import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.Additional;
-import com.mymanager.data.models.Adress;
 import com.mymanager.data.models.AdressType;
 import com.mymanager.data.models.Attempt;
-import com.mymanager.data.models.Contact;
 import com.mymanager.data.models.ContactType;
 import com.mymanager.data.models.Country;
 import com.mymanager.data.models.Currency;
@@ -75,9 +71,7 @@ public class UserController {
 
 	//
 	private AdditionalAccess additionalAccess;
-	private AdressAccess adressAccess;
 	private AttemptAccess attemptAccess;
-	private ContactAccess contactAccess;
 	private CountryAccess countryAccess;
 	private CurrencyAccess currencyAccess;
 	private DepartmentAccess departmentAccess;
@@ -98,9 +92,7 @@ public class UserController {
 	public UserController(User user) {
 		this.user = user;
 		additionalAccess = new AdditionalAccessObject(queryType);
-		adressAccess = new AdressAccessObject(queryType, adressType);
 		attemptAccess = new AttemptAccessObject();
-		contactAccess = new ContactAccessObject(queryType, contactType);
 		countryAccess = new CountryAccessObject();
 		currencyAccess = new CurrencyAccessObject();
 		departmentAccess = new DepartmentAccessObject(queryType);
@@ -214,119 +206,7 @@ public class UserController {
 
 	}
 
-	// =======================================================================
-	// Adress
-	// =======================================================================
 
-	public List<Adress> getAllAdresses(QueryType queryType, AdressType adressType) {
-		try {
-			setQueryType(queryType);
-			setAdressType(adressType);
-			return adressAccess.readAllAdresses();
-		} catch (Exception e) {
-			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
-			return null;
-		}
-
-	}
-
-	public List<Adress> getAllAdresses(QueryType queryType, AdressType adressType, int limit, int offset) {
-		try {
-			setQueryType(queryType);
-			setAdressType(adressType);
-			return adressAccess.readAllAdresses(limit, offset);
-		} catch (Exception e) {
-			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
-			return null;
-		}
-
-	}
-
-	public Adress getAdress(QueryType queryType, AdressType adressType, int adressId) {
-		try {
-			setQueryType(queryType);
-			setAdressType(adressType);
-			return adressAccess.readAdress(adressId);
-		} catch (Exception e) {
-			return null;
-		}
-
-	}
-
-	public Adress getAdressByPersonId(QueryType queryType, AdressType adressType, String personId) {
-		try {
-			setQueryType(queryType);
-			setAdressType(adressType);
-			return adressAccess.readAdressesByPersonId(personId);
-		} catch (Exception e) {
-			return null;
-		}
-
-	}
-
-	public List<Adress> getAdressByCity(QueryType queryType, AdressType adressType, String city) {
-		try {
-			setQueryType(queryType);
-			setAdressType(adressType);
-			return adressAccess.readAdressesByCity(city);
-		} catch (Exception e) {
-			return null;
-		}
-
-	}
-
-	public List<Adress> getAdressByCountry(QueryType queryType, AdressType adressType, String country) {
-		try {
-			setQueryType(queryType);
-			setAdressType(adressType);
-			return adressAccess.readAdressesByCountry(country);
-		} catch (Exception e) {
-			return null;
-		}
-
-	}
-
-	public List<Adress> getAdressByStreet(QueryType queryType, AdressType adressType, String street) {
-		try {
-			setQueryType(queryType);
-			setAdressType(adressType);
-			return adressAccess.readAdressesByStreet(street);
-		} catch (Exception e) {
-			return null;
-		}
-
-	}
-
-	public int saveAdress(AdressType adressType, Adress adress) {
-		try {
-			setAdressType(adressType);
-			return adressAccess.insertAdress(adress);
-		} catch (Exception e) {
-			return 0;
-		}
-
-	}
-
-	public int editAdress(AdressType adressType, Adress oldAdress, Adress newAdress) {
-		try {
-			setAdressType(adressType);
-			return adressAccess.updateAdress(oldAdress, newAdress);
-		} catch (Exception e) {
-			return 0;
-		}
-
-	}
-
-	public int deleteAdress(AdressType adressType, Adress adress) {
-		try {
-			setAdressType(adressType);
-			return adressAccess.deleteAdress(adress);
-		} catch (Exception e) {
-			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
-			return 0;
-		}
-
-	}
 
 	// =======================================================================
 	// Attempts
@@ -402,111 +282,7 @@ public class UserController {
 
 	}
 
-	// =======================================================================
-	// Contacts
-	// =======================================================================
 
-	public List<Contact> getAllContacts(QueryType queryType, ContactType contactType) {
-		try {
-			setQueryType(queryType);
-			setContactType(contactType);
-			return contactAccess.readAllContacts();
-		} catch (Exception e) {
-			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
-			return null;
-		}
-
-	}
-
-	public List<Contact> getAllContacts(QueryType queryType, ContactType contactType, int limit, int offset) {
-		try {
-			setQueryType(queryType);
-			setContactType(contactType);
-			return contactAccess.readAllContacts(limit, offset);
-		} catch (Exception e) {
-			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
-			return null;
-		}
-
-	}
-
-	public Contact getContact(QueryType queryType, ContactType contactType, int contactId) {
-		try {
-			setQueryType(queryType);
-			setContactType(contactType);
-			return contactAccess.readContact(contactId);
-		} catch (Exception e) {
-			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
-			return null;
-		}
-
-	}
-
-	public List<Contact> getContactsByCelular(QueryType queryType, ContactType contactType, int celular) {
-		try {
-			setQueryType(queryType);
-			setContactType(contactType);
-			return contactAccess.readContactsByCelular(celular);
-		} catch (Exception e) {
-			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
-			return null;
-		}
-
-	}
-
-	public List<Contact> getContactsByEmail(QueryType queryType, ContactType contactType, String email) {
-		try {
-			setQueryType(queryType);
-			setContactType(contactType);
-			return contactAccess.readContactsByEmail(email);
-		} catch (Exception e) {
-			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
-			return null;
-		}
-
-	}
-
-	public Contact getContactByPersonId(QueryType queryType, ContactType contactType, String personId) {
-		try {
-			setQueryType(queryType);
-			setContactType(contactType);
-			return contactAccess.readContactByPersonId(personId);
-		} catch (Exception e) {
-			return null;
-		}
-
-	}
-
-	public int saveContact(ContactType contactType, Contact contact) {
-		try {
-			setContactType(contactType);
-			return contactAccess.insertContact(contact);
-		} catch (Exception e) {
-			return 0;
-		}
-
-	}
-
-	public int editContact(ContactType contactType, Contact oldContact, Contact newContact) {
-		try {
-			setContactType(contactType);
-			return contactAccess.updateContact(oldContact, newContact);
-		} catch (Exception e) {
-			return 0;
-		}
-
-	}
-
-	public int deleteContact(ContactType contactType, Contact contact) {
-		try {
-			setContactType(contactType);
-			return contactAccess.deleteContact(contact);
-		} catch (Exception e) {
-			UtilWindow.showMessage(null, e.getMessage(), MessageType.ERROR, "admin");
-			return 0;
-		}
-
-	}
 
 	// =======================================================================
 	// Country
