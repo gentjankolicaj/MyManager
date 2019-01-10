@@ -3,7 +3,11 @@ package com.mymanager.services;
 import java.util.List;
 
 import com.mymanager.data.models.Department;
-
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public interface DepartmentService {
 	
 	public abstract List<Department> getAllDepartments() throws Exception;

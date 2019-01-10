@@ -3,7 +3,11 @@ package com.mymanager.services;
 import java.util.List;
 
 import com.mymanager.data.models.PaymentType;
-
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public interface PaymentTypeService {
 
 	public abstract List<PaymentType> getAllPaymentTypes() throws Exception;

@@ -3,7 +3,11 @@ package com.mymanager.services;
 import java.util.List;
 
 import com.mymanager.data.models.Employee;
-
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public interface EmployeeService {
 	
 	public abstract List<Employee> getAllEmployees() throws Exception;

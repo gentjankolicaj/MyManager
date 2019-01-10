@@ -4,7 +4,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.mymanager.data.models.WorkingHour;
-
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public interface WorkingHourService {
 
 	public abstract List<WorkingHour> getAllWorkingHour() throws Exception;

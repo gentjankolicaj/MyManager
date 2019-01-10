@@ -4,7 +4,11 @@ import java.util.List;
 
 
 import com.mymanager.data.models.EmployeeAdress;
-
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public interface EmployeeAdressService {
 
 	public abstract List<EmployeeAdress> getAllAdresses() throws Exception;

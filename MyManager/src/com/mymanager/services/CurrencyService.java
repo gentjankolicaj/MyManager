@@ -3,7 +3,11 @@ package com.mymanager.services;
 import java.util.List;
 
 import com.mymanager.data.models.Currency;
-
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public interface CurrencyService {
 
 	public abstract List<Currency> getAllCurrencies() throws Exception;

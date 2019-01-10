@@ -4,7 +4,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.mymanager.data.models.JobHistory;
-
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public interface JobHistoryService {
 	
 	public abstract List<JobHistory> getAllJobHistories() throws Exception;
@@ -18,7 +22,6 @@ public interface JobHistoryService {
 
 	public abstract List<JobHistory> getAllJobHistoryByDepartmentId(String departmentId) throws Exception;
 
-	public abstract List<JobHistory> getAllJobHistoryByEmployeeId(String employeeId) throws Exception;
 
 	public abstract List<JobHistory> getJobHistoryByEmployeeId(String employeeId) throws Exception;
 

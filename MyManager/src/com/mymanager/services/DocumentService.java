@@ -3,7 +3,11 @@ package com.mymanager.services;
 import java.util.List;
 
 import com.mymanager.data.models.Document;
-
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public interface DocumentService {
 	
 	public abstract List<Document> getAllDocuments() throws Exception;

@@ -3,7 +3,11 @@ package com.mymanager.services;
 import java.util.List;
 
 import com.mymanager.data.models.Job;
-
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public interface JobService {
 
 	public abstract List<Job> getAllJobs() throws Exception;

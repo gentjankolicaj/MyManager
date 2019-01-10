@@ -3,7 +3,11 @@ package com.mymanager.services;
 import java.util.List;
 
 import com.mymanager.data.models.FileType;
-
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public interface FileTypeService {
 	
 	public abstract List<FileType> getAllFileTypes() throws Exception;

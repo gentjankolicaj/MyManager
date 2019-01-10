@@ -3,7 +3,11 @@ package com.mymanager.services;
 import java.util.List;
 
 import com.mymanager.data.models.Project;
-
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public interface ProjectService {
 
 	public abstract List<Project> getAllProjects() throws Exception;

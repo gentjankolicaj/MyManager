@@ -3,7 +3,11 @@ package com.mymanager.services;
 import java.util.List;
 
 import com.mymanager.data.models.Additional;
-
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public interface AdditionalService {
 	
 	public abstract List<Additional> getAllAdditionals() throws Exception;

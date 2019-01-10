@@ -4,7 +4,11 @@ import java.util.List;
 
 import com.mymanager.data.models.Payment;
 import com.mymanager.data.models.PaymentType;
-
+/**
+ * 
+ * @author gentjan koliçaj
+ *
+ */
 public interface PaymentService {
 	
 	public abstract List<Payment> getAllPayments() throws Exception;
