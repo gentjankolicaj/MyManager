@@ -16,11 +16,12 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.MyTable;
 import com.mymanager.data.models.PaymentType;
 import com.mymanager.desktop.views.subviews.create.CreatePaymentType;
 import com.mymanager.desktop.views.subviews.edit.EditPaymentType;
+import com.mymanager.services.PaymentTypeService;
+import com.mymanager.services.PaymentTypeServiceImpl;
 
 public class PaymentTypeView extends JDialog {
 
@@ -32,17 +33,20 @@ public class PaymentTypeView extends JDialog {
 	private JButton btnDelete;
 	private JButton btnEdit;
 	private JButton btnCreate;
-	private UserController userController;
 	private DefaultTableModel tableModel;
 	private List<PaymentType> paymentTypeList;
 	private MyTable table;
 	private JScrollPane scrollPane;
 
+	// Service field
+	private PaymentTypeService paymentTypeService;
+
 	/**
 	 * Create the dialog.
 	 */
-	public PaymentTypeView(UserController userController) {
-		this.userController = userController;
+	public PaymentTypeView() {
+		this.paymentTypeService = new PaymentTypeServiceImpl();
+
 		initComponents();
 		initEvents();
 
@@ -100,9 +104,10 @@ public class PaymentTypeView extends JDialog {
 		btnCreate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				CreatePaymentType createPaymentType = new CreatePaymentType(userController);
+				CreatePaymentType createPaymentType = new CreatePaymentType(paymentTypeService);
 				createPaymentType.setModal(true);
 				createPaymentType.setVisible(true);
+
 				updateTable();
 
 			}
@@ -113,9 +118,10 @@ public class PaymentTypeView extends JDialog {
 			public void mouseReleased(MouseEvent e) {
 				int index = table.getSelectedRow();
 				PaymentType oldPaymentType = paymentTypeList.get(index);
-				EditPaymentType editPaymentType = new EditPaymentType(userController, oldPaymentType);
+				EditPaymentType editPaymentType = new EditPaymentType(paymentTypeService, oldPaymentType);
 				editPaymentType.setModal(true);
 				editPaymentType.setVisible(true);
+
 				updateTable();
 			}
 		});
@@ -125,7 +131,13 @@ public class PaymentTypeView extends JDialog {
 			public void mouseReleased(MouseEvent e) {
 				int index = table.getSelectedRow();
 				String paymentType = (String) tableModel.getValueAt(index, 0);
-				userController.deletePaymentType(new PaymentType(paymentType));
+				try {
+					paymentTypeService.deletePaymentType(new PaymentType(paymentType));
+				} catch (Exception e1) {
+
+					e1.printStackTrace();
+				}
+
 				updateTable();
 			}
 		});
@@ -134,11 +146,18 @@ public class PaymentTypeView extends JDialog {
 
 	public void updateTable() {
 		emptyTable();
-		paymentTypeList = userController.getAllPaymentTypes();
-		Object[] obj = new Object[1];
-		for (PaymentType paymentType : paymentTypeList) {
-			obj[0] = paymentType.getPayment();
-			tableModel.addRow(obj);
+		try {
+			paymentTypeList = paymentTypeService.getAllPaymentTypes();
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		if (paymentTypeList != null && paymentTypeList.size() != 0) {
+			Object[] obj = new Object[1];
+			for (PaymentType paymentType : paymentTypeList) {
+				obj[0] = paymentType.getPayment();
+				tableModel.addRow(obj);
+			}
 		}
 	}
 

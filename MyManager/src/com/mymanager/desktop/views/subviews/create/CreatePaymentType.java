@@ -16,9 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.PaymentType;
 import com.mymanager.desktop.views.subviews.CurrencyView;
+import com.mymanager.services.PaymentTypeService;
 
 public class CreatePaymentType extends JDialog {
 
@@ -30,14 +30,16 @@ public class CreatePaymentType extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JButton btnCreate;
 	private JTextField textFieldPayment;
-	private UserController userController;
 
+
+	//Service field
+    private PaymentTypeService paymentTypeService;
 	/**
 	 * Create the dialog.
 	 */
-	public CreatePaymentType(UserController userController) {
+	public CreatePaymentType(PaymentTypeService paymentTypeService) {
 		selfReference = this;
-		this.userController = userController;
+		this.paymentTypeService=paymentTypeService;
 		initComponents();
 		initEvents();
 
@@ -48,7 +50,14 @@ public class CreatePaymentType extends JDialog {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				String newPaymentType = textFieldPayment.getText();
-				userController.savePaymentType(new PaymentType(newPaymentType));
+				try {
+					
+					paymentTypeService.savePaymentType(new PaymentType(newPaymentType));
+					
+				} catch (Exception e1) {
+					
+					e1.printStackTrace();
+				}
 				selfReference.dispose();
 			}
 		});
@@ -58,7 +67,14 @@ public class CreatePaymentType extends JDialog {
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					String newPaymentType = textFieldPayment.getText();
-					userController.savePaymentType(new PaymentType(newPaymentType));
+					try {
+						
+						paymentTypeService.savePaymentType(new PaymentType(newPaymentType));
+						
+					} catch (Exception e1) {
+						
+						e1.printStackTrace();
+					}
 					selfReference.dispose();
 				}
 			}

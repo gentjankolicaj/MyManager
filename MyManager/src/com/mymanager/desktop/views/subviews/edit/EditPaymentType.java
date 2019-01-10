@@ -16,10 +16,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.PaymentType;
 import com.mymanager.desktop.views.subviews.CurrencyView;
 import com.mymanager.desktop.views.subviews.create.CreateCurrency;
+import com.mymanager.services.PaymentTypeService;
 
 public class EditPaymentType extends JDialog {
 
@@ -31,16 +31,18 @@ public class EditPaymentType extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JButton btnCreate;
 	private JTextField textFieldPayment;
-	private UserController userController;
 	private PaymentType oldPaymentType;
+	
+	private PaymentTypeService paymentTypeService;
 
 	/**
 	 * Create the dialog.
 	 */
-	public EditPaymentType(UserController userController, PaymentType oldPaymentType) {
-		selfReference = this;
-		this.userController = userController;
+	public EditPaymentType(PaymentTypeService paymentTypeService, PaymentType oldPaymentType) {
+		this.selfReference = this;
+		this.paymentTypeService=paymentTypeService;
 		this.oldPaymentType = oldPaymentType;
+		
 		initComponents();
 		textFieldPayment.setText(oldPaymentType.getPayment());
 		initEvents();
@@ -52,7 +54,14 @@ public class EditPaymentType extends JDialog {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				String newPaymentType = textFieldPayment.getText();
-				userController.editPaymentType(oldPaymentType, new PaymentType(newPaymentType));
+				try {
+					
+					paymentTypeService.updatePaymentType(oldPaymentType, new PaymentType(newPaymentType));
+					
+				} catch (Exception e1) {
+					
+					e1.printStackTrace();
+				}
 				selfReference.dispose();
 			}
 		});
@@ -62,7 +71,14 @@ public class EditPaymentType extends JDialog {
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					String newPaymentType = textFieldPayment.getText();
-					userController.editPaymentType(oldPaymentType, new PaymentType(newPaymentType));
+					try {
+						
+						paymentTypeService.updatePaymentType(oldPaymentType, new PaymentType(newPaymentType));
+						
+					} catch (Exception e1) {
+						
+						e1.printStackTrace();
+					}
 					selfReference.dispose();
 				}
 			}
