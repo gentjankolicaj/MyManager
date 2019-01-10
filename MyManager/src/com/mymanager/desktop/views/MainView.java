@@ -114,13 +114,13 @@ public class MainView extends MyPanel {
 		
 		
 		usersDataView = new UserDataView(jframe, selfReference, userService,user);
-		employeesDataView = new EmployeeDataView(jframe, selfReference, userController);
-		projectsView = new ProjectView(jframe, selfReference, userController);
-		jobsView = new JobView(jframe, selfReference, userController);
-		workingHoursView = new WorkingHourView(jframe, selfReference, userController);
+		employeesDataView = new EmployeeDataView(jframe, selfReference, userService,user);
+		projectsView = new ProjectView(jframe, selfReference,userService,user);
+		jobsView = new JobView(jframe, selfReference, userService,user);
+		workingHoursView = new WorkingHourView(jframe, selfReference,userService,user);
 		attemptsView = new AttemptView(jframe, selfReference, user);
-		departmentsView = new DepartmentView(jframe, selfReference, userController);
-		paymentsView = new PaymentsView(jframe, selfReference, userController);
+		departmentsView = new DepartmentView(jframe, selfReference,userService,user);
+		paymentsView = new PaymentsView(jframe, selfReference, userService,user);
 
 		initComponents();
 		initAccountEvents();
@@ -556,7 +556,7 @@ public class MainView extends MyPanel {
 		myAccountPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				AccountView accountView = new AccountView(userController);
+				AccountView accountView = new AccountView(userService,user);
 				accountView.setModal(true);
 				accountView.setVisible(true);
 				updateMainViewUserDetails();
@@ -567,7 +567,7 @@ public class MainView extends MyPanel {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				if (user.getUserType().equals(UserType.ADMIN.toString())) {
-					CurrencyView currencyView = new CurrencyView(userController);
+					CurrencyView currencyView = new CurrencyView();
 					currencyView.setModal(true);
 					currencyView.setVisible(true);
 

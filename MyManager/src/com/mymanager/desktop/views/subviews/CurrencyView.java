@@ -16,11 +16,12 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.Currency;
 import com.mymanager.data.models.MyTable;
 import com.mymanager.desktop.views.subviews.create.CreateCurrency;
 import com.mymanager.desktop.views.subviews.edit.EditCurrency;
+import com.mymanager.services.CurrencyService;
+import com.mymanager.services.CurrencyServiceImpl;
 
 public class CurrencyView extends JDialog {
 
@@ -32,17 +33,20 @@ public class CurrencyView extends JDialog {
 	private JButton btnDelete;
 	private JButton btnEdit;
 	private JButton btnCreate;
-	private UserController userController;
 	private DefaultTableModel tableModel;
 	private List<Currency> currencyList;
 	private MyTable table;
 	private JScrollPane scrollPane;
 
+	// Service field
+	private CurrencyService currencyService;
+
 	/**
 	 * Create the dialog.
 	 */
-	public CurrencyView(UserController userController) {
-		this.userController = userController;
+	public CurrencyView() {
+		this.currencyService = new CurrencyServiceImpl();
+
 		initComponents();
 		initEvents();
 
@@ -100,9 +104,10 @@ public class CurrencyView extends JDialog {
 		btnCreate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				CreateCurrency createCurrency = new CreateCurrency(userController);
+				CreateCurrency createCurrency = new CreateCurrency(currencyService);
 				createCurrency.setModal(true);
 				createCurrency.setVisible(true);
+
 				updateTable();
 
 			}
@@ -114,9 +119,10 @@ public class CurrencyView extends JDialog {
 				int index = table.getSelectedRow();
 				Currency oldCurrency = currencyList.get(index);
 
-				EditCurrency editCurrency = new EditCurrency(userController, oldCurrency);
+				EditCurrency editCurrency = new EditCurrency(currencyService, oldCurrency);
 				editCurrency.setModal(true);
 				editCurrency.setVisible(true);
+
 				updateTable();
 			}
 		});
@@ -126,7 +132,16 @@ public class CurrencyView extends JDialog {
 			public void mouseReleased(MouseEvent e) {
 				int index = table.getSelectedRow();
 				String currency = (String) tableModel.getValueAt(index, 0);
-				userController.deleteCurrency(new Currency(currency));
+
+				try {
+
+					currencyService.deleteCurrency(new Currency(currency));
+
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
 				updateTable();
 			}
 		});
@@ -135,11 +150,22 @@ public class CurrencyView extends JDialog {
 
 	public void updateTable() {
 		emptyTable();
-		currencyList = userController.getAllCurrencies();
-		Object[] obj = new Object[1];
-		for (Currency currency : currencyList) {
-			obj[0] = currency.getCurrencyName();
-			tableModel.addRow(obj);
+
+		try {
+
+			currencyList = currencyService.getAllCurrencies();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		if (currencyList != null && currencyList.size() != 0) {
+			Object[] obj = new Object[1];
+			for (Currency currency : currencyList) {
+				obj[0] = currency.getCurrencyName();
+				tableModel.addRow(obj);
+			}
 		}
 	}
 

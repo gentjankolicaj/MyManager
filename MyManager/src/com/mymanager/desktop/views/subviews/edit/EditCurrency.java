@@ -16,10 +16,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.Currency;
 import com.mymanager.desktop.views.subviews.CurrencyView;
 import com.mymanager.desktop.views.subviews.create.CreateCurrency;
+import com.mymanager.services.CurrencyService;
 
 public class EditCurrency extends JDialog {
 
@@ -31,16 +31,20 @@ public class EditCurrency extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JButton btnCreate;
 	private JTextField textFieldCurrency;
-	private UserController userController;
 	private Currency oldCurrency;
+	
+	
+	//Service field
+	private CurrencyService currencyService;
 
 	/**
 	 * Create the dialog.
 	 */
-	public EditCurrency(UserController userController, Currency oldCurrency) {
+	public EditCurrency(CurrencyService currencyService, Currency oldCurrency) {
 		selfReference = this;
-		this.userController = userController;
+		this.currencyService=currencyService;
 		this.oldCurrency = oldCurrency;
+		
 		initComponents();
 		textFieldCurrency.setText(oldCurrency.getCurrencyName());
 		initEvents();
@@ -52,7 +56,14 @@ public class EditCurrency extends JDialog {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				String newCurrency = textFieldCurrency.getText();
-				userController.editCurrency(oldCurrency, new Currency(newCurrency));
+				try {
+					
+					currencyService.updateCurrency(oldCurrency, new Currency(newCurrency));
+					
+				} catch (Exception e1) {
+				
+					e1.printStackTrace();
+				}
 				selfReference.dispose();
 			}
 		});
@@ -62,7 +73,14 @@ public class EditCurrency extends JDialog {
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					String newCurrency = textFieldCurrency.getText();
-					userController.editCurrency(oldCurrency, new Currency(newCurrency));
+					try {
+						
+						currencyService.updateCurrency(oldCurrency, new Currency(newCurrency));
+						
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					selfReference.dispose();
 				}
 			}

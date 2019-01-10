@@ -16,9 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.Currency;
 import com.mymanager.desktop.views.subviews.CurrencyView;
+import com.mymanager.services.CurrencyService;
 
 public class CreateCurrency extends JDialog {
 
@@ -30,14 +30,19 @@ public class CreateCurrency extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JButton btnCreate;
 	private JTextField textFieldCurrency;
-	private UserController userController;
+
+	
+	//Service field
+	private CurrencyService currencyService;
 
 	/**
 	 * Create the dialog.
 	 */
-	public CreateCurrency(UserController userController) {
+	public CreateCurrency(CurrencyService currencyService) {
 		selfReference = this;
-		this.userController = userController;
+		
+		this.currencyService=currencyService;
+		
 		initComponents();
 		initEvents();
 
@@ -48,7 +53,14 @@ public class CreateCurrency extends JDialog {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				String newCurrency = textFieldCurrency.getText();
-				userController.saveCurrency(new Currency(newCurrency));
+				try {
+					
+					currencyService.saveCurrency(new Currency(newCurrency));
+					
+				} catch (Exception e1) {
+					
+					e1.printStackTrace();
+				}
 				selfReference.dispose();
 			}
 		});
@@ -58,7 +70,14 @@ public class CreateCurrency extends JDialog {
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					String newCurrency = textFieldCurrency.getText();
-					userController.saveCurrency(new Currency(newCurrency));
+					try {
+						
+						currencyService.saveCurrency(new Currency(newCurrency));
+						
+					} catch (Exception e1) {
+						
+						e1.printStackTrace();
+					}
 					selfReference.dispose();
 				}
 			}

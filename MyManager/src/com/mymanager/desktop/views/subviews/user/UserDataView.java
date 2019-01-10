@@ -43,7 +43,7 @@ public class UserDataView extends MyPanel {
 	private JButton btnUsers;
 	
 	
-	//
+	//Service fields
 	private UserService userService;
 	private User user;
 
