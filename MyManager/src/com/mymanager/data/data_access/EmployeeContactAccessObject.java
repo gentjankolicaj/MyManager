@@ -25,6 +25,11 @@ public class EmployeeContactAccessObject implements EmployeeContactAccess {
 
 	private QueryType queryType;
 
+	
+	public EmployeeContactAccessObject() {
+		super();
+	}
+	
 	public EmployeeContactAccessObject(QueryType queryType) {
 		super();
 		this.queryType = queryType;
