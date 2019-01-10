@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
@@ -22,14 +21,18 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 
-import com.mymanager.controllers.UserController;
-import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.Rights;
 import com.mymanager.data.models.User;
+import com.mymanager.services.UserService;
 import com.mymanager.utils.MessageType;
 import com.mymanager.utils.UtilWindow;
 
 public class RightsView extends JDialog {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2398676643579841060L;
 
 	private final JPanel contentPanel = new JPanel();
 
@@ -43,19 +46,19 @@ public class RightsView extends JDialog {
 	private JRadioButton rdbtnRemove;
 	private JLabel lblRights;
 	private DefaultComboBoxModel comboBoxModel;
+	private JComboBox userComboBox;
 
 	private User user;
-	private UserController userController;
-	private JComboBox userComboBox;
+	private UserService userService;
 
 	/**
 	 * Create the dialog.
 	 */
-	public RightsView(UserController userController) {
+	public RightsView(UserService userService, User user) {
 		this.selfReference = this;
-		this.userController = userController;
-		;
-		this.user = userController.getUser();
+		this.userService = userService;
+		this.user = user;
+
 		initComponents();
 		initEvents();
 		showRights();
@@ -135,41 +138,75 @@ public class RightsView extends JDialog {
 			public void mouseReleased(MouseEvent e) {
 				int selectedRadioButton = getSelectedRadioButton();
 
+				User current = null;
+
 				if (selectedRadioButton == 1) {
-					User current = userController.getUser(user.getUserId());
-					User newUser = new User(current.getUserId(), current.getUserType(), current.getFirstName(),
-							current.getLastName(), current.getPassword(), current.getBirthday(),
-							current.getBirthplace(), current.getGender(), null, current.getCreatedBy(),
-							current.getUserId(), current.getCreatedDate(), LocalDateTime.now());
 
-					String currentRights = current.getRights();
-					Rights right = (Rights) comboBox_1.getSelectedItem();
-					String decidedRight = right.name();
+					try {
 
-					if (currentRights.contains(decidedRight)) {
-						UtilWindow.showMessage(null, "This user already has this right.", MessageType.INFORMATION);
+						current = userService.getUser(user.getUserId());
 
-					} else {
-						String newRights = currentRights.concat(",").concat(decidedRight);
-						newUser.setRights(newRights);
-						userController.editUser(user, newUser);
-						UtilWindow.showMessage(null, "Your rights are updated.", MessageType.INFORMATION);
-						selfReference.dispose();
+					} catch (Exception e1) {
+
+						e1.printStackTrace();
+					}
+					if (current != null) {
+						User newUser = new User(current.getUserId(), current.getUserType(), current.getFirstName(),
+								current.getLastName(), current.getPassword(), current.getBirthday(),
+								current.getBirthplace(), current.getGender(), null, current.getCreatedBy(),
+								current.getUserId(), current.getCreatedDate(), LocalDateTime.now());
+
+						String currentRights = current.getRights();
+						Rights right = (Rights) comboBox_1.getSelectedItem();
+						String decidedRight = right.name();
+
+						if (currentRights.contains(decidedRight)) {
+							UtilWindow.showMessage(null, "This user already has this right.", MessageType.INFORMATION);
+
+						} else {
+							String newRights = currentRights.concat(",").concat(decidedRight);
+							newUser.setRights(newRights);
+
+							try {
+
+								userService.updateUser(user, newUser);
+
+							} catch (Exception e1) {
+
+								e1.printStackTrace();
+							}
+
+							UtilWindow.showMessage(null, "Your rights are updated.", MessageType.INFORMATION);
+							selfReference.dispose();
+						}
+
 					}
 
 				} else if (selectedRadioButton == 2) {
 
-					User current = userController.getUser(user.getUserId());
-					User newUser = new User(current.getUserId(), current.getUserType(), current.getFirstName(),
-							current.getLastName(), current.getPassword(), current.getBirthday(),
-							current.getBirthplace(), current.getGender(), null, current.getCreatedBy(),
-							current.getUserId(), current.getCreatedDate(), LocalDateTime.now());
+					try {
 
-					String currentRights = current.getRights();
-					Rights right = (Rights) comboBox_1.getSelectedItem();
-					String decidedRight = right.name();
+						current = userService.getUser(user.getUserId());
 
-					UtilWindow.showMessage(null, "Not implemented yet.", MessageType.INFORMATION);
+					} catch (Exception e1) {
+
+						e1.printStackTrace();
+					}
+
+					if (current != null) {
+
+						User newUser = new User(current.getUserId(), current.getUserType(), current.getFirstName(),
+								current.getLastName(), current.getPassword(), current.getBirthday(),
+								current.getBirthplace(), current.getGender(), null, current.getCreatedBy(),
+								current.getUserId(), current.getCreatedDate(), LocalDateTime.now());
+
+						String currentRights = current.getRights();
+						Rights right = (Rights) comboBox_1.getSelectedItem();
+						String decidedRight = right.name();
+
+						UtilWindow.showMessage(null, "Not implemented yet.", MessageType.INFORMATION);
+
+					}
 
 				} else {
 					UtilWindow.showMessage(null, "Select add or remove.", MessageType.INFORMATION);
@@ -180,7 +217,15 @@ public class RightsView extends JDialog {
 
 		userComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				user = userController.getUser((String) userComboBox.getSelectedItem());
+				try {
+
+					user = userService.getUser((String) userComboBox.getSelectedItem());
+
+				} catch (Exception e1) {
+
+					e1.printStackTrace();
+				}
+
 				showRights();
 			}
 		});
@@ -196,24 +241,34 @@ public class RightsView extends JDialog {
 	}
 
 	private void showRights() {
-		User actualUser = userController.getUser(user.getUserId());
-		lblRights.setText(actualUser.getRights());
-	}
-
-	private List<String> getAllUserIds() {
-		List<String> userIdList = new ArrayList<String>();
-		List<User> userList = userController.getAllUsersId(QueryType.NORMAL);
-		for (User user : userList) {
-			userIdList.add(user.getUserId());
+		User actualUser = null;
+		try {
+			actualUser = userService.getUser(user.getUserId());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-
-		return userIdList;
+		if (actualUser != null)
+			lblRights.setText(actualUser.getRights());
 	}
 
 	public void updateUserComboBox() {
-		List<String> idList = getAllUserIds();
-		for (String id : idList) {
-			comboBoxModel.addElement(id);
+		List<String> userIdList = null;
+
+		try {
+
+			userIdList = userService.getAllUsersId();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
 		}
+
+		if (userIdList != null && userIdList.size() != 0) {
+			for (String id : userIdList)
+				comboBoxModel.addElement(id);
+
+		}
+
 	}
 }
