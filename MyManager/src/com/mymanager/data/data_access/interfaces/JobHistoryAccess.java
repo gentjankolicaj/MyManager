@@ -23,8 +23,6 @@ public interface JobHistoryAccess {
 
 	public abstract List<JobHistory> findAllJobHistoryByDepartmentId(String departmentId) throws Exception;
 
-	public abstract List<JobHistory> findAllJobHistoryByEmployeeId(String employeeId) throws Exception;
-
 	public abstract List<JobHistory> findJobHistoryByEmployeeId(String employeeId) throws Exception;
 
 	public abstract int updateJobHistory(JobHistory oldJobHistory, JobHistory newJobHistory) throws Exception;
