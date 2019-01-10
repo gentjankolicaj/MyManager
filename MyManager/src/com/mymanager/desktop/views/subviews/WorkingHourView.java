@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,15 +22,19 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.mymanager.config.Config;
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.MyTable;
+import com.mymanager.data.models.User;
 import com.mymanager.data.models.WorkingHour;
 import com.mymanager.desktop.views.MainView;
 import com.mymanager.desktop.views.subviews.create.CreateWorkingHour;
 import com.mymanager.desktop.views.subviews.custom.MyPanel;
 import com.mymanager.desktop.views.subviews.edit.EditWorkingHour;
+import com.mymanager.services.UserService;
+import com.mymanager.services.WorkingHourService;
+import com.mymanager.services.WorkingHourServiceImpl;
 import com.mymanager.utils.AppUtil;
+import com.mymanager.utils.MyDateUtils;
 
 public class WorkingHourView extends MyPanel {
 
@@ -51,19 +57,27 @@ public class WorkingHourView extends MyPanel {
 	private List<WorkingHour> currentWorkingHourList;
 
 	private JFrame jframe;
-	private UserController userController;
 	private MyPanel selfReference;
 	private MainView mainView;
+
+	// Service fields
+	private UserService userService;
+	private WorkingHourService workingHourService;
+	private User user;
 
 	/**
 	 * Create the panel.
 	 */
-	public WorkingHourView(JFrame jframe, MainView mainView, UserController userController) {
+	public WorkingHourView(JFrame jframe, MainView mainView, UserService userService, User user) {
 		super(1070, 540);
 		this.jframe = jframe;
 		this.mainView = mainView;
-		this.userController = userController;
-		selfReference = this;
+		this.selfReference = this;
+
+		this.userService = userService;
+		this.user = user;
+		this.workingHourService = new WorkingHourServiceImpl();
+
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 
 		initComponents();
@@ -142,16 +156,17 @@ public class WorkingHourView extends MyPanel {
 
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				loadWorkingHours();
+				searchWorkingHours();
 			}
 		});
 
 		btnCreate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				CreateWorkingHour createWorkingHour = new CreateWorkingHour(userController);
+				CreateWorkingHour createWorkingHour = new CreateWorkingHour(workingHourService, user);
 				createWorkingHour.setModal(true);
 				createWorkingHour.setVisible(true);
+
 				loadData();
 
 			}
@@ -164,9 +179,10 @@ public class WorkingHourView extends MyPanel {
 				int totalRows = table.getRowCount();
 				if ((selectedRow > -1) && (selectedRow < totalRows)) {
 					WorkingHour oldWorkingHour = currentWorkingHourList.get(selectedRow);
-					EditWorkingHour editWorkingHour = new EditWorkingHour(userController, oldWorkingHour);
+					EditWorkingHour editWorkingHour = new EditWorkingHour(workingHourService, user, oldWorkingHour);
 					editWorkingHour.setModal(true);
 					editWorkingHour.setVisible(true);
+
 					loadData();
 				}
 			}
@@ -179,7 +195,15 @@ public class WorkingHourView extends MyPanel {
 				int totalRows = table.getRowCount();
 				if ((selectedRow > -1) && (selectedRow < totalRows)) {
 					WorkingHour workingHourToDelete = currentWorkingHourList.get(selectedRow);
-					userController.deleteWorkingHour(workingHourToDelete);
+					try {
+
+						workingHourService.deleteWorkingHour(workingHourToDelete);
+
+					} catch (Exception e1) {
+
+						e1.printStackTrace();
+					}
+
 					loadData();
 				}
 			}
@@ -194,22 +218,49 @@ public class WorkingHourView extends MyPanel {
 
 	}
 
-	private void loadWorkingHours() {
+	private void searchWorkingHours() {
 		String searchValue = textFieldSearch.getText();
 		emptyTable();
-		if (chooseSearchType() == 1) {
-			WorkingHour temp = userController.getWorkingHour(Integer.parseInt(searchValue));
-			currentWorkingHourList.add(temp);
+		if (rdbtnId.isSelected()) {
+			WorkingHour temp = null;
+			try {
+				temp = workingHourService.getWorkingHourByIndex(Integer.parseInt(searchValue));
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
+			if (temp != null)
+				currentWorkingHourList.add(temp);
+
 			fillTable(currentWorkingHourList);
 
-		} else if (chooseSearchType() == 2) {
-			currentWorkingHourList = userController.getWorkingHoursByEmployeeId(QueryType.NORMAL, searchValue);
+		} else if (rdbtnEmpId.isSelected()) {
+			try {
+
+				currentWorkingHourList = workingHourService.getWorkingHourByEmplyeeId(searchValue);
+
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
+
 			fillTable(currentWorkingHourList);
 
-		} else if (chooseSearchType() == 3) {
-			// to do
-
-		} else {
+		} else if (rdbtnDate.isSelected()) {
+			LocalDate localDateValue = null;
+			try {
+				localDateValue = MyDateUtils.parseToLocalDate(searchValue, "dd MM yyyy");
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if (localDateValue != null)
+				try {
+					currentWorkingHourList = workingHourService.getWorkingHourByDate(localDateValue);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
 		}
 	}
@@ -219,19 +270,8 @@ public class WorkingHourView extends MyPanel {
 		tableModel.setRowCount(0);
 	}
 
-	private int chooseSearchType() {
-		if (rdbtnId.isSelected()) {
-			return 1;
-		} else if (rdbtnEmpId.isSelected()) {
-			return 2;
-		} else if (rdbtnDate.isSelected()) {
-			return 3;
-		} else
-			return 0;
-	}
-
 	private void fillTable(List<WorkingHour> workingHoursList) {
-		if (workingHoursList != null) {
+		if (workingHoursList != null && workingHoursList.size() != 0) {
 			Object[] rowData = new Object[8];
 			for (WorkingHour workingHour : workingHoursList) {
 				rowData[0] = workingHour.getIndex();
@@ -249,20 +289,30 @@ public class WorkingHourView extends MyPanel {
 
 	public void loadData() {
 		emptyTable();
-		currentWorkingHourList = userController.getAllWorkingHour(QueryType.NORMAL, Config.ROW_LIMIT,
-				Config.WORKINGHOUR_OFFSET);
-		Object[] rowData = new Object[8];
-		for (WorkingHour workingHour : currentWorkingHourList) {
-			rowData[0] = workingHour.getIndex();
-			rowData[1] = workingHour.getEmployeeId();
-			rowData[2] = workingHour.getDate();
-			rowData[3] = workingHour.getAmount();
-			rowData[4] = workingHour.getCreatedBy();
-			rowData[5] = workingHour.getCreatedDate();
-			rowData[6] = workingHour.getUpdatedBy();
-			rowData[7] = workingHour.getUpdatedDate();
-			tableModel.addRow(rowData);
+		try {
+
+			currentWorkingHourList = workingHourService.getAllWorkingHour(Config.ROW_LIMIT, Config.WORKINGHOUR_OFFSET);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
+		if (currentWorkingHourList != null && currentWorkingHourList.size() != 0) {
+			Object[] rowData = new Object[8];
+			for (WorkingHour workingHour : currentWorkingHourList) {
+				rowData[0] = workingHour.getIndex();
+				rowData[1] = workingHour.getEmployeeId();
+				rowData[2] = workingHour.getDate();
+				rowData[3] = workingHour.getAmount();
+				rowData[4] = workingHour.getCreatedBy();
+				rowData[5] = workingHour.getCreatedDate();
+				rowData[6] = workingHour.getUpdatedBy();
+				rowData[7] = workingHour.getUpdatedDate();
+				tableModel.addRow(rowData);
+			}
+		}
+
 	}
 
 }

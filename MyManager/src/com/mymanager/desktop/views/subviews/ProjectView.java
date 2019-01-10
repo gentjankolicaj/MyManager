@@ -244,9 +244,7 @@ public class ProjectView extends MyPanel {
 			}
 			fillTable(currentProjectList);
 
-		} else {
-			// To be implemented
-		}
+		} 
 	}
 
 	private void emptyTable() {
