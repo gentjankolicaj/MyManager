@@ -559,6 +559,7 @@ public class MainView extends MyPanel {
 				AccountView accountView = new AccountView(userService,user);
 				accountView.setModal(true);
 				accountView.setVisible(true);
+				
 				updateMainViewUserDetails();
 			}
 		});
@@ -581,7 +582,7 @@ public class MainView extends MyPanel {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				if (user.getUserType().equals(UserType.ADMIN.toString())) {
-					FileView fileView = new FileView(userController);
+					FileView fileView = new FileView();
 					fileView.setModal(true);
 					fileView.setVisible(true);
 
@@ -595,7 +596,7 @@ public class MainView extends MyPanel {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				if (user.getUserType().equals(UserType.ADMIN.toString())) {
-					RightsView rightsView = new RightsView(userController);
+					RightsView rightsView = new RightsView(userService,user);
 					rightsView.updateUserComboBox();
 					rightsView.setModal(true);
 					rightsView.setVisible(true);
@@ -624,7 +625,7 @@ public class MainView extends MyPanel {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				if (user.getUserType().equals(UserType.ADMIN.toString())) {
-					PaymentTypeView paymentTypeView = new PaymentTypeView(userController);
+					PaymentTypeView paymentTypeView = new PaymentTypeView();
 					paymentTypeView.setModal(true);
 					paymentTypeView.setVisible(true);
 
@@ -634,23 +635,8 @@ public class MainView extends MyPanel {
 		});
 	}
 
-	public User getUser() {
-		return user;
-	}
+	
 
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public UserController getUserController() {
-		return userController;
-	}
-
-	public void setUserController(UserController userController) {
-		this.userController = userController;
-		this.user = userController.getUser();
-		setMainViewUserDetails(user);
-	}
 
 	private void setMainViewUserDetails(User user) {
 		labelUserId.setText(user.getUserId());
@@ -666,7 +652,12 @@ public class MainView extends MyPanel {
 	}
 
 	public void updateMainViewUserDetails() {
-		user = userController.getUser(user.getUserId());
+		try {
+			user = userService.getUser(user.getUserId());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		setMainViewUserDetails(user);
 	}
 
