@@ -20,7 +20,6 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.mymanager.config.Config;
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.Attempt;
 import com.mymanager.data.models.MyTable;
 import com.mymanager.data.models.Status;
@@ -56,8 +55,9 @@ public class AttemptView extends MyPanel {
 	
 
 	// User
-	private User user;
 	private AttemptService attemptService;
+	private User user;
+	
 
 	/**
 	 * Create the panel.
@@ -66,10 +66,11 @@ public class AttemptView extends MyPanel {
 		super(900, 520);
 		this.jframe = jframe;
 		this.mainView = mainView;
+		this.selfReference=this;
 		this.user = user;
 		this.attemptService = new AttemptServiceImpl();
 
-		selfReference = this;
+		
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 
 		initComponents();

@@ -20,14 +20,17 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.mymanager.config.Config;
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.Department;
 import com.mymanager.data.models.MyTable;
+import com.mymanager.data.models.User;
 import com.mymanager.desktop.views.MainView;
 import com.mymanager.desktop.views.subviews.create.CreateDepartment;
 import com.mymanager.desktop.views.subviews.custom.MyPanel;
 import com.mymanager.desktop.views.subviews.edit.EditDepartment;
+import com.mymanager.services.DepartmentService;
+import com.mymanager.services.DepartmentServiceImpl;
+import com.mymanager.services.UserService;
 import com.mymanager.utils.AppUtil;
 
 public class DepartmentView extends MyPanel {
@@ -51,19 +54,27 @@ public class DepartmentView extends MyPanel {
 	private List<Department> currentDepartmentList;
 
 	private JFrame jframe;
-	private UserController userController;
 	private MyPanel selfReference;
 	private MainView mainView;
+
+	// Service fields
+	private UserService userService;
+	private DepartmentService departmentService;
+	private User user;
 
 	/**
 	 * Create the panel.
 	 */
-	public DepartmentView(JFrame jframe, MainView mainView, UserController userController) {
+	public DepartmentView(JFrame jframe, MainView mainView, UserService userService, User user) {
 		super(1070, 545);
 		this.jframe = jframe;
 		this.mainView = mainView;
-		this.userController = userController;
-		selfReference = this;
+		this.selfReference = this;
+
+		this.userService = userService;
+		this.user = user;
+		this.departmentService = new DepartmentServiceImpl();
+
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 
 		initComponents();
@@ -137,16 +148,17 @@ public class DepartmentView extends MyPanel {
 
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				loadDepartments();
+				searchDepartments();
 			}
 		});
 
 		btnCreate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				CreateDepartment createDepartment = new CreateDepartment(userController);
+				CreateDepartment createDepartment = new CreateDepartment(departmentService, user);
 				createDepartment.setModal(true);
 				createDepartment.setVisible(true);
+
 				loadData();
 
 			}
@@ -158,9 +170,10 @@ public class DepartmentView extends MyPanel {
 				int totalRows = table.getRowCount();
 				if ((selectedRow > -1) && (selectedRow < totalRows)) {
 					Department oldDepartment = currentDepartmentList.get(selectedRow);
-					EditDepartment editDepartment = new EditDepartment(userController, oldDepartment);
+					EditDepartment editDepartment = new EditDepartment(departmentService, user, oldDepartment);
 					editDepartment.setModal(true);
 					editDepartment.setVisible(true);
+
 					loadData();
 				}
 			}
@@ -172,7 +185,13 @@ public class DepartmentView extends MyPanel {
 				int totalRows = table.getRowCount();
 				if ((selectedRow > -1) && (selectedRow < totalRows)) {
 					Department departmentToDelete = currentDepartmentList.get(selectedRow);
-					userController.deleteDepartment(departmentToDelete);
+					try {
+						departmentService.deleteDepartment(departmentToDelete);
+					} catch (Exception e1) {
+
+						e1.printStackTrace();
+					}
+
 					loadData();
 				}
 
@@ -187,16 +206,28 @@ public class DepartmentView extends MyPanel {
 
 	}
 
-	private void loadDepartments() {
+	private void searchDepartments() {
 		String searchValue = textFieldSearch.getText();
 		emptyTable();
-		if (chooseSearchType() == 1) {
-			Department temp = userController.getDepartment(searchValue);
-			currentDepartmentList.add(temp);
+		if (rdbtnId.isSelected()) {
+			Department temp = null;
+			try {
+				temp = departmentService.getDepartment(searchValue);
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
+			if (temp != null)
+				currentDepartmentList.add(temp);
 			fillTable(currentDepartmentList);
 
-		} else if (chooseSearchType() == 2) {
-			currentDepartmentList = userController.getDepartmentsByName(QueryType.NORMAL, searchValue);
+		} else if (rdbtnName.isSelected()) {
+			try {
+				currentDepartmentList = departmentService.getDepartments(searchValue);
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
 			fillTable(currentDepartmentList);
 
 		} else {
@@ -210,17 +241,8 @@ public class DepartmentView extends MyPanel {
 		tableModel.setRowCount(0);
 	}
 
-	private int chooseSearchType() {
-		if (rdbtnId.isSelected()) {
-			return 1;
-		} else if (rdbtnName.isSelected()) {
-			return 2;
-		} else
-			return 0;
-	}
-
 	private void fillTable(List<Department> departmentsList) {
-		if (departmentsList != null) {
+		if (departmentsList != null && departmentsList.size() != 0) {
 			Object[] rowData = new Object[7];
 			for (Department department : departmentsList) {
 				rowData[0] = department.getDepartmentId();
@@ -237,18 +259,27 @@ public class DepartmentView extends MyPanel {
 
 	public void loadData() {
 		emptyTable();
-		currentDepartmentList = userController.getAllDepartments(QueryType.NORMAL, Config.ROW_LIMIT,
-				Config.DEPARTMENT_OFFSET);
-		Object[] rowData = new Object[7];
-		for (Department department : currentDepartmentList) {
-			rowData[0] = department.getDepartmentId();
-			rowData[1] = department.getDepartmentName();
-			rowData[2] = department.getManagerId();
-			rowData[3] = department.getCreatedBy();
-			rowData[4] = department.getCreatedDate();
-			rowData[5] = department.getUpdatedBy();
-			rowData[6] = department.getUpdatedDate();
-			tableModel.addRow(rowData);
+		try {
+
+			currentDepartmentList = departmentService.getAllDepartments(Config.ROW_LIMIT, Config.DEPARTMENT_OFFSET);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		if (currentDepartmentList != null && currentDepartmentList.size() != 0) {
+			Object[] rowData = new Object[7];
+			for (Department department : currentDepartmentList) {
+				rowData[0] = department.getDepartmentId();
+				rowData[1] = department.getDepartmentName();
+				rowData[2] = department.getManagerId();
+				rowData[3] = department.getCreatedBy();
+				rowData[4] = department.getCreatedDate();
+				rowData[5] = department.getUpdatedBy();
+				rowData[6] = department.getUpdatedDate();
+				tableModel.addRow(rowData);
+			}
+
 		}
 	}
 

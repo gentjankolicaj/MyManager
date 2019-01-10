@@ -16,9 +16,9 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.Department;
 import com.mymanager.data.models.User;
+import com.mymanager.services.DepartmentService;
 
 public class CreateDepartment extends JDialog {
 
@@ -30,18 +30,20 @@ public class CreateDepartment extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JPanel buttonPane;
 	private JTextField textFieldName;
-	private JButton okButton;
-	private JButton cancelButton;
+	private JButton btnSave;
+	private JButton btnCancel;
 
-	private UserController userController;
+	private DepartmentService departmentService;
 	private User user;
 	private JTextField textFieldManId;
 
-	public CreateDepartment(UserController userController) {
-		this.userController = userController;
-		this.user = userController.getUser();
-		selfReference = this;
+	public CreateDepartment(DepartmentService departmentService,User user) {
+		this.selfReference=this;
+		this.departmentService=departmentService;
+		this.user=user;
+	
 		setResizable(false);
+		
 		initComponents();
 		initEvents();
 
@@ -49,7 +51,7 @@ public class CreateDepartment extends JDialog {
 
 	private void initComponents() {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 600, 264);
+		setBounds(100, 100, 560, 264);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -86,32 +88,39 @@ public class CreateDepartment extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				okButton = new JButton("Save");
-				okButton.setActionCommand("Save");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				btnSave = new JButton("Save");
+				btnSave.setActionCommand("Save");
+				buttonPane.add(btnSave);
+				getRootPane().setDefaultButton(btnSave);
 			}
 			{
-				cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
+				btnCancel = new JButton("Cancel");
+				btnCancel.setActionCommand("Cancel");
+				buttonPane.add(btnCancel);
 			}
 		}
 	}
 
 	private void initEvents() {
-		okButton.addMouseListener(new MouseAdapter() {
+		btnSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				String managerId = textFieldManId.getText();
 				Department newDepartment = new Department(1, textFieldName.getText(), managerId, user.getUserId(),
 						user.getUserId(), LocalDateTime.now(), LocalDateTime.now());
-				userController.saveDepartment(newDepartment);
+				try {
+					
+					departmentService.saveDepartment(newDepartment);
+					
+				} catch (Exception e1) {
+					
+					e1.printStackTrace();
+				}
 				selfReference.dispose();
 			}
 		});
 
-		cancelButton.addMouseListener(new MouseAdapter() {
+		btnCancel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				selfReference.dispose();

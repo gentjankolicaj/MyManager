@@ -16,9 +16,9 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.Department;
 import com.mymanager.data.models.User;
+import com.mymanager.services.DepartmentService;
 
 public class EditDepartment extends JDialog {
 
@@ -37,17 +37,18 @@ public class EditDepartment extends JDialog {
 	private JTextField textFieldManId;
 
 	private Department oldDepartment;
-	private UserController userController;
+	private DepartmentService departmentService;
 	private User user;
 
 	/**
 	 * Create the dialog.
 	 */
-	public EditDepartment(UserController userController, Department oldDepartment) {
-		this.userController = userController;
-		this.user = userController.getUser();
+	public EditDepartment(DepartmentService departmentService, User user, Department oldDepartment) {
+		this.selfReference = this;
+		this.departmentService = departmentService;
+		this.user = user;
 		this.oldDepartment = oldDepartment;
-		selfReference = this;
+
 		initComponents();
 		initEvents();
 		fillDetails();
@@ -128,7 +129,14 @@ public class EditDepartment extends JDialog {
 				Department newDepartment = new Department(oldDepartment.getDepartmentId(), textFieldDepName.getText(),
 						textFieldManId.getText(), textFieldCreatedBy.getText(), user.getUserId(),
 						oldDepartment.getCreatedDate(), LocalDateTime.now());
-				userController.editDepartment(oldDepartment, newDepartment);
+				try {
+
+					departmentService.updateDepartment(oldDepartment, newDepartment);
+
+				} catch (Exception e1) {
+
+					e1.printStackTrace();
+				}
 				selfReference.dispose();
 
 			}
