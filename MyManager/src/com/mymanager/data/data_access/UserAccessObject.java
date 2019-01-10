@@ -309,8 +309,8 @@ public class UserAccessObject implements UserAccess {
 	}
 
 	@Override
-	public List<User> findAllUsersId() throws Exception {
-		List<User> userList = new ArrayList<>();
+	public List<String> findAllUsersId() throws Exception {
+		List<String> userIdList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
@@ -320,13 +320,12 @@ public class UserAccessObject implements UserAccess {
 
 		results = database.selectStatement(query);
 		while (results.next()) {
-			User temp = new User();
-			temp.setUserId(results.getString("user_id"));
-			userList.add(temp);
+			userIdList.add(results.getString("user_id"));
+			
 
 		}
-		PrintUtils.print(userList, PrintType.QUERY_RESULTS);
-		return userList;
+		PrintUtils.print(userIdList, PrintType.QUERY_RESULTS);
+		return userIdList;
 	}
 
 }

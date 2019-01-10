@@ -15,7 +15,7 @@ public interface UserAccess {
 
 	public abstract List<User> findAllUsers(int limit, int offset) throws Exception;
 
-	public abstract List<User> findAllUsersId() throws Exception;
+	public abstract List<String> findAllUsersId() throws Exception;
 
 	public abstract List<User> findUsersByFirstName(String firstName) throws Exception;
 
