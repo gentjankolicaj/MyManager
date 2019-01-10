@@ -27,12 +27,6 @@ public class MyUtil {
 		}
 	}
 
-	public static Date parseDate(String stringDate, String dateFormat) throws ParseException {
-		Date parsedDate = null;
-		SimpleDateFormat dateFormatter = new SimpleDateFormat(dateFormat);
-		parsedDate = dateFormatter.parse(stringDate);
-		return parsedDate;
-
-	}
+	
 
 }
