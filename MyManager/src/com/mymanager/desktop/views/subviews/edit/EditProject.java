@@ -19,10 +19,12 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.Country;
 import com.mymanager.data.models.Project;
 import com.mymanager.data.models.User;
+import com.mymanager.services.CountryService;
+import com.mymanager.services.CountryServiceImpl;
+import com.mymanager.services.ProjectService;
 
 public class EditProject extends JDialog {
 
@@ -44,22 +46,25 @@ public class EditProject extends JDialog {
 	private JComboBox comboBoxCountry;
 	private DefaultComboBoxModel comboBoxModel;
 
-	private UserController userController;
+	private ProjectService projectService;
+	private CountryService countryService;
 	private User user;
 	private Project oldProject;
 
 	/**
 	 * Create the dialog.
 	 */
-	public EditProject(UserController userController, Project oldProject) {
-		this.userController = userController;
-		this.user = userController.getUser();
-		this.oldProject = oldProject;
-		selfReference = this;
+	public EditProject(ProjectService projectService, User user, Project oldProject) {
+		this.selfReference = this;
+		this.projectService = projectService;
+		this.user = user;
+		this.countryService = new CountryServiceImpl();
+
 		initComponents();
 		initEvents();
 
 		loadCountries();
+
 		fillDetails();
 
 	}
@@ -167,7 +172,15 @@ public class EditProject extends JDialog {
 						textFieldCustomer.getText(), new Country((String) comboBoxCountry.getSelectedItem()),
 						textFieldCreatedBy.getText(), user.getUserId(), oldProject.getCreatedDate(),
 						LocalDateTime.now());
-				userController.editProject(oldProject, newProject);
+				try {
+
+					projectService.updateProject(oldProject, newProject);
+
+				} catch (Exception e1) {
+
+					e1.printStackTrace();
+				}
+
 				selfReference.dispose();
 			}
 		});
@@ -183,9 +196,20 @@ public class EditProject extends JDialog {
 
 	private void loadCountries() {
 		comboBoxModel.removeAllElements();
-		List<Country> currentCountryList = userController.getAllCountries();
-		for (Country country : currentCountryList) {
-			comboBoxModel.addElement(country.getCountryName());
+		List<Country> countryList = null;
+		try {
+
+			countryList = countryService.getAllCountries();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		if (countryList != null && countryList.size() != 0) {
+			for (Country country : countryList) {
+				comboBoxModel.addElement(country.getCountryName());
+			}
+
 		}
 	}
 

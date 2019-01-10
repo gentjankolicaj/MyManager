@@ -18,13 +18,16 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.mymanager.config.Config;
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.MyTable;
 import com.mymanager.data.models.Project;
+import com.mymanager.data.models.User;
 import com.mymanager.desktop.views.MainView;
 import com.mymanager.desktop.views.subviews.create.CreateProject;
 import com.mymanager.desktop.views.subviews.custom.MyPanel;
 import com.mymanager.desktop.views.subviews.edit.EditProject;
+import com.mymanager.services.ProjectService;
+import com.mymanager.services.ProjectServiceImpl;
+import com.mymanager.services.UserService;
 import com.mymanager.utils.AppUtil;
 
 public class ProjectView extends MyPanel {
@@ -50,19 +53,27 @@ public class ProjectView extends MyPanel {
 	private List<Project> currentProjectList;
 
 	private JFrame jframe;
-	private UserController userController;
 	private MyPanel selfReference;
 	private MainView mainView;
+
+	// Service fields
+	private UserService userService;
+	private ProjectService projectService;
+	private User user;
 
 	/**
 	 * Create the panel.
 	 */
-	public ProjectView(JFrame jframe, MainView mainView, UserController userController) {
+	public ProjectView(JFrame jframe, MainView mainView, UserService userService, User user) {
 		super(1070, 545);
+		this.selfReference = this;
 		this.jframe = jframe;
 		this.mainView = mainView;
-		this.userController = userController;
-		selfReference = this;
+
+		this.userService = userService;
+		this.user = user;
+		this.projectService = new ProjectServiceImpl();
+
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 
 		initComponents();
@@ -147,9 +158,10 @@ public class ProjectView extends MyPanel {
 		btnCreate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				CreateProject createProject = new CreateProject(userController);
+				CreateProject createProject = new CreateProject(projectService, user);
 				createProject.setModal(true);
 				createProject.setVisible(true);
+
 				loadData();
 
 			}
@@ -161,9 +173,10 @@ public class ProjectView extends MyPanel {
 				int totalRows = table.getRowCount();
 				if ((selectedRow > -1) && (selectedRow < totalRows)) {
 					Project oldProject = currentProjectList.get(selectedRow);
-					EditProject ediProject = new EditProject(userController, oldProject);
+					EditProject ediProject = new EditProject(projectService, user, oldProject);
 					ediProject.setModal(true);
 					ediProject.setVisible(true);
+
 					loadData();
 				}
 			}
@@ -175,7 +188,15 @@ public class ProjectView extends MyPanel {
 				int totalRows = table.getRowCount();
 				if ((selectedRow > -1) && (selectedRow < totalRows)) {
 					Project projectToDelete = currentProjectList.get(selectedRow);
-					userController.deleteProject(projectToDelete);
+					try {
+
+						projectService.deleteProject(projectToDelete);
+
+					} catch (Exception e1) {
+
+						e1.printStackTrace();
+					}
+
 					loadData();
 				}
 			}
@@ -192,21 +213,39 @@ public class ProjectView extends MyPanel {
 	private void loadProjects() {
 		String searchValue = textFieldSearch.getText();
 		emptyTable();
-		if (chooseSearchType() == 1) {
-			Project temp = userController.getProject(searchValue);
-			currentProjectList.add(temp);
+		if (rdbtnName.isSelected()) {
+			Project temp = null;
+			try {
+				temp = projectService.getProjectByName(searchValue);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if (temp != null) {
+				currentProjectList.add(temp);
+				fillTable(currentProjectList);
+			}
+
+		} else if (rdbtnDescription.isSelected()) {
+			try {
+				currentProjectList = projectService.getAllProjectsByDescription(searchValue);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			fillTable(currentProjectList);
 
-		} else if (chooseSearchType() == 2) {
-			currentProjectList = userController.getProjectsByDescription(searchValue);
-			fillTable(currentProjectList);
-
-		} else if (chooseSearchType() == 3) {
-			currentProjectList = userController.getProjectsByCustomer(searchValue);
+		} else if (rdbtnCustomer.isSelected()) {
+			try {
+				currentProjectList = projectService.getAllProjectsByCustomer(searchValue);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			fillTable(currentProjectList);
 
 		} else {
-
+			// To be implemented
 		}
 	}
 
@@ -215,19 +254,8 @@ public class ProjectView extends MyPanel {
 		tableModel.setRowCount(0);
 	}
 
-	private int chooseSearchType() {
-		if (rdbtnName.isSelected()) {
-			return 1;
-		} else if (rdbtnDescription.isSelected()) {
-			return 2;
-		} else if (rdbtnCustomer.isSelected()) {
-			return 3;
-		} else
-			return 0;
-	}
-
 	private void fillTable(List<Project> projectsList) {
-		if (projectsList != null) {
+		if (projectsList != null && projectsList.size() != 0) {
 			Object[] rowData = new Object[8];
 			for (Project project : projectsList) {
 				rowData[0] = project.getProjectName();
@@ -245,19 +273,27 @@ public class ProjectView extends MyPanel {
 
 	public void loadData() {
 		emptyTable();
-		currentProjectList = userController.getAllProjects(Config.ROW_LIMIT, Config.PROJECT_OFFSET);
-		Object[] rowData = new Object[8];
-		for (Project project : currentProjectList) {
-			rowData[0] = project.getProjectName();
-			rowData[1] = project.getDescription();
-			rowData[2] = project.getCustomer();
-			rowData[3] = project.getCountry().getCountryName();
-			rowData[4] = project.getCreatedBy();
-			rowData[5] = project.getCreatedDate();
-			rowData[6] = project.getUpdatedBy();
-			rowData[7] = project.getUpdatedDate();
-			tableModel.addRow(rowData);
+		try {
+			currentProjectList = projectService.getAllProjects(Config.ROW_LIMIT, Config.PROJECT_OFFSET);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		if (currentProjectList != null && currentProjectList.size() != 0) {
+			Object[] rowData = new Object[8];
+			for (Project project : currentProjectList) {
+				rowData[0] = project.getProjectName();
+				rowData[1] = project.getDescription();
+				rowData[2] = project.getCustomer();
+				rowData[3] = project.getCountry().getCountryName();
+				rowData[4] = project.getCreatedBy();
+				rowData[5] = project.getCreatedDate();
+				rowData[6] = project.getUpdatedBy();
+				rowData[7] = project.getUpdatedDate();
+				tableModel.addRow(rowData);
+			}
+		}
+
 	}
 
 }
