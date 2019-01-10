@@ -16,11 +16,12 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.FileType;
 import com.mymanager.data.models.MyTable;
 import com.mymanager.desktop.views.subviews.create.CreateFile;
 import com.mymanager.desktop.views.subviews.edit.EditFile;
+import com.mymanager.services.FileTypeService;
+import com.mymanager.services.FileTypeServiceImpl;
 
 public class FileView extends JDialog {
 
@@ -32,17 +33,20 @@ public class FileView extends JDialog {
 	private JButton btnDelete;
 	private JButton btnEdit;
 	private JButton btnCreate;
-	private UserController userController;
 	private DefaultTableModel tableModel;
 	private List<FileType> fileTypeList;
 	private MyTable table;
 	private JScrollPane scrollPane;
 
+	// Service fields
+	private FileTypeService fileTypeService;
+
 	/**
 	 * Create the dialog.
 	 */
-	public FileView(UserController userController) {
-		this.userController = userController;
+	public FileView() {
+		this.fileTypeService = new FileTypeServiceImpl();
+
 		initComponents();
 		initEvents();
 
@@ -100,9 +104,10 @@ public class FileView extends JDialog {
 		btnCreate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				CreateFile createFile = new CreateFile(userController);
+				CreateFile createFile = new CreateFile(fileTypeService);
 				createFile.setModal(true);
 				createFile.setVisible(true);
+
 				updateTable();
 
 			}
@@ -113,9 +118,10 @@ public class FileView extends JDialog {
 			public void mouseReleased(MouseEvent e) {
 				int index = table.getSelectedRow();
 				FileType oldFileType = fileTypeList.get(index);
-				EditFile editFile = new EditFile(userController, oldFileType);
+				EditFile editFile = new EditFile(fileTypeService, oldFileType);
 				editFile.setModal(true);
 				editFile.setVisible(true);
+
 				updateTable();
 			}
 		});
@@ -125,7 +131,15 @@ public class FileView extends JDialog {
 			public void mouseReleased(MouseEvent e) {
 				int index = table.getSelectedRow();
 				String fileType = (String) tableModel.getValueAt(index, 0);
-				userController.deleteFileType(new FileType(fileType));
+				try {
+
+					fileTypeService.deleteFileType(new FileType(fileType));
+
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
 				updateTable();
 			}
 		});
@@ -134,11 +148,23 @@ public class FileView extends JDialog {
 
 	public void updateTable() {
 		emptyTable();
-		fileTypeList = userController.getAllFileTypes();
-		Object[] obj = new Object[1];
-		for (FileType fileType : fileTypeList) {
-			obj[0] = fileType.getFile();
-			tableModel.addRow(obj);
+		try {
+
+			fileTypeList = fileTypeService.getAllFileTypes();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		}
+
+		if (fileTypeList != null && fileTypeList.size() != 0) {
+			Object[] obj = new Object[1];
+			for (FileType fileType : fileTypeList) {
+				obj[0] = fileType.getFile();
+				tableModel.addRow(obj);
+			}
+
 		}
 	}
 

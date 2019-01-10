@@ -16,10 +16,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.FileType;
 import com.mymanager.desktop.views.subviews.CurrencyView;
 import com.mymanager.desktop.views.subviews.create.CreateCurrency;
+import com.mymanager.services.FileTypeService;
 
 public class EditFile extends JDialog {
 	/**
@@ -30,15 +30,16 @@ public class EditFile extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JButton btnCreate;
 	private JTextField textFieldFile;
-	private UserController userController;
 	private FileType oldFileType;
 
+	// Service fields
+	private FileTypeService fileTypeService;
 	/**
 	 * Create the dialog.
 	 */
-	public EditFile(UserController userController, FileType oldFileType) {
-		selfReference = this;
-		this.userController = userController;
+	public EditFile(FileTypeService fileTypeService, FileType oldFileType) {
+		this.selfReference = this;
+	    this.fileTypeService=fileTypeService;
 		this.oldFileType = oldFileType;
 		initComponents();
 		textFieldFile.setText(oldFileType.getFile());
@@ -51,7 +52,15 @@ public class EditFile extends JDialog {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				String newFileType = textFieldFile.getText();
-				userController.editFileType(oldFileType, new FileType(newFileType));
+				try {
+					
+					fileTypeService.updateFileType(oldFileType, new FileType(newFileType));
+					
+				} catch (Exception e1) {
+					
+					e1.printStackTrace();
+				}
+				
 				selfReference.dispose();
 			}
 		});
@@ -61,7 +70,14 @@ public class EditFile extends JDialog {
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					String newFileType = textFieldFile.getText();
-					userController.editFileType(oldFileType, new FileType(newFileType));
+					try {
+						
+						fileTypeService.updateFileType(oldFileType, new FileType(newFileType));
+						
+					} catch (Exception e1) {
+						
+						e1.printStackTrace();
+					}
 					selfReference.dispose();
 				}
 			}

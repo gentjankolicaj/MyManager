@@ -16,9 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.FileType;
 import com.mymanager.desktop.views.subviews.CurrencyView;
+import com.mymanager.services.FileTypeService;
 
 public class CreateFile extends JDialog {
 	/**
@@ -29,14 +29,18 @@ public class CreateFile extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JButton btnCreate;
 	private JTextField textFieldFile;
-	private UserController userController;
+
+
+	// Service fields
+	private FileTypeService fileTypeService;
 
 	/**
 	 * Create the dialog.
 	 */
-	public CreateFile(UserController userController) {
-		selfReference = this;
-		this.userController = userController;
+	public CreateFile(FileTypeService fileTypeService) {
+		this.selfReference = this;
+		this.fileTypeService=fileTypeService;
+		
 		initComponents();
 		initEvents();
 
@@ -47,7 +51,15 @@ public class CreateFile extends JDialog {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				String newFileType = textFieldFile.getText();
-				userController.saveFileType(new FileType(newFileType));
+				try {
+					
+					fileTypeService.saveFileType(new FileType(newFileType));
+					
+				} catch (Exception e1) {
+					
+					e1.printStackTrace();
+				}
+				
 				selfReference.dispose();
 			}
 		});
@@ -57,7 +69,16 @@ public class CreateFile extends JDialog {
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					String newFile = textFieldFile.getText();
-					userController.saveFileType(new FileType(newFile));
+					
+					try {
+						
+						fileTypeService.saveFileType(new FileType(newFile));
+						
+					} catch (Exception e1) {
+						
+						e1.printStackTrace();
+					}
+					
 					selfReference.dispose();
 				}
 			}
