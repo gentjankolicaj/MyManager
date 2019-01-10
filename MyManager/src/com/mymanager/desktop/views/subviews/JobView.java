@@ -20,14 +20,16 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.mymanager.config.Config;
-import com.mymanager.controllers.UserController;
-import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.Job;
 import com.mymanager.data.models.MyTable;
+import com.mymanager.data.models.User;
 import com.mymanager.desktop.views.MainView;
 import com.mymanager.desktop.views.subviews.create.CreateJob;
 import com.mymanager.desktop.views.subviews.custom.MyPanel;
 import com.mymanager.desktop.views.subviews.edit.EditJob;
+import com.mymanager.services.JobService;
+import com.mymanager.services.JobServiceImpl;
+import com.mymanager.services.UserService;
 import com.mymanager.utils.AppUtil;
 
 public class JobView extends MyPanel {
@@ -51,19 +53,27 @@ public class JobView extends MyPanel {
 	private List<Job> currentJobList;
 
 	private JFrame jframe;
-	private UserController userController;
 	private MyPanel selfReference;
 	private MainView mainView;
+
+	// Service fields
+	private UserService userService;
+	private JobService jobService;
+	private User user;
 
 	/**
 	 * Create the panel.
 	 */
-	public JobView(JFrame jframe, MainView mainView, UserController userController) {
+	public JobView(JFrame jframe, MainView mainView, UserService userService, User user) {
 		super(1070, 550);
 		this.jframe = jframe;
 		this.mainView = mainView;
-		this.userController = userController;
-		selfReference = this;
+		this.selfReference = this;
+
+		this.userService = userService;
+		this.user = user;
+		this.jobService = new JobServiceImpl();
+
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 
 		initComponents();
@@ -144,20 +154,24 @@ public class JobView extends MyPanel {
 
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				loadJobs();
+
+				searchJobs();
+
 			}
 		});
 
 		btnCreate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				CreateJob createJob = new CreateJob(userController);
+				CreateJob createJob = new CreateJob(jobService, user);
 				createJob.setModal(true);
 				createJob.setVisible(true);
+
 				loadData();
 
 			}
 		});
+
 		btnEdit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -165,13 +179,15 @@ public class JobView extends MyPanel {
 				int totalRows = table.getRowCount();
 				if ((selectedRow > -1) && (selectedRow < totalRows)) {
 					Job oldJob = currentJobList.get(selectedRow);
-					EditJob editJob = new EditJob(userController, oldJob);
+					EditJob editJob = new EditJob(jobService, user, oldJob);
 					editJob.setModal(true);
 					editJob.setVisible(true);
+
 					loadData();
 				}
 			}
 		});
+
 		btnDelete.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -179,7 +195,15 @@ public class JobView extends MyPanel {
 				int totalRows = table.getRowCount();
 				if ((selectedRow > -1) && (selectedRow < totalRows)) {
 					Job jobToDelete = currentJobList.get(selectedRow);
-					userController.deleteJob(jobToDelete);
+					try {
+
+						jobService.deleteJob(jobToDelete);
+
+					} catch (Exception e1) {
+
+						e1.printStackTrace();
+					}
+
 					loadData();
 				}
 			}
@@ -193,23 +217,48 @@ public class JobView extends MyPanel {
 
 	}
 
-	private void loadJobs() {
+	private void searchJobs() {
 		String searchValue = textFieldSearch.getText();
 		emptyTable();
-		if (chooseSearchType() == 1) {
-			Job temp = userController.getJob(Integer.parseInt(searchValue));
-			currentJobList.add(temp);
+		if (rdbtnId.isSelected()) {
+			Job temp = null;
+			try {
+				temp = jobService.getJob(Integer.parseInt(searchValue));
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if (temp != null)
+				currentJobList.add(temp);
 			fillTable(currentJobList);
-		} else if (chooseSearchType() == 2) {
-			currentJobList = userController.getJobsWithTitle(QueryType.NORMAL, searchValue);
+		} else if (rdbtnTitle.isSelected()) {
+			try {
+				currentJobList = jobService.getAllJobsByTitle(searchValue);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			fillTable(currentJobList);
 
-		} else if (chooseSearchType() == 3) {
+		} else if (rdbtnSalary.isSelected()) {
 			int boundary = searchValue.indexOf("/");
 			String minValue = searchValue.substring(0, boundary);
 			String maxValue = searchValue.substring(boundary + 1);
-			currentJobList = userController.getJobsBetween(QueryType.NORMAL, Float.parseFloat(minValue),
-					Float.parseFloat(maxValue));
+
+			try {
+				currentJobList = jobService.getAllJobsBetweenSalary(Float.parseFloat(minValue),
+						Float.parseFloat(maxValue));
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 			fillTable(currentJobList);
 
 		}
@@ -220,19 +269,8 @@ public class JobView extends MyPanel {
 		tableModel.setRowCount(0);
 	}
 
-	private int chooseSearchType() {
-		if (rdbtnId.isSelected()) {
-			return 1;
-		} else if (rdbtnTitle.isSelected()) {
-			return 2;
-		} else if (rdbtnSalary.isSelected()) {
-			return 3;
-		} else
-			return 0;
-	}
-
 	private void fillTable(List<Job> jobsList) {
-		if (jobsList != null) {
+		if (jobsList != null && jobsList.size() != 0) {
 			Object[] rowData = new Object[8];
 			for (Job job : jobsList) {
 				rowData[0] = job.getJobId();
@@ -250,19 +288,26 @@ public class JobView extends MyPanel {
 
 	public void loadData() {
 		emptyTable();
-		currentJobList = userController.getAllJobs(QueryType.NORMAL, Config.ROW_LIMIT, Config.JOB_OFFSET);
-		Object[] rowData = new Object[8];
-		for (Job job : currentJobList) {
-			rowData[0] = job.getJobId();
-			rowData[1] = job.getJobTitle();
-			rowData[2] = job.getMaxSalary();
-			rowData[3] = job.getMinSalary();
-			rowData[4] = job.getCreatedBy();
-			rowData[5] = job.getCreatedDate();
-			rowData[6] = job.getUpdatedBy();
-			rowData[7] = job.getUpdatedDate();
-			tableModel.addRow(rowData);
-		}
 
+		try {
+			currentJobList = jobService.getAllJobs(Config.ROW_LIMIT, Config.JOB_OFFSET);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (currentJobList != null && currentJobList.size() != 0) {
+			Object[] rowData = new Object[8];
+			for (Job job : currentJobList) {
+				rowData[0] = job.getJobId();
+				rowData[1] = job.getJobTitle();
+				rowData[2] = job.getMaxSalary();
+				rowData[3] = job.getMinSalary();
+				rowData[4] = job.getCreatedBy();
+				rowData[5] = job.getCreatedDate();
+				rowData[6] = job.getUpdatedBy();
+				rowData[7] = job.getUpdatedDate();
+				tableModel.addRow(rowData);
+			}
+		}
 	}
 }

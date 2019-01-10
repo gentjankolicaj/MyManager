@@ -16,9 +16,9 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.Job;
 import com.mymanager.data.models.User;
+import com.mymanager.services.JobService;
 
 public class EditJob extends JDialog {
 
@@ -29,26 +29,28 @@ public class EditJob extends JDialog {
 	private JDialog selfReference;
 	private final JPanel contentPanel = new JPanel();
 	private JPanel buttonPane;
-	private JButton okButton;
-	private JButton cancelButton;
+	private JButton btnSave;
+	private JButton btnCancel;
 	private JTextField textFieldTitle;
 	private JTextField textFieldMinSalary;
 	private JTextField textFieldMaxSalary;
 	private JLabel lblCreatedBy;
 	private JTextField textFieldCreatedBy;
 
-	private UserController userController;
+
+	private JobService jobService;
 	private User user;
 	private Job oldJob;
 
 	/**
 	 * Create the dialog.
 	 */
-	public EditJob(UserController userController, Job oldJob) {
-		this.userController = userController;
-		this.user = userController.getUser();
+	public EditJob(JobService jobService,User user, Job oldJob) {
+		this.selfReference=this;
+		this.jobService=jobService;
+		this.user=user;
 		this.oldJob = oldJob;
-		selfReference = this;
+	
 		initComponents();
 		initEvents();
 		fillDetails();
@@ -58,7 +60,7 @@ public class EditJob extends JDialog {
 	private void initComponents() {
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 600, 350);
+		setBounds(100, 100, 560, 350);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -123,32 +125,40 @@ public class EditJob extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				okButton = new JButton("Save");
-				okButton.setActionCommand("Save");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				btnSave = new JButton("Save");
+				btnSave.setActionCommand("Save");
+				buttonPane.add(btnSave);
+				getRootPane().setDefaultButton(btnSave);
 			}
 			{
-				cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
+				btnCancel = new JButton("Cancel");
+				btnCancel.setActionCommand("Cancel");
+				buttonPane.add(btnCancel);
 			}
 		}
 	}
 
 	private void initEvents() {
-		okButton.addMouseListener(new MouseAdapter() {
+		btnSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				Job newJob = new Job(oldJob.getJobId(), textFieldTitle.getText(),
 						Float.parseFloat(textFieldMaxSalary.getText()), Float.parseFloat(textFieldMinSalary.getText()),
 						textFieldCreatedBy.getText(), user.getUserId(), LocalDateTime.now(), LocalDateTime.now());
-				userController.editJob(oldJob, newJob);
+				try {
+					
+					jobService.updateJob(oldJob, newJob);
+					
+				} catch (Exception e1) {
+				
+					e1.printStackTrace();
+				}
+				
 				selfReference.dispose();
 			}
 		});
 
-		cancelButton.addMouseListener(new MouseAdapter() {
+		btnCancel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				selfReference.dispose();

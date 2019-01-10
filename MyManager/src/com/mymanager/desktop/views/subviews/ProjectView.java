@@ -151,7 +151,7 @@ public class ProjectView extends MyPanel {
 		btnSearch.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				loadProjects();
+				searchProjects();
 
 			}
 		});
@@ -210,7 +210,7 @@ public class ProjectView extends MyPanel {
 
 	}
 
-	private void loadProjects() {
+	private void searchProjects() {
 		String searchValue = textFieldSearch.getText();
 		emptyTable();
 		if (rdbtnName.isSelected()) {
