@@ -51,7 +51,7 @@ public class EmployeeDataView extends MyPanel {
 	 * Create the panel.
 	 */
 	public EmployeeDataView(JFrame jframe, MainView mainView,User user) {
-		super(1500, 650);
+		super(1425, 650);
 		this.jframe = jframe;
 		this.mainView = mainView;
 		this.selfReference=this;

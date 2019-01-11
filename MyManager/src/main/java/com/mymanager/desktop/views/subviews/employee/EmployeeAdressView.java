@@ -80,7 +80,7 @@ public class EmployeeAdressView extends MyPanel {
 
 		JLabel lblNewLabel = new JLabel("Employee adresses");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel.setBounds(340, 11, 230, 31);
+		lblNewLabel.setBounds(455, 11, 230, 31);
 		add(lblNewLabel);
 
 		textFieldSearch = new JTextField();
@@ -100,17 +100,17 @@ public class EmployeeAdressView extends MyPanel {
 
 		rdbtnPersonId = new JRadioButton("Employee Id");
 		buttonGroupSearchType.add(rdbtnPersonId);
-		rdbtnPersonId.setBounds(141, 46, 89, 25);
+		rdbtnPersonId.setBounds(141, 46, 113, 25);
 		add(rdbtnPersonId);
 
 		rdbtnCity = new JRadioButton("City");
 		buttonGroupSearchType.add(rdbtnCity);
-		rdbtnCity.setBounds(245, 46, 56, 25);
+		rdbtnCity.setBounds(256, 46, 56, 25);
 		add(rdbtnCity);
 
 		rdbtnStreet = new JRadioButton("Street");
 		buttonGroupSearchType.add(rdbtnStreet);
-		rdbtnStreet.setBounds(303, 46, 83, 25);
+		rdbtnStreet.setBounds(314, 46, 83, 25);
 		add(rdbtnStreet);
 
 		btnSearch = new JButton("Search");
@@ -133,11 +133,11 @@ public class EmployeeAdressView extends MyPanel {
 		add(scrollPane);
 
 		btnDelete = new JButton("Delete");
-		btnDelete.setBounds(1193, 143, 97, 25);
+		btnDelete.setBounds(1191, 143, 97, 25);
 		add(btnDelete);
 
 		btnBack = new JButton("Back");
-		btnBack.setBounds(1193, 179, 97, 25);
+		btnBack.setBounds(1191, 179, 97, 25);
 		add(btnBack);
 	}
 

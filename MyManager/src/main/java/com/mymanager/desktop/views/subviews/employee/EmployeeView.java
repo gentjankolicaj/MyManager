@@ -84,7 +84,7 @@ public class EmployeeView extends MyPanel {
 
 		JLabel lblNewLabel = new JLabel("All employees");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel.setBounds(455, 11, 230, 36);
+		lblNewLabel.setBounds(455, 11, 230, 31);
 		add(lblNewLabel);
 
 		tfSearch = new JTextField();
@@ -122,7 +122,7 @@ public class EmployeeView extends MyPanel {
 		add(btnSearch);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 127, 1171, 460);
+		scrollPane.setBounds(12, 127, 1171, 462);
 
 		table = new MyTable();
 		table.setFillsViewportHeight(true);
