@@ -22,7 +22,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import com.mymanager.controllers.UserController;
+
 import com.mymanager.data.models.Country;
 import com.mymanager.data.models.Gender;
 import com.mymanager.data.models.Rights;
@@ -32,9 +32,7 @@ import com.mymanager.data.models.UserContact;
 import com.mymanager.services.CountryService;
 import com.mymanager.services.CountryServiceImpl;
 import com.mymanager.services.UserAdressService;
-import com.mymanager.services.UserAdressServiceImpl;
 import com.mymanager.services.UserContactService;
-import com.mymanager.services.UserContactServiceImpl;
 import com.mymanager.services.UserService;
 import com.mymanager.utils.MessageType;
 import com.mymanager.utils.UtilWindow;
