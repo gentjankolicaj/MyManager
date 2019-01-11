@@ -45,6 +45,7 @@ public class PaymentTypeView extends JDialog {
 	 * Create the dialog.
 	 */
 	public PaymentTypeView() {
+		setTitle("ALL TYPES OF PAYMENT");
 		this.paymentTypeService = new PaymentTypeServiceImpl();
 
 		initComponents();
@@ -54,41 +55,35 @@ public class PaymentTypeView extends JDialog {
 	}
 
 	public void initComponents() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(
-				CurrencyView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-admin-2.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PaymentTypeView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-save-money.png")));
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 567, 426);
+		setBounds(100, 100, 420, 380);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblCurrencies = new JLabel("All types of payment");
-		lblCurrencies.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCurrencies.setBounds(235, 11, 156, 24);
-		contentPanel.add(lblCurrencies);
-
 		btnCreate = new JButton("Create");
 
 		btnCreate.setIcon(new ImageIcon(
 				CurrencyView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-add-2.png")));
-		btnCreate.setBounds(10, 211, 108, 23);
+		btnCreate.setBounds(10, 22, 108, 23);
 		contentPanel.add(btnCreate);
 
 		btnEdit = new JButton("Edit");
 		btnEdit.setIcon(new ImageIcon(
 				CurrencyView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-edit-3.png")));
-		btnEdit.setBounds(10, 256, 108, 23);
+		btnEdit.setBounds(10, 67, 108, 23);
 		contentPanel.add(btnEdit);
 
 		btnDelete = new JButton("Delete");
 		btnDelete.setIcon(new ImageIcon(
 				CurrencyView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-minus-2.png")));
-		btnDelete.setBounds(10, 304, 108, 23);
+		btnDelete.setBounds(10, 115, 108, 23);
 		contentPanel.add(btnDelete);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(166, 68, 327, 306);
+		scrollPane.setBounds(128, 25, 266, 306);
 
 		table = new MyTable();
 		table.setCellSelectionEnabled(true);

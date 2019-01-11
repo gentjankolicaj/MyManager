@@ -37,6 +37,7 @@ public class CreateCountry extends JDialog {
 	 * Create the dialog.
 	 */
 	public CreateCountry(CountryService countryService) {
+		setTitle("Create new country");
 		selfReference = this;
 		this.countryService=countryService;
 		
@@ -83,29 +84,23 @@ public class CreateCountry extends JDialog {
 	}
 
 	private void initComponents() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(
-				CurrencyView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-admin-2.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CreateCountry.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-country.png")));
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 351, 150);
+		setBounds(100, 100, 351, 110);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblCurrencies = new JLabel("New country");
-		lblCurrencies.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCurrencies.setBounds(124, 11, 103, 24);
-		contentPanel.add(lblCurrencies);
-
 		btnCreate = new JButton("Save");
 
 		btnCreate.setIcon(new ImageIcon(
 				CreateCurrency.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-save-2.png")));
-		btnCreate.setBounds(217, 65, 108, 24);
+		btnCreate.setBounds(217, 21, 108, 24);
 		contentPanel.add(btnCreate);
 
 		textFieldCountry = new JTextField();
-		textFieldCountry.setBounds(10, 66, 197, 22);
+		textFieldCountry.setBounds(10, 22, 197, 22);
 		textFieldCountry.setColumns(10);
 		contentPanel.add(textFieldCountry);
 	}

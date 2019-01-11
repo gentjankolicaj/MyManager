@@ -39,6 +39,7 @@ public class EditPaymentType extends JDialog {
 	 * Create the dialog.
 	 */
 	public EditPaymentType(PaymentTypeService paymentTypeService, PaymentType oldPaymentType) {
+		setTitle("Edit payment type");
 		this.selfReference = this;
 		this.paymentTypeService=paymentTypeService;
 		this.oldPaymentType = oldPaymentType;
@@ -86,29 +87,23 @@ public class EditPaymentType extends JDialog {
 	}
 
 	private void initComponents() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(
-				CurrencyView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-admin-2.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(EditPaymentType.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-save-money.png")));
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 362, 150);
+		setBounds(100, 100, 362, 110);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblCurrencies = new JLabel("New type of payment");
-		lblCurrencies.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCurrencies.setBounds(85, 11, 169, 24);
-		contentPanel.add(lblCurrencies);
-
 		btnCreate = new JButton("Save");
 
 		btnCreate.setIcon(new ImageIcon(
 				CreateCurrency.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-save-2.png")));
-		btnCreate.setBounds(226, 64, 110, 24);
+		btnCreate.setBounds(226, 23, 110, 24);
 		contentPanel.add(btnCreate);
 
 		textFieldPayment = new JTextField();
-		textFieldPayment.setBounds(10, 65, 206, 22);
+		textFieldPayment.setBounds(10, 24, 206, 22);
 		contentPanel.add(textFieldPayment);
 		textFieldPayment.setColumns(10);
 	}

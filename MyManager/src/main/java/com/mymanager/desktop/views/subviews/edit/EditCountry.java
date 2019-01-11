@@ -38,6 +38,7 @@ public class EditCountry extends JDialog {
 	 * Create the dialog.
 	 */
 	public EditCountry(CountryService countryService, Country oldCountry) {
+		setTitle("Edit country");
 		selfReference = this;
 		this.countryService=countryService;
 		this.oldCountry = oldCountry;
@@ -88,29 +89,23 @@ public class EditCountry extends JDialog {
 	}
 
 	private void initComponents() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(
-				CurrencyView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-admin-2.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(EditCountry.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-country.png")));
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 351, 150);
+		setBounds(100, 100, 351, 110);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblCurrencies = new JLabel("Edit country");
-		lblCurrencies.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCurrencies.setBounds(110, 0, 103, 24);
-		contentPanel.add(lblCurrencies);
-
 		btnEdit = new JButton("Save");
 
 		btnEdit.setIcon(new ImageIcon(
 				EditCountry.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-save-2.png")));
-		btnEdit.setBounds(217, 67, 108, 23);
+		btnEdit.setBounds(217, 22, 108, 23);
 		contentPanel.add(btnEdit);
 
 		textFieldCountry = new JTextField();
-		textFieldCountry.setBounds(10, 67, 185, 22);
+		textFieldCountry.setBounds(10, 22, 197, 22);
 		textFieldCountry.setColumns(10);
 		contentPanel.add(textFieldCountry);
 	}

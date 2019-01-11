@@ -114,7 +114,7 @@ public class MainView extends MyPanel {
 		
 		
 		usersDataView = new UserDataView(jframe, selfReference, userService,user);
-		employeesDataView = new EmployeeDataView(jframe, selfReference, userService,user);
+		//employeesDataView = new EmployeeDataView(jframe, selfReference, userService,user);
 		projectsView = new ProjectView(jframe, selfReference,userService,user);
 		jobsView = new JobView(jframe, selfReference, userService,user);
 		workingHoursView = new WorkingHourView(jframe, selfReference,userService,user);
@@ -414,22 +414,19 @@ public class MainView extends MyPanel {
 		currenciesPanel.setLayout(null);
 
 		JLabel label_2 = new JLabel("");
-		label_2.setIcon(new ImageIcon(
-				MainView.class.getResource("/com/mymanager/resources/icons/icons_45x45/icons8-save-money-2.png")));
+		label_2.setIcon(new ImageIcon(MainView.class.getResource("/com/mymanager/resources/icons/icons_45x45/icons8-sack-of-money-2.png")));
 		label_2.setBounds(21, 11, 56, 56);
 		currenciesPanel.add(label_2);
 
 		paymentTypePanel = new JPanel();
 		paymentTypePanel.setBackground(UIManager.getColor("Button.background"));
-		paymentTypePanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Payment type",
-				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		paymentTypePanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Pay type", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		paymentTypePanel.setBounds(257, 26, 87, 78);
 		configPanel.add(paymentTypePanel);
 		paymentTypePanel.setLayout(null);
 
 		JLabel label_3 = new JLabel("");
-		label_3.setIcon(new ImageIcon(
-				MainView.class.getResource("/com/mymanager/resources/icons/icons_45x45/icons8-create-2.png")));
+		label_3.setIcon(new ImageIcon(MainView.class.getResource("/com/mymanager/resources/icons/icons_45x45/icons8-save-money-2.png")));
 		label_3.setBounds(21, 11, 56, 56);
 		paymentTypePanel.add(label_3);
 

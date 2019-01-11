@@ -45,6 +45,7 @@ public class CurrencyView extends JDialog {
 	 * Create the dialog.
 	 */
 	public CurrencyView() {
+		setTitle("ALL CURRENCIES");
 		this.currencyService = new CurrencyServiceImpl();
 
 		initComponents();
@@ -54,41 +55,35 @@ public class CurrencyView extends JDialog {
 	}
 
 	public void initComponents() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(
-				CurrencyView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-admin-2.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CurrencyView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-sack-of-money-2.png")));
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 567, 426);
+		setBounds(100, 100, 420, 380);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblCurrencies = new JLabel("All currencies");
-		lblCurrencies.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCurrencies.setBounds(235, 11, 103, 24);
-		contentPanel.add(lblCurrencies);
-
 		btnCreate = new JButton("Create");
 
 		btnCreate.setIcon(new ImageIcon(
 				CurrencyView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-add-2.png")));
-		btnCreate.setBounds(10, 212, 108, 23);
+		btnCreate.setBounds(10, 23, 108, 23);
 		contentPanel.add(btnCreate);
 
 		btnEdit = new JButton("Edit");
 		btnEdit.setIcon(new ImageIcon(
 				CurrencyView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-edit-3.png")));
-		btnEdit.setBounds(10, 257, 108, 23);
+		btnEdit.setBounds(10, 68, 108, 23);
 		contentPanel.add(btnEdit);
 
 		btnDelete = new JButton("Delete");
 		btnDelete.setIcon(new ImageIcon(
 				CurrencyView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-minus-2.png")));
-		btnDelete.setBounds(10, 305, 108, 23);
+		btnDelete.setBounds(10, 116, 108, 23);
 		contentPanel.add(btnDelete);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(166, 68, 327, 306);
+		scrollPane.setBounds(128, 23, 266, 306);
 
 		table = new MyTable();
 		table.setCellSelectionEnabled(true);

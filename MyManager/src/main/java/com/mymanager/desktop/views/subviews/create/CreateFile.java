@@ -38,6 +38,7 @@ public class CreateFile extends JDialog {
 	 * Create the dialog.
 	 */
 	public CreateFile(FileTypeService fileTypeService) {
+		setTitle("CREATE FILE TYPE");
 		this.selfReference = this;
 		this.fileTypeService=fileTypeService;
 		
@@ -86,28 +87,22 @@ public class CreateFile extends JDialog {
 	}
 
 	private void initComponents() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(
-				CurrencyView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-admin-2.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CreateFile.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-new-file-2.png")));
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 384, 150);
+		setBounds(100, 100, 384, 110);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblCurrencies = new JLabel("New file type");
-		lblCurrencies.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCurrencies.setBounds(134, 11, 103, 24);
-		contentPanel.add(lblCurrencies);
-
 		btnCreate = new JButton("Save");
 		btnCreate.setIcon(new ImageIcon(
 				CreateCurrency.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-save-2.png")));
-		btnCreate.setBounds(245, 65, 113, 24);
+		btnCreate.setBounds(245, 23, 113, 24);
 		contentPanel.add(btnCreate);
 
 		textFieldFile = new JTextField();
-		textFieldFile.setBounds(10, 66, 215, 22);
+		textFieldFile.setBounds(10, 24, 215, 22);
 		contentPanel.add(textFieldFile);
 		textFieldFile.setColumns(10);
 	}

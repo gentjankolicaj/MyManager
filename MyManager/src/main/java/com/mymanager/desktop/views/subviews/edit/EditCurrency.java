@@ -41,6 +41,7 @@ public class EditCurrency extends JDialog {
 	 * Create the dialog.
 	 */
 	public EditCurrency(CurrencyService currencyService, Currency oldCurrency) {
+		setTitle("Edit currency");
 		selfReference = this;
 		this.currencyService=currencyService;
 		this.oldCurrency = oldCurrency;
@@ -88,29 +89,23 @@ public class EditCurrency extends JDialog {
 	}
 
 	private void initComponents() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(
-				CurrencyView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-admin-2.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(EditCurrency.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-sack-of-money-2.png")));
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 362, 150);
+		setBounds(100, 100, 362, 110);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblCurrencies = new JLabel("Edit currency");
-		lblCurrencies.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCurrencies.setBounds(101, 0, 103, 24);
-		contentPanel.add(lblCurrencies);
-
 		btnCreate = new JButton("Save");
 
 		btnCreate.setIcon(new ImageIcon(
 				CreateCurrency.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-save-2.png")));
-		btnCreate.setBounds(226, 64, 110, 24);
+		btnCreate.setBounds(226, 25, 110, 24);
 		contentPanel.add(btnCreate);
 
 		textFieldCurrency = new JTextField();
-		textFieldCurrency.setBounds(10, 65, 194, 22);
+		textFieldCurrency.setBounds(10, 26, 206, 22);
 		contentPanel.add(textFieldCurrency);
 		textFieldCurrency.setColumns(10);
 	}
