@@ -2,6 +2,7 @@ package com.mymanager.services;
 
 import java.util.List;
 
+import com.mymanager.data.data_access.EmployeeAccessObject;
 import com.mymanager.data.data_access.interfaces.EmployeeAccess;
 import com.mymanager.data.models.Employee;
 /**
@@ -16,7 +17,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 	public EmployeeServiceImpl() {
 		super();
-		this.employeeAccess=employeeAccess;
+		this.employeeAccess=new EmployeeAccessObject();
 	}
 
 	@Override
