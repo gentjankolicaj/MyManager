@@ -207,7 +207,7 @@ public class DepartmentView extends MyPanel {
 	}
 
 	private void searchDepartments() {
-		String searchValue = textFieldSearch.getText();
+		String searchValue = textFieldSearch.getText().trim();
 		emptyTable();
 		if (rdbtnId.isSelected()) {
 			Department temp = null;
@@ -229,8 +229,6 @@ public class DepartmentView extends MyPanel {
 				e.printStackTrace();
 			}
 			fillTable(currentDepartmentList);
-
-		} else {
 
 		}
 

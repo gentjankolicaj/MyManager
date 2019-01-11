@@ -175,7 +175,7 @@ public class AttemptView extends MyPanel {
 	}
 
 	private void searchAttempts() throws Exception {
-		String searchValue = textFieldSearch.getText();
+		String searchValue = textFieldSearch.getText().trim();
 		emptyTable();
 		if (chooseSearchType() == 1) {
 			currentAttemptList = attemptService.getAttempts(searchValue);

@@ -219,7 +219,7 @@ public class WorkingHourView extends MyPanel {
 	}
 
 	private void searchWorkingHours() {
-		String searchValue = textFieldSearch.getText();
+		String searchValue = textFieldSearch.getText().trim();
 		emptyTable();
 		if (rdbtnId.isSelected()) {
 			WorkingHour temp = null;

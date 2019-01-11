@@ -218,7 +218,7 @@ public class JobView extends MyPanel {
 	}
 
 	private void searchJobs() {
-		String searchValue = textFieldSearch.getText();
+		String searchValue = textFieldSearch.getText().trim();
 		emptyTable();
 		if (rdbtnId.isSelected()) {
 			Job temp = null;

@@ -59,13 +59,11 @@ public class UserAdressView extends MyPanel {
 		super(1200, 550);
 		this.jframe = jframe;
 		this.mainView = mainView;
+		this.selfReference = this;
 		
 		this.userAdressService=new UserAdressServiceImpl();
 		
-		selfReference = this;
-
 		initComponents();
-		
 		initEvents();
 
 	}
@@ -192,7 +190,7 @@ public class UserAdressView extends MyPanel {
 	}
 
 	private void searchAdresses() throws Exception{
-		String searchValue = textFieldSearch.getText();
+		String searchValue = textFieldSearch.getText().trim();
 		emptyTable();
 		if (rdbtnId.isSelected()) {
 			UserAdress temp = userAdressService.getAdress(Integer.parseInt(searchValue));
@@ -208,9 +206,6 @@ public class UserAdressView extends MyPanel {
 		} else if (rdbtnStreet.isSelected()) {
 			currentAdressList = userAdressService.getAdressesByStreet(searchValue);
 			fillTable(currentAdressList);
-		} else {
-
-			// to do some info message
 		}
 
 	}

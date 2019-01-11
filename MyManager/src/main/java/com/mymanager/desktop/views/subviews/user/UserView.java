@@ -76,12 +76,12 @@ public class UserView extends MyPanel {
 		super(1200, 550);
 		this.jframe = jframe;
 		this.mainView = mainView;
+		this.selfReference=this;
 		this.userService=userService;
 		this.user=user;
 		this.userContactService=new UserContactServiceImpl();
 		this.userAdressService=new UserAdressServiceImpl();
 		
-		selfReference = this;
 
 		initComponents();
 		initEvents();
@@ -241,7 +241,7 @@ public class UserView extends MyPanel {
 	}
 
 	private void searchUsers() throws Exception {
-		String searchValue = textFieldSearch.getText();
+		String searchValue = textFieldSearch.getText().trim();
 		emptyTable();
 		if (rdbtnId.isSelected()) {
 			User temp = userService.getUser(searchValue);
@@ -260,11 +260,7 @@ public class UserView extends MyPanel {
 			currentUserList = userService.getUsersByLastName(searchValue);
 			fillTable(currentUserList);
 
-		} else {
-
-			// to do some info message
-
-		}
+		} 
 
 	}
 

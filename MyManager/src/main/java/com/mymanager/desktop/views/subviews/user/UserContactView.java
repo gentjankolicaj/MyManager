@@ -63,13 +63,12 @@ public class UserContactView extends MyPanel {
 		super(1200, 550);
 		this.jframe = jframe;
 		this.mainView = mainView;
+		this.selfReference = this;
 
 		this.userContactService = new UserContactServiceImpl();
 
-		selfReference = this;
 
 		initComponents();
-
 		initEvents();
 
 	}
@@ -191,7 +190,7 @@ public class UserContactView extends MyPanel {
 	}
 
 	private void searchContacts() throws Exception {
-		String searchValue = textFieldSearch.getText();
+		String searchValue = textFieldSearch.getText().trim();
 		emptyTable();
 		if (rdbtnId.isSelected()) {
 			UserContact temp = userContactService.getContact(Integer.parseInt(searchValue));

@@ -66,9 +66,9 @@ public class ProjectView extends MyPanel {
 	 */
 	public ProjectView(JFrame jframe, MainView mainView, UserService userService, User user) {
 		super(1070, 545);
-		this.selfReference = this;
 		this.jframe = jframe;
 		this.mainView = mainView;
+		this.selfReference = this;
 
 		this.userService = userService;
 		this.user = user;
@@ -211,7 +211,7 @@ public class ProjectView extends MyPanel {
 	}
 
 	private void searchProjects() {
-		String searchValue = textFieldSearch.getText();
+		String searchValue = textFieldSearch.getText().trim();
 		emptyTable();
 		if (rdbtnName.isSelected()) {
 			Project temp = null;

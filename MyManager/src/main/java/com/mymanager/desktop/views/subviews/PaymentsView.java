@@ -77,7 +77,6 @@ public class PaymentsView extends MyPanel {
 		this.user=user;
 		this.paymentService=new PaymentServiceImpl();
 		
-
 		initComponents();
 		initEvents();
 
