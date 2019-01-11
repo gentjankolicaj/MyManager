@@ -73,7 +73,6 @@ public class UserDataView extends MyPanel {
 		previousPanel = userView;
 		userView.setBounds(134, 11, 1221, 650);
 		add(userView);
-		setSize(1500, 750);
 
 		btnContacts = new JButton("Contacts");
 		btnContacts.setBounds(10, 269, 120, 35);

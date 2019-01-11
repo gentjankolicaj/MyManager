@@ -51,7 +51,7 @@ public class EmployeeDataView extends MyPanel {
 	 * Create the panel.
 	 */
 	public EmployeeDataView(JFrame jframe, MainView mainView,User user) {
-		super(1500, 750);
+		super(1500, 650);
 		this.jframe = jframe;
 		this.mainView = mainView;
 		this.selfReference=this;
@@ -71,17 +71,17 @@ public class EmployeeDataView extends MyPanel {
 		setLayout(null);
 
 		btnContacts = new JButton("Contacts");
-		btnContacts.setBounds(10, 304, 120, 35);
+		btnContacts.setBounds(10, 278, 120, 35);
 		add(btnContacts);
 		buttonGroup.add(btnContacts);
 
 		btnAdresses = new JButton("Adresses");
-		btnAdresses.setBounds(10, 245, 120, 35);
+		btnAdresses.setBounds(10, 219, 120, 35);
 		add(btnAdresses);
 		buttonGroup.add(btnAdresses);
 
 		btnEmployee = new JButton("Employee");
-		btnEmployee.setBounds(10, 188, 120, 35);
+		btnEmployee.setBounds(10, 162, 120, 35);
 		add(btnEmployee);
 		buttonGroup.add(btnEmployee);
 

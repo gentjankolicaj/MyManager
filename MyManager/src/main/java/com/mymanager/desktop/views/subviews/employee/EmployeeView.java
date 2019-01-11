@@ -67,7 +67,7 @@ public class EmployeeView extends MyPanel {
 	 * Create the panel.
 	 */
 	public EmployeeView(JFrame jframe, MainView mainView, User user,EmployeeService employeeService) {
-		super(1450,  650);
+		super(1300,  600);
 		this.jframe = jframe;
 		this.mainView = mainView;
 		this.selfReference=this;
@@ -82,46 +82,47 @@ public class EmployeeView extends MyPanel {
 	private void initComponents() {
 		setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("EMPLOYEES");
+		JLabel lblNewLabel = new JLabel("All employees");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel.setBounds(455, 11, 230, 45);
+		lblNewLabel.setBounds(455, 11, 230, 36);
 		add(lblNewLabel);
 
 		tfSearch = new JTextField();
-		tfSearch.setBounds(12, 115, 1023, 31);
+		tfSearch.setBounds(12, 85, 1023, 30);
 		add(tfSearch);
 		tfSearch.setColumns(10);
 
 		JLabel lblSearcchBy = new JLabel("Search by :");
-		lblSearcchBy.setBounds(12, 63, 89, 31);
+		lblSearcchBy.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblSearcchBy.setBounds(12, 43, 89, 31);
 		add(lblSearcchBy);
 
 		rdbtnId = new JRadioButton("Id");
 		buttonGroupSearchType.add(rdbtnId);
-		rdbtnId.setBounds(83, 66, 56, 25);
+		rdbtnId.setBounds(83, 46, 56, 25);
 		add(rdbtnId);
 
 		rdbtnFirstname = new JRadioButton("Firstname");
 		buttonGroupSearchType.add(rdbtnFirstname);
-		rdbtnFirstname.setBounds(141, 66, 95, 25);
+		rdbtnFirstname.setBounds(141, 46, 95, 25);
 		add(rdbtnFirstname);
 
 		rdbtnLastname = new JRadioButton("Lastname");
 		buttonGroupSearchType.add(rdbtnLastname);
-		rdbtnLastname.setBounds(238, 66, 83, 25);
+		rdbtnLastname.setBounds(238, 46, 83, 25);
 		add(rdbtnLastname);
 
-		rdbtnDepartment = new JRadioButton("Departmet id");
+		rdbtnDepartment = new JRadioButton("Departmet Id");
 		buttonGroupSearchType.add(rdbtnDepartment);
-		rdbtnDepartment.setBounds(418, 66, 110, 25);
+		rdbtnDepartment.setBounds(409, 46, 110, 25);
 		add(rdbtnDepartment);
 
 		btnSearch = new JButton("Search");
-		btnSearch.setBounds(1045, 115, 138, 31);
+		btnSearch.setBounds(1045, 85, 138, 30);
 		add(btnSearch);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 174, 1171, 460);
+		scrollPane.setBounds(12, 127, 1171, 460);
 
 		table = new MyTable();
 		table.setFillsViewportHeight(true);
@@ -135,24 +136,24 @@ public class EmployeeView extends MyPanel {
 
 		add(scrollPane);
 		btnCreate = new JButton("Create");
-		btnCreate.setBounds(1193, 184, 97, 25);
+		btnCreate.setBounds(1191, 143, 97, 25);
 		add(btnCreate);
 
 		btnEdit = new JButton("Edit");
-		btnEdit.setBounds(1193, 222, 97, 25);
+		btnEdit.setBounds(1191, 181, 97, 25);
 		add(btnEdit);
 
 		btnDelete = new JButton("Delete");
-		btnDelete.setBounds(1193, 260, 97, 25);
+		btnDelete.setBounds(1191, 219, 97, 25);
 		add(btnDelete);
 
 		btnBack = new JButton("Back");
-		btnBack.setBounds(1193, 319, 97, 25);
+		btnBack.setBounds(1191, 278, 97, 25);
 		add(btnBack);
 		
-		rdbtnJob = new JRadioButton("Job id");
+		rdbtnJob = new JRadioButton("Job Id");
 		buttonGroupSearchType.add(rdbtnJob);
-		rdbtnJob.setBounds(341, 66, 75, 25);
+		rdbtnJob.setBounds(332, 46, 75, 25);
 		add(rdbtnJob);
 	}
 
