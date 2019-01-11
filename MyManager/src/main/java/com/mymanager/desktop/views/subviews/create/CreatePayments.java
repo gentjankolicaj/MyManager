@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -19,11 +20,15 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.Currency;
 import com.mymanager.data.models.Payment;
 import com.mymanager.data.models.PaymentType;
 import com.mymanager.data.models.User;
+import com.mymanager.services.CurrencyService;
+import com.mymanager.services.CurrencyServiceImpl;
+import com.mymanager.services.PaymentService;
+import com.mymanager.services.PaymentTypeService;
+import com.mymanager.services.PaymentTypeServiceImpl;
 
 public class CreatePayments extends JDialog {
 
@@ -36,25 +41,32 @@ public class CreatePayments extends JDialog {
 	private JPanel buttonPane;
 
 	private JComboBox comboBoxPaymentType;
-	private DefaultComboBoxModel paymentTypeModel;
+	private DefaultComboBoxModel<String> paymentTypeModel;
 
 	private JComboBox comboBoxCurrency;
-	private DefaultComboBoxModel currencyModel;
+	private DefaultComboBoxModel<String> currencyModel;
 
 	private JTextField textFieldEmpId;
-	private JButton okButton;
-	private JButton cancelButton;
-
-	private UserController userController;
-	private User user;
+	private JButton btnSave;
+	private JButton btnCancel;
 	private JTextField textFieldAmount;
 	private JTextArea textAreaDesc;
 
-	public CreatePayments(UserController userController) {
-		this.userController = userController;
-		this.user = userController.getUser();
-		selfReference = this;
+	// Service fields
+	private PaymentService paymentService;
+	private PaymentTypeService paymentTypeService;
+	private CurrencyService currencyService;
+	private User user;
+
+	public CreatePayments(PaymentService paymentService,User user) {
+		this.selfReference = this;
+		this.paymentService = paymentService;
+		this.user = user;
+		this.paymentTypeService = new PaymentTypeServiceImpl();
+		this.currencyService = new CurrencyServiceImpl();
+
 		setResizable(false);
+
 		initComponents();
 		initEvents();
 		fillComboBoxes();
@@ -63,7 +75,7 @@ public class CreatePayments extends JDialog {
 
 	private void initComponents() {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 600, 483);
+		setBounds(100, 100, 560, 483);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -74,23 +86,23 @@ public class CreatePayments extends JDialog {
 		lblCreateNewType.setBounds(129, 13, 270, 26);
 		contentPanel.add(lblCreateNewType);
 
-		JLabel lblPaymentType = new JLabel("Payment type :");
+		JLabel lblPaymentType = new JLabel("Type :");
 		lblPaymentType.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblPaymentType.setBounds(12, 67, 114, 26);
+		lblPaymentType.setBounds(51, 67, 53, 26);
 		contentPanel.add(lblPaymentType);
 
 		JLabel lblEmpId = new JLabel("Emp ID  :");
 		lblEmpId.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblEmpId.setBounds(12, 126, 81, 26);
+		lblEmpId.setBounds(30, 125, 74, 26);
 		contentPanel.add(lblEmpId);
 
 		JLabel lblCurrency = new JLabel("Currency :");
 		lblCurrency.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCurrency.setBounds(12, 183, 93, 26);
+		lblCurrency.setBounds(23, 183, 81, 26);
 		contentPanel.add(lblCurrency);
 
 		comboBoxPaymentType = new JComboBox();
-		comboBoxPaymentType.setBounds(118, 67, 270, 30);
+		comboBoxPaymentType.setBounds(112, 67, 276, 30);
 
 		paymentTypeModel = new DefaultComboBoxModel();
 		comboBoxPaymentType.setModel(paymentTypeModel);
@@ -99,11 +111,11 @@ public class CreatePayments extends JDialog {
 
 		textFieldEmpId = new JTextField();
 		textFieldEmpId.setColumns(10);
-		textFieldEmpId.setBounds(105, 125, 283, 30);
+		textFieldEmpId.setBounds(112, 125, 276, 30);
 		contentPanel.add(textFieldEmpId);
 
 		comboBoxCurrency = new JComboBox();
-		comboBoxCurrency.setBounds(118, 183, 270, 30);
+		comboBoxCurrency.setBounds(112, 183, 276, 30);
 
 		currencyModel = new DefaultComboBoxModel();
 		comboBoxCurrency.setModel(currencyModel);
@@ -112,13 +124,13 @@ public class CreatePayments extends JDialog {
 
 		JLabel lblAmount = new JLabel("Amount  :");
 		lblAmount.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblAmount.setBounds(12, 241, 81, 26);
+		lblAmount.setBounds(23, 240, 81, 26);
 		contentPanel.add(lblAmount);
 
 		textFieldAmount = new JTextField();
 		textFieldAmount.setToolTipText("eg : 12.234\r\n");
 		textFieldAmount.setColumns(10);
-		textFieldAmount.setBounds(105, 240, 283, 30);
+		textFieldAmount.setBounds(112, 240, 276, 30);
 		contentPanel.add(textFieldAmount);
 
 		JLabel lblDescription = new JLabel("Description  :");
@@ -130,7 +142,7 @@ public class CreatePayments extends JDialog {
 		textAreaDesc.setLineWrap(true);
 		textAreaDesc.setToolTipText("eg : 12.234\r\n");
 		textAreaDesc.setColumns(10);
-		textAreaDesc.setBounds(105, 306, 283, 103);
+		textAreaDesc.setBounds(105, 312, 283, 97);
 		contentPanel.add(textAreaDesc);
 		{
 			buttonPane = new JPanel();
@@ -138,21 +150,21 @@ public class CreatePayments extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				okButton = new JButton("Save");
-				okButton.setActionCommand("Save");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				btnSave = new JButton("Save");
+				btnSave.setActionCommand("Save");
+				buttonPane.add(btnSave);
+				getRootPane().setDefaultButton(btnSave);
 			}
 			{
-				cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
+				btnCancel = new JButton("Cancel");
+				btnCancel.setActionCommand("Cancel");
+				buttonPane.add(btnCancel);
 			}
 		}
 	}
 
 	private void initEvents() {
-		okButton.addMouseListener(new MouseAdapter() {
+		btnSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				String selectedPaymentType = (String) comboBoxPaymentType.getSelectedItem();
@@ -164,12 +176,20 @@ public class CreatePayments extends JDialog {
 						new Currency(selectedCurrency), Float.parseFloat(amount), desc, user.getUserId(),
 						user.getUserId(), LocalDateTime.now(), LocalDateTime.now());
 
-				userController.savePayment(newPayment);
+				try {
+
+					paymentService.savePayment(newPayment);
+
+				} catch (Exception e1) {
+
+					e1.printStackTrace();
+				}
+
 				selfReference.dispose();
 			}
 		});
 
-		cancelButton.addMouseListener(new MouseAdapter() {
+		btnCancel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				selfReference.dispose();
@@ -186,17 +206,39 @@ public class CreatePayments extends JDialog {
 
 	private void fillPaymentTypeComboBox() {
 		paymentTypeModel.removeAllElements();
-		for (PaymentType paymentType : userController.getAllPaymentTypes()) {
-			paymentTypeModel.addElement(paymentType.getPayment());
-		}
+		List<PaymentType> paymentTypeList = null;
 
+		try {
+			
+			paymentTypeList = paymentTypeService.getAllPaymentTypes();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (paymentTypeList != null && paymentTypeList.size() != 0) {
+			for (PaymentType paymentType : paymentTypeList) {
+				paymentTypeModel.addElement(paymentType.getPayment());
+			}
+
+		}
 	}
 
 	private void fillCurrencyComboBox() {
 		currencyModel.removeAllElements();
-		for (Currency currency : userController.getAllCurrencies()) {
-			currencyModel.addElement(currency.getCurrencyName());
+		List<Currency> currenciesList = null;
+		try {
+			
+			currenciesList = currencyService.getAllCurrencies();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
+		if (currenciesList != null && currenciesList.size() != 0) {
+			for (Currency currency : currenciesList) {
+				currencyModel.addElement(currency.getCurrencyName());
+			}
+
+		}
 	}
 }

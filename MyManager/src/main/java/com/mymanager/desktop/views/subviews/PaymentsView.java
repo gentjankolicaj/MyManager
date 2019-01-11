@@ -17,15 +17,18 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.mymanager.config.Config;
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.MyTable;
 import com.mymanager.data.models.Payment;
 import com.mymanager.data.models.PaymentType;
+import com.mymanager.data.models.User;
 import com.mymanager.desktop.views.MainView;
 import com.mymanager.desktop.views.subviews.create.CreatePayments;
 import com.mymanager.desktop.views.subviews.custom.MyPanel;
 import com.mymanager.desktop.views.subviews.edit.EditPayments;
+import com.mymanager.services.PaymentService;
+import com.mymanager.services.PaymentServiceImpl;
+import com.mymanager.services.UserService;
 import com.mymanager.utils.AppUtil;
 
 public class PaymentsView extends MyPanel {
@@ -52,19 +55,28 @@ public class PaymentsView extends MyPanel {
 	private List<Payment> currentPaymentList;
 
 	private JFrame jframe;
-	private UserController userController;
 	private MyPanel selfReference;
 	private MainView mainView;
+	
+	
+	//Service fields
+	private UserService userService;
+	private PaymentService paymentService;
+	private User user;
 
 	/**
 	 * Create the panel.
 	 */
-	public PaymentsView(JFrame jframe, MainView mainView, UserController userController) {
+	public PaymentsView(JFrame jframe, MainView mainView, UserService userService,User user) {
 		super(1200, 550);
 		this.jframe = jframe;
 		this.mainView = mainView;
-		this.userController = userController;
-		selfReference = this;
+		this.selfReference=this;
+		
+		this.userService=userService;
+		this.user=user;
+		this.paymentService=new PaymentServiceImpl();
+		
 
 		initComponents();
 		initEvents();
@@ -146,15 +158,17 @@ public class PaymentsView extends MyPanel {
 	private void initEvents() {
 		btnSearch.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent e) {
-				loadPayments();
+				searchPayments();
 			}
 		});
+		
 		btnCreate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				CreatePayments createPayment = new CreatePayments(userController);
+				CreatePayments createPayment = new CreatePayments(paymentService,user);
 				createPayment.setModal(true);
 				createPayment.setVisible(true);
+				
 				loadData();
 
 			}
@@ -167,9 +181,10 @@ public class PaymentsView extends MyPanel {
 				int totalRows = table.getRowCount();
 				if ((selectedRow > -1) && (selectedRow < totalRows)) {
 					Payment oldPayment = currentPaymentList.get(selectedRow);
-					EditPayments editPayment = new EditPayments(userController, oldPayment);
+					EditPayments editPayment = new EditPayments(paymentService,user, oldPayment);
 					editPayment.setModal(true);
 					editPayment.setVisible(true);
+					
 					loadData();
 				}
 
@@ -184,7 +199,15 @@ public class PaymentsView extends MyPanel {
 				int totalRows = table.getRowCount();
 				if (selectedRow > -1 && selectedRow < totalRows) {
 					Payment payment = currentPaymentList.get(selectedRow);
-					userController.deletePayment(payment);
+					try {
+						
+						paymentService.deletePayment(payment);
+						
+					} catch (Exception e1) {
+						
+						e1.printStackTrace();
+					}
+					
 					loadData();
 				}
 
@@ -205,21 +228,88 @@ public class PaymentsView extends MyPanel {
 		tableModel.setRowCount(0);
 	}
 
-	private int chooseSearchType() {
+
+	private void searchPayments() {
+		String searchValue = textFieldSearch.getText().trim();
+		emptyTable();
 		if (rdbtnId.isSelected()) {
-			return 1;
+			Payment temp = null;
+			try{
+				
+				temp=paymentService.getPayment(Integer.parseInt(searchValue));
+				
+			}catch(NumberFormatException n) {
+				n.printStackTrace();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			if(temp!=null)
+			currentPaymentList.add(temp);
+			
+			fillTable(currentPaymentList);
 		} else if (rdbtnEmpId.isSelected()) {
-			return 2;
+			try {
+				
+				currentPaymentList = paymentService.getAllPaymentsByEmployeeId(searchValue);
+				
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+			fillTable(currentPaymentList);
 		} else if (rdbtnType.isSelected()) {
-			return 3;
+			try {
+				
+				currentPaymentList =paymentService.getAllPaymentsByPaymentType( new PaymentType(searchValue));
+				
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+			fillTable(currentPaymentList);
 		} else if (rdbtnDesc.isSelected()) {
-			return 4;
-		} else
-			return 0;
+			try {
+				currentPaymentList = paymentService.getAllPaymentsByDescription( searchValue);
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+			fillTable(currentPaymentList);
+		} 
 	}
 
+	public void loadData() {
+		emptyTable();
+		try {
+			
+			currentPaymentList = paymentService.getAllPayments( Config.ROW_LIMIT, Config.PAYMENTS_OFFSET);
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		if(currentPaymentList!=null&&currentPaymentList.size()!=0) {
+		Object[] rowData = new Object[10];
+		for (Payment payment : currentPaymentList) {
+			rowData[0] = payment.getPaymentId();
+			rowData[1] = payment.getPaymentType().getPayment();
+			rowData[2] = payment.getEmployeeId();
+			rowData[3] = payment.getPaymentAmount();
+			rowData[4] = payment.getCurrency().getCurrencyName();
+			rowData[5] = payment.getPaymentDescription();
+			rowData[6] = payment.getCreatedBy();
+			rowData[7] = payment.getCreatedDate();
+			rowData[8] = payment.getUpdatedBy();
+			rowData[9] = payment.getUpdatedDate();
+			tableModel.addRow(rowData);
+		}
+		}
+	}
+	
+	
+	
 	private void fillTable(List<Payment> paymentsList) {
-		if (paymentsList != null) {
+		if (paymentsList != null&&paymentsList.size()!=0) {
 			Object[] rowData = new Object[10];
 			for (Payment payment : paymentsList) {
 				rowData[0] = payment.getPaymentId();
@@ -235,46 +325,5 @@ public class PaymentsView extends MyPanel {
 				tableModel.addRow(rowData);
 			}
 		}
-	}
-
-	private void loadPayments() {
-		String searchValue = textFieldSearch.getText();
-		emptyTable();
-		if (chooseSearchType() == 1) {
-			Payment temp = userController.getPayment(Integer.parseInt(searchValue));
-			currentPaymentList.add(temp);
-			fillTable(currentPaymentList);
-		} else if (chooseSearchType() == 2) {
-			currentPaymentList = userController.getPaymentByEmployeeId(QueryType.NORMAL, searchValue);
-			fillTable(currentPaymentList);
-		} else if (chooseSearchType() == 3) {
-			currentPaymentList = userController.getPaymentByType(QueryType.NORMAL, new PaymentType(searchValue));
-			fillTable(currentPaymentList);
-		} else if (chooseSearchType() == 4) {
-			currentPaymentList = userController.getPaymentByDescription(QueryType.NORMAL, searchValue);
-			fillTable(currentPaymentList);
-		} else {
-
-		}
-	}
-
-	public void loadData() {
-		emptyTable();
-		currentPaymentList = userController.getAllPayments(QueryType.NORMAL, Config.ROW_LIMIT, Config.PAYMENTS_OFFSET);
-		Object[] rowData = new Object[10];
-		for (Payment payment : currentPaymentList) {
-			rowData[0] = payment.getPaymentId();
-			rowData[1] = payment.getPaymentType().getPayment();
-			rowData[2] = payment.getEmployeeId();
-			rowData[3] = payment.getPaymentAmount();
-			rowData[4] = payment.getCurrency().getCurrencyName();
-			rowData[5] = payment.getPaymentDescription();
-			rowData[6] = payment.getCreatedBy();
-			rowData[7] = payment.getCreatedDate();
-			rowData[8] = payment.getUpdatedBy();
-			rowData[9] = payment.getUpdatedDate();
-			tableModel.addRow(rowData);
-		}
-
 	}
 }

@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -19,11 +20,13 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.models.Currency;
 import com.mymanager.data.models.Payment;
 import com.mymanager.data.models.PaymentType;
 import com.mymanager.data.models.User;
+import com.mymanager.services.CurrencyService;
+import com.mymanager.services.PaymentService;
+import com.mymanager.services.PaymentTypeService;
 
 public class EditPayments extends JDialog {
 
@@ -34,33 +37,36 @@ public class EditPayments extends JDialog {
 	private JDialog selfReference;
 	private final JPanel contentPanel = new JPanel();
 	private JPanel buttonPane;
-	private JButton okButton;
-	private JButton cancelButton;
+	private JButton btnSave;
+	private JButton btnCancel;
 	private JTextField textFieldEmpId;
 	private JTextField textFieldAmount;
 	private JTextField textFieldCreatedBy;
 	private JTextArea textAreaDesc;
 	private JComboBox comboBoxPaymentType;
 	private DefaultComboBoxModel<String> paymentTypeModel;
-
 	private JComboBox comboBoxCurrency;
 	private DefaultComboBoxModel<String> currencyModel;
 
-	private UserController userController;
+	// Service fields
+	private PaymentService paymentService;
+	private PaymentTypeService paymentTypeService;
+	private CurrencyService currencyService;
 	private User user;
 	private Payment oldPayment;
 
 	/**
 	 * Create the dialog.
 	 */
-	public EditPayments(UserController userController, Payment oldPayment) {
-		this.userController = userController;
-		this.user = userController.getUser();
+	public EditPayments(PaymentService paymentService, User user, Payment oldPayment) {
+		this.selfReference = this;
+		this.paymentService = paymentService;
+		this.user = user;
 		this.oldPayment = oldPayment;
-		selfReference = this;
 
 		initComponents();
 		initEvents();
+
 		fillComboBoxes();
 		fillDetails();
 
@@ -69,7 +75,7 @@ public class EditPayments extends JDialog {
 	private void initComponents() {
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 599, 486);
+		setBounds(100, 100, 560, 486);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -81,13 +87,13 @@ public class EditPayments extends JDialog {
 			contentPanel.add(lblEditExistingJob);
 		}
 
-		JLabel lblPaymentType = new JLabel("Payment type :");
+		JLabel lblPaymentType = new JLabel("Type :");
 		lblPaymentType.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblPaymentType.setBounds(10, 50, 114, 26);
+		lblPaymentType.setBounds(35, 50, 58, 26);
 		contentPanel.add(lblPaymentType);
 
 		comboBoxPaymentType = new JComboBox();
-		comboBoxPaymentType.setBounds(134, 50, 265, 30);
+		comboBoxPaymentType.setBounds(103, 50, 296, 30);
 
 		paymentTypeModel = new DefaultComboBoxModel();
 		comboBoxPaymentType.setModel(paymentTypeModel);
@@ -96,7 +102,7 @@ public class EditPayments extends JDialog {
 
 		JLabel lblEmpId = new JLabel("Emp ID  :");
 		lblEmpId.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblEmpId.setBounds(10, 102, 81, 26);
+		lblEmpId.setBounds(16, 101, 75, 26);
 		contentPanel.add(lblEmpId);
 
 		textFieldEmpId = new JTextField();
@@ -106,11 +112,11 @@ public class EditPayments extends JDialog {
 
 		JLabel lblCurrency = new JLabel("Currency :");
 		lblCurrency.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCurrency.setBounds(10, 154, 93, 26);
+		lblCurrency.setBounds(10, 153, 81, 26);
 		contentPanel.add(lblCurrency);
 
 		comboBoxCurrency = new JComboBox();
-		comboBoxCurrency.setBounds(133, 153, 266, 30);
+		comboBoxCurrency.setBounds(103, 153, 296, 30);
 
 		currencyModel = new DefaultComboBoxModel();
 		comboBoxCurrency.setModel(currencyModel);
@@ -119,7 +125,7 @@ public class EditPayments extends JDialog {
 
 		JLabel lblAmount = new JLabel("Amount  :");
 		lblAmount.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblAmount.setBounds(10, 205, 81, 26);
+		lblAmount.setBounds(16, 204, 75, 26);
 		contentPanel.add(lblAmount);
 
 		textFieldAmount = new JTextField();
@@ -156,21 +162,21 @@ public class EditPayments extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				okButton = new JButton("Save");
-				okButton.setActionCommand("Save");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				btnSave = new JButton("Save");
+				btnSave.setActionCommand("Save");
+				buttonPane.add(btnSave);
+				getRootPane().setDefaultButton(btnSave);
 			}
 			{
-				cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
+				btnCancel = new JButton("Cancel");
+				btnCancel.setActionCommand("Cancel");
+				buttonPane.add(btnCancel);
 			}
 		}
 	}
 
 	private void initEvents() {
-		okButton.addMouseListener(new MouseAdapter() {
+		btnSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 
@@ -182,12 +188,20 @@ public class EditPayments extends JDialog {
 						newCurrency, amount, textAreaDesc.getText(), textFieldCreatedBy.getText(), user.getUserId(),
 						LocalDateTime.now(), LocalDateTime.now());
 
-				userController.editPayment(oldPayment, newPayment);
+				try {
+
+					paymentService.updatePayment(oldPayment, newPayment);
+
+				} catch (Exception e1) {
+
+					e1.printStackTrace();
+				}
+
 				selfReference.dispose();
 			}
 		});
 
-		cancelButton.addMouseListener(new MouseAdapter() {
+		btnCancel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				selfReference.dispose();
@@ -204,8 +218,20 @@ public class EditPayments extends JDialog {
 	private void fillPaymentTypeComboBox() {
 		if (paymentTypeModel.getSize() > 0)
 			paymentTypeModel.removeAllElements();
-		for (PaymentType paymentType : userController.getAllPaymentTypes()) {
-			paymentTypeModel.addElement(paymentType.getPayment());
+
+		List<PaymentType> paymentTypeList = null;
+		try {
+
+			paymentTypeList = paymentTypeService.getAllPaymentTypes();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		if (paymentTypeList != null && paymentTypeList.size() != 0) {
+			for (PaymentType paymentType : paymentTypeList)
+				paymentTypeModel.addElement(paymentType.getPayment());
+
 		}
 
 	}
@@ -213,10 +239,19 @@ public class EditPayments extends JDialog {
 	private void fillCurrencyComboBox() {
 		if (currencyModel.getSize() > 0)
 			currencyModel.removeAllElements();
-		for (Currency currency : userController.getAllCurrencies()) {
-			currencyModel.addElement(currency.getCurrencyName());
+
+		List<Currency> currenciesList = null;
+		try {
+			currenciesList = currencyService.getAllCurrencies();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
+		if (currenciesList != null && currenciesList.size() != 0) {
+			for (Currency currency : currenciesList)
+				currencyModel.addElement(currency.getCurrencyName());
+
+		}
 	}
 
 	private void fillDetails() {
