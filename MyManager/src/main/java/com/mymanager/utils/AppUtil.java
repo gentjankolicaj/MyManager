@@ -57,7 +57,7 @@ public class AppUtil {
 
 	public static void changeView(JFrame jframe, MyPanel oldPanel, MyPanel newPanel) {
 		jframe.getContentPane().remove(oldPanel);
-		jframe.setSize(newPanel.getMyWidth() + 10, newPanel.getMyHeight() + 50);
+		jframe.setSize(newPanel.getMyWidth() + 10, newPanel.getMyHeight() + 10);
 		newPanel.loadData(); // fills table of new view with data
 		jframe.setContentPane(newPanel);
 		jframe.repaint();
