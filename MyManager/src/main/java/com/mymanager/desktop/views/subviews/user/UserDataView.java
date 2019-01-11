@@ -53,11 +53,11 @@ public class UserDataView extends MyPanel {
 	public UserDataView(JFrame jframe, MainView mainView, UserService userService,User user) {
 		super(1335, 577);
 		this.jframe = jframe;
+		this.selfReference=this;
 		this.mainView = mainView;
 		this.userService=userService;
 		this.user=user;
 		
-		selfReference = this;
 		initComponents();
 		initEvents();
 	}

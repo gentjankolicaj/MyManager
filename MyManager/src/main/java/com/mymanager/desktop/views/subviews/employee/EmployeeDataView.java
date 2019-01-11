@@ -10,9 +10,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-import com.mymanager.controllers.UserController;
+import com.mymanager.data.models.User;
 import com.mymanager.desktop.views.MainView;
 import com.mymanager.desktop.views.subviews.custom.MyPanel;
+import com.mymanager.services.UserService;
 
 public class EmployeeDataView extends MyPanel {
 
@@ -35,18 +36,24 @@ public class EmployeeDataView extends MyPanel {
 	//
 
 	private JFrame jframe;
-	private UserController userController;
 	private MyPanel selfReference;
 	private MainView mainView;
+	
+	//Service
+	private UserService userService;
+	private User user;
 
 	/**
 	 * Create the panel.
 	 */
-	public EmployeeDataView(JFrame jframe, MainView mainView, UserController userController) {
+	public EmployeeDataView(JFrame jframe, MainView mainView, UserService userService,User user) {
 		super(1500, 750);
 		this.jframe = jframe;
 		this.mainView = mainView;
-		this.userController = userController;
+		
+		this.userService=userService;
+		this.user=user;
+		
 		selfReference = this;
 		initComponents();
 		initEvents();
