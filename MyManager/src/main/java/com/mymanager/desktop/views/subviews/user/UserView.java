@@ -73,7 +73,7 @@ public class UserView extends MyPanel {
 	 * Create the panel.
 	 */
 	public UserView(JFrame jframe, MainView mainView, UserService userService,User user) {
-		super(1200, 550);
+		super(1200, 600);
 		this.jframe = jframe;
 		this.mainView = mainView;
 		this.selfReference=this;
@@ -130,7 +130,7 @@ public class UserView extends MyPanel {
 		add(btnSearch);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 136, 1068, 402);
+		scrollPane.setBounds(12, 136, 1068, 450);
 
 		table = new MyTable();
 		table.setFillsViewportHeight(true);

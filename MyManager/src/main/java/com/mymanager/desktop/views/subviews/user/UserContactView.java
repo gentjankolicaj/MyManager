@@ -60,7 +60,7 @@ public class UserContactView extends MyPanel {
 	 * Create the panel.
 	 */
 	public UserContactView(JFrame jframe, MainView mainView) {
-		super(1200, 550);
+		super(1200, 600);
 		this.jframe = jframe;
 		this.mainView = mainView;
 		this.selfReference = this;

@@ -56,7 +56,7 @@ public class UserAdressView extends MyPanel {
 	 * Create the panel.
 	 */
 	public UserAdressView(JFrame jframe, MainView mainView) {
-		super(1200, 550);
+		super(1200, 600);
 		this.jframe = jframe;
 		this.mainView = mainView;
 		this.selfReference = this;
