@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -22,15 +23,21 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import com.mymanager.controllers.UserController;
 import com.mymanager.data.database.QueryType;
-import com.mymanager.data.models.Adress;
 import com.mymanager.data.models.AdressType;
-import com.mymanager.data.models.Contact;
 import com.mymanager.data.models.ContactType;
 import com.mymanager.data.models.Country;
 import com.mymanager.data.models.Gender;
 import com.mymanager.data.models.User;
+import com.mymanager.data.models.UserAdress;
+import com.mymanager.data.models.UserContact;
+import com.mymanager.services.CountryService;
+import com.mymanager.services.CountryServiceImpl;
+import com.mymanager.services.UserAdressService;
+import com.mymanager.services.UserAdressServiceImpl;
+import com.mymanager.services.UserContactService;
+import com.mymanager.services.UserContactServiceImpl;
+import com.mymanager.services.UserService;
 import com.mymanager.utils.MessageType;
 import com.mymanager.utils.MyUtil;
 import com.mymanager.utils.UtilWindow;
@@ -53,11 +60,6 @@ public class AccountView extends JDialog {
 	private JTextField birthday;
 	private JTextField usertype;
 	private JTextField rights;
-
-	private User user;
-	private UserController userController;
-	private Contact userContact;
-	private Adress userAdress;
 
 	// Password panel
 	private JPasswordField textFieldOldPassword;
@@ -101,20 +103,38 @@ public class AccountView extends JDialog {
 	private JButton btnSave;
 	private JButton btnBack;
 
+	// Service fields
+	private UserService userService;
+	private UserAdressService userAdressService;
+	private UserContactService userContactService;
+	private CountryService countryService;
+	private User user;
+	private UserContact userContact;
+	private UserAdress userAdress;
+
 	/**
 	 * Create the dialog.
 	 */
-	public AccountView(UserController userController) {
+	public AccountView(UserService userService, User user) {
 		this.selfReference = this;
 		setResizable(false);
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		this.userController = userController;
-		this.user = userController.getUser();
-		this.userContact = userController.getContactByPersonId(QueryType.NORMAL, ContactType.USER_CONTACT,
-				user.getUserId());
-		this.userAdress = userController.getAdressByPersonId(QueryType.NORMAL, AdressType.USER_ADRESS,
-				user.getUserId());
+
+		this.userService = userService;
+		this.user = user;
+		this.userAdressService = new UserAdressServiceImpl();
+		this.userContactService = new UserContactServiceImpl();
+		this.countryService = new CountryServiceImpl();
+
+		// IMPORTANT field are to initialized ,else =>NPE
+		try {
+			this.userContact = userContactService.getContactByPersonId(user.getUserId());
+			this.userAdress = userAdressService.getAdressesByPersonId(user.getUserId());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		initComponents();
 
@@ -456,6 +476,7 @@ public class AccountView extends JDialog {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				savePanelsData();
+
 				selfReference.dispose();
 			}
 		});
@@ -463,6 +484,7 @@ public class AccountView extends JDialog {
 		btnBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+
 				selfReference.dispose();
 			}
 		});
@@ -473,6 +495,7 @@ public class AccountView extends JDialog {
 		btnSavePassword.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+
 				changePassword();
 
 			}
@@ -481,6 +504,7 @@ public class AccountView extends JDialog {
 		buttonBack2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+
 				selfReference.dispose();
 			}
 		});
@@ -529,6 +553,7 @@ public class AccountView extends JDialog {
 	}
 
 	private void saveDetails() {
+
 		ArrayList<String> first = new ArrayList<>();
 		ArrayList<String> second = new ArrayList<>();
 
@@ -555,8 +580,15 @@ public class AccountView extends JDialog {
 					user.getPassword(), LocalDate.parse(birthday.getText()), birthplace.getText(),
 					Gender.valueOf(gender.getText()), rights.getText(), user.getCreatedBy(), user.getUserId(),
 					user.getCreatedDate(), LocalDateTime.now());
-			userController.editUser(user, newUser);
-			userController.setUser(newUser);
+			try {
+
+				userService.updateUser(user, newUser);
+				user = newUser;
+
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
 
 		}
 
@@ -576,11 +608,20 @@ public class AccountView extends JDialog {
 			second.add(textFieldFax.getText());
 
 			if (!MyUtil.areEquals(first, second)) {
-				Contact newContact = new Contact(userContact.getContactId(), userContact.getPersonId(),
+				UserContact newUserContact = new UserContact(userContact.getContactId(), userContact.getPersonId(),
 						Integer.parseInt(textFieldTelephone.getText()), Integer.parseInt(textFieldCel.getText()),
 						textFieldEmail.getText(), textFieldFax.getText(), userContact.getCreatedBy(), user.getUserId(),
 						userContact.getCreatedDate(), LocalDateTime.now());
-				userController.editContact(ContactType.USER_CONTACT, userContact, newContact);
+
+				try {
+
+					userContactService.updateContact(userContact, newUserContact);
+					userContact = newUserContact;
+
+				} catch (Exception e) {
+
+					e.printStackTrace();
+				}
 			}
 
 		} else {
@@ -591,10 +632,19 @@ public class AccountView extends JDialog {
 			if (textFieldCel.getText().equals(""))
 				celular = "0";
 
-			Contact newContact = new Contact(1, user.getUserId(), Integer.parseInt(telephone),
+			UserContact newUserContact = new UserContact(1, user.getUserId(), Integer.parseInt(telephone),
 					Integer.parseInt(celular), textFieldEmail.getText(), textFieldFax.getText(), user.getUserId(),
 					user.getUserId(), LocalDateTime.now(), LocalDateTime.now());
-			userController.saveContact(ContactType.USER_CONTACT, newContact);
+
+			try {
+
+				userContactService.saveContact(newUserContact);
+				userContact = newUserContact;
+
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
 		}
 
 	}
@@ -623,11 +673,18 @@ public class AccountView extends JDialog {
 				if (zipCode.equals(""))
 					zipCode = "0";
 
-				Adress newAdress = new Adress(1, user.getUserId(), new Country(selectedCountryName),
+				UserAdress newUserAdress = new UserAdress(1, user.getUserId(), new Country(selectedCountryName),
 						textFieldCity.getText(), textFieldStreet.getText(), Integer.parseInt(zipCode),
 						textFieldBuilding.getText(), userAdress.getCreatedBy(), user.getUserId(),
 						userAdress.getCreatedDate(), LocalDateTime.now());
-				userController.editAdress(AdressType.USER_ADRESS, userAdress, newAdress);
+
+				try {
+					userAdressService.updateAdress(userAdress, newUserAdress);
+					userAdress = newUserAdress;
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 
 		} else {
@@ -637,12 +694,18 @@ public class AccountView extends JDialog {
 			if (zipCode.equals(""))
 				zipCode = "0";
 
-			Adress newAdress = new Adress(1, user.getUserId(), new Country(selectedCountryName),
+			UserAdress newUserAdress = new UserAdress(1, user.getUserId(), new Country(selectedCountryName),
 					textFieldCity.getText(), textFieldStreet.getText(), Integer.parseInt(zipCode),
 					textFieldBuilding.getText(), user.getUserId(), user.getUserId(), LocalDateTime.now(),
 					LocalDateTime.now());
 
-			userController.saveAdress(AdressType.USER_ADRESS, newAdress);
+			try {
+				userAdressService.saveAdress(newUserAdress);
+				userAdress = newUserAdress;
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -653,9 +716,20 @@ public class AccountView extends JDialog {
 	}
 
 	private void loadCountries() {
-		comboBoxModel.removeAllElements();
-		for (Country country : userController.getAllCountries()) {
-			comboBoxModel.addElement(country.getCountryName());
+		if (comboBoxModel.getSize() > 0)
+			comboBoxModel.removeAllElements();
+
+		List<Country> countriesList = null;
+		try {
+			countriesList = countryService.getAllCountries();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		if (countriesList != null && countriesList.size() != 0) {
+			for (Country country : countriesList)
+				comboBoxModel.addElement(country.getCountryName());
+
 		}
 	}
 
@@ -663,30 +737,29 @@ public class AccountView extends JDialog {
 		char[] oldPassArray = textFieldOldPassword.getPassword();
 		char[] newPassArray = textFieldNewPassword.getPassword();
 		char[] retypedNewPassArray = textFieldRetypePassword.getPassword();
-		String oldPass = String.valueOf(oldPassArray);
-		String newPass = String.valueOf(newPassArray);
-		String reTypedNewPass = String.valueOf(retypedNewPassArray);
+		String oldPassword = String.valueOf(oldPassArray);
+		String newPassword = String.valueOf(newPassArray);
+		String reTypedNewPassword = String.valueOf(retypedNewPassArray);
 
 		try {
-			if (userController.verifyOldPassword(oldPass)) {
-				if (userController.verifyNewPasswords(newPass, reTypedNewPass)) {
+			if (userService.validatePassword(oldPassword, user)) {
+				if (newPassword.equals(reTypedNewPassword)) {
 					User newUser = new User(user.getUserId(), user.getUserType(), user.getFirstName(),
-							user.getLastName(), null, user.getBirthday(), user.getBirthplace(), user.getGender(),
+							user.getLastName(), newPassword, user.getBirthday(), user.getBirthplace(), user.getGender(),
 							user.getRights(), user.getCreatedBy(), user.getUserId(), user.getCreatedDate(),
 							LocalDateTime.now());
-					newUser.setPassword(newPass);
-					userController.editUser(user, newUser);
+					userService.updateUser(user, newUser);
 					user = newUser;
-					lblNewLabel.setText("Password changed");
+					lblNewLabel.setText("Password changed.");
 				} else {
-					lblNewLabel.setText("New password don't match");
+					lblNewLabel.setText("New password don't match.");
 				}
 
 			} else {
-				lblNewLabel.setText("Actual password you typed is not the same as actual password");
+				lblNewLabel.setText("Password you typed is not the same as actual password.");
 			}
 		} catch (Exception e1) {
-			UtilWindow.showMessage(null, e1.getMessage(), MessageType.WARNING);
+			UtilWindow.showMessage(null, e1.getMessage(), MessageType.ERROR);
 
 		}
 
