@@ -31,6 +31,8 @@ public interface UserService {
 	public abstract int saveUser(User user) throws Exception;
 
 	public abstract int deleteUser(User user) throws Exception;
+	
+	public abstract boolean validatePassword(String password,User user);
 
 
 }

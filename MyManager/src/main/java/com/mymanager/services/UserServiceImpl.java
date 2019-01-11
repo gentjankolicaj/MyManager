@@ -74,4 +74,12 @@ public class UserServiceImpl implements UserService {
 		return userAccess.deleteUser(user);
 	}
 
+	@Override
+	public boolean validatePassword(String password, User user) {
+		String userPassword=user.getPassword();
+		if(userPassword.equals(password))
+			return true;
+		else return false;
+	}
+
 }
