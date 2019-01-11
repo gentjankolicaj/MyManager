@@ -467,8 +467,7 @@ public class MainView extends MyPanel {
 		fileTypePanel.setLayout(null);
 
 		JLabel label_6 = new JLabel("");
-		label_6.setIcon(new ImageIcon(
-				MainView.class.getResource("/com/mymanager/resources/icons/icons_45x45/icons8-documents.png")));
+		label_6.setIcon(new ImageIcon(MainView.class.getResource("/com/mymanager/resources/icons/icons_45x45/icons8-new-file-3.png")));
 		label_6.setBounds(21, 11, 56, 56);
 		fileTypePanel.add(label_6);
 

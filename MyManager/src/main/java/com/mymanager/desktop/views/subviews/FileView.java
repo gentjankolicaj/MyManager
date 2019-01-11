@@ -55,7 +55,7 @@ public class FileView extends JDialog {
 	}
 
 	public void initComponents() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(FileView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-documents.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(FileView.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-new-file-3.png")));
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 420, 380);
 		getContentPane().setLayout(new BorderLayout());

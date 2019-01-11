@@ -38,7 +38,7 @@ public class CreateFile extends JDialog {
 	 * Create the dialog.
 	 */
 	public CreateFile(FileTypeService fileTypeService) {
-		setTitle("CREATE FILE TYPE");
+		setTitle("Create new file type");
 		this.selfReference = this;
 		this.fileTypeService=fileTypeService;
 		
@@ -87,7 +87,7 @@ public class CreateFile extends JDialog {
 	}
 
 	private void initComponents() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(CreateFile.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-new-file-2.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CreateFile.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-new-file-3.png")));
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 384, 110);
 		getContentPane().setLayout(new BorderLayout());
