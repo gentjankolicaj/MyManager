@@ -114,7 +114,7 @@ public class MainView extends MyPanel {
 		
 		
 		usersDataView = new UserDataView(jframe, selfReference, userService,user);
-		//employeesDataView = new EmployeeDataView(jframe, selfReference, userService,user);
+	    employeesDataView = new EmployeeDataView(jframe, selfReference,user);
 		projectsView = new ProjectView(jframe, selfReference,userService,user);
 		jobsView = new JobView(jframe, selfReference, userService,user);
 		workingHoursView = new WorkingHourView(jframe, selfReference,userService,user);

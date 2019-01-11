@@ -3,10 +3,12 @@ package com.mymanager.desktop.views.subviews.employee;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -14,19 +16,31 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import com.mymanager.data.models.Employee;
 import com.mymanager.data.models.MyTable;
 import com.mymanager.data.models.User;
+import com.mymanager.desktop.views.MainView;
+import com.mymanager.desktop.views.subviews.custom.MyPanel;
+import com.mymanager.services.EmployeeService;
+import com.mymanager.services.UserService;
+import com.mymanager.utils.AppUtil;
 
-public class EmployeeView extends JPanel {
+public class EmployeeView extends MyPanel {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2586092764218526222L;
-	private JTextField textFieldSearch;
+	private JTextField tfSearch;
 
-	private int width = 1250;
-	private int height = 650;
+	
+	//panel properties
+	private JFrame jframe;
+	private MyPanel selfReference;
+	private MainView mainView;
+	
+	
+	
 	private DefaultTableModel tableModel;
 	private MyTable table;
 
@@ -35,17 +49,31 @@ public class EmployeeView extends JPanel {
 	private JButton btnDelete;
 	private JButton btnBack;
 	private JRadioButton rdbtnFirstname;
-	private JRadioButton rdbtnCreatedBy;
+	private JRadioButton rdbtnDepartment;
 	private JButton btnSearch;
 	private final ButtonGroup buttonGroupSearchType = new ButtonGroup();
 	private JRadioButton rdbtnId;
-	private JRadioButton rdbtnType;
 	private JRadioButton rdbtnLastname;
+	private List<Employee> currentEmployeeList;
+	
+	
+	
+	//Service fields
+	private EmployeeService employeeService;
+	private User user;
+	private JRadioButton rdbtnJob;
 
 	/**
 	 * Create the panel.
 	 */
-	public EmployeeView() {
+	public EmployeeView(JFrame jframe, MainView mainView, User user,EmployeeService employeeService) {
+		super(1450,  650);
+		this.jframe = jframe;
+		this.mainView = mainView;
+		this.selfReference=this;
+		this.employeeService=employeeService;
+		this.user=user;
+		
 		initComponents();
 		initEvents();
 
@@ -54,15 +82,15 @@ public class EmployeeView extends JPanel {
 	private void initComponents() {
 		setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("All registered users");
+		JLabel lblNewLabel = new JLabel("EMPLOYEES");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel.setBounds(341, 13, 230, 45);
+		lblNewLabel.setBounds(455, 11, 230, 45);
 		add(lblNewLabel);
 
-		textFieldSearch = new JTextField();
-		textFieldSearch.setBounds(12, 115, 913, 31);
-		add(textFieldSearch);
-		textFieldSearch.setColumns(10);
+		tfSearch = new JTextField();
+		tfSearch.setBounds(12, 115, 1023, 31);
+		add(tfSearch);
+		tfSearch.setColumns(10);
 
 		JLabel lblSearcchBy = new JLabel("Search by :");
 		lblSearcchBy.setBounds(12, 63, 89, 31);
@@ -73,67 +101,77 @@ public class EmployeeView extends JPanel {
 		rdbtnId.setBounds(83, 66, 56, 25);
 		add(rdbtnId);
 
-		rdbtnType = new JRadioButton("User type");
-		buttonGroupSearchType.add(rdbtnType);
-		rdbtnType.setBounds(141, 66, 95, 25);
-		add(rdbtnType);
-
 		rdbtnFirstname = new JRadioButton("Firstname");
 		buttonGroupSearchType.add(rdbtnFirstname);
-		rdbtnFirstname.setBounds(240, 66, 95, 25);
+		rdbtnFirstname.setBounds(141, 66, 95, 25);
 		add(rdbtnFirstname);
 
 		rdbtnLastname = new JRadioButton("Lastname");
 		buttonGroupSearchType.add(rdbtnLastname);
-		rdbtnLastname.setBounds(351, 66, 95, 25);
+		rdbtnLastname.setBounds(238, 66, 83, 25);
 		add(rdbtnLastname);
 
-		rdbtnCreatedBy = new JRadioButton("Created by");
-		buttonGroupSearchType.add(rdbtnCreatedBy);
-		rdbtnCreatedBy.setBounds(450, 67, 104, 25);
-		add(rdbtnCreatedBy);
+		rdbtnDepartment = new JRadioButton("Departmet id");
+		buttonGroupSearchType.add(rdbtnDepartment);
+		rdbtnDepartment.setBounds(418, 66, 110, 25);
+		add(rdbtnDepartment);
 
 		btnSearch = new JButton("Search");
-		btnSearch.setBounds(937, 115, 138, 31);
+		btnSearch.setBounds(1045, 115, 138, 31);
 		add(btnSearch);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 174, 1068, 460);
+		scrollPane.setBounds(12, 174, 1171, 460);
 
 		table = new MyTable();
 		table.setFillsViewportHeight(true);
 
 		tableModel = new DefaultTableModel();
-		tableModel.setColumnIdentifiers(new String[] { "ID", "User type", "Firstname", "Lastname", "Birthday",
-				"Birthplace", "Rights", "Gender", "Created by", "Created date", "Updated by", "Updated date" });
+		tableModel.setColumnIdentifiers(new String[] { "Id", "Firstname", "Middle","Lastname", "Birthday",
+				"Birthplace","Gender", "Job Id","Dep Id ","Project","Created by", "Created date", "Updated by", "Updated date" });
 
 		table.setModel(tableModel);
 		scrollPane.setViewportView(table);
 
 		add(scrollPane);
 		btnCreate = new JButton("Create");
-		btnCreate.setBounds(1092, 184, 97, 25);
+		btnCreate.setBounds(1193, 184, 97, 25);
 		add(btnCreate);
 
 		btnEdit = new JButton("Edit");
-		btnEdit.setBounds(1092, 222, 97, 25);
+		btnEdit.setBounds(1193, 222, 97, 25);
 		add(btnEdit);
 
 		btnDelete = new JButton("Delete");
-		btnDelete.setBounds(1092, 260, 97, 25);
+		btnDelete.setBounds(1193, 260, 97, 25);
 		add(btnDelete);
 
 		btnBack = new JButton("Back");
-		btnBack.setBounds(1092, 319, 97, 25);
+		btnBack.setBounds(1193, 319, 97, 25);
 		add(btnBack);
+		
+		rdbtnJob = new JRadioButton("Job id");
+		buttonGroupSearchType.add(rdbtnJob);
+		rdbtnJob.setBounds(341, 66, 75, 25);
+		add(rdbtnJob);
 	}
 
 	private void initEvents() {
+		
+		btnSearch.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				
+              searchEmployees();
+				
+			}
+		});
+		
 		btnCreate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 
-				addProjects();
+				
 			}
 		});
 		btnEdit.addMouseListener(new MouseAdapter() {
@@ -144,16 +182,128 @@ public class EmployeeView extends JPanel {
 		btnDelete.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				clearTable();
+				
 			}
 		});
 		btnBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				AppUtil.returnToMainView(jframe, selfReference, mainView);
 			}
 		});
 
 	}
+	
+	
+	private void emptyTable() {
+	currentEmployeeList=new ArrayList<>();
+	tableModel.setRowCount(0);
+	
+	}
+
+	private void searchEmployees() {
+		String searchValue=tfSearch.getText().trim();
+		emptyTable();
+		if(rdbtnId.isSelected()) {
+			Employee tmp=null;
+			try {
+				tmp=employeeService.getEmployee(searchValue);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			if(tmp!=null)
+				currentEmployeeList.add(tmp);
+			fillTable(currentEmployeeList);
+			
+		}else if(rdbtnFirstname.isSelected()) {
+			try {
+				currentEmployeeList=employeeService.getEmployeesByFirstName(searchValue);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			fillTable(currentEmployeeList);
+		}else if(rdbtnLastname.isSelected()) {
+			try {
+				currentEmployeeList=employeeService.getEmployeesByLastName(searchValue);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			fillTable(currentEmployeeList);
+		}else if(rdbtnDepartment.isSelected()) {
+			try {
+				currentEmployeeList=employeeService.getEmployeesByDepartmentId(Integer.parseInt(searchValue));
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			fillTable(currentEmployeeList);
+		}
+		else if(rdbtnJob.isSelected()) {
+			try {
+				currentEmployeeList=employeeService.getEmployeesByJobId(Integer.parseInt(searchValue));
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			fillTable(currentEmployeeList);
+		}
+		
+	}
+	
+	
+	private void fillTable(List<Employee> employeeList) {
+		if(employeeList!=null&&employeeList.size()!=0) {
+			Object[] row=new Object[14];
+			for(Employee var:employeeList) {
+				row[0]=var.getEmployeeId();
+				row[1]=var.getFirstName();
+				row[2]=var.getMiddleName();
+				row[3]=var.getLastName();
+				row[4]=var.getBirthday();
+				row[5]=var.getBirthplace();
+				row[6]=var.getGender();
+				row[7]=var.getJobId();
+				row[8]=var.getDepartmentId();
+				row[9]=var.getProjectName();
+				row[10]=var.getCreatedBy();
+				row[11]=var.getCreatedDate();
+				row[12]=var.getUpdatedBy();
+				row[13]=var.getUpdatedDate();
+				tableModel.addRow(row);
+			}
+		}
+	}
+	
+	
+	@Override
+	public void loadData() {
+		emptyTable();
+		try {
+			currentEmployeeList=employeeService.getAllEmployees();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	
+		if(currentEmployeeList!=null&&currentEmployeeList.size()!=0) {
+			Object[] row=new Object[14];
+			for(Employee var:currentEmployeeList) {
+				row[0]=var.getEmployeeId();
+				row[1]=var.getFirstName();
+				row[2]=var.getMiddleName();
+				row[3]=var.getLastName();
+				row[4]=var.getBirthday();
+				row[5]=var.getBirthplace();
+				row[6]=var.getGender();
+				row[7]=var.getJobId();
+				row[8]=var.getDepartmentId();
+				row[9]=var.getProjectName();
+				row[10]=var.getCreatedBy();
+				row[11]=var.getCreatedDate();
+				row[12]=var.getUpdatedBy();
+				row[13]=var.getUpdatedDate();
+				tableModel.addRow(row);
+		     }
+		}
+	}
+	
 
 	public int getMyHeight() {
 		return height;
@@ -161,45 +311,5 @@ public class EmployeeView extends JPanel {
 
 	public int getMyWidth() {
 		return width;
-	}
-
-	private void clearTable() {
-		tableModel.setRowCount(0);
-	}
-
-	private int chooseSearchType() {
-		if (rdbtnId.isSelected()) {
-			return 1;
-		} else if (rdbtnType.isSelected()) {
-			return 2;
-		} else if (rdbtnFirstname.isSelected()) {
-			return 3;
-		} else if (rdbtnLastname.isSelected()) {
-			return 4;
-		} else if (rdbtnCreatedBy.isSelected()) {
-			return 5;
-		} else
-			return 0;
-	}
-
-	private void addProjects() {
-		List<User> usersList = null;
-		Object[] rowData = new Object[12];
-		for (User user : usersList) {
-			rowData[0] = user.getUserId();
-			rowData[1] = user.getUserType();
-			rowData[2] = user.getFirstName();
-			rowData[3] = user.getLastName();
-			rowData[4] = user.getBirthday();
-			rowData[5] = user.getBirthplace();
-			rowData[6] = user.getRights();
-			rowData[7] = user.getGender();
-			rowData[8] = user.getCreatedBy();
-			rowData[9] = user.getCreatedDate();
-			rowData[10] = user.getUpdatedBy();
-			rowData[11] = user.getUpdatedDate();
-
-			tableModel.addRow(rowData);
-		}
 	}
 }

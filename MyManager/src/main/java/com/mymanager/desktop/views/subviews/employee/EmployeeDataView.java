@@ -1,19 +1,22 @@
 package com.mymanager.desktop.views.subviews.employee;
 
-import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
 
 import com.mymanager.data.models.User;
 import com.mymanager.desktop.views.MainView;
 import com.mymanager.desktop.views.subviews.custom.MyPanel;
-import com.mymanager.services.UserService;
+import com.mymanager.services.EmployeeAdressService;
+import com.mymanager.services.EmployeeAdressServiceImpl;
+import com.mymanager.services.EmployeeContactService;
+import com.mymanager.services.EmployeeContactServiceImpl;
+import com.mymanager.services.EmployeeService;
+import com.mymanager.services.EmployeeServiceImpl;
+import com.mymanager.utils.AppUtil;
 
 public class EmployeeDataView extends MyPanel {
 
@@ -22,17 +25,16 @@ public class EmployeeDataView extends MyPanel {
 	 */
 	private static final long serialVersionUID = 4100590738083935784L;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private JButton btnUsers;
+	private JButton btnEmployee;
 	private JButton btnAdresses;
 	private JButton btnContacts;
 
 	private EmployeeView employeeView;
-	private AdressView adressView;
-	private ContactView contactView;
-	private JPanel menuPanel;
+	private EmployeeAdressView employeeAdressView;
+	private EmployeeContactView employeeContactView;
 
 	// important for inside navigation
-	private JPanel previousPanel;
+	private MyPanel previousPanel;
 	//
 
 	private JFrame jframe;
@@ -40,95 +42,85 @@ public class EmployeeDataView extends MyPanel {
 	private MainView mainView;
 	
 	//Service
-	private UserService userService;
+	private EmployeeService employeeService;
+	private EmployeeAdressService employeeAdressService;
+	private EmployeeContactService employeeContactService;
 	private User user;
 
 	/**
 	 * Create the panel.
 	 */
-	public EmployeeDataView(JFrame jframe, MainView mainView, UserService userService,User user) {
+	public EmployeeDataView(JFrame jframe, MainView mainView,User user) {
 		super(1500, 750);
 		this.jframe = jframe;
 		this.mainView = mainView;
+		this.selfReference=this;
 		
-		this.userService=userService;
 		this.user=user;
+		this.employeeService=new EmployeeServiceImpl();
+		this.employeeAdressService=new EmployeeAdressServiceImpl();
+		this.employeeContactService=new EmployeeContactServiceImpl();
 		
-		selfReference = this;
+		
 		initComponents();
+		
 		initEvents();
 	}
 
 	private void initComponents() {
 		setLayout(null);
 
-		menuPanel = new JPanel();
-		menuPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		menuPanel.setBounds(13, 83, 242, 284);
-		add(menuPanel);
-		menuPanel.setLayout(null);
-
-		btnUsers = new JButton("Users");
-		buttonGroup.add(btnUsers);
-		btnUsers.setBounds(12, 13, 220, 75);
-		menuPanel.add(btnUsers);
+		btnContacts = new JButton("Contacts");
+		btnContacts.setBounds(10, 304, 120, 35);
+		add(btnContacts);
+		buttonGroup.add(btnContacts);
 
 		btnAdresses = new JButton("Adresses");
+		btnAdresses.setBounds(10, 245, 120, 35);
+		add(btnAdresses);
 		buttonGroup.add(btnAdresses);
-		btnAdresses.setBounds(12, 104, 220, 75);
-		menuPanel.add(btnAdresses);
 
-		btnContacts = new JButton("Contacts");
-		buttonGroup.add(btnContacts);
-		btnContacts.setBounds(12, 193, 220, 75);
-		menuPanel.add(btnContacts);
+		btnEmployee = new JButton("Employee");
+		btnEmployee.setBounds(10, 188, 120, 35);
+		add(btnEmployee);
+		buttonGroup.add(btnEmployee);
 
-		employeeView = new EmployeeView();
+		employeeView = new EmployeeView(jframe, mainView, user, employeeService);
 		previousPanel = employeeView;
-		employeeView.setBounds(267, 13, 1221, 650);
+		employeeView.setBounds(130, 10, 1450, 650);
 		add(employeeView);
-		setSize(1500, 750);
+		setSize(1400, 650);
 
 	}
 
 	public void initEvents() {
 
-		btnUsers.addMouseListener(new MouseAdapter() {
+		btnEmployee.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				selfReference.remove(previousPanel);
-				employeeView = new EmployeeView();
-				selfReference.setSize(menuPanel.getWidth() + employeeView.getMyWidth(), employeeView.getMyHeight());
-				employeeView.setBounds(267, 13, employeeView.getMyWidth(), employeeView.getMyHeight());
-				selfReference.add(employeeView);
-				selfReference.repaint();
-				previousPanel = employeeView;
+				employeeView=new EmployeeView(jframe,mainView,user,employeeService);
+				AppUtil.changeEmpView(selfReference,employeeView,previousPanel);
+				previousPanel=employeeView;
 
 			}
 		});
 		btnAdresses.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				selfReference.remove(previousPanel);
-				adressView = new AdressView();
-				selfReference.setSize(menuPanel.getWidth() + adressView.getMyWidth(), adressView.getMyHeight());
-				adressView.setBounds(267, 13, adressView.getMyWidth(), adressView.getMyHeight());
-				selfReference.add(adressView);
-				selfReference.repaint();
-				previousPanel = adressView;
+				employeeAdressView=new EmployeeAdressView(jframe,mainView,user,employeeAdressService);
+				AppUtil.changeEmpView(selfReference,employeeAdressView,previousPanel);
+				previousPanel=employeeAdressView;
+				
 			}
 		});
 
 		btnContacts.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				selfReference.remove(previousPanel);
-				contactView = new ContactView();
-				selfReference.setSize(menuPanel.getWidth() + contactView.getMyWidth(), contactView.getMyHeight());
-				contactView.setBounds(267, 13, contactView.getMyWidth(), contactView.getMyHeight());
-				selfReference.add(contactView);
-				selfReference.repaint();
-				previousPanel = contactView;
+				employeeContactView=new EmployeeContactView(jframe,mainView,user,employeeContactService);
+				AppUtil.changeEmpView(selfReference,employeeContactView,previousPanel);
+				previousPanel=employeeContactView;
+			
 			}
 		});
 

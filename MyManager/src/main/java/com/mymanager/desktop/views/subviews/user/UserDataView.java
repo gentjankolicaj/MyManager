@@ -11,6 +11,10 @@ import com.mymanager.desktop.views.MainView;
 import com.mymanager.desktop.views.subviews.custom.MyPanel;
 import com.mymanager.services.UserService;
 import com.mymanager.utils.AppUtil;
+import java.awt.Color;
+import java.awt.SystemColor;
+import javax.swing.UIManager;
+import javax.swing.ImageIcon;
 
 /**
  * 
@@ -72,15 +76,17 @@ public class UserDataView extends MyPanel {
 		setSize(1500, 750);
 
 		btnContacts = new JButton("Contacts");
-		btnContacts.setBounds(10, 159, 120, 40);
+		btnContacts.setBounds(10, 269, 120, 35);
 		add(btnContacts);
 
 		btnAdresses = new JButton("Adresses");
-		btnAdresses.setBounds(10, 96, 120, 40);
+		btnAdresses.setBounds(10, 206, 120, 35);
 		add(btnAdresses);
 
 		btnUsers = new JButton("Users");
-		btnUsers.setBounds(10, 36, 120, 40);
+		btnUsers.setForeground(Color.BLACK);
+		btnUsers.setBackground(UIManager.getColor("Button.background"));
+		btnUsers.setBounds(10, 146, 120, 35);
 		add(btnUsers);
 
 	}
