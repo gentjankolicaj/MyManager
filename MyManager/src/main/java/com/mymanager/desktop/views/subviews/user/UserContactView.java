@@ -223,7 +223,7 @@ public class UserContactView extends MyPanel {
 	}
 
 	private void fillTable(List<UserContact> contactsList) {
-		if (contactsList != null) {
+		if (contactsList != null&&contactsList.size()!=0) {
 			Object[] rowData = new Object[10];
 			for (UserContact contact : contactsList) {
 				rowData[0] = contact.getContactId();

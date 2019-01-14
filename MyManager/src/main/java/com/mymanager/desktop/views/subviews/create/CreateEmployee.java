@@ -27,13 +27,28 @@ import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.AdressType;
 import com.mymanager.data.models.ContactType;
 import com.mymanager.data.models.Country;
+import com.mymanager.data.models.Department;
+import com.mymanager.data.models.Employee;
+import com.mymanager.data.models.EmployeeAdress;
+import com.mymanager.data.models.EmployeeContact;
 import com.mymanager.data.models.Gender;
+import com.mymanager.data.models.Job;
+import com.mymanager.data.models.Project;
 import com.mymanager.data.models.Rights;
 import com.mymanager.data.models.User;
 import com.mymanager.data.models.UserAdress;
 import com.mymanager.data.models.UserContact;
 import com.mymanager.services.CountryService;
 import com.mymanager.services.CountryServiceImpl;
+import com.mymanager.services.DepartmentService;
+import com.mymanager.services.DepartmentServiceImpl;
+import com.mymanager.services.EmployeeAdressService;
+import com.mymanager.services.EmployeeContactService;
+import com.mymanager.services.EmployeeService;
+import com.mymanager.services.JobService;
+import com.mymanager.services.JobServiceImpl;
+import com.mymanager.services.ProjectService;
+import com.mymanager.services.ProjectServiceImpl;
 import com.mymanager.services.UserAdressService;
 import com.mymanager.services.UserContactService;
 import com.mymanager.services.UserService;
@@ -43,7 +58,7 @@ import com.mymanager.utils.UtilWindow;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 
-public class CreateUser extends JDialog {
+public class CreateEmployee extends JDialog {
 
 	/**
 	 * 
@@ -53,20 +68,11 @@ public class CreateUser extends JDialog {
 	private JDialog selfReference;
 	private final JPanel contentPanel = new JPanel();
 
-	private JTextField id;
-	private JTextField firstname;
-	private JTextField lastname;
-	private JTextField birthplace;
-	private JTextField birthday;
-	
-	private JComboBox userTypeComboBox;
-	private DefaultComboBoxModel<String> userTypeModel;
-	
-	private JTextField rights;
-
-	private JPasswordField textFieldNewPassword;
-	private JPasswordField textFieldRetypePassword;
-	private JPanel passwordPanel;
+	private JTextField tfId;
+	private JTextField tfFirstName;
+	private JTextField tfLastName;
+	private JTextField tfBirthplace;
+	private JTextField tfBirthday;
 
 	private JPanel contactPanel;
 	private JLabel lblContactId;
@@ -96,49 +102,75 @@ public class CreateUser extends JDialog {
 	private JLabel lblCountry;
 
 	private JComboBox comboBoxCountry;
-	private DefaultComboBoxModel<String> comboBoxModel;
+	private DefaultComboBoxModel<String> countryModel;
 	private JButton btnSave;
 	private JButton btnBack;
 
 	// ================================================================
 	// Field services
-	private UserService userService;
-	private User user;
-	private UserContactService userContactService;
-	private UserAdressService userAdressService;
-	private CountryService countryService;
+
+   
 	private JRadioButton rdbtnM;
 	private JRadioButton rdbtnF;
 	private final ButtonGroup buttonGroupSex = new ButtonGroup();
+	private JPanel workPanel;
+	private JLabel lblJob;
+	private JLabel label_11;
+	
+	private JComboBox jobComboBox;
+	private DefaultComboBoxModel jobModel;
+	private JLabel lblDepartment;
+	
+	private JComboBox departmentComboBox;
+	private DefaultComboBoxModel departmentModel;
+	
+	private JComboBox projectComboBox;
+	private DefaultComboBoxModel projectModel;
+	
+	private JTextField tfMiddleName;
+	
+	
+	    private EmployeeService employeeService;
+	    private EmployeeAdressService employeeAdressService;
+	    private EmployeeContactService employeeContactService;
+		private CountryService countryService;
+		private JobService jobService;
+		private DepartmentService departmentService;
+		private ProjectService projectService;
+		
+		private User user;
 
 	/**
 	 * Create the dialog.
 	 */
-	public CreateUser(UserService userService, UserContactService userContactService,
-			UserAdressService userAdressService, User user) {
+	public CreateEmployee(EmployeeService employeeService,EmployeeAdressService employeeAdressService,EmployeeContactService employeeContactService,User user) {
 		this.selfReference = this;
 		setResizable(false);
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		this.userService = userService;
+		this.employeeService=employeeService;
+		this.employeeAdressService=employeeAdressService;
+		this.employeeContactService=employeeContactService;
 		this.user = user;
-		this.userContactService = userContactService;
-		this.userAdressService = userAdressService;
 		this.countryService = new CountryServiceImpl();
+		this.projectService=new ProjectServiceImpl();
+		this.departmentService=new DepartmentServiceImpl();
+		this.jobService=new JobServiceImpl();
 
 		initComponents();
 
-		loadCountries();
-
+		fillComboBoxes();
+		
 		initButtonEvents();
 
+		
 	}
 
 	private void initComponents() {
-		setTitle("Create new user ");
+		setTitle("Create new employee");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
-				CreateUser.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-admin-2.png")));
-		setBounds(100, 100, 997, 653);
+				CreateEmployee.class.getResource("/com/mymanager/resources/icons/icons_24x24/icons8-admin-2.png")));
+		setBounds(100, 100, 997, 664);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -151,10 +183,10 @@ public class CreateUser extends JDialog {
 		contentPanel.add(detailsPanel);
 		detailsPanel.setLayout(null);
 
-		JLabel label = new JLabel("User ID :");
-		label.setFont(new Font("Tahoma", Font.BOLD, 11));
-		label.setBounds(23, 50, 60, 14);
-		detailsPanel.add(label);
+		JLabel lblEmpId = new JLabel("Emp Id :");
+		lblEmpId.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblEmpId.setBounds(23, 50, 60, 14);
+		detailsPanel.add(lblEmpId);
 
 		JLabel label_1 = new JLabel("First name :");
 		label_1.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -163,17 +195,17 @@ public class CreateUser extends JDialog {
 
 		JLabel label_2 = new JLabel("Last name :");
 		label_2.setFont(new Font("Tahoma", Font.BOLD, 11));
-		label_2.setBounds(661, 11, 75, 19);
+		label_2.setBounds(333, 86, 75, 19);
 		detailsPanel.add(label_2);
 
 		JLabel lblSex = new JLabel("Sex :");
 		lblSex.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblSex.setBounds(41, 87, 42, 19);
+		lblSex.setBounds(690, 89, 42, 19);
 		detailsPanel.add(lblSex);
 
 		JLabel label_4 = new JLabel("Birthplace :");
 		label_4.setFont(new Font("Tahoma", Font.BOLD, 11));
-		label_4.setBounds(333, 47, 75, 19);
+		label_4.setBounds(661, 10, 75, 19);
 		detailsPanel.add(label_4);
 
 		JLabel label_5 = new JLabel("Birthday  :");
@@ -181,113 +213,67 @@ public class CreateUser extends JDialog {
 		label_5.setBounds(661, 49, 75, 19);
 		detailsPanel.add(label_5);
 
-		JLabel label_6 = new JLabel("User type  :");
-		label_6.setFont(new Font("Tahoma", Font.BOLD, 11));
-		label_6.setBounds(333, 87, 66, 19);
-		detailsPanel.add(label_6);
-
 		JLabel label_7 = new JLabel("Rights  :");
 		label_7.setBounds(0, 294, 75, 19);
 		detailsPanel.add(label_7);
 
-		id = new JTextField();
-		id.setBounds(84, 47, 218, 20);
-		detailsPanel.add(id);
-		id.setColumns(10);
+		tfId = new JTextField();
+		tfId.setBounds(84, 47, 218, 20);
+		detailsPanel.add(tfId);
+		tfId.setColumns(10);
 
-		firstname = new JTextField();
-		firstname.setColumns(10);
-		firstname.setBounds(407, 11, 218, 20);
-		detailsPanel.add(firstname);
+		tfFirstName = new JTextField();
+		tfFirstName.setColumns(10);
+		tfFirstName.setBounds(407, 11, 218, 20);
+		detailsPanel.add(tfFirstName);
 
-		lastname = new JTextField();
-		lastname.setColumns(10);
-		lastname.setBounds(736, 11, 218, 20);
-		detailsPanel.add(lastname);
+		tfLastName = new JTextField();
+		tfLastName.setColumns(10);
+		tfLastName.setBounds(408, 86, 218, 20);
+		detailsPanel.add(tfLastName);
 
-		birthplace = new JTextField();
-		birthplace.setColumns(10);
-		birthplace.setBounds(407, 48, 218, 20);
-		detailsPanel.add(birthplace);
+		tfBirthplace = new JTextField();
+		tfBirthplace.setColumns(10);
+		tfBirthplace.setBounds(735, 11, 218, 20);
+		detailsPanel.add(tfBirthplace);
 
-		birthday = new JTextField();
-		birthday.setText("01 01 1970");
-		birthday.setToolTipText("dd MM yyyy");
-		birthday.setColumns(10);
-		birthday.setBounds(736, 48, 218, 20);
-		detailsPanel.add(birthday);
-
-		userTypeComboBox = new JComboBox();
-		userTypeComboBox.setToolTipText("ADMIN or MANAGER or HR or ASSISTANT");
-		userTypeComboBox.setBounds(404, 87, 221, 19);
-		
-		userTypeModel=new DefaultComboBoxModel();
-		fillUserTypeComboBox();
+		tfBirthday = new JTextField();
+		tfBirthday.setText("01 01 1970");
+		tfBirthday.setToolTipText("dd MM yyyy");
+		tfBirthday.setColumns(10);
+		tfBirthday.setBounds(736, 48, 218, 20);
+		detailsPanel.add(tfBirthday);
 		
 		
-		userTypeComboBox.setModel(userTypeModel);
-		
-		detailsPanel.add(userTypeComboBox);
-
-		JLabel lblRights = new JLabel("Rights  :");
-		lblRights.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblRights.setBounds(661, 89, 60, 19);
-		detailsPanel.add(lblRights);
-
-		rights = new JTextField();
-		rights.setToolTipText("READ,WRITE,UPDATE,DELETE");
-		rights.setText((String) null);
-		rights.setColumns(10);
-		rights.setBounds(736, 86, 218, 20);
-		detailsPanel.add(rights);
 		
 		rdbtnM = new JRadioButton("M");
 		buttonGroupSex.add(rdbtnM);
-		rdbtnM.setBounds(84, 84, 48, 23);
+		rdbtnM.setBounds(733, 86, 48, 23);
 		detailsPanel.add(rdbtnM);
 		
 		rdbtnF = new JRadioButton("F");
 		buttonGroupSex.add(rdbtnF);
-		rdbtnF.setBounds(134, 85, 48, 23);
+		rdbtnF.setBounds(783, 87, 48, 23);
 		detailsPanel.add(rdbtnF);
-
-		passwordPanel = new JPanel();
-		passwordPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Password", TitledBorder.LEADING,
-				TitledBorder.TOP, null, new Color(0, 0, 0)));
-		passwordPanel.setBounds(10, 155, 961, 107);
-		contentPanel.add(passwordPanel);
-		passwordPanel.setLayout(null);
-
-		JLabel lblNew = new JLabel("New :");
-		lblNew.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNew.setBounds(199, 43, 40, 19);
-		passwordPanel.add(lblNew);
-
-		textFieldNewPassword = new JPasswordField();
-		textFieldNewPassword.setText((String) null);
-		textFieldNewPassword.setColumns(10);
-		textFieldNewPassword.setBounds(243, 43, 218, 20);
-		passwordPanel.add(textFieldNewPassword);
-
-		JLabel lblRetype = new JLabel("Re-type  :");
-		lblRetype.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblRetype.setBounds(505, 43, 65, 19);
-		passwordPanel.add(lblRetype);
-
-		textFieldRetypePassword = new JPasswordField();
-		textFieldRetypePassword.setText((String) null);
-		textFieldRetypePassword.setColumns(10);
-		textFieldRetypePassword.setBounds(572, 43, 218, 20);
-		passwordPanel.add(textFieldRetypePassword);
+		
+		tfMiddleName = new JTextField();
+		tfMiddleName.setColumns(10);
+		tfMiddleName.setBounds(408, 44, 218, 20);
+		detailsPanel.add(tfMiddleName);
+		
+		JLabel lblMiddle = new JLabel("Middle name :");
+		lblMiddle.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblMiddle.setBounds(321, 44, 87, 19);
+		detailsPanel.add(lblMiddle);
 
 		contactPanel = new JPanel();
 		contactPanel.setLayout(null);
 		contactPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Contact details",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		contactPanel.setBounds(10, 273, 964, 125);
+		contactPanel.setBounds(10, 155, 964, 125);
 		contentPanel.add(contactPanel);
 
-		lblContactId = new JLabel("Contact ID :");
+		lblContactId = new JLabel("Contact Id :");
 		lblContactId.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblContactId.setBounds(23, 50, 75, 14);
 		contactPanel.add(lblContactId);
@@ -351,10 +337,10 @@ public class CreateUser extends JDialog {
 		adressPanel.setLayout(null);
 		adressPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Adress details",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		adressPanel.setBounds(10, 409, 964, 133);
+		adressPanel.setBounds(10, 291, 964, 133);
 		contentPanel.add(adressPanel);
 
-		lblAdressId = new JLabel("Adress ID :");
+		lblAdressId = new JLabel("Adress Id :");
 		lblAdressId.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblAdressId.setBounds(23, 50, 75, 14);
 		adressPanel.add(lblAdressId);
@@ -422,18 +408,67 @@ public class CreateUser extends JDialog {
 		comboBoxCountry = new JComboBox();
 		comboBoxCountry.setBounds(736, 100, 218, 20);
 
-		comboBoxModel = new DefaultComboBoxModel<>();
-		comboBoxCountry.setModel(comboBoxModel);
+		countryModel = new DefaultComboBoxModel<>();
+		comboBoxCountry.setModel(countryModel);
 
 		adressPanel.add(comboBoxCountry);
 
 		btnSave = new JButton("Save");
-		btnSave.setBounds(338, 570, 111, 34);
+		btnSave.setBounds(334, 588, 111, 34);
 		contentPanel.add(btnSave);
 
 		btnBack = new JButton("Back");
-		btnBack.setBounds(480, 570, 111, 34);
+		btnBack.setBounds(476, 588, 111, 34);
 		contentPanel.add(btnBack);
+		
+		workPanel = new JPanel();
+		workPanel.setLayout(null);
+		workPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Work details", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		workPanel.setBounds(10, 444, 964, 133);
+		contentPanel.add(workPanel);
+		
+		lblJob = new JLabel("Job :");
+		lblJob.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblJob.setBounds(333, 24, 75, 19);
+		workPanel.add(lblJob);
+		
+		label_11 = new JLabel("Rights  :");
+		label_11.setBounds(0, 294, 75, 19);
+		workPanel.add(label_11);
+		
+		jobComboBox = new JComboBox();
+		jobComboBox.setBounds(389, 23, 218, 20);
+		
+		jobModel=new DefaultComboBoxModel();
+		jobComboBox.setModel(jobModel);;
+		
+		workPanel.add(jobComboBox);
+		
+		lblDepartment = new JLabel("Department :");
+		lblDepartment.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblDepartment.setBounds(651, 27, 75, 19);
+		workPanel.add(lblDepartment);
+		
+		departmentComboBox = new JComboBox();
+		departmentComboBox.setBounds(736, 24, 218, 20);
+		
+		departmentModel=new DefaultComboBoxModel();
+		departmentComboBox.setModel(departmentModel);
+		
+		workPanel.add(departmentComboBox);
+		
+		projectComboBox = new JComboBox();
+		projectComboBox.setBounds(85, 24, 218, 20);
+		
+		projectModel=new DefaultComboBoxModel();
+		projectComboBox.setModel(projectModel);;
+		
+		workPanel.add(projectComboBox);
+		
+		JLabel lblProject = new JLabel("Project  :");
+		lblProject.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblProject.setBounds(10, 27, 60, 19);
+		workPanel.add(lblProject);
 
 	}
 
@@ -457,53 +492,50 @@ public class CreateUser extends JDialog {
 	}
 
 	private void saveDetails() {
-		char[] newPassArray = textFieldNewPassword.getPassword();
-		String newPass = String.valueOf(newPassArray);
-		String genderStr = rdbtnM.isSelected() ?  "M":"F";
-		String rightsStr = rights.getText();
-		String userTypeStr =(String) userTypeComboBox.getSelectedItem();
-		String birthdayStr = birthday.getText();
+		
+		String empId=tfId.getText();
+		String firstName=tfFirstName.getText();
+		String middleName=tfMiddleName.getText();
+		String lastName=tfLastName.getText();
+		String sex = rdbtnM.isSelected() ?  "M":"F";
+		String birthplace=tfBirthplace.getText();
+	
+		String birthdayStr = tfBirthday.getText();
 
 		LocalDate birthday=null;
 		if (birthdayStr.equals("")) {
+			
 			birthdayStr = "01 01 1972";
 			try {
 				birthday=MyDateUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 		}else {
-
-
            try {
         	   
 			birthday=MyDateUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+			
+		  } catch (ParseException e) {
+		
 			e.printStackTrace();
-		}
-		   
-		       
-		}
-		
-		
-		if (userTypeStr.equals("")) {
-			userTypeStr = "USER";
+		 }
+		        
 		}
 		
-		if (rightsStr.equals("")) {
-			rightsStr = Rights.READ.toString();
-		}
+		int jobId=(Integer)jobComboBox.getSelectedItem();
+		int departmentId=(Integer)departmentComboBox.getSelectedItem();
+		String projectName=(String)projectComboBox.getSelectedItem();
+		
+	
    
-		User newUser = new User(id.getText(), userTypeStr, firstname.getText(), lastname.getText(), newPass,
-				birthday, birthplace.getText(), Gender.valueOf(genderStr), rightsStr,
-				user.getUserId(), user.getUserId(), LocalDateTime.now(), LocalDateTime.now());
+	    Employee newEmployee=new Employee(empId,firstName,lastName,middleName,birthday,birthplace,Gender.valueOf(sex),jobId,departmentId,projectName,user.getUserId(),user.getUserId(),LocalDateTime.now(),LocalDateTime.now());
+				
 		try {
 
-			userService.saveUser(newUser);
-			UtilWindow.showMessage(this, "New user created", MessageType.INFORMATION);
-
+			employeeService.saveEmployee(newEmployee);
+		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -514,23 +546,22 @@ public class CreateUser extends JDialog {
 	private void saveContact() {
 		String telephone = textFieldTelephone.getText();
 		String celular = textFieldCel.getText();
-		
 		if (telephone.equals("")||telephone.equals(" " ))
 			telephone = "0";
 		
 		if (celular.equals("")||celular.equals(" "))
 			celular = "0";
 
-		UserContact newContact = new UserContact(1, id.getText(), Integer.parseInt(telephone),
+		EmployeeContact newContact = new EmployeeContact(1, tfId.getText(), Integer.parseInt(telephone),
 				Integer.parseInt(celular), textFieldEmail.getText(), textFieldFax.getText(), user.getUserId(),
 				user.getUserId(), LocalDateTime.now(), LocalDateTime.now());
 
 		try {
 
-			userContactService.saveContact(newContact);
+			employeeContactService.saveContact(newContact);
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 
@@ -539,17 +570,18 @@ public class CreateUser extends JDialog {
 	private void saveAdress() {
 		String selectedCountryName = (String) comboBoxCountry.getSelectedItem();
 		String zipCode = textFieldZipCode.getText();
+		
 		if (zipCode.equals(""))
 			zipCode = "0";
 
-		UserAdress newAdress = new UserAdress(1, id.getText(), new Country(selectedCountryName),
+		EmployeeAdress newAdress = new EmployeeAdress(1, tfId.getText(), new Country(selectedCountryName),
 				textFieldCity.getText(), textFieldStreet.getText(), Integer.parseInt(zipCode),
 				textFieldBuilding.getText(), user.getUserId(), user.getUserId(), LocalDateTime.now(),
 				LocalDateTime.now());
 
 		try {
 
-			userAdressService.saveAdress(newAdress);
+			employeeAdressService.saveAdress(newAdress);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -558,15 +590,21 @@ public class CreateUser extends JDialog {
 	}
 
 	private void savePanelsData() {
-		if (validatePasswords()) {
 			saveDetails();
 			saveContact();
 			saveAdress();
-		}
+          
+	}
+	
+	private void fillComboBoxes() {
+		fillComboBoxCountry();
+		fillComboBoxProject();
+		fillComboBoxJob();
+		fillComboBoxDepartment();
 	}
 
-	private void loadCountries() {
-		comboBoxModel.removeAllElements();
+	private void fillComboBoxCountry() {
+		countryModel.removeAllElements();
 		List<Country> temp = null;
 		try {
 			temp = countryService.getAllCountries();
@@ -576,32 +614,63 @@ public class CreateUser extends JDialog {
 		}
 		if (temp != null && temp.size() != 0) {
 			for (Country country : temp)
-				comboBoxModel.addElement(country.getCountryName());
+				countryModel.addElement(country.getCountryName());
 
 		}
 	}
 
-	private boolean validatePasswords() {
-		char[] newPassArray = textFieldNewPassword.getPassword();
-		char[] retypedNewPassArray = textFieldRetypePassword.getPassword();
-		String newPass = String.valueOf(newPassArray);
-		String reTypedNewPass = String.valueOf(retypedNewPassArray);
-
-		if (newPass.equals(reTypedNewPass) && (!newPass.equals(""))) {
-			return true;
-		} else {
-			UtilWindow.showMessage(this, "Passwords don't match !!!", MessageType.INFORMATION);
-			return false;
+	
+	private void fillComboBoxProject() {
+		projectModel.removeAllElements();
+		List<Project> tmp=null;
+		
+		try {
+			tmp=projectService.getAllProjects();
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
-
+		if(tmp!=null&&tmp.size()!=0) {
+			for(Project var:tmp) 
+				projectModel.addElement(var.getProjectName());
+			
+		}
+		
 	}
 	
-	private void fillUserTypeComboBox() {
-		userTypeModel.addElement("ADMIN");
-		userTypeModel.addElement("USER");
-		userTypeModel.addElement("MANAGER");
-		userTypeModel.addElement("HR");
-		userTypeModel.addElement("FINANCE");
-		userTypeModel.addElement("ASSISTANT");
+private void fillComboBoxJob() {
+	jobModel.removeAllElements();
+	List<Job> tmp=null;
+	
+	try {
+		tmp=jobService.getAllJobs();
+	}catch(Exception e) {
+		e.printStackTrace();
 	}
+	if(tmp!=null&&tmp.size()!=0) {
+		for(Job var:tmp) 
+			jobModel.addElement(var.getJobId());
+		
+	}
+	
+
+	
+}
+
+private void fillComboBoxDepartment() {
+	departmentModel.removeAllElements();
+	List<Department> tmp=null;
+	try {
+		tmp=departmentService.getAllDepartments();
+		
+	}catch(Exception e) {
+		e.printStackTrace();
+	}
+	if(tmp!=null&&tmp.size()!=0) {
+		for(Department var:tmp)
+		departmentModel.addElement(var.getDepartmentId());
+	}
+	
+	
+}
+	
 }

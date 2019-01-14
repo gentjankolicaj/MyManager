@@ -10,6 +10,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -17,10 +18,20 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.mymanager.data.models.Employee;
+import com.mymanager.data.models.EmployeeAdress;
+import com.mymanager.data.models.EmployeeContact;
 import com.mymanager.data.models.MyTable;
 import com.mymanager.data.models.User;
+import com.mymanager.data.models.UserAdress;
+import com.mymanager.data.models.UserContact;
 import com.mymanager.desktop.views.MainView;
+import com.mymanager.desktop.views.subviews.create.CreateEmployee;
+import com.mymanager.desktop.views.subviews.create.CreateUser;
 import com.mymanager.desktop.views.subviews.custom.MyPanel;
+import com.mymanager.services.EmployeeAdressService;
+import com.mymanager.services.EmployeeAdressServiceImpl;
+import com.mymanager.services.EmployeeContactService;
+import com.mymanager.services.EmployeeContactServiceImpl;
 import com.mymanager.services.EmployeeService;
 import com.mymanager.services.UserService;
 import com.mymanager.utils.AppUtil;
@@ -60,6 +71,8 @@ public class EmployeeView extends MyPanel {
 	
 	//Service fields
 	private EmployeeService employeeService;
+	private EmployeeAdressService employeeAdressService;
+	private EmployeeContactService employeeContactService;
 	private User user;
 	private JRadioButton rdbtnJob;
 
@@ -73,6 +86,8 @@ public class EmployeeView extends MyPanel {
 		this.selfReference=this;
 		this.employeeService=employeeService;
 		this.user=user;
+		this.employeeContactService=new EmployeeContactServiceImpl();
+		this.employeeAdressService=new EmployeeAdressServiceImpl();
 		
 		initComponents();
 		initEvents();
@@ -171,7 +186,11 @@ public class EmployeeView extends MyPanel {
 		btnCreate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-
+				
+				CreateEmployee createEmployee = new CreateEmployee(employeeService, employeeAdressService,  employeeContactService,user);
+				createEmployee.setModal(true);
+				createEmployee.setVisible(true);
+				loadData();
 				
 			}
 		});
@@ -183,6 +202,38 @@ public class EmployeeView extends MyPanel {
 		btnDelete.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				
+				int selectedRow = table.getSelectedRow();
+				int totalRows = table.getRowCount();
+				if ((selectedRow > -1) && (selectedRow < totalRows)) {
+					Employee employeeToDelete = currentEmployeeList.get(selectedRow);
+					int value = JOptionPane.showConfirmDialog(null,
+							"If you delete employee,you are also going to delete automatically its adress,contacts etc...",
+							"Do you want to proceed ?", JOptionPane.YES_NO_OPTION);
+					if (value == 0) {
+
+						try {
+							EmployeeAdress employeeAdress=employeeAdressService.getAdressesByPersonId(employeeToDelete.getEmployeeId());
+							EmployeeContact employeeContact=employeeContactService.getContactByPersonId(employeeToDelete.getEmployeeId());
+							
+							if (employeeAdress != null)
+								employeeAdressService.deleteAdress(employeeAdress);
+							
+							if (employeeContact != null)
+								employeeContactService.deleteContact(employeeContact);
+
+							employeeService.deleteEmployee(employeeToDelete);
+							
+							
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						loadData();
+					}
+				} else {
+					loadData();
+				}
 				
 			}
 		});

@@ -94,7 +94,7 @@ public class MainView extends MyPanel {
 	private JPanel workingHoursPanel;
 	private JPanel attemptsPanel;
 	private JPanel paymentsPanel;
-	private JPanel historyPanel;
+	private JPanel documentsPanel;
 	private JPanel dataPanel;
 	
 	
@@ -106,7 +106,7 @@ public class MainView extends MyPanel {
 	 * Create the panel.
 	 */
 	public MainView(JFrame jframe, UserService userService,User user) {
-		super(900, 730);
+		super(1090, 730);
 		selfReference = this;
 		this.jframe = jframe;
 		this.user=user;
@@ -234,7 +234,7 @@ public class MainView extends MyPanel {
 		menuPanel.setBorder(new LineBorder(new Color(0, 191, 255)));
 		menuPanel.setForeground(new Color(0, 191, 255));
 		menuPanel.setBackground(UIManager.getColor("Button.background"));
-		menuPanel.setBounds(226, 0, 674, 639);
+		menuPanel.setBounds(226, 0, 874, 639);
 		add(menuPanel);
 		menuPanel.setLayout(null);
 
@@ -242,7 +242,7 @@ public class MainView extends MyPanel {
 		dataPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "My Data", TitledBorder.CENTER,
 				TitledBorder.TOP, null, new Color(0, 0, 0)));
 		dataPanel.setBackground(UIManager.getColor("Button.background"));
-		dataPanel.setBounds(61, 11, 604, 388);
+		dataPanel.setBounds(61, 11, 793, 388);
 		menuPanel.add(dataPanel);
 		dataPanel.setLayout(null);
 
@@ -350,7 +350,7 @@ public class MainView extends MyPanel {
 		paymentsPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Payments",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		paymentsPanel.setBackground(SystemColor.menu);
-		paymentsPanel.setBounds(216, 263, 168, 110);
+		paymentsPanel.setBounds(615, 142, 168, 110);
 		dataPanel.add(paymentsPanel);
 
 		JLabel label_10 = new JLabel("");
@@ -359,26 +359,25 @@ public class MainView extends MyPanel {
 		label_10.setBounds(40, 11, 102, 88);
 		paymentsPanel.add(label_10);
 
-		historyPanel = new JPanel();
-		historyPanel.setLayout(null);
-		historyPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "History", TitledBorder.LEADING,
-				TitledBorder.TOP, null, new Color(0, 0, 0)));
-		historyPanel.setBackground(SystemColor.menu);
-		historyPanel.setBounds(420, 263, 168, 110);
-		dataPanel.add(historyPanel);
+		documentsPanel = new JPanel();
+		documentsPanel.setLayout(null);
+		documentsPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Employee documents", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		documentsPanel.setBackground(SystemColor.menu);
+		documentsPanel.setBounds(615, 21, 168, 110);
+		dataPanel.add(documentsPanel);
 
 		JLabel label_11 = new JLabel("");
 		label_11.setIcon(new ImageIcon(
 				MainView.class.getResource("/com/mymanager/resources/icons/icons_80x80/icons8-book-shelf.png")));
 		label_11.setBounds(30, 11, 102, 88);
-		historyPanel.add(label_11);
+		documentsPanel.add(label_11);
 
 		JPanel configPanel = new JPanel();
 		configPanel.setBackground(UIManager.getColor("Button.background"));
 		configPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Configuration",
 				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		configPanel.setForeground(new Color(0, 0, 0));
-		configPanel.setBounds(59, 404, 604, 233);
+		configPanel.setBounds(59, 404, 795, 233);
 		menuPanel.add(configPanel);
 		configPanel.setLayout(null);
 
@@ -453,7 +452,7 @@ public class MainView extends MyPanel {
 		fileTypePanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "File types",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		fileTypePanel.setBackground(UIManager.getColor("Button.background"));
-		fileTypePanel.setBounds(35, 134, 87, 78);
+		fileTypePanel.setBounds(601, 26, 87, 78);
 		configPanel.add(fileTypePanel);
 		fileTypePanel.setLayout(null);
 
@@ -477,6 +476,22 @@ public class MainView extends MyPanel {
 		JPanel panel_10 = new JPanel();
 		panel_10.setBounds(485, 134, 87, 78);
 		configPanel.add(panel_10);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(698, 26, 87, 78);
+		configPanel.add(panel_1);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(584, 134, 87, 78);
+		configPanel.add(panel_2);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBounds(698, 134, 87, 78);
+		configPanel.add(panel_3);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(35, 134, 87, 78);
+		configPanel.add(panel);
 		
 	    labelDate = new JLabel("default");
 		labelDate.setBounds(95, 655, 162, 19);
@@ -540,6 +555,13 @@ public class MainView extends MyPanel {
 		});
 
 		paymentsPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				AppUtil.changeView(jframe, selfReference, paymentsView);
+			}
+		});
+		
+		documentsPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				AppUtil.changeView(jframe, selfReference, paymentsView);

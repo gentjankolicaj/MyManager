@@ -218,7 +218,7 @@ public class UserAdressView extends MyPanel {
 	}
 
 	private void fillTable(List<UserAdress> adressesList) {
-		if (adressesList != null) {
+		if (adressesList != null&&adressesList.size()!=0) {
 			Object[] rowData = new Object[11];
 			for (UserAdress adress : adressesList) {
 				rowData[0] = adress.getAdressId();

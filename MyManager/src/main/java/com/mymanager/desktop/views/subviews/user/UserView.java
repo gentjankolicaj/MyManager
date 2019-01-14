@@ -287,7 +287,7 @@ public class UserView extends MyPanel {
 	}
 
 	private void fillTable(List<User> usersList) {
-		if (usersList != null) {
+		if (usersList != null&&usersList.size()!=0) {
 			Object[] rowData = new Object[12];
 			for (User user : usersList) {
 				rowData[0] = user.getUserId();
