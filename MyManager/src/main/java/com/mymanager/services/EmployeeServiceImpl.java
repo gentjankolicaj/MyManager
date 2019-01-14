@@ -75,4 +75,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeAccess.deleteEmployee(employee);
 	}
 
+	@Override
+	public List<String> getAllEmployeeIds() throws Exception {
+		return employeeAccess.findAllEmployeeIds();
+	}
+
 }

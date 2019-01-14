@@ -30,8 +30,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<String> getAllUsersId() throws Exception {
-		return userAccess.findAllUsersId();
+	public List<String> getAllUserIds() throws Exception {
+		return userAccess.findAllUserIds();
 	}
 
 	@Override

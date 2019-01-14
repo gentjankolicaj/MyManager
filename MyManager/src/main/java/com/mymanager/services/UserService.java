@@ -14,7 +14,7 @@ public interface UserService {
 
 	public abstract List<User> getAllUsers(int limit, int offset) throws Exception;
 
-	public abstract List<String> getAllUsersId() throws Exception;
+	public abstract List<String> getAllUserIds() throws Exception;
 
 	public abstract List<User> getUsersByFirstName(String firstName) throws Exception;
 
