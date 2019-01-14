@@ -25,8 +25,10 @@ import com.mymanager.data.models.Payment;
 import com.mymanager.data.models.PaymentType;
 import com.mymanager.data.models.User;
 import com.mymanager.services.CurrencyService;
+import com.mymanager.services.CurrencyServiceImpl;
 import com.mymanager.services.PaymentService;
 import com.mymanager.services.PaymentTypeService;
+import com.mymanager.services.PaymentTypeServiceImpl;
 
 public class EditPayments extends JDialog {
 
@@ -63,6 +65,8 @@ public class EditPayments extends JDialog {
 		this.paymentService = paymentService;
 		this.user = user;
 		this.oldPayment = oldPayment;
+		this.paymentTypeService=new PaymentTypeServiceImpl();
+		this.currencyService=new CurrencyServiceImpl();
 
 		initComponents();
 		initEvents();
@@ -100,7 +104,7 @@ public class EditPayments extends JDialog {
 
 		contentPanel.add(comboBoxPaymentType);
 
-		JLabel lblEmpId = new JLabel("Emp ID  :");
+		JLabel lblEmpId = new JLabel("Emp Id  :");
 		lblEmpId.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblEmpId.setBounds(16, 101, 75, 26);
 		contentPanel.add(lblEmpId);

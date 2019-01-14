@@ -6,8 +6,10 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -35,7 +37,10 @@ import com.mymanager.services.UserAdressService;
 import com.mymanager.services.UserContactService;
 import com.mymanager.services.UserService;
 import com.mymanager.utils.MessageType;
+import com.mymanager.utils.MyDateUtils;
 import com.mymanager.utils.UtilWindow;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 
 public class EditUser extends JDialog {
 
@@ -50,14 +55,16 @@ public class EditUser extends JDialog {
 	private JTextField id;
 	private JTextField firstname;
 	private JTextField lastname;
-	private JTextField gender;
 	private JTextField birthplace;
 	private JTextField birthday;
-	private JTextField usertype;
+	
+	private JComboBox userTypeComboBox;
+	private DefaultComboBoxModel<String> userTypeModel;
+	
 	private JTextField rights;
 
-	private JPasswordField textFieldNewPassword;
-	private JPasswordField textFieldRetypePassword;
+	private JPasswordField tfNewPassword;
+	private JPasswordField tfRetypeNewPassword;
 	private JPanel passwordPanel;
 
 	private JPanel contactPanel;
@@ -86,6 +93,7 @@ public class EditUser extends JDialog {
 	private JTextField textFieldBuilding;
 	private JTextField textFieldCity;
 	private JLabel lblCountry;
+	private DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd MM yyyy");
 
 	private JComboBox comboBoxCountry;
 	private DefaultComboBoxModel<String> comboBoxModel;
@@ -103,6 +111,9 @@ public class EditUser extends JDialog {
 	private User oldUser;
 	private UserAdress oldAdress;
 	private UserContact oldContact;
+	private JRadioButton rdbtnM;
+	private JRadioButton rdbtnF;
+	private final ButtonGroup buttonGroupSex = new ButtonGroup();
 
 	/**
 	 * Create the dialog.
@@ -164,10 +175,10 @@ public class EditUser extends JDialog {
 		label_2.setBounds(661, 11, 75, 19);
 		detailsPanel.add(label_2);
 
-		JLabel label_3 = new JLabel("Gender :");
-		label_3.setFont(new Font("Tahoma", Font.BOLD, 11));
-		label_3.setBounds(23, 86, 75, 19);
-		detailsPanel.add(label_3);
+		JLabel lblSex = new JLabel("Sex :");
+		lblSex.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblSex.setBounds(40, 87, 43, 19);
+		detailsPanel.add(lblSex);
 
 		JLabel label_4 = new JLabel("Birthplace :");
 		label_4.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -204,11 +215,6 @@ public class EditUser extends JDialog {
 		lastname.setBounds(736, 11, 218, 20);
 		detailsPanel.add(lastname);
 
-		gender = new JTextField();
-		gender.setColumns(10);
-		gender.setBounds(84, 87, 218, 20);
-		detailsPanel.add(gender);
-
 		birthplace = new JTextField();
 		birthplace.setColumns(10);
 		birthplace.setBounds(407, 48, 218, 20);
@@ -219,10 +225,17 @@ public class EditUser extends JDialog {
 		birthday.setBounds(736, 48, 218, 20);
 		detailsPanel.add(birthday);
 
-		usertype = new JTextField();
-		usertype.setColumns(10);
-		usertype.setBounds(404, 87, 221, 19);
-		detailsPanel.add(usertype);
+		userTypeComboBox = new JComboBox();
+		userTypeComboBox.setToolTipText("ADMIN or MANAGER or HR or ASSISTANT");
+		userTypeComboBox.setBounds(404, 87, 221, 19);
+		
+		userTypeModel=new DefaultComboBoxModel();
+		fillUserTypeComboBox();
+		
+		
+		userTypeComboBox.setModel(userTypeModel);
+		
+		detailsPanel.add(userTypeComboBox);
 
 		JLabel lblRights = new JLabel("Rights  :");
 		lblRights.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -234,6 +247,16 @@ public class EditUser extends JDialog {
 		rights.setColumns(10);
 		rights.setBounds(736, 86, 218, 20);
 		detailsPanel.add(rights);
+		
+		rdbtnM = new JRadioButton("M");
+		buttonGroupSex.add(rdbtnM);
+		rdbtnM.setBounds(83, 84, 43, 23);
+		detailsPanel.add(rdbtnM);
+		
+		rdbtnF = new JRadioButton("F");
+		buttonGroupSex.add(rdbtnF);
+		rdbtnF.setBounds(128, 84, 49, 23);
+		detailsPanel.add(rdbtnF);
 
 		passwordPanel = new JPanel();
 		passwordPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Change password",
@@ -247,22 +270,22 @@ public class EditUser extends JDialog {
 		lblNew.setBounds(212, 43, 40, 19);
 		passwordPanel.add(lblNew);
 
-		textFieldNewPassword = new JPasswordField();
-		textFieldNewPassword.setText((String) null);
-		textFieldNewPassword.setColumns(10);
-		textFieldNewPassword.setBounds(256, 43, 218, 20);
-		passwordPanel.add(textFieldNewPassword);
+		tfNewPassword = new JPasswordField();
+		tfNewPassword.setText((String) null);
+		tfNewPassword.setColumns(10);
+		tfNewPassword.setBounds(256, 43, 218, 20);
+		passwordPanel.add(tfNewPassword);
 
 		JLabel lblRetype = new JLabel("Re-type  :");
 		lblRetype.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblRetype.setBounds(518, 43, 65, 19);
 		passwordPanel.add(lblRetype);
 
-		textFieldRetypePassword = new JPasswordField();
-		textFieldRetypePassword.setText((String) null);
-		textFieldRetypePassword.setColumns(10);
-		textFieldRetypePassword.setBounds(585, 43, 218, 20);
-		passwordPanel.add(textFieldRetypePassword);
+		tfRetypeNewPassword = new JPasswordField();
+		tfRetypeNewPassword.setText((String) null);
+		tfRetypeNewPassword.setColumns(10);
+		tfRetypeNewPassword.setBounds(585, 43, 218, 20);
+		passwordPanel.add(tfRetypeNewPassword);
 
 		contactPanel = new JPanel();
 		contactPanel.setLayout(null);
@@ -444,11 +467,15 @@ public class EditUser extends JDialog {
 		id.setText(oldUser.getUserId());
 		firstname.setText(oldUser.getFirstName());
 		lastname.setText(oldUser.getLastName());
-		gender.setText(oldUser.getGender().name());
 		birthplace.setText(oldUser.getBirthplace());
-		birthday.setText(oldUser.getBirthday().toString());
-		usertype.setText(oldUser.getUserType());
+		birthday.setText(oldUser.getBirthday().format(formatter));
+		userTypeComboBox.setSelectedItem(oldUser.getUserType());
 		rights.setText(oldUser.getRights());
+		
+		if(oldUser.getGender().equals(Gender.M))
+			rdbtnM.setSelected(true);
+		else
+			rdbtnF.setSelected(true);
 
 	}
 
@@ -474,37 +501,61 @@ public class EditUser extends JDialog {
 		}
 	}
 
+	private void loadPassword() {
+		tfNewPassword.setText(oldUser.getPassword());
+		tfRetypeNewPassword.setText(oldUser.getPassword());
+	}
 	private void loadPanelsData() {
 		loadCountries();
 		loadDetails();
+		loadPassword();
 		loadContact();
 		loadAdress();
 
 	}
 
 	private void saveDetails() {
-		char[] newPassArray = textFieldNewPassword.getPassword();
+		char[] newPassArray = tfNewPassword.getPassword();
 		String newPass = String.valueOf(newPassArray);
-		String genderStr = gender.getText();
+		String genderStr = rdbtnM.isSelected() ?  "M":"F";
 		String rightsStr = rights.getText();
-		String userTypeStr = usertype.getText();
+		String userTypeStr =(String) userTypeComboBox.getSelectedItem();
 		String birthdayStr = birthday.getText();
 
+		LocalDate birthday=null;
+		
 		if (birthdayStr.equals("")) {
-			birthdayStr = "1970-12-12";
+			birthdayStr = "01 01 1972";
+			try {
+				birthday=MyDateUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else {
+
+
+           try {
+        	   
+			birthday=MyDateUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		   
+		       
+		}
+		
 		if (userTypeStr.equals("")) {
-			userTypeStr = "ASSISTANT";
+			userTypeStr = "USER";
 		}
-		if (genderStr.equals("")) {
-			genderStr = "M";
-		}
+		
 		if (rightsStr.equals("")) {
 			rightsStr = Rights.READ.toString();
 		}
 
 		User newUser = new User(id.getText(), userTypeStr, firstname.getText(), lastname.getText(), newPass,
-				LocalDate.parse(birthdayStr), birthplace.getText(), Gender.valueOf(genderStr), rightsStr,
+				birthday, birthplace.getText(), Gender.valueOf(genderStr), rightsStr,
 				oldUser.getUserId(), currentUser.getUserId(), LocalDateTime.now(), LocalDateTime.now());
 
 		try {
@@ -617,8 +668,8 @@ public class EditUser extends JDialog {
 	}
 
 	private boolean validatePasswords() {
-		char[] newPassArray = textFieldNewPassword.getPassword();
-		char[] retypedNewPassArray = textFieldRetypePassword.getPassword();
+		char[] newPassArray = tfNewPassword.getPassword();
+		char[] retypedNewPassArray = tfRetypeNewPassword.getPassword();
 		String newPass = String.valueOf(newPassArray);
 		String reTypedNewPass = String.valueOf(retypedNewPassArray);
 
@@ -647,4 +698,13 @@ public class EditUser extends JDialog {
 		}
 	}
 
+	private void fillUserTypeComboBox() {
+		userTypeModel.addElement("ADMIN");
+		userTypeModel.addElement("USER");
+		userTypeModel.addElement("MANAGER");
+		userTypeModel.addElement("HR");
+		userTypeModel.addElement("FINANCE");
+		userTypeModel.addElement("ASSISTANT");
+	}
+	
 }

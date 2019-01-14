@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -37,7 +38,10 @@ import com.mymanager.services.UserAdressService;
 import com.mymanager.services.UserContactService;
 import com.mymanager.services.UserService;
 import com.mymanager.utils.MessageType;
+import com.mymanager.utils.MyDateUtils;
 import com.mymanager.utils.UtilWindow;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 
 public class CreateUser extends JDialog {
 
@@ -52,10 +56,12 @@ public class CreateUser extends JDialog {
 	private JTextField id;
 	private JTextField firstname;
 	private JTextField lastname;
-	private JTextField gender;
 	private JTextField birthplace;
 	private JTextField birthday;
-	private JTextField usertype;
+	
+	private JComboBox userTypeComboBox;
+	private DefaultComboBoxModel<String> userTypeModel;
+	
 	private JTextField rights;
 
 	private JPasswordField textFieldNewPassword;
@@ -101,6 +107,9 @@ public class CreateUser extends JDialog {
 	private UserContactService userContactService;
 	private UserAdressService userAdressService;
 	private CountryService countryService;
+	private JRadioButton rdbtnM;
+	private JRadioButton rdbtnF;
+	private final ButtonGroup buttonGroupSex = new ButtonGroup();
 
 	/**
 	 * Create the dialog.
@@ -157,10 +166,10 @@ public class CreateUser extends JDialog {
 		label_2.setBounds(661, 11, 75, 19);
 		detailsPanel.add(label_2);
 
-		JLabel label_3 = new JLabel("Gender :");
-		label_3.setFont(new Font("Tahoma", Font.BOLD, 11));
-		label_3.setBounds(23, 86, 75, 19);
-		detailsPanel.add(label_3);
+		JLabel lblSex = new JLabel("Sex :");
+		lblSex.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblSex.setBounds(41, 87, 42, 19);
+		detailsPanel.add(lblSex);
 
 		JLabel label_4 = new JLabel("Birthplace :");
 		label_4.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -196,28 +205,29 @@ public class CreateUser extends JDialog {
 		lastname.setBounds(736, 11, 218, 20);
 		detailsPanel.add(lastname);
 
-		gender = new JTextField();
-		gender.setToolTipText("M or F");
-		gender.setColumns(10);
-		gender.setBounds(84, 87, 218, 20);
-		detailsPanel.add(gender);
-
 		birthplace = new JTextField();
 		birthplace.setColumns(10);
 		birthplace.setBounds(407, 48, 218, 20);
 		detailsPanel.add(birthplace);
 
 		birthday = new JTextField();
-		birthday.setToolTipText("YYYY-DD-MM");
+		birthday.setText("01 01 1970");
+		birthday.setToolTipText("dd MM yyyy");
 		birthday.setColumns(10);
 		birthday.setBounds(736, 48, 218, 20);
 		detailsPanel.add(birthday);
 
-		usertype = new JTextField();
-		usertype.setToolTipText("ADMIN or MANAGER or HR or ASSISTANT");
-		usertype.setColumns(10);
-		usertype.setBounds(404, 87, 221, 19);
-		detailsPanel.add(usertype);
+		userTypeComboBox = new JComboBox();
+		userTypeComboBox.setToolTipText("ADMIN or MANAGER or HR or ASSISTANT");
+		userTypeComboBox.setBounds(404, 87, 221, 19);
+		
+		userTypeModel=new DefaultComboBoxModel();
+		fillUserTypeComboBox();
+		
+		
+		userTypeComboBox.setModel(userTypeModel);
+		
+		detailsPanel.add(userTypeComboBox);
 
 		JLabel lblRights = new JLabel("Rights  :");
 		lblRights.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -230,6 +240,16 @@ public class CreateUser extends JDialog {
 		rights.setColumns(10);
 		rights.setBounds(736, 86, 218, 20);
 		detailsPanel.add(rights);
+		
+		rdbtnM = new JRadioButton("M");
+		buttonGroupSex.add(rdbtnM);
+		rdbtnM.setBounds(84, 84, 48, 23);
+		detailsPanel.add(rdbtnM);
+		
+		rdbtnF = new JRadioButton("F");
+		buttonGroupSex.add(rdbtnF);
+		rdbtnF.setBounds(134, 85, 48, 23);
+		detailsPanel.add(rdbtnF);
 
 		passwordPanel = new JPanel();
 		passwordPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Password", TitledBorder.LEADING,
@@ -439,26 +459,45 @@ public class CreateUser extends JDialog {
 	private void saveDetails() {
 		char[] newPassArray = textFieldNewPassword.getPassword();
 		String newPass = String.valueOf(newPassArray);
-		String genderStr = gender.getText();
+		String genderStr = rdbtnM.isSelected() ?  "M":"F";
 		String rightsStr = rights.getText();
-		String userTypeStr = usertype.getText();
+		String userTypeStr =(String) userTypeComboBox.getSelectedItem();
 		String birthdayStr = birthday.getText();
 
+		LocalDate birthday=null;
 		if (birthdayStr.equals("")) {
-			birthdayStr = "1970-12-12";
+			birthdayStr = "01 01 1972";
+			try {
+				birthday=MyDateUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else {
+
+
+           try {
+        	   
+			birthday=MyDateUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		   
+		       
+		}
+		
+		
 		if (userTypeStr.equals("")) {
-			userTypeStr = "ASSISTANT";
+			userTypeStr = "USER";
 		}
-		if (genderStr.equals("")) {
-			genderStr = "M";
-		}
+		
 		if (rightsStr.equals("")) {
 			rightsStr = Rights.READ.toString();
 		}
-
+   
 		User newUser = new User(id.getText(), userTypeStr, firstname.getText(), lastname.getText(), newPass,
-				LocalDate.parse(birthdayStr), birthplace.getText(), Gender.valueOf(genderStr), rightsStr,
+				birthday, birthplace.getText(), Gender.valueOf(genderStr), rightsStr,
 				user.getUserId(), user.getUserId(), LocalDateTime.now(), LocalDateTime.now());
 		try {
 
@@ -555,4 +594,12 @@ public class CreateUser extends JDialog {
 
 	}
 	
+	private void fillUserTypeComboBox() {
+		userTypeModel.addElement("ADMIN");
+		userTypeModel.addElement("USER");
+		userTypeModel.addElement("MANAGER");
+		userTypeModel.addElement("HR");
+		userTypeModel.addElement("FINANCE");
+		userTypeModel.addElement("ASSISTANT");
+	}
 }

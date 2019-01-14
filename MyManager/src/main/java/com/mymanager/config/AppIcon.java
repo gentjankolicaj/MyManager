@@ -8,7 +8,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import com.mymanager.utils.PrintType;
-import com.mymanager.utils.PrintUtils;
+import com.mymanager.utils.PrintUtil;
 
 /**
  * 
@@ -98,7 +98,7 @@ public class AppIcon {
 			img = ImageIO.read(AppIcon.class.getClassLoader().getResourceAsStream(imagePath));
 		} catch (IOException io) {
 
-			PrintUtils.print(io, PrintType.EXCEPTION);
+			PrintUtil.print(io, PrintType.EXCEPTION);
 
 		}
 		return img;
@@ -127,7 +127,7 @@ public class AppIcon {
 			img = ImageIO.read(obj.getClass().getResourceAsStream(imagePath));
 		} catch (IOException io) {
 
-			PrintUtils.print(io, PrintType.EXCEPTION);
+			PrintUtil.print(io, PrintType.EXCEPTION);
 
 		}
 		return img;

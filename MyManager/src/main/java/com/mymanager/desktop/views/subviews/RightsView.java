@@ -267,7 +267,7 @@ public class RightsView extends JDialog {
 
 		try {
 
-			userIdList = userService.getAllUsersId();
+			userIdList = userService.getAllUserIds();
 
 		} catch (Exception e) {
 

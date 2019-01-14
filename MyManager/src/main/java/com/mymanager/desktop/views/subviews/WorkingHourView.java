@@ -82,7 +82,7 @@ public class WorkingHourView extends MyPanel {
 
 	private void initComponents() {
 		setLayout(null);
-		JLabel lblNewLabel = new JLabel("Registered working hours");
+		JLabel lblNewLabel = new JLabel("All registered working hours");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel.setBounds(341, 13, 274, 35);
 		add(lblNewLabel);
@@ -217,6 +217,10 @@ public class WorkingHourView extends MyPanel {
 		String searchValue = textFieldSearch.getText().trim();
 		emptyTable();
 		if (rdbtnId.isSelected()) {
+			
+			if(searchValue.equals("")|| searchValue.equals(" "))
+				searchValue="1";
+			
 			WorkingHour temp = null;
 			try {
 				temp = workingHourService.getWorkingHourByIndex(Integer.parseInt(searchValue));
@@ -230,6 +234,10 @@ public class WorkingHourView extends MyPanel {
 			fillTable(currentWorkingHourList);
 
 		} else if (rdbtnEmpId.isSelected()) {
+			
+			if(searchValue.equals("")|| searchValue.equals(" "))
+				searchValue="1";
+			
 			try {
 
 				currentWorkingHourList = workingHourService.getWorkingHourByEmplyeeId(searchValue);
@@ -243,6 +251,10 @@ public class WorkingHourView extends MyPanel {
 
 		} else if (rdbtnDate.isSelected()) {
 			LocalDate localDateValue = null;
+			
+			if(searchValue.equals("")|| searchValue.equals(" "))
+				searchValue="01 01 2000";
+	      	 
 			try {
 				localDateValue = MyDateUtils.parseToLocalDate(searchValue, "dd MM yyyy");
 			} catch (ParseException e) {

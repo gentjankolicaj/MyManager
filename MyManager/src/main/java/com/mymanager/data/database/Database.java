@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.List;
 
 import com.mymanager.utils.PrintType;
-import com.mymanager.utils.PrintUtils;
+import com.mymanager.utils.PrintUtil;
 
 /**
  * 
@@ -70,7 +70,7 @@ public class Database implements Connectable {
 		url = new ConnectionUrlBuilder().setApi(api).setDatabase(databaseType).setServer(server).setPort(port)
 				.setSchema(schema).setSSL(ssl).build();
 		connection = DriverManager.getConnection(url, user, password);
-		PrintUtils.print("--> Connected : " + url, PrintType.DATABASE_IO);
+		PrintUtil.print("--> Connected : " + url, PrintType.DATABASE_IO);
 
 	}
 
@@ -78,7 +78,7 @@ public class Database implements Connectable {
 	public void disconnect() throws Exception {
 		if (connection != null) {
 			connection.close();
-			PrintUtils.print("--> Disconnected : " + url, PrintType.DATABASE_IO);
+			PrintUtil.print("--> Disconnected : " + url, PrintType.DATABASE_IO);
 
 		}
 

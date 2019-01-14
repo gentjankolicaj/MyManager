@@ -70,9 +70,6 @@ public class AttemptView extends MyPanel {
 		this.user = user;
 		this.attemptService = new AttemptServiceImpl();
 
-		
-		setBorder(new LineBorder(new Color(0, 0, 0)));
-
 		initComponents();
 		initEvents();
 

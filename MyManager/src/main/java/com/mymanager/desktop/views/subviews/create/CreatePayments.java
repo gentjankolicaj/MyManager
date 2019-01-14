@@ -26,6 +26,8 @@ import com.mymanager.data.models.PaymentType;
 import com.mymanager.data.models.User;
 import com.mymanager.services.CurrencyService;
 import com.mymanager.services.CurrencyServiceImpl;
+import com.mymanager.services.EmployeeService;
+import com.mymanager.services.EmployeeServiceImpl;
 import com.mymanager.services.PaymentService;
 import com.mymanager.services.PaymentTypeService;
 import com.mymanager.services.PaymentTypeServiceImpl;
@@ -46,7 +48,9 @@ public class CreatePayments extends JDialog {
 	private JComboBox comboBoxCurrency;
 	private DefaultComboBoxModel<String> currencyModel;
 
-	private JTextField textFieldEmpId;
+	private JComboBox employeeComboBox;
+	private DefaultComboBoxModel<String> employeeModel;
+	
 	private JButton btnSave;
 	private JButton btnCancel;
 	private JTextField textFieldAmount;
@@ -56,6 +60,7 @@ public class CreatePayments extends JDialog {
 	private PaymentService paymentService;
 	private PaymentTypeService paymentTypeService;
 	private CurrencyService currencyService;
+	private EmployeeService employeeService;
 	private User user;
 
 	public CreatePayments(PaymentService paymentService,User user) {
@@ -64,6 +69,7 @@ public class CreatePayments extends JDialog {
 		this.user = user;
 		this.paymentTypeService = new PaymentTypeServiceImpl();
 		this.currencyService = new CurrencyServiceImpl();
+		this.employeeService=new EmployeeServiceImpl();
 
 		setResizable(false);
 
@@ -91,7 +97,7 @@ public class CreatePayments extends JDialog {
 		lblPaymentType.setBounds(51, 67, 53, 26);
 		contentPanel.add(lblPaymentType);
 
-		JLabel lblEmpId = new JLabel("Emp ID  :");
+		JLabel lblEmpId = new JLabel("Emp Id  :");
 		lblEmpId.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblEmpId.setBounds(30, 125, 74, 26);
 		contentPanel.add(lblEmpId);
@@ -109,10 +115,13 @@ public class CreatePayments extends JDialog {
 
 		contentPanel.add(comboBoxPaymentType);
 
-		textFieldEmpId = new JTextField();
-		textFieldEmpId.setColumns(10);
-		textFieldEmpId.setBounds(112, 125, 276, 30);
-		contentPanel.add(textFieldEmpId);
+		employeeComboBox = new JComboBox();
+		employeeComboBox.setBounds(112, 125, 276, 30);
+		
+		employeeModel=new DefaultComboBoxModel();
+		employeeComboBox.setModel(employeeModel);
+		
+		contentPanel.add(employeeComboBox);
 
 		comboBoxCurrency = new JComboBox();
 		comboBoxCurrency.setBounds(112, 183, 276, 30);
@@ -128,6 +137,7 @@ public class CreatePayments extends JDialog {
 		contentPanel.add(lblAmount);
 
 		textFieldAmount = new JTextField();
+		textFieldAmount.setText("0");
 		textFieldAmount.setToolTipText("eg : 12.234\r\n");
 		textFieldAmount.setColumns(10);
 		textFieldAmount.setBounds(112, 240, 276, 30);
@@ -169,10 +179,11 @@ public class CreatePayments extends JDialog {
 			public void mouseReleased(MouseEvent e) {
 				String selectedPaymentType = (String) comboBoxPaymentType.getSelectedItem();
 				String selectedCurrency = (String) comboBoxCurrency.getSelectedItem();
+				String employeeId=(String) employeeComboBox.getSelectedItem();
 				String amount = textFieldAmount.getText();
 				String desc = textAreaDesc.getText();
 
-				Payment newPayment = new Payment(1, new PaymentType(selectedPaymentType), textFieldEmpId.getText(),
+				Payment newPayment = new Payment(1, new PaymentType(selectedPaymentType),employeeId,
 						new Currency(selectedCurrency), Float.parseFloat(amount), desc, user.getUserId(),
 						user.getUserId(), LocalDateTime.now(), LocalDateTime.now());
 
@@ -200,8 +211,28 @@ public class CreatePayments extends JDialog {
 
 	private void fillComboBoxes() {
 		fillPaymentTypeComboBox();
+		fillEmployeeComboBox();
 		fillCurrencyComboBox();
+		
 
+	}
+
+	private void fillEmployeeComboBox() {
+		employeeModel.removeAllElements();
+		List<String> employeeIdList=null;
+		
+		try {
+			
+			employeeIdList=employeeService.getAllEmployeeIds();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		if(employeeIdList!=null&&employeeIdList.size()!=0) {
+			for(String var:employeeIdList)
+				employeeModel.addElement(var);
+		}
+		
 	}
 
 	private void fillPaymentTypeComboBox() {

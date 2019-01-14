@@ -10,11 +10,13 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import com.mymanager.config.AppText;
 import com.mymanager.config.Config;
 import com.mymanager.data.models.MyTable;
 import com.mymanager.data.models.User;
@@ -30,6 +32,7 @@ import com.mymanager.services.UserContactService;
 import com.mymanager.services.UserContactServiceImpl;
 import com.mymanager.services.UserService;
 import com.mymanager.utils.AppUtil;
+
 /**
  * 
  * @author gentjan koliçaj
@@ -59,11 +62,9 @@ public class UserView extends MyPanel {
 	private JFrame jframe;
 	private MyPanel selfReference;
 	private MainView mainView;
-	
-	
-	
-	//================================================================
-	//Field services
+
+	// ================================================================
+	// Field services
 	private UserService userService;
 	private User user;
 	private UserContactService userContactService;
@@ -72,16 +73,15 @@ public class UserView extends MyPanel {
 	/**
 	 * Create the panel.
 	 */
-	public UserView(JFrame jframe, MainView mainView, UserService userService,User user) {
+	public UserView(JFrame jframe, MainView mainView, UserService userService, User user) {
 		super(1200, 600);
 		this.jframe = jframe;
 		this.mainView = mainView;
-		this.selfReference=this;
-		this.userService=userService;
-		this.user=user;
-		this.userContactService=new UserContactServiceImpl();
-		this.userAdressService=new UserAdressServiceImpl();
-		
+		this.selfReference = this;
+		this.userService = userService;
+		this.user = user;
+		this.userContactService = new UserContactServiceImpl();
+		this.userAdressService = new UserAdressServiceImpl();
 
 		initComponents();
 		initEvents();
@@ -179,7 +179,7 @@ public class UserView extends MyPanel {
 		btnCreate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				CreateUser createUser = new CreateUser(userService ,userContactService,userAdressService,user);
+				CreateUser createUser = new CreateUser(userService, userContactService, userAdressService, user);
 				createUser.setModal(true);
 				createUser.setVisible(true);
 				loadData();
@@ -194,19 +194,19 @@ public class UserView extends MyPanel {
 				int totalRows = table.getRowCount();
 				if ((selectedRow > -1) && (selectedRow < totalRows)) {
 					User oldUser = currentUserList.get(selectedRow);
-					
-					UserContact oldContact=null;
-					UserAdress oldAdress=null;
+
+					UserContact oldContact = null;
+					UserAdress oldAdress = null;
 					try {
 						oldContact = userContactService.getContactByPersonId(oldUser.getUserId());
-					    oldAdress = userAdressService.getAdressesByPersonId(oldUser.getUserId());
+						oldAdress = userAdressService.getAdressesByPersonId(oldUser.getUserId());
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-				
 
-					EditUser editUser = new EditUser(userService,userContactService,userAdressService,user, oldUser, oldContact,oldAdress);
+					EditUser editUser = new EditUser(userService, userContactService, userAdressService, user, oldUser,
+							oldContact, oldAdress);
 					editUser.setModal(true);
 					editUser.setVisible(true);
 					loadData();
@@ -221,12 +221,28 @@ public class UserView extends MyPanel {
 				int totalRows = table.getRowCount();
 				if ((selectedRow > -1) && (selectedRow < totalRows)) {
 					User userToDelete = currentUserList.get(selectedRow);
-					try {
-						userService.deleteUser(userToDelete);
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					int value = JOptionPane.showConfirmDialog(null,
+							"If you delete the user,you are also going to delete its adress,contacts etc...",
+							"Do you want to proceed ?", JOptionPane.YES_NO_OPTION);
+					if (value == 0) {
+
+						try {
+							UserAdress userAdress = userAdressService.getAdressesByPersonId(userToDelete.getUserId());
+							UserContact userContact = userContactService.getContactByPersonId(userToDelete.getUserId());
+
+							if (userAdress != null)
+								userAdressService.deleteAdress(userAdress);
+							if (userContact != null)
+								userContactService.deleteContact(userContact);
+
+							userService.deleteUser(userToDelete);
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						loadData();
 					}
+				} else {
 					loadData();
 				}
 			}
@@ -254,14 +270,14 @@ public class UserView extends MyPanel {
 			fillTable(currentUserList);
 
 		} else if (rdbtnFirstname.isSelected()) {
-			currentUserList =userService.getUsersByFirstName( searchValue);
+			currentUserList = userService.getUsersByFirstName(searchValue);
 			fillTable(currentUserList);
 
 		} else if (rdbtnLastname.isSelected()) {
 			currentUserList = userService.getUsersByLastName(searchValue);
 			fillTable(currentUserList);
 
-		} 
+		}
 
 	}
 
@@ -269,7 +285,6 @@ public class UserView extends MyPanel {
 		currentUserList = new ArrayList<>();
 		tableModel.setRowCount(0);
 	}
-
 
 	private void fillTable(List<User> usersList) {
 		if (usersList != null) {
@@ -294,37 +309,37 @@ public class UserView extends MyPanel {
 
 	public void loadData() {
 		emptyTable();
-		
+
 		try {
-			
+
 			currentUserList = userService.getAllUsers(Config.ROW_LIMIT, Config.USER_OFFSET);
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		if(currentUserList!=null&&currentUserList.size()!=0) {
-			
-		Object[] rowData = new Object[12];
-		for (User user : currentUserList) {
-			rowData[0] = user.getUserId();
-			rowData[1] = user.getUserType();
-			rowData[2] = user.getFirstName();
-			rowData[3] = user.getLastName();
-			rowData[4] = user.getBirthday();
-			rowData[5] = user.getBirthplace();
-			rowData[6] = user.getRights();
-			rowData[7] = user.getGender();
-			rowData[8] = user.getCreatedBy();
-			rowData[9] = user.getCreatedDate();
-			rowData[10] = user.getUpdatedBy();
-			rowData[11] = user.getUpdatedDate();
-			tableModel.addRow(rowData);
+
+		if (currentUserList != null && currentUserList.size() != 0) {
+
+			Object[] rowData = new Object[12];
+			for (User user : currentUserList) {
+				rowData[0] = user.getUserId();
+				rowData[1] = user.getUserType();
+				rowData[2] = user.getFirstName();
+				rowData[3] = user.getLastName();
+				rowData[4] = user.getBirthday();
+				rowData[5] = user.getBirthplace();
+				rowData[6] = user.getRights();
+				rowData[7] = user.getGender();
+				rowData[8] = user.getCreatedBy();
+				rowData[9] = user.getCreatedDate();
+				rowData[10] = user.getUpdatedBy();
+				rowData[11] = user.getUpdatedDate();
+				tableModel.addRow(rowData);
+			}
+
 		}
-		
-	   }
-		
+
 	}
 
 }

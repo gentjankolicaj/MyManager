@@ -48,6 +48,7 @@ public class EditWorkingHour extends JDialog {
 		this.selfReference=this;
 		this.workingHourService=workingHourService;
 		this.user=user;
+		this.oldWorkingHour=oldWorkingHour;
 		
 		initComponents();
 		initEvents();
@@ -71,7 +72,7 @@ public class EditWorkingHour extends JDialog {
 			contentPanel.add(lblEditExistingWH);
 		}
 		{
-			JLabel lblEmpID = new JLabel("Emp ID :");
+			JLabel lblEmpID = new JLabel("Emp Id :");
 			lblEmpID.setFont(new Font("Tahoma", Font.BOLD, 14));
 			lblEmpID.setBounds(14, 59, 81, 26);
 			contentPanel.add(lblEmpID);

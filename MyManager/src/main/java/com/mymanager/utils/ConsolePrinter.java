@@ -23,46 +23,56 @@ public class ConsolePrinter {
 	}
 
 	public static void print(Object object) {
-		if (object instanceof MyModel) {
-			MyModel model = (MyModel) object;
-			print("|" + model.toString() + "|");
-		} else {
-			System.out.println("-  " + object.toString());
+		if (object != null) {
+			if (object instanceof MyModel) {
+				MyModel model = (MyModel) object;
+				System.out.println(model.toString());
+			} else {
+				System.out.println("-  " + object.toString());
+			}
+
+		}
+	}
+
+	public static void print(Class<?> cls) {
+		if (cls != null) {
+			System.out.println("-  " + cls.getName());
 		}
 
 	}
 
-	public static void print(Class<?> cls) {
-		System.out.println("-  " + cls.getName());
-
-	}
-
 	public static void print(Exception exception) {
-		System.out.println(" Exception : " + exception.getMessage());
+		if (exception != null) {
 
+			System.out.println(" Exception : " + exception.getMessage());
+		}
 	}
 
 	public static void print(Map<?, ?> map) {
-		Set<?> keySet = map.keySet();
-		Iterator<?> iter = keySet.iterator();
-		while (iter.hasNext()) {
-			Object key = iter.next();
-			Object value = map.get(key);
-			print("{ " + key.toString() + " : " + value.toString() + " }");
+		if (map != null) {
+			Set<?> keySet = map.keySet();
+			Iterator<?> iter = keySet.iterator();
+			while (iter.hasNext()) {
+				Object key = iter.next();
+				Object value = map.get(key);
+				print("{ " + key.toString() + " : " + value.toString() + " }");
 
+			}
 		}
 
 	}
 
 	public static void print(List<?> list) {
-		int i = 0;
-		for (Object object : list) {
-			i++;
-			if (object instanceof MyModel) {
-				MyModel model = (MyModel) object;
-				print(i + "-|" + model.toString() + "|");
-			} else
-				print(i + "." + object.toString());
+		if (list != null && list.size() != 0) {
+			int i = 0;
+			for (Object object : list) {
+				i++;
+				if (object instanceof MyModel) {
+					MyModel model = (MyModel) object;
+					System.out.println(model.toString());
+				} else
+					print(i + "." + object.toString());
+			}
 		}
 	}
 

@@ -30,6 +30,8 @@ import com.mymanager.desktop.views.subviews.custom.MyPanel;
 import com.mymanager.desktop.views.subviews.edit.EditDepartment;
 import com.mymanager.services.DepartmentService;
 import com.mymanager.services.DepartmentServiceImpl;
+import com.mymanager.services.EmployeeService;
+import com.mymanager.services.EmployeeServiceImpl;
 import com.mymanager.services.UserService;
 import com.mymanager.utils.AppUtil;
 
@@ -60,6 +62,7 @@ public class DepartmentView extends MyPanel {
 	// Service fields
 	private UserService userService;
 	private DepartmentService departmentService;
+	private EmployeeService employeeService;
 	private User user;
 
 	/**
@@ -74,6 +77,7 @@ public class DepartmentView extends MyPanel {
 		this.userService = userService;
 		this.user = user;
 		this.departmentService = new DepartmentServiceImpl();
+		this.employeeService=new EmployeeServiceImpl();
 
 		initComponents();
 		initEvents();
@@ -183,6 +187,7 @@ public class DepartmentView extends MyPanel {
 				int totalRows = table.getRowCount();
 				if ((selectedRow > -1) && (selectedRow < totalRows)) {
 					Department departmentToDelete = currentDepartmentList.get(selectedRow);
+				    
 					try {
 						departmentService.deleteDepartment(departmentToDelete);
 					} catch (Exception e1) {

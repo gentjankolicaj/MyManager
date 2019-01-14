@@ -26,7 +26,7 @@ public class PropertyFilesUtils {
 			prop.load(PropertyFilesUtils.class.getClassLoader().getResourceAsStream(filePath));
 
 		} catch (IOException io) {
-			PrintUtils.print(io, PrintType.FILE_IO);
+			PrintUtil.print(io, PrintType.FILE_IO);
 		}
 
 		return prop;
@@ -42,7 +42,7 @@ public class PropertyFilesUtils {
 			temp.put(key, value);
 
 		}
-		PrintUtils.print(temp, PrintType.FILE_IO);
+		PrintUtil.print(temp, PrintType.FILE_IO);
 
 		return temp;
 	}
@@ -66,9 +66,9 @@ public class PropertyFilesUtils {
 			outputStream.close();
 
 		} catch (IOException io) {
-			PrintUtils.print(io, PrintType.EXCEPTION);
+			PrintUtil.print(io, PrintType.EXCEPTION);
 		}
-		PrintUtils.print(temp, PrintType.FILE_IO);
+		PrintUtil.print(temp, PrintType.FILE_IO);
 		return temp;
 	}
 
@@ -101,9 +101,9 @@ public class PropertyFilesUtils {
 			fileOutputStream.close();
 
 		} catch (IOException io) {
-			PrintUtils.print(io, PrintType.EXCEPTION);
+			PrintUtil.print(io, PrintType.EXCEPTION);
 		}
-		PrintUtils.print(temp, PrintType.FILE_IO);
+		PrintUtil.print(temp, PrintType.FILE_IO);
 		return temp;
 	}
 }

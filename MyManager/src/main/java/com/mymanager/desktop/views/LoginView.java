@@ -29,7 +29,7 @@ import com.mymanager.services.UserServiceImpl;
 import com.mymanager.utils.AppUtil;
 import com.mymanager.utils.MessageType;
 import com.mymanager.utils.PrintType;
-import com.mymanager.utils.PrintUtils;
+import com.mymanager.utils.PrintUtil;
 import com.mymanager.utils.UtilWindow;
 
 public class LoginView extends JPanel {
@@ -229,7 +229,7 @@ public class LoginView extends JPanel {
 		} catch (Exception e1) {
 			UtilWindow.showMessage(jframe, e1.getMessage(), MessageType.WARNING);
 			registerAttempt(user, Status.FAILURE, "login");
-			PrintUtils.print(e1, PrintType.DATABASE_QUERY);
+			PrintUtil.print(e1, PrintType.DATABASE_QUERY);
 			return false;
 		}
 

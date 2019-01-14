@@ -83,11 +83,15 @@ public class CreateJob extends JDialog {
 		textFieldTitle.setColumns(10);
 
 		textFieldMinSalary = new JTextField();
+		textFieldMinSalary.setToolTipText("Must be integer or float\r\n");
+		textFieldMinSalary.setText("0");
 		textFieldMinSalary.setColumns(10);
 		textFieldMinSalary.setBounds(105, 115, 270, 30);
 		contentPanel.add(textFieldMinSalary);
 
 		textFieldMaxSalary = new JTextField();
+		textFieldMaxSalary.setToolTipText("Must be integer of float\r\n");
+		textFieldMaxSalary.setText("0");
 		textFieldMaxSalary.setColumns(10);
 		textFieldMaxSalary.setBounds(105, 166, 270, 30);
 		contentPanel.add(textFieldMaxSalary);

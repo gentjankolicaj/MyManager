@@ -106,7 +106,7 @@ public class MainView extends MyPanel {
 	 * Create the panel.
 	 */
 	public MainView(JFrame jframe, UserService userService,User user) {
-		super(900, 690);
+		super(900, 730);
 		selfReference = this;
 		this.jframe = jframe;
 		this.user=user;
@@ -133,13 +133,13 @@ public class MainView extends MyPanel {
 	public void initComponents() {
 		setBorder(new LineBorder(new Color(0, 191, 255)));
 		setForeground(new Color(0, 191, 255));
-		setBackground(new Color(255, 255, 255));
+		setBackground(SystemColor.menu);
 		setLayout(null);
 
 		accountPanel = new JPanel();
 		accountPanel.setBorder(new LineBorder(new Color(0, 191, 255)));
 		accountPanel.setBackground(UIManager.getColor("Button.background"));
-		accountPanel.setBounds(0, 0, 284, 650);
+		accountPanel.setBounds(0, 0, 284, 639);
 		add(accountPanel);
 		accountPanel.setLayout(null);
 
@@ -150,100 +150,91 @@ public class MainView extends MyPanel {
 		accountPanel.add(lblUser);
 
 		labelFirstname = new JLabel("default");
-		labelFirstname.setBounds(95, 127, 162, 19);
+		labelFirstname.setBounds(95, 118, 162, 19);
 		accountPanel.add(labelFirstname);
 
 		JLabel firstname = new JLabel("First name :");
 		firstname.setFont(new Font("Arial", Font.BOLD, 13));
-		firstname.setBounds(10, 127, 75, 19);
+		firstname.setBounds(10, 118, 75, 19);
 		accountPanel.add(firstname);
 
 		labelLastname = new JLabel("default");
-		labelLastname.setBounds(95, 169, 162, 19);
+		labelLastname.setBounds(95, 158, 162, 19);
 		accountPanel.add(labelLastname);
 
 		labelGender = new JLabel("default");
-		labelGender.setBounds(95, 207, 162, 19);
+		labelGender.setBounds(95, 198, 162, 19);
 		accountPanel.add(labelGender);
 
 		labelBirthplace = new JLabel("default");
-		labelBirthplace.setBounds(95, 247, 162, 19);
+		labelBirthplace.setBounds(95, 238, 162, 19);
 		accountPanel.add(labelBirthplace);
 
 		labelBirthday = new JLabel("default");
-		labelBirthday.setBounds(98, 288, 159, 19);
+		labelBirthday.setBounds(98, 278, 159, 19);
 		accountPanel.add(labelBirthday);
 
 		labelUsertype = new JLabel("default");
-		labelUsertype.setBounds(98, 330, 140, 19);
+		labelUsertype.setBounds(98, 318, 140, 19);
 		accountPanel.add(labelUsertype);
 
 		labelRights = new JLabel("default");
-		labelRights.setBounds(81, 375, 193, 19);
+		labelRights.setBounds(81, 358, 193, 19);
 		accountPanel.add(labelRights);
 
 		labelLastlogin = new JLabel("default");
-		labelLastlogin.setBounds(95, 416, 162, 19);
+		labelLastlogin.setBounds(95, 398, 162, 19);
 		accountPanel.add(labelLastlogin);
-
-		labelDate = new JLabel("default");
-		labelDate.setBounds(95, 475, 162, 19);
-		accountPanel.add(labelDate);
 
 		JLabel lastname = new JLabel("Last name :");
 		lastname.setFont(new Font("Arial", Font.BOLD, 13));
-		lastname.setBounds(10, 169, 75, 19);
+		lastname.setBounds(10, 158, 75, 19);
 		accountPanel.add(lastname);
 
 		JLabel gender = new JLabel("Gender :");
 		gender.setFont(new Font("Arial", Font.BOLD, 13));
-		gender.setBounds(10, 207, 75, 19);
+		gender.setBounds(10, 198, 75, 19);
 		accountPanel.add(gender);
 
 		JLabel birthplace = new JLabel("Birthplace :");
 		birthplace.setFont(new Font("Arial", Font.BOLD, 13));
-		birthplace.setBounds(10, 247, 75, 19);
+		birthplace.setBounds(10, 238, 75, 19);
 		accountPanel.add(birthplace);
 
 		JLabel birthday = new JLabel("Birthday  :");
 		birthday.setFont(new Font("Arial", Font.BOLD, 13));
-		birthday.setBounds(10, 288, 75, 19);
+		birthday.setBounds(10, 278, 75, 19);
 		accountPanel.add(birthday);
 
 		JLabel userType = new JLabel("User type  :");
 		userType.setFont(new Font("Arial", Font.BOLD, 13));
-		userType.setBounds(10, 330, 75, 19);
+		userType.setBounds(10, 318, 75, 19);
 		accountPanel.add(userType);
 
 		JLabel rights = new JLabel("Rights  :");
 		rights.setFont(new Font("Arial", Font.BOLD, 13));
-		rights.setBounds(10, 375, 75, 19);
+		rights.setBounds(10, 358, 75, 19);
 		accountPanel.add(rights);
 
 		JLabel lastlogin = new JLabel("Last login :");
 		lastlogin.setFont(new Font("Arial", Font.BOLD, 13));
-		lastlogin.setBounds(10, 418, 75, 17);
+		lastlogin.setBounds(10, 398, 75, 17);
 		accountPanel.add(lastlogin);
 
-		JLabel currentDate = new JLabel("Today date");
-		currentDate.setFont(new Font("Arial", Font.BOLD, 13));
-		currentDate.setBounds(10, 476, 75, 18);
-		accountPanel.add(currentDate);
-
-		JLabel userId = new JLabel("User ID :");
+		JLabel userId = new JLabel("User Id :");
 		userId.setFont(new Font("Arial", Font.BOLD, 13));
-		userId.setBounds(10, 92, 60, 14);
+		userId.setBounds(10, 86, 60, 14);
 		accountPanel.add(userId);
 
 		labelUserId = new JLabel("default");
-		labelUserId.setBounds(95, 92, 162, 19);
+		labelUserId.setBounds(95, 86, 162, 19);
 		accountPanel.add(labelUserId);
 
 		JPanel menuPanel = new JPanel();
 		menuPanel.setBorder(new LineBorder(new Color(0, 191, 255)));
 		menuPanel.setForeground(new Color(0, 191, 255));
 		menuPanel.setBackground(UIManager.getColor("Button.background"));
-		menuPanel.setBounds(226, 0, 752, 650);
+		menuPanel.setBounds(226, 0, 674, 639);
 		add(menuPanel);
 		menuPanel.setLayout(null);
 
@@ -387,7 +378,7 @@ public class MainView extends MyPanel {
 		configPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Configuration",
 				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		configPanel.setForeground(new Color(0, 0, 0));
-		configPanel.setBounds(61, 404, 604, 235);
+		configPanel.setBounds(59, 404, 604, 233);
 		menuPanel.add(configPanel);
 		configPanel.setLayout(null);
 
@@ -486,6 +477,15 @@ public class MainView extends MyPanel {
 		JPanel panel_10 = new JPanel();
 		panel_10.setBounds(485, 134, 87, 78);
 		configPanel.add(panel_10);
+		
+	    labelDate = new JLabel("default");
+		labelDate.setBounds(95, 655, 162, 19);
+	    add(labelDate);
+				
+						JLabel currentDate = new JLabel("Today date");
+						currentDate.setBounds(10, 655, 75, 18);
+						add(currentDate);
+						currentDate.setFont(new Font("Arial", Font.BOLD, 13));
 
 	}
 

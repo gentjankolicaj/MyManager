@@ -62,9 +62,9 @@ public class CreateWorkingHour extends JDialog {
 		lblCreateNewType.setBounds(129, 13, 270, 26);
 		contentPanel.add(lblCreateNewType);
 
-		JLabel lblEmpId = new JLabel("Emp ID :");
+		JLabel lblEmpId = new JLabel("Emp Id :");
 		lblEmpId.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblEmpId.setBounds(10, 51, 83, 26);
+		lblEmpId.setBounds(20, 50, 73, 26);
 		contentPanel.add(lblEmpId);
 
 		JLabel lblAmount = new JLabel("Amount ( hours ) :");

@@ -212,6 +212,8 @@ public class ProjectView extends MyPanel {
 		String searchValue = textFieldSearch.getText().trim();
 		emptyTable();
 		if (rdbtnName.isSelected()) {
+			if(searchValue.equals("") ||searchValue.equals(" "))
+				searchValue="1";
 			Project temp = null;
 			try {
 				temp = projectService.getProjectByName(searchValue);
