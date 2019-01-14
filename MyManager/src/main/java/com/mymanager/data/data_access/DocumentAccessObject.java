@@ -13,7 +13,7 @@ import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.Document;
 import com.mymanager.data.models.FileType;
 import com.mymanager.utils.PrintType;
-import com.mymanager.utils.PrintUtils;
+import com.mymanager.utils.PrintUtil;
 
 /**
  * 
@@ -67,7 +67,7 @@ public class DocumentAccessObject implements DocumentAccess {
 			documentList.add(temp);
 
 		}
-		PrintUtils.print(documentList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(documentList, PrintType.QUERY_RESULTS);
 		return documentList;
 	}
 
@@ -92,7 +92,7 @@ public class DocumentAccessObject implements DocumentAccess {
 			documentList.add(temp);
 
 		}
-		PrintUtils.print(documentList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(documentList, PrintType.QUERY_RESULTS);
 		return documentList;
 	}
 
@@ -117,7 +117,7 @@ public class DocumentAccessObject implements DocumentAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 			documentList.add(temp);
 		}
-		PrintUtils.print(documentList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(documentList, PrintType.QUERY_RESULTS);
 		return documentList;
 	}
 
@@ -142,7 +142,7 @@ public class DocumentAccessObject implements DocumentAccess {
 			documentList.add(temp);
 
 		}
-		PrintUtils.print(documentList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(documentList, PrintType.QUERY_RESULTS);
 		return documentList;
 	}
 
@@ -161,7 +161,7 @@ public class DocumentAccessObject implements DocumentAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 
 		}
-		PrintUtils.print(document, PrintType.QUERY_RESULTS);
+		PrintUtil.print(document, PrintType.QUERY_RESULTS);
 		return document;
 	}
 

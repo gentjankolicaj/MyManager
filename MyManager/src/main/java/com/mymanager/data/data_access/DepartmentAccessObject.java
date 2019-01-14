@@ -12,7 +12,7 @@ import com.mymanager.data.database.DatabasePool;
 import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.Department;
 import com.mymanager.utils.PrintType;
-import com.mymanager.utils.PrintUtils;
+import com.mymanager.utils.PrintUtil;
 
 /**
  * 
@@ -64,7 +64,7 @@ public class DepartmentAccessObject implements DepartmentAccess {
 			departmentList.add(temp);
 
 		}
-		PrintUtils.print(departmentList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(departmentList, PrintType.QUERY_RESULTS);
 		return departmentList;
 	}
 
@@ -87,7 +87,7 @@ public class DepartmentAccessObject implements DepartmentAccess {
 			departmentList.add(temp);
 
 		}
-		PrintUtils.print(departmentList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(departmentList, PrintType.QUERY_RESULTS);
 		return departmentList;
 	}
 
@@ -110,7 +110,7 @@ public class DepartmentAccessObject implements DepartmentAccess {
 			departmentList.add(temp);
 
 		}
-		PrintUtils.print(departmentList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(departmentList, PrintType.QUERY_RESULTS);
 		return departmentList;
 	}
 
@@ -127,7 +127,7 @@ public class DepartmentAccessObject implements DepartmentAccess {
 					results.getTimestamp("created_date").toLocalDateTime(),
 					results.getTimestamp("updated_date").toLocalDateTime());
 		}
-		PrintUtils.print(department, PrintType.QUERY_RESULTS);
+		PrintUtil.print(department, PrintType.QUERY_RESULTS);
 		return department;
 	}
 

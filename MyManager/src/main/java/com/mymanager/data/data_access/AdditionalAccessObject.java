@@ -12,7 +12,7 @@ import com.mymanager.data.database.DatabasePool;
 import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.Additional;
 import com.mymanager.utils.PrintType;
-import com.mymanager.utils.PrintUtils;
+import com.mymanager.utils.PrintUtil;
 
 /**
  * 
@@ -57,7 +57,7 @@ public class AdditionalAccessObject implements AdditionalAccess {
 			additionalList.add(temp);
 
 		}
-		PrintUtils.print(additionalList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(additionalList, PrintType.QUERY_RESULTS);
 		return additionalList;
 
 	}
@@ -81,7 +81,7 @@ public class AdditionalAccessObject implements AdditionalAccess {
 			additionalList.add(temp);
 
 		}
-		PrintUtils.print(additionalList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(additionalList, PrintType.QUERY_RESULTS);
 		return additionalList;
 
 	}
@@ -99,7 +99,7 @@ public class AdditionalAccessObject implements AdditionalAccess {
 					results.getString("updated_by"), results.getTimestamp("created_date").toLocalDateTime(),
 					results.getTimestamp("updated_date").toLocalDateTime());
 		}
-		PrintUtils.print(additional, PrintType.QUERY_RESULTS);
+		PrintUtil.print(additional, PrintType.QUERY_RESULTS);
 		return additional;
 	}
 

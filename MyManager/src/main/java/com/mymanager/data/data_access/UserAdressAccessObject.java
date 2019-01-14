@@ -14,7 +14,7 @@ import com.mymanager.data.models.AdressType;
 import com.mymanager.data.models.Country;
 import com.mymanager.data.models.UserAdress;
 import com.mymanager.utils.PrintType;
-import com.mymanager.utils.PrintUtils;
+import com.mymanager.utils.PrintUtil;
 
 /**
  * 
@@ -65,7 +65,7 @@ public class UserAdressAccessObject implements UserAdressAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 			adressList.add(temp);
 		}
-		PrintUtils.print(adressList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(adressList, PrintType.QUERY_RESULTS);
 		return adressList;
 	}
 
@@ -90,7 +90,7 @@ public class UserAdressAccessObject implements UserAdressAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 			adressList.add(temp);
 		}
-		PrintUtils.print(adressList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(adressList, PrintType.QUERY_RESULTS);
 		return adressList;
 	}
 
@@ -113,7 +113,7 @@ public class UserAdressAccessObject implements UserAdressAccess {
 					results.getTimestamp("created_date").toLocalDateTime(),
 					results.getTimestamp("updated_date").toLocalDateTime());
 		}
-		PrintUtils.print(adress, PrintType.QUERY_RESULTS);
+		PrintUtil.print(adress, PrintType.QUERY_RESULTS);
 		return adress;
 	
 
@@ -141,7 +141,7 @@ public class UserAdressAccessObject implements UserAdressAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 			adressList.add(temp);
 		}
-		PrintUtils.print(adressList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(adressList, PrintType.QUERY_RESULTS);
 		return adressList;
 	}
 
@@ -167,7 +167,7 @@ public class UserAdressAccessObject implements UserAdressAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 			adressList.add(temp);
 		}
-		PrintUtils.print(adressList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(adressList, PrintType.QUERY_RESULTS);
 		return adressList;
 		
 	}
@@ -194,7 +194,7 @@ public class UserAdressAccessObject implements UserAdressAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 			adressList.add(temp);
 		}
-		PrintUtils.print(adressList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(adressList, PrintType.QUERY_RESULTS);
 		return adressList;
 		
 	}
@@ -213,7 +213,7 @@ public class UserAdressAccessObject implements UserAdressAccess {
 					results.getTimestamp("created_date").toLocalDateTime(),
 					results.getTimestamp("updated_date").toLocalDateTime());
 		}
-		PrintUtils.print(adress, PrintType.QUERY_RESULTS);
+		PrintUtil.print(adress, PrintType.QUERY_RESULTS);
 		return adress;
 	}
 

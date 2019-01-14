@@ -13,7 +13,7 @@ import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.Country;
 import com.mymanager.data.models.EmployeeAdress;
 import com.mymanager.utils.PrintType;
-import com.mymanager.utils.PrintUtils;
+import com.mymanager.utils.PrintUtil;
 
 
 /**
@@ -66,7 +66,7 @@ public class EmployeeAdressAcessObject implements EmployeeAdressAccess {
 				adressList.add(temp);
 
 			}
-			PrintUtils.print(adressList, PrintType.QUERY_RESULTS);
+			PrintUtil.print(adressList, PrintType.QUERY_RESULTS);
 			return adressList;
 	}
 
@@ -91,7 +91,7 @@ public class EmployeeAdressAcessObject implements EmployeeAdressAccess {
 						results.getTimestamp("updated_date").toLocalDateTime());
 				adressList.add(temp);
 			}
-			PrintUtils.print(adressList, PrintType.QUERY_RESULTS);
+			PrintUtil.print(adressList, PrintType.QUERY_RESULTS);
 			return adressList;
 	}
 
@@ -115,7 +115,7 @@ public class EmployeeAdressAcessObject implements EmployeeAdressAccess {
 						results.getTimestamp("created_date").toLocalDateTime(),
 						results.getTimestamp("updated_date").toLocalDateTime());
 			}
-			PrintUtils.print(adress, PrintType.QUERY_RESULTS);
+			PrintUtil.print(adress, PrintType.QUERY_RESULTS);
 			return adress;
 	}
 
@@ -141,7 +141,7 @@ public class EmployeeAdressAcessObject implements EmployeeAdressAccess {
 						results.getTimestamp("updated_date").toLocalDateTime());
 				adressList.add(temp);
 			}
-			PrintUtils.print(adressList, PrintType.QUERY_RESULTS);
+			PrintUtil.print(adressList, PrintType.QUERY_RESULTS);
 			return adressList;
 	}
 
@@ -167,7 +167,7 @@ public class EmployeeAdressAcessObject implements EmployeeAdressAccess {
 						results.getTimestamp("updated_date").toLocalDateTime());
 				adressList.add(temp);
 			}
-			PrintUtils.print(adressList, PrintType.QUERY_RESULTS);
+			PrintUtil.print(adressList, PrintType.QUERY_RESULTS);
 			return adressList;
 	}
 
@@ -193,7 +193,7 @@ public class EmployeeAdressAcessObject implements EmployeeAdressAccess {
 						results.getTimestamp("updated_date").toLocalDateTime());
 				adressList.add(temp);
 			}
-			PrintUtils.print(adressList, PrintType.QUERY_RESULTS);
+			PrintUtil.print(adressList, PrintType.QUERY_RESULTS);
 			return adressList;
 	}
 
@@ -211,7 +211,7 @@ public class EmployeeAdressAcessObject implements EmployeeAdressAccess {
 						results.getTimestamp("created_date").toLocalDateTime(),
 						results.getTimestamp("updated_date").toLocalDateTime());
 			}
-			PrintUtils.print(adress, PrintType.QUERY_RESULTS);
+			PrintUtil.print(adress, PrintType.QUERY_RESULTS);
 			return adress;
 	}
 

@@ -11,7 +11,7 @@ import com.mymanager.data.database.DatabaseManager;
 import com.mymanager.data.database.DatabasePool;
 import com.mymanager.data.models.Country;
 import com.mymanager.utils.PrintType;
-import com.mymanager.utils.PrintUtils;
+import com.mymanager.utils.PrintUtil;
 
 /**
  * 
@@ -42,7 +42,7 @@ public class CountryAccessObject implements CountryAccess {
 			countryList.add(temp);
 
 		}
-		PrintUtils.print(countryList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(countryList, PrintType.QUERY_RESULTS);
 		return countryList;
 	}
 
@@ -57,7 +57,7 @@ public class CountryAccessObject implements CountryAccess {
 			Country temp = new Country(results.getString("country"));
 			countryList.add(temp);
 		}
-		PrintUtils.print(countryList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(countryList, PrintType.QUERY_RESULTS);
 		return countryList;
 	}
 
@@ -71,7 +71,7 @@ public class CountryAccessObject implements CountryAccess {
 		while (results.next()) {
 			country = new Country(results.getString("country"));
 		}
-		PrintUtils.print(country, PrintType.QUERY_RESULTS);
+		PrintUtil.print(country, PrintType.QUERY_RESULTS);
 		return country;
 	}
 

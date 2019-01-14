@@ -14,7 +14,7 @@ import com.mymanager.data.database.DatabasePool;
 import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.WorkingHour;
 import com.mymanager.utils.PrintType;
-import com.mymanager.utils.PrintUtils;
+import com.mymanager.utils.PrintUtil;
 
 /**
  * 
@@ -66,7 +66,7 @@ public class WorkingHourAccessObject implements WorkingHourAccess {
 			workingHoursList.add(temp);
 
 		}
-		PrintUtils.print(workingHoursList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(workingHoursList, PrintType.QUERY_RESULTS);
 		return workingHoursList;
 	}
 
@@ -89,7 +89,7 @@ public class WorkingHourAccessObject implements WorkingHourAccess {
 			workingHoursList.add(temp);
 
 		}
-		PrintUtils.print(workingHoursList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(workingHoursList, PrintType.QUERY_RESULTS);
 		return workingHoursList;
 	}
 
@@ -112,7 +112,7 @@ public class WorkingHourAccessObject implements WorkingHourAccess {
 			workingHoursList.add(temp);
 
 		}
-		PrintUtils.print(workingHoursList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(workingHoursList, PrintType.QUERY_RESULTS);
 		return workingHoursList;
 	}
 
@@ -122,11 +122,11 @@ public class WorkingHourAccessObject implements WorkingHourAccess {
 		ResultSet results = null;
 		String query = null;
 		if (queryType.equals(QueryType.NORMAL))
-			query = "SELECT * FROM mymanager.working_hours WHERE date=?";
+			query = "SELECT * FROM mymanager.working_hours WHERE date="+date;
 		else
-			query = "SELECT * FROM mymanager.working_hours_history WHERE date=?";
+			query = "SELECT * FROM mymanager.working_hours_history WHERE date="+date;
 
-		results = database.selectStatement(query, Arrays.asList(date));
+		results = database.selectStatement(query);
 		while (results.next()) {
 			WorkingHour temp = new WorkingHour(results.getInt("index"), results.getString("employee_id"),
 					results.getDate("date").toLocalDate(), results.getFloat("amount"), results.getString("created_by"),
@@ -135,7 +135,7 @@ public class WorkingHourAccessObject implements WorkingHourAccess {
 			workingHoursList.add(temp);
 
 		}
-		PrintUtils.print(workingHoursList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(workingHoursList, PrintType.QUERY_RESULTS);
 		return workingHoursList;
 	}
 
@@ -158,7 +158,7 @@ public class WorkingHourAccessObject implements WorkingHourAccess {
 			workingHoursList.add(temp);
 
 		}
-		PrintUtils.print(workingHoursList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(workingHoursList, PrintType.QUERY_RESULTS);
 		return workingHoursList;
 	}
 
@@ -174,7 +174,7 @@ public class WorkingHourAccessObject implements WorkingHourAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 
 		}
-		PrintUtils.print(workingHour, PrintType.QUERY_RESULTS);
+		PrintUtil.print(workingHour, PrintType.QUERY_RESULTS);
 		return workingHour;
 
 	}

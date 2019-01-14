@@ -14,6 +14,8 @@ public interface EmployeeAccess {
 	public abstract List<Employee> findAllEmployees() throws Exception;
 
 	public abstract List<Employee> findAllEmployees(int limit, int offset) throws Exception;
+	
+	public abstract List<String>  findAllEmployeeIds() throws Exception;
 
 	public abstract List<Employee> findEmployeesByFirstName(String firstName) throws Exception;
 

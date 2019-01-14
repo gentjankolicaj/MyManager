@@ -14,7 +14,7 @@ import com.mymanager.data.database.DatabasePool;
 import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.JobHistory;
 import com.mymanager.utils.PrintType;
-import com.mymanager.utils.PrintUtils;
+import com.mymanager.utils.PrintUtil;
 
 /**
  * 
@@ -67,7 +67,7 @@ public class JobHistoryAccessObject implements JobHistoryAccess {
 			jobHistoryList.add(temp);
 
 		}
-		PrintUtils.print(jobHistoryList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(jobHistoryList, PrintType.QUERY_RESULTS);
 		return jobHistoryList;
 	}
 
@@ -91,7 +91,7 @@ public class JobHistoryAccessObject implements JobHistoryAccess {
 			jobHistoryList.add(temp);
 
 		}
-		PrintUtils.print(jobHistoryList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(jobHistoryList, PrintType.QUERY_RESULTS);
 		return jobHistoryList;
 	}
 
@@ -116,7 +116,7 @@ public class JobHistoryAccessObject implements JobHistoryAccess {
 			jobHistoryList.add(temp);
 
 		}
-		PrintUtils.print(jobHistoryList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(jobHistoryList, PrintType.QUERY_RESULTS);
 		return jobHistoryList;
 	}
 
@@ -140,7 +140,7 @@ public class JobHistoryAccessObject implements JobHistoryAccess {
 			jobHistoryList.add(temp);
 
 		}
-		PrintUtils.print(jobHistoryList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(jobHistoryList, PrintType.QUERY_RESULTS);
 		return jobHistoryList;
 	}
 
@@ -164,7 +164,7 @@ public class JobHistoryAccessObject implements JobHistoryAccess {
 			jobHistoryList.add(temp);
 
 		}
-		PrintUtils.print(jobHistoryList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(jobHistoryList, PrintType.QUERY_RESULTS);
 		return jobHistoryList;
 	}
 
@@ -184,7 +184,7 @@ public class JobHistoryAccessObject implements JobHistoryAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 			jobHistoryList.add(jobHistory);
 		}
-		PrintUtils.print(jobHistoryList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(jobHistoryList, PrintType.QUERY_RESULTS);
 		return jobHistoryList;
 	}
 

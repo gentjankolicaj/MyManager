@@ -13,7 +13,7 @@ import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.Gender;
 import com.mymanager.data.models.User;
 import com.mymanager.utils.PrintType;
-import com.mymanager.utils.PrintUtils;
+import com.mymanager.utils.PrintUtil;
 
 /**
  * 
@@ -68,7 +68,7 @@ public class UserAccessObject implements UserAccess {
 			userList.add(temp);
 
 		}
-		PrintUtils.print(userList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(userList, PrintType.QUERY_RESULTS);
 		return userList;
 	}
 
@@ -94,7 +94,7 @@ public class UserAccessObject implements UserAccess {
 			userList.add(temp);
 
 		}
-		PrintUtils.print(userList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(userList, PrintType.QUERY_RESULTS);
 		return userList;
 	}
 
@@ -120,7 +120,7 @@ public class UserAccessObject implements UserAccess {
 			userList.add(temp);
 
 		}
-		PrintUtils.print(userList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(userList, PrintType.QUERY_RESULTS);
 		return userList;
 	}
 
@@ -146,7 +146,7 @@ public class UserAccessObject implements UserAccess {
 			userList.add(temp);
 
 		}
-		PrintUtils.print(userList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(userList, PrintType.QUERY_RESULTS);
 		return userList;
 	}
 
@@ -172,7 +172,7 @@ public class UserAccessObject implements UserAccess {
 			userList.add(temp);
 
 		}
-		PrintUtils.print(userList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(userList, PrintType.QUERY_RESULTS);
 		return userList;
 	}
 
@@ -199,7 +199,7 @@ public class UserAccessObject implements UserAccess {
 			userList.add(temp);
 
 		}
-		PrintUtils.print(userList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(userList, PrintType.QUERY_RESULTS);
 		return userList;
 	}
 
@@ -220,7 +220,7 @@ public class UserAccessObject implements UserAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 
 		}
-		PrintUtils.print(userLocal, PrintType.QUERY_RESULTS);
+		PrintUtil.print(userLocal, PrintType.QUERY_RESULTS);
 		return userLocal;
 	}
 
@@ -309,7 +309,7 @@ public class UserAccessObject implements UserAccess {
 	}
 
 	@Override
-	public List<String> findAllUsersId() throws Exception {
+	public List<String> findAllUserIds() throws Exception {
 		List<String> userIdList = new ArrayList<>();
 		ResultSet results = null;
 		String query = null;
@@ -324,7 +324,7 @@ public class UserAccessObject implements UserAccess {
 			
 
 		}
-		PrintUtils.print(userIdList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(userIdList, PrintType.QUERY_RESULTS);
 		return userIdList;
 	}
 

@@ -11,7 +11,7 @@ import com.mymanager.data.database.DatabaseManager;
 import com.mymanager.data.database.DatabasePool;
 import com.mymanager.data.models.FileType;
 import com.mymanager.utils.PrintType;
-import com.mymanager.utils.PrintUtils;
+import com.mymanager.utils.PrintUtil;
 
 public class FileTypeAccessObject implements FileTypeAccess {
 
@@ -28,7 +28,7 @@ public class FileTypeAccessObject implements FileTypeAccess {
 			FileType temp = new FileType(results.getString("file_type"));
 			fileTypeList.add(temp);
 		}
-		PrintUtils.print(fileTypeList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(fileTypeList, PrintType.QUERY_RESULTS);
 		return fileTypeList;
 
 	}
@@ -43,7 +43,7 @@ public class FileTypeAccessObject implements FileTypeAccess {
 		while (results.next()) {
 			fileTypeObj = new FileType(results.getString("file_type"));
 		}
-		PrintUtils.print(fileTypeObj, PrintType.QUERY_RESULTS);
+		PrintUtil.print(fileTypeObj, PrintType.QUERY_RESULTS);
 		return fileTypeObj;
 
 	}

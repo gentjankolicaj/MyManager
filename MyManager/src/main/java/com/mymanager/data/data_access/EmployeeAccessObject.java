@@ -13,7 +13,7 @@ import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.Employee;
 import com.mymanager.data.models.Gender;
 import com.mymanager.utils.PrintType;
-import com.mymanager.utils.PrintUtils;
+import com.mymanager.utils.PrintUtil;
 
 /**
  * 
@@ -69,7 +69,7 @@ public class EmployeeAccessObject implements EmployeeAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 			employeeList.add(employee);
 		}
-		PrintUtils.print(employeeList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(employeeList, PrintType.QUERY_RESULTS);
 		return employeeList;
 	}
 
@@ -95,7 +95,7 @@ public class EmployeeAccessObject implements EmployeeAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 			employeeList.add(employee);
 		}
-		PrintUtils.print(employeeList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(employeeList, PrintType.QUERY_RESULTS);
 		return employeeList;
 	}
 
@@ -120,7 +120,7 @@ public class EmployeeAccessObject implements EmployeeAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 			employeeList.add(employee);
 		}
-		PrintUtils.print(employeeList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(employeeList, PrintType.QUERY_RESULTS);
 		return employeeList;
 	}
 
@@ -145,7 +145,7 @@ public class EmployeeAccessObject implements EmployeeAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 			employeeList.add(employee);
 		}
-		PrintUtils.print(employeeList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(employeeList, PrintType.QUERY_RESULTS);
 		return employeeList;
 	}
 
@@ -170,7 +170,7 @@ public class EmployeeAccessObject implements EmployeeAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 			employeeList.add(employee);
 		}
-		PrintUtils.print(employeeList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(employeeList, PrintType.QUERY_RESULTS);
 		return employeeList;
 	}
 
@@ -195,7 +195,7 @@ public class EmployeeAccessObject implements EmployeeAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 			employeeList.add(employee);
 		}
-		PrintUtils.print(employeeList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(employeeList, PrintType.QUERY_RESULTS);
 		return employeeList;
 	}
 
@@ -220,7 +220,7 @@ public class EmployeeAccessObject implements EmployeeAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 			employeeList.add(employee);
 		}
-		PrintUtils.print(employeeList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(employeeList, PrintType.QUERY_RESULTS);
 		return employeeList;
 	}
 
@@ -240,7 +240,7 @@ public class EmployeeAccessObject implements EmployeeAccess {
 					results.getString("updated_by"), results.getTimestamp("created_date").toLocalDateTime(),
 					results.getTimestamp("updated_date").toLocalDateTime());
 		}
-		PrintUtils.print(employee, PrintType.QUERY_RESULTS);
+		PrintUtil.print(employee, PrintType.QUERY_RESULTS);
 		return employee;
 	}
 
@@ -327,6 +327,21 @@ public class EmployeeAccessObject implements EmployeeAccess {
 		pstmt.setObject(14, employee.getUpdatedDate());
 
 		return pstmt.executeUpdate();
+	}
+
+	@Override
+	public List<String> findAllEmployeeIds() throws Exception {
+		List<String> employeeIdList = new ArrayList<>();
+		String query = "Select * from mymanager.employees";
+
+		ResultSet results = database.selectStatement(query);
+		while (results.next()) {
+			employeeIdList.add(results.getString("employee_id"));
+			
+		}
+		
+		PrintUtil.print(employeeIdList, PrintType.QUERY_RESULTS);
+		return employeeIdList;
 	}
 
 }

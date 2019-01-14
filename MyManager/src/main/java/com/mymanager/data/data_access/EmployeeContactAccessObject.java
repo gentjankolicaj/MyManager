@@ -12,7 +12,7 @@ import com.mymanager.data.database.DatabasePool;
 import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.EmployeeContact;
 import com.mymanager.utils.PrintType;
-import com.mymanager.utils.PrintUtils;
+import com.mymanager.utils.PrintUtil;
 
 /**
  * 
@@ -60,7 +60,7 @@ public class EmployeeContactAccessObject implements EmployeeContactAccess {
 						results.getTimestamp("updated_date").toLocalDateTime());
 				contactList.add(temp);
 			}
-			PrintUtils.print(contactList, PrintType.QUERY_RESULTS);
+			PrintUtil.print(contactList, PrintType.QUERY_RESULTS);
 			return contactList;
 	}
 
@@ -84,7 +84,7 @@ public class EmployeeContactAccessObject implements EmployeeContactAccess {
 						results.getTimestamp("updated_date").toLocalDateTime());
 				contactList.add(temp);
 			}
-			PrintUtils.print(contactList, PrintType.QUERY_RESULTS);
+			PrintUtil.print(contactList, PrintType.QUERY_RESULTS);
 			return contactList;
 
 	}
@@ -109,7 +109,7 @@ public class EmployeeContactAccessObject implements EmployeeContactAccess {
 						results.getTimestamp("updated_date").toLocalDateTime());
 				contactList.add(temp);
 			}
-			PrintUtils.print(contactList, PrintType.QUERY_RESULTS);
+			PrintUtil.print(contactList, PrintType.QUERY_RESULTS);
 			return contactList;
 	}
 
@@ -133,7 +133,7 @@ public class EmployeeContactAccessObject implements EmployeeContactAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 			contactList.add(temp);
 		}
-		PrintUtils.print(contactList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(contactList, PrintType.QUERY_RESULTS);
 		return contactList;
 	}
 
@@ -156,7 +156,7 @@ public class EmployeeContactAccessObject implements EmployeeContactAccess {
 					results.getTimestamp("created_date").toLocalDateTime(),
 					results.getTimestamp("updated_date").toLocalDateTime());
 		}
-		PrintUtils.print(contact, PrintType.QUERY_RESULTS);
+		PrintUtil.print(contact, PrintType.QUERY_RESULTS);
 		return contact;
 	}
 
@@ -175,7 +175,7 @@ public class EmployeeContactAccessObject implements EmployeeContactAccess {
 					results.getTimestamp("created_date").toLocalDateTime(),
 					results.getTimestamp("updated_date").toLocalDateTime());
 		}
-		PrintUtils.print(contact, PrintType.QUERY_RESULTS);
+		PrintUtil.print(contact, PrintType.QUERY_RESULTS);
 		return contact;
 	}
 

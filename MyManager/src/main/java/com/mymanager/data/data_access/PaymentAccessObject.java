@@ -14,7 +14,7 @@ import com.mymanager.data.models.Currency;
 import com.mymanager.data.models.Payment;
 import com.mymanager.data.models.PaymentType;
 import com.mymanager.utils.PrintType;
-import com.mymanager.utils.PrintUtils;
+import com.mymanager.utils.PrintUtil;
 
 /**
  * 
@@ -67,7 +67,7 @@ public class PaymentAccessObject implements PaymentAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 			paymentList.add(temp);
 		}
-		PrintUtils.print(paymentList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(paymentList, PrintType.QUERY_RESULTS);
 		return paymentList;
 	}
 
@@ -91,7 +91,7 @@ public class PaymentAccessObject implements PaymentAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 			paymentList.add(temp);
 		}
-		PrintUtils.print(paymentList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(paymentList, PrintType.QUERY_RESULTS);
 		return paymentList;
 	}
 
@@ -117,7 +117,7 @@ public class PaymentAccessObject implements PaymentAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 			paymentList.add(temp);
 		}
-		PrintUtils.print(paymentList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(paymentList, PrintType.QUERY_RESULTS);
 		return paymentList;
 	}
 
@@ -142,7 +142,7 @@ public class PaymentAccessObject implements PaymentAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 			paymentList.add(temp);
 		}
-		PrintUtils.print(paymentList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(paymentList, PrintType.QUERY_RESULTS);
 		return paymentList;
 	}
 
@@ -166,7 +166,7 @@ public class PaymentAccessObject implements PaymentAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 			paymentList.add(temp);
 		}
-		PrintUtils.print(paymentList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(paymentList, PrintType.QUERY_RESULTS);
 		return paymentList;
 	}
 
@@ -185,14 +185,14 @@ public class PaymentAccessObject implements PaymentAccess {
 					results.getTimestamp("created_date").toLocalDateTime(),
 					results.getTimestamp("updated_date").toLocalDateTime());
 		}
-		PrintUtils.print(payment, PrintType.QUERY_RESULTS);
+		PrintUtil.print(payment, PrintType.QUERY_RESULTS);
 		return payment;
 	}
 
 	@Override
 	public int updatePayment(Payment oldPayment, Payment newPayment) throws Exception {
 		String query = "UPDATE mymanager.employee_payments SET payment_id=?,payment_type=?,employee_id=?,currency=?,payment_amount=?,payment_desc=?,"
-				+ "created_by,created_date=?,updated_by=?,updated_date=? WHERE payment_id=?";
+				+ "created_by=?,created_date=?,updated_by=?,updated_date=? WHERE payment_id=?";
 
 		setQueryType(QueryType.NORMAL);
 		Payment temp = findPayment(oldPayment.getPaymentId());

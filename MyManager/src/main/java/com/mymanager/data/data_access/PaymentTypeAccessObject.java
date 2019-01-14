@@ -11,7 +11,7 @@ import com.mymanager.data.database.DatabaseManager;
 import com.mymanager.data.database.DatabasePool;
 import com.mymanager.data.models.PaymentType;
 import com.mymanager.utils.PrintType;
-import com.mymanager.utils.PrintUtils;
+import com.mymanager.utils.PrintUtil;
 
 /**
  * 
@@ -33,7 +33,7 @@ public class PaymentTypeAccessObject implements PaymentTypeAccess {
 			PaymentType temp = new PaymentType(results.getString("payment_type"));
 			paymentTypeList.add(temp);
 		}
-		PrintUtils.print(paymentTypeList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(paymentTypeList, PrintType.QUERY_RESULTS);
 		return paymentTypeList;
 
 	}
@@ -48,7 +48,7 @@ public class PaymentTypeAccessObject implements PaymentTypeAccess {
 		while (results.next()) {
 			paymentTypeObj = new PaymentType(results.getString("payment_type"));
 		}
-		PrintUtils.print(paymentTypeObj, PrintType.QUERY_RESULTS);
+		PrintUtil.print(paymentTypeObj, PrintType.QUERY_RESULTS);
 		return paymentTypeObj;
 
 	}

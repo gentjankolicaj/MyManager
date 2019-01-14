@@ -12,7 +12,7 @@ import com.mymanager.data.database.DatabasePool;
 import com.mymanager.data.models.Country;
 import com.mymanager.data.models.Project;
 import com.mymanager.utils.PrintType;
-import com.mymanager.utils.PrintUtils;
+import com.mymanager.utils.PrintUtil;
 
 /**
  * 
@@ -43,7 +43,7 @@ public class ProjectAccessObject implements ProjectAccess {
 			projectList.add(temp);
 
 		}
-		PrintUtils.print(projectList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(projectList, PrintType.QUERY_RESULTS);
 		return projectList;
 	}
 
@@ -63,7 +63,7 @@ public class ProjectAccessObject implements ProjectAccess {
 			projectList.add(temp);
 
 		}
-		PrintUtils.print(projectList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(projectList, PrintType.QUERY_RESULTS);
 		return projectList;
 	}
 
@@ -82,7 +82,7 @@ public class ProjectAccessObject implements ProjectAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 			projectList.add(temp);
 		}
-		PrintUtils.print(projectList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(projectList, PrintType.QUERY_RESULTS);
 		return projectList;
 	}
 
@@ -101,7 +101,7 @@ public class ProjectAccessObject implements ProjectAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 			projectList.add(temp);
 		}
-		PrintUtils.print(projectList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(projectList, PrintType.QUERY_RESULTS);
 		return projectList;
 	}
 
@@ -109,7 +109,7 @@ public class ProjectAccessObject implements ProjectAccess {
 	public Project findProjectByName(String projectName) throws Exception {
 		Project project = null;
 		ResultSet results = null;
-		String query = "SELECT * FROM mymanager.projects WHERE project_name=" + projectName;
+		String query = "SELECT * FROM mymanager.projects WHERE project_name LIKE '" + projectName+"'";
 
 		results = database.selectStatement(query);
 		while (results.next()) {
@@ -119,7 +119,7 @@ public class ProjectAccessObject implements ProjectAccess {
 					results.getTimestamp("created_date").toLocalDateTime(),
 					results.getTimestamp("updated_date").toLocalDateTime());
 		}
-		PrintUtils.print(project, PrintType.QUERY_RESULTS);
+		PrintUtil.print(project, PrintType.QUERY_RESULTS);
 		return project;
 	}
 

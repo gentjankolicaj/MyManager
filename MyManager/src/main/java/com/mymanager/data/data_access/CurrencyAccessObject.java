@@ -11,7 +11,7 @@ import com.mymanager.data.database.DatabaseManager;
 import com.mymanager.data.database.DatabasePool;
 import com.mymanager.data.models.Currency;
 import com.mymanager.utils.PrintType;
-import com.mymanager.utils.PrintUtils;
+import com.mymanager.utils.PrintUtil;
 
 /**
  * 
@@ -40,7 +40,7 @@ public class CurrencyAccessObject implements CurrencyAccess {
 			currencyList.add(temp);
 
 		}
-		PrintUtils.print(currencyList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(currencyList, PrintType.QUERY_RESULTS);
 		return currencyList;
 	}
 
@@ -57,7 +57,7 @@ public class CurrencyAccessObject implements CurrencyAccess {
 			currencyList.add(temp);
 
 		}
-		PrintUtils.print(currencyList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(currencyList, PrintType.QUERY_RESULTS);
 		return currencyList;
 	}
 

@@ -13,7 +13,7 @@ import com.mymanager.data.models.Attempt;
 import com.mymanager.data.models.Status;
 import com.mymanager.data.models.User;
 import com.mymanager.utils.PrintType;
-import com.mymanager.utils.PrintUtils;
+import com.mymanager.utils.PrintUtil;
 
 /**
  * 
@@ -44,7 +44,7 @@ public class AttemptAccessObject implements AttemptAccess {
 			atemptList.add(temp);
 
 		}
-		PrintUtils.print(atemptList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(atemptList, PrintType.QUERY_RESULTS);
 		return atemptList;
 	}
 
@@ -63,7 +63,7 @@ public class AttemptAccessObject implements AttemptAccess {
 			atemptList.add(temp);
 
 		}
-		PrintUtils.print(atemptList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(atemptList, PrintType.QUERY_RESULTS);
 		return atemptList;
 	}
 
@@ -82,7 +82,7 @@ public class AttemptAccessObject implements AttemptAccess {
 			atemptList.add(temp);
 
 		}
-		PrintUtils.print(atemptList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(atemptList, PrintType.QUERY_RESULTS);
 		return atemptList;
 	}
 
@@ -100,7 +100,7 @@ public class AttemptAccessObject implements AttemptAccess {
 					results.getString("description"), results.getTimestamp("date_time").toLocalDateTime());
 			atemptList.add(temp);
 		}
-		PrintUtils.print(atemptList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(atemptList, PrintType.QUERY_RESULTS);
 		return atemptList;
 	}
 
@@ -118,7 +118,7 @@ public class AttemptAccessObject implements AttemptAccess {
 					results.getString("description"), results.getTimestamp("date_time").toLocalDateTime());
 			attemptList.add(attempt);
 		}
-		PrintUtils.print(attemptList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(attemptList, PrintType.QUERY_RESULTS);
 		return attemptList;
 	}
 

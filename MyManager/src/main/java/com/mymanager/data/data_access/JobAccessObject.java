@@ -12,7 +12,7 @@ import com.mymanager.data.database.DatabasePool;
 import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.Job;
 import com.mymanager.utils.PrintType;
-import com.mymanager.utils.PrintUtils;
+import com.mymanager.utils.PrintUtil;
 
 public class JobAccessObject implements JobAccess {
 
@@ -59,7 +59,7 @@ public class JobAccessObject implements JobAccess {
 			jobList.add(temp);
 
 		}
-		PrintUtils.print(jobList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(jobList, PrintType.QUERY_RESULTS);
 		return jobList;
 
 	}
@@ -83,7 +83,7 @@ public class JobAccessObject implements JobAccess {
 			jobList.add(temp);
 
 		}
-		PrintUtils.print(jobList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(jobList, PrintType.QUERY_RESULTS);
 		return jobList;
 
 	}
@@ -108,7 +108,7 @@ public class JobAccessObject implements JobAccess {
 			jobList.add(temp);
 
 		}
-		PrintUtils.print(jobList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(jobList, PrintType.QUERY_RESULTS);
 		return jobList;
 	}
 
@@ -131,7 +131,7 @@ public class JobAccessObject implements JobAccess {
 			jobList.add(temp);
 
 		}
-		PrintUtils.print(jobList, PrintType.QUERY_RESULTS);
+		PrintUtil.print(jobList, PrintType.QUERY_RESULTS);
 		return jobList;
 	}
 
@@ -149,7 +149,7 @@ public class JobAccessObject implements JobAccess {
 					results.getTimestamp("updated_date").toLocalDateTime());
 
 		}
-		PrintUtils.print(temp, PrintType.QUERY_RESULTS);
+		PrintUtil.print(temp, PrintType.QUERY_RESULTS);
 		return temp;
 	}
 
