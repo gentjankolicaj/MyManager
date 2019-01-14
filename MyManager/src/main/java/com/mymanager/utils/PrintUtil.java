@@ -10,7 +10,7 @@ import com.mymanager.config.Config;
  * @author gentjan koliçaj
  *
  */
-public class PrintUtils {
+public class PrintUtil {
 
 	public static final PrintEnviroment ENV = Config.PRINT_ENV;
 
