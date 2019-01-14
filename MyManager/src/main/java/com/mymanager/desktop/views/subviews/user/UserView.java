@@ -93,50 +93,51 @@ public class UserView extends MyPanel {
 
 		JLabel lblNewLabel = new JLabel("All registered users");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel.setBounds(341, 13, 230, 45);
+		lblNewLabel.setBounds(455, 11, 230, 31);
 		add(lblNewLabel);
 
 		textFieldSearch = new JTextField();
-		textFieldSearch.setBounds(12, 93, 913, 31);
+		textFieldSearch.setBounds(12, 85, 913, 30);
 		add(textFieldSearch);
 		textFieldSearch.setColumns(10);
 
 		JLabel lblSearcchBy = new JLabel("Search by :");
-		lblSearcchBy.setBounds(12, 63, 89, 31);
+		lblSearcchBy.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblSearcchBy.setBounds(12, 43, 89, 31);
 		add(lblSearcchBy);
 
-		rdbtnId = new JRadioButton("ID");
+		rdbtnId = new JRadioButton("Id");
 		buttonGroupSearchType.add(rdbtnId);
-		rdbtnId.setBounds(83, 66, 56, 25);
+		rdbtnId.setBounds(83, 46, 56, 25);
 		add(rdbtnId);
 
 		rdbtnType = new JRadioButton("User type");
 		buttonGroupSearchType.add(rdbtnType);
-		rdbtnType.setBounds(141, 66, 95, 25);
+		rdbtnType.setBounds(141, 46, 95, 25);
 		add(rdbtnType);
 
 		rdbtnFirstname = new JRadioButton("Firstname");
 		buttonGroupSearchType.add(rdbtnFirstname);
-		rdbtnFirstname.setBounds(240, 66, 90, 25);
+		rdbtnFirstname.setBounds(240, 46, 90, 25);
 		add(rdbtnFirstname);
 
 		rdbtnLastname = new JRadioButton("Lastname");
 		buttonGroupSearchType.add(rdbtnLastname);
-		rdbtnLastname.setBounds(332, 65, 89, 25);
+		rdbtnLastname.setBounds(332, 46, 89, 25);
 		add(rdbtnLastname);
 
 		btnSearch = new JButton("Search");
-		btnSearch.setBounds(942, 93, 138, 31);
+		btnSearch.setBounds(935, 85, 138, 30);
 		add(btnSearch);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 136, 1068, 450);
+		scrollPane.setBounds(12, 127, 1068, 463);
 
 		table = new MyTable();
 		table.setFillsViewportHeight(true);
 
 		tableModel = new DefaultTableModel();
-		tableModel.setColumnIdentifiers(new String[] { "ID", "User type", "Firstname", "Lastname", "Birthday",
+		tableModel.setColumnIdentifiers(new String[] { "Id", "User type", "Firstname", "Lastname", "Birthday",
 				"Birthplace", "Rights", "Gender", "Created by", "Created date", "Updated by", "Updated date" });
 
 		table.setModel(tableModel);

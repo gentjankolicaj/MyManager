@@ -63,7 +63,7 @@ public class AttemptView extends MyPanel {
 	 * Create the panel.
 	 */
 	public AttemptView(JFrame jframe, MainView mainView, User user) {
-		super(900, 520);
+		super(1060, 620);
 		this.jframe = jframe;
 		this.mainView = mainView;
 		this.selfReference=this;
@@ -82,39 +82,39 @@ public class AttemptView extends MyPanel {
 		setLayout(null);
 		JLabel lblNewLabel = new JLabel("All registered attemps");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel.setBounds(341, 13, 200, 45);
+		lblNewLabel.setBounds(341, 13, 274, 35);
 		add(lblNewLabel);
 
 		textFieldSearch = new JTextField();
-		textFieldSearch.setBounds(12, 98, 570, 31);
+		textFieldSearch.setBounds(12, 85, 787, 30);
 		add(textFieldSearch);
 		textFieldSearch.setColumns(10);
 
 		rdbtnId = new JRadioButton("Id");
 		buttonGroupSearchType.add(rdbtnId);
-		rdbtnId.setBounds(92, 66, 48, 25);
+		rdbtnId.setBounds(92, 50, 48, 25);
 		add(rdbtnId);
 
 		JLabel lblSearcchBy = new JLabel("Search by :");
-		lblSearcchBy.setBounds(12, 63, 89, 31);
+		lblSearcchBy.setBounds(12, 48, 89, 31);
 		add(lblSearcchBy);
 
 		rdbtnUser = new JRadioButton("User");
 		buttonGroupSearchType.add(rdbtnUser);
-		rdbtnUser.setBounds(142, 66, 60, 25);
+		rdbtnUser.setBounds(142, 50, 60, 25);
 		add(rdbtnUser);
 
 		rdbtnStatus = new JRadioButton("Status");
 		buttonGroupSearchType.add(rdbtnStatus);
-		rdbtnStatus.setBounds(204, 66, 71, 25);
+		rdbtnStatus.setBounds(204, 50, 71, 25);
 		add(rdbtnStatus);
 
 		btnSearch = new JButton("Search");
-		btnSearch.setBounds(643, 98, 138, 31);
+		btnSearch.setBounds(809, 85, 138, 30);
 		add(btnSearch);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 140, 769, 365);
+		scrollPane.setBounds(12, 127, 935, 442);
 
 		table = new MyTable();
 		table.setFillsViewportHeight(true);
@@ -128,11 +128,11 @@ public class AttemptView extends MyPanel {
 		add(scrollPane);
 
 		btnDelete = new JButton("Delete");
-		btnDelete.setBounds(791, 145, 97, 25);
+		btnDelete.setBounds(957, 145, 97, 25);
 		add(btnDelete);
 
 		btnBack = new JButton("Back");
-		btnBack.setBounds(791, 188, 97, 25);
+		btnBack.setBounds(957, 188, 97, 25);
 		add(btnBack);
 	}
 

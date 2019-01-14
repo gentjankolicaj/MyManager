@@ -66,7 +66,7 @@ public class DepartmentView extends MyPanel {
 	 * Create the panel.
 	 */
 	public DepartmentView(JFrame jframe, MainView mainView, UserService userService, User user) {
-		super(1070, 545);
+		super(1060, 620);
 		this.jframe = jframe;
 		this.mainView = mainView;
 		this.selfReference = this;
@@ -74,8 +74,6 @@ public class DepartmentView extends MyPanel {
 		this.userService = userService;
 		this.user = user;
 		this.departmentService = new DepartmentServiceImpl();
-
-		setBorder(new LineBorder(new Color(0, 0, 0)));
 
 		initComponents();
 		initEvents();
@@ -86,40 +84,40 @@ public class DepartmentView extends MyPanel {
 		setLayout(null);
 		JLabel lblNewLabel = new JLabel("All registered departments");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel.setBounds(341, 13, 221, 45);
+		lblNewLabel.setBounds(341, 13, 274, 35);
 		add(lblNewLabel);
 
 		textFieldSearch = new JTextField();
-		textFieldSearch.setBounds(12, 98, 771, 31);
+		textFieldSearch.setBounds(12, 85, 771, 30);
 		add(textFieldSearch);
 		textFieldSearch.setColumns(10);
 
-		rdbtnId = new JRadioButton("ID");
+		rdbtnId = new JRadioButton("Id");
 		buttonGroupSearchType.add(rdbtnId);
-		rdbtnId.setBounds(92, 66, 71, 25);
+		rdbtnId.setBounds(92, 50, 71, 25);
 		add(rdbtnId);
 
 		JLabel lblSearcchBy = new JLabel("Search by :");
-		lblSearcchBy.setBounds(12, 63, 89, 31);
+		lblSearcchBy.setBounds(12, 48, 89, 31);
 		add(lblSearcchBy);
 
 		rdbtnName = new JRadioButton("Name");
 		buttonGroupSearchType.add(rdbtnName);
-		rdbtnName.setBounds(159, 66, 153, 25);
+		rdbtnName.setBounds(159, 50, 153, 25);
 		add(rdbtnName);
 
 		btnSearch = new JButton("Search");
-		btnSearch.setBounds(813, 98, 138, 31);
+		btnSearch.setBounds(813, 85, 138, 30);
 		add(btnSearch);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 140, 939, 387);
+		scrollPane.setBounds(12, 127, 933, 442);
 
 		table = new MyTable();
 		table.setFillsViewportHeight(true);
 
 		tableModel = new DefaultTableModel();
-		tableModel.setColumnIdentifiers(new String[] { "ID", "Name", "Manager ID", "Created by", "Created date",
+		tableModel.setColumnIdentifiers(new String[] { "Id", "Name", "Manager Id", "Created by", "Created date",
 				"Updated by", "Updated date" });
 
 		table.setModel(tableModel);
@@ -128,19 +126,19 @@ public class DepartmentView extends MyPanel {
 		add(scrollPane);
 
 		btnCreate = new JButton("Create");
-		btnCreate.setBounds(961, 156, 97, 25);
+		btnCreate.setBounds(957, 156, 97, 25);
 		add(btnCreate);
 
 		btnEdit = new JButton("Edit");
-		btnEdit.setBounds(961, 194, 97, 25);
+		btnEdit.setBounds(957, 194, 97, 25);
 		add(btnEdit);
 
 		btnDelete = new JButton("Delete");
-		btnDelete.setBounds(961, 232, 97, 25);
+		btnDelete.setBounds(957, 232, 97, 25);
 		add(btnDelete);
 
 		btnBack = new JButton("Back");
-		btnBack.setBounds(961, 291, 97, 25);
+		btnBack.setBounds(957, 291, 97, 25);
 		add(btnBack);
 	}
 

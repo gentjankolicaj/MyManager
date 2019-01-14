@@ -73,50 +73,50 @@ public class UserAdressView extends MyPanel {
 
 		JLabel lblNewLabel = new JLabel("All user adresses");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel.setBounds(341, 13, 230, 45);
+		lblNewLabel.setBounds(455, 11, 230, 31);
 		add(lblNewLabel);
 
 		textFieldSearch = new JTextField();
-		textFieldSearch.setBounds(12, 91, 913, 31);
+		textFieldSearch.setBounds(12, 85, 913, 30);
 		add(textFieldSearch);
 		textFieldSearch.setColumns(10);
 
 		JLabel lblSearcchBy = new JLabel("Search by :");
-		lblSearcchBy.setBounds(12, 63, 89, 31);
+		lblSearcchBy.setBounds(12, 43, 89, 31);
 		add(lblSearcchBy);
 
-		rdbtnId = new JRadioButton("ID");
+		rdbtnId = new JRadioButton("Id");
 		buttonGroupSearchType.add(rdbtnId);
-		rdbtnId.setBounds(83, 66, 56, 25);
+		rdbtnId.setBounds(83, 46, 56, 25);
 		add(rdbtnId);
 
-		rdbtnPersonId = new JRadioButton("User ID");
+		rdbtnPersonId = new JRadioButton("User Id");
 		buttonGroupSearchType.add(rdbtnPersonId);
-		rdbtnPersonId.setBounds(141, 66, 73, 25);
+		rdbtnPersonId.setBounds(141, 46, 73, 25);
 		add(rdbtnPersonId);
 
 		rdbtnCity = new JRadioButton("City");
 		buttonGroupSearchType.add(rdbtnCity);
-		rdbtnCity.setBounds(215, 66, 56, 25);
+		rdbtnCity.setBounds(215, 46, 56, 25);
 		add(rdbtnCity);
 
 		rdbtnStreet = new JRadioButton("Street");
 		buttonGroupSearchType.add(rdbtnStreet);
-		rdbtnStreet.setBounds(275, 65, 83, 25);
+		rdbtnStreet.setBounds(275, 46, 83, 25);
 		add(rdbtnStreet);
 
 		btnSearch = new JButton("Search");
-		btnSearch.setBounds(942, 91, 138, 31);
+		btnSearch.setBounds(942, 85, 138, 30);
 		add(btnSearch);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 133, 1068, 406);
+		scrollPane.setBounds(12, 127, 1068, 462);
 
 		table = new MyTable();
 		table.setFillsViewportHeight(true);
 
 		tableModel = new DefaultTableModel();
-		tableModel.setColumnIdentifiers(new String[] { "ID", "User ID", "Country", "City", "Street", "Zip code",
+		tableModel.setColumnIdentifiers(new String[] { "Id", "User Id", "Country", "City", "Street", "Zip code",
 				"Building", "Created by", "Created date", "Updated by", "Updated date" });
 
 		table.setModel(tableModel);

@@ -78,50 +78,51 @@ public class UserContactView extends MyPanel {
 
 		JLabel lblNewLabel = new JLabel("All user contacts");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel.setBounds(341, 13, 230, 45);
+		lblNewLabel.setBounds(455, 11, 230, 31);
 		add(lblNewLabel);
 
 		textFieldSearch = new JTextField();
-		textFieldSearch.setBounds(10, 92, 913, 31);
+		textFieldSearch.setBounds(12, 85, 913, 30);
 		add(textFieldSearch);
 		textFieldSearch.setColumns(10);
 
 		JLabel lblSearcchBy = new JLabel("Search by :");
-		lblSearcchBy.setBounds(12, 63, 89, 31);
+		lblSearcchBy.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblSearcchBy.setBounds(12, 43, 89, 31);
 		add(lblSearcchBy);
 
-		rdbtnId = new JRadioButton("ID");
+		rdbtnId = new JRadioButton("Id");
 		buttonGroupSearchType.add(rdbtnId);
-		rdbtnId.setBounds(83, 66, 56, 25);
+		rdbtnId.setBounds(83, 46, 56, 25);
 		add(rdbtnId);
 
-		rdbtnPersonId = new JRadioButton("User ID");
+		rdbtnPersonId = new JRadioButton("User Id");
 		buttonGroupSearchType.add(rdbtnPersonId);
-		rdbtnPersonId.setBounds(141, 66, 81, 25);
+		rdbtnPersonId.setBounds(141, 46, 81, 25);
 		add(rdbtnPersonId);
 
 		rdbtnCelular = new JRadioButton("Cel");
 		buttonGroupSearchType.add(rdbtnCelular);
-		rdbtnCelular.setBounds(229, 66, 56, 25);
+		rdbtnCelular.setBounds(229, 46, 56, 25);
 		add(rdbtnCelular);
 
 		rdbtnEmail = new JRadioButton("Email");
 		buttonGroupSearchType.add(rdbtnEmail);
-		rdbtnEmail.setBounds(293, 66, 81, 25);
+		rdbtnEmail.setBounds(293, 46, 81, 25);
 		add(rdbtnEmail);
 
 		btnSearch = new JButton("Search");
-		btnSearch.setBounds(940, 92, 138, 31);
+		btnSearch.setBounds(935, 85, 138, 30);
 		add(btnSearch);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 134, 1068, 405);
+		scrollPane.setBounds(12, 127, 1068, 463);
 
 		table = new MyTable();
 		table.setFillsViewportHeight(true);
 
 		tableModel = new DefaultTableModel();
-		tableModel.setColumnIdentifiers(new String[] { "ID", "User ID", "Telephone", "Celular", "Email", "Fax",
+		tableModel.setColumnIdentifiers(new String[] { "Id", "User Id", "Telephone", "Celular", "Email", "Fax",
 				"Created by", "Created date", "Updated by", "Updated date" });
 
 		table.setModel(tableModel);

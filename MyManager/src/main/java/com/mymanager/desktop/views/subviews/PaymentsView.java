@@ -68,7 +68,7 @@ public class PaymentsView extends MyPanel {
 	 * Create the panel.
 	 */
 	public PaymentsView(JFrame jframe, MainView mainView, UserService userService,User user) {
-		super(1200, 550);
+		super(1200, 620);
 		this.jframe = jframe;
 		this.mainView = mainView;
 		this.selfReference=this;
@@ -87,44 +87,44 @@ public class PaymentsView extends MyPanel {
 
 		JLabel lblNewLabel = new JLabel("All employee payments");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel.setBounds(341, 13, 230, 45);
+		lblNewLabel.setBounds(360, 13, 230, 35);
 		add(lblNewLabel);
 
 		textFieldSearch = new JTextField();
-		textFieldSearch.setBounds(12, 98, 913, 31);
+		textFieldSearch.setBounds(12, 85, 913, 30);
 		add(textFieldSearch);
 		textFieldSearch.setColumns(10);
 
 		JLabel lblSearcchBy = new JLabel("Search by :");
-		lblSearcchBy.setBounds(12, 63, 89, 31);
+		lblSearcchBy.setBounds(12, 48, 89, 31);
 		add(lblSearcchBy);
 
-		rdbtnId = new JRadioButton("ID");
+		rdbtnId = new JRadioButton("Id");
 		buttonGroupSearchType.add(rdbtnId);
-		rdbtnId.setBounds(83, 66, 56, 25);
+		rdbtnId.setBounds(83, 50, 56, 25);
 		add(rdbtnId);
 
 		rdbtnEmpId = new JRadioButton("Employee Id");
 		buttonGroupSearchType.add(rdbtnEmpId);
-		rdbtnEmpId.setBounds(141, 66, 95, 25);
+		rdbtnEmpId.setBounds(141, 50, 95, 25);
 		add(rdbtnEmpId);
 
 		rdbtnType = new JRadioButton("Type");
 		buttonGroupSearchType.add(rdbtnType);
-		rdbtnType.setBounds(240, 66, 61, 25);
+		rdbtnType.setBounds(240, 50, 61, 25);
 		add(rdbtnType);
 
 		rdbtnDesc = new JRadioButton("Description");
 		buttonGroupSearchType.add(rdbtnDesc);
-		rdbtnDesc.setBounds(303, 65, 95, 25);
+		rdbtnDesc.setBounds(303, 50, 95, 25);
 		add(rdbtnDesc);
 
 		btnSearch = new JButton("Search");
-		btnSearch.setBounds(942, 98, 138, 31);
+		btnSearch.setBounds(942, 85, 138, 30);
 		add(btnSearch);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 140, 1068, 398);
+		scrollPane.setBounds(12, 127, 1068, 442);
 
 		table = new MyTable();
 		table.setFillsViewportHeight(true);

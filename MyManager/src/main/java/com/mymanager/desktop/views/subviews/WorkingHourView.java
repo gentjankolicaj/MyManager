@@ -1,6 +1,5 @@
 package com.mymanager.desktop.views.subviews;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,11 +17,9 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.mymanager.config.Config;
-import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.MyTable;
 import com.mymanager.data.models.User;
 import com.mymanager.data.models.WorkingHour;
@@ -69,7 +66,7 @@ public class WorkingHourView extends MyPanel {
 	 * Create the panel.
 	 */
 	public WorkingHourView(JFrame jframe, MainView mainView, UserService userService, User user) {
-		super(1070, 540);
+		super(1060, 620);
 		this.jframe = jframe;
 		this.mainView = mainView;
 		this.selfReference = this;
@@ -77,8 +74,6 @@ public class WorkingHourView extends MyPanel {
 		this.userService = userService;
 		this.user = user;
 		this.workingHourService = new WorkingHourServiceImpl();
-
-		setBorder(new LineBorder(new Color(0, 0, 0)));
 
 		initComponents();
 		initEvents();
@@ -89,45 +84,45 @@ public class WorkingHourView extends MyPanel {
 		setLayout(null);
 		JLabel lblNewLabel = new JLabel("Registered working hours");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel.setBounds(341, 13, 274, 45);
+		lblNewLabel.setBounds(341, 13, 274, 35);
 		add(lblNewLabel);
 
 		textFieldSearch = new JTextField();
-		textFieldSearch.setBounds(12, 90, 793, 31);
+		textFieldSearch.setBounds(12, 85, 785, 30);
 		add(textFieldSearch);
 		textFieldSearch.setColumns(10);
 
 		btnSearch = new JButton("Search");
-		btnSearch.setBounds(815, 90, 138, 31);
+		btnSearch.setBounds(807, 85, 138, 30);
 		add(btnSearch);
 
 		JLabel lblSearcchBy = new JLabel("Search by :");
-		lblSearcchBy.setBounds(12, 63, 89, 31);
+		lblSearcchBy.setBounds(12, 48, 89, 31);
 		add(lblSearcchBy);
 
-		rdbtnId = new JRadioButton("ID");
+		rdbtnId = new JRadioButton("Id");
 		buttonGroupSearchType.add(rdbtnId);
-		rdbtnId.setBounds(92, 66, 71, 25);
+		rdbtnId.setBounds(92, 50, 71, 25);
 		add(rdbtnId);
 
-		rdbtnEmpId = new JRadioButton("Emp ID");
+		rdbtnEmpId = new JRadioButton("Emp Id");
 		buttonGroupSearchType.add(rdbtnEmpId);
-		rdbtnEmpId.setBounds(159, 66, 71, 25);
+		rdbtnEmpId.setBounds(159, 50, 71, 25);
 		add(rdbtnEmpId);
 
 		rdbtnDate = new JRadioButton("Date");
 		buttonGroupSearchType.add(rdbtnDate);
-		rdbtnDate.setBounds(234, 66, 104, 25);
+		rdbtnDate.setBounds(234, 50, 104, 25);
 		add(rdbtnDate);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 132, 943, 397);
+		scrollPane.setBounds(12, 127, 933, 442);
 
 		table = new MyTable();
 		table.setFillsViewportHeight(true);
 
 		tableModel = new DefaultTableModel();
-		tableModel.setColumnIdentifiers(new String[] { "ID", "Emp ID", "Date", "Amount", "Created by", "Created date",
+		tableModel.setColumnIdentifiers(new String[] { "Id", "Emp Id", "Date", "Amount", "Created by", "Created date",
 				"Updated by", "Updated date" });
 
 		table.setModel(tableModel);
@@ -136,19 +131,19 @@ public class WorkingHourView extends MyPanel {
 		add(scrollPane);
 
 		btnCreate = new JButton("Create");
-		btnCreate.setBounds(963, 144, 97, 25);
+		btnCreate.setBounds(957, 144, 97, 25);
 		add(btnCreate);
 
 		btnEdit = new JButton("Edit");
-		btnEdit.setBounds(963, 182, 97, 25);
+		btnEdit.setBounds(957, 182, 97, 25);
 		add(btnEdit);
 
 		btnDelete = new JButton("Delete");
-		btnDelete.setBounds(963, 220, 97, 25);
+		btnDelete.setBounds(957, 220, 97, 25);
 		add(btnDelete);
 
 		btnBack = new JButton("Back");
-		btnBack.setBounds(963, 279, 97, 25);
+		btnBack.setBounds(957, 279, 97, 25);
 		add(btnBack);
 	}
 

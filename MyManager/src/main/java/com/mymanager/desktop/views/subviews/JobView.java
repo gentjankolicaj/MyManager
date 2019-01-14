@@ -65,7 +65,7 @@ public class JobView extends MyPanel {
 	 * Create the panel.
 	 */
 	public JobView(JFrame jframe, MainView mainView, UserService userService, User user) {
-		super(1070, 550);
+		super(1060, 620);
 		this.jframe = jframe;
 		this.mainView = mainView;
 		this.selfReference = this;
@@ -73,8 +73,6 @@ public class JobView extends MyPanel {
 		this.userService = userService;
 		this.user = user;
 		this.jobService = new JobServiceImpl();
-
-		setBorder(new LineBorder(new Color(0, 0, 0)));
 
 		initComponents();
 		initEvents();
@@ -87,45 +85,45 @@ public class JobView extends MyPanel {
 
 		JLabel lblNewLabel = new JLabel("All registered jobs");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel.setBounds(341, 13, 274, 45);
+		lblNewLabel.setBounds(341, 13, 274, 35);
 		add(lblNewLabel);
 
 		textFieldSearch = new JTextField();
-		textFieldSearch.setBounds(14, 98, 785, 31);
+		textFieldSearch.setBounds(12, 85, 785, 30);
 		add(textFieldSearch);
 		textFieldSearch.setColumns(10);
 
 		btnSearch = new JButton("Search");
-		btnSearch.setBounds(809, 98, 138, 31);
+		btnSearch.setBounds(809, 85, 138, 30);
 		add(btnSearch);
 
 		JLabel lblSearcchBy = new JLabel("Search by :");
-		lblSearcchBy.setBounds(12, 63, 89, 31);
+		lblSearcchBy.setBounds(12, 48, 89, 31);
 		add(lblSearcchBy);
 
-		rdbtnId = new JRadioButton("ID");
+		rdbtnId = new JRadioButton("Id");
 		buttonGroupSearchType.add(rdbtnId);
-		rdbtnId.setBounds(92, 66, 71, 25);
+		rdbtnId.setBounds(92, 50, 71, 25);
 		add(rdbtnId);
 
 		rdbtnTitle = new JRadioButton("Title");
 		buttonGroupSearchType.add(rdbtnTitle);
-		rdbtnTitle.setBounds(159, 66, 71, 25);
+		rdbtnTitle.setBounds(159, 50, 71, 25);
 		add(rdbtnTitle);
 
 		rdbtnSalary = new JRadioButton("Salary");
 		buttonGroupSearchType.add(rdbtnSalary);
-		rdbtnSalary.setBounds(234, 66, 79, 25);
+		rdbtnSalary.setBounds(234, 50, 79, 25);
 		add(rdbtnSalary);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(14, 140, 933, 402);
+		scrollPane.setBounds(12, 127, 933, 442);
 
 		table = new MyTable();
 		table.setFillsViewportHeight(true);
 
 		tableModel = new DefaultTableModel();
-		tableModel.setColumnIdentifiers(new String[] { "ID", "Title", "Max salary", "Min salary", "Created by",
+		tableModel.setColumnIdentifiers(new String[] { "Id", "Title", "Max salary", "Min salary", "Created by",
 				"Created date", "Updated by", "Updated date" });
 
 		table.setModel(tableModel);
