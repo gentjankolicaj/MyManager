@@ -147,7 +147,7 @@ public class LoginView extends JPanel {
 		infoPanel.add(lblNewLabel);
 
 		lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(LoginView.class.getResource("/com/mymanager/resources/icons/image.png")));
+		lblNewLabel_1.setIcon(new ImageIcon(LoginView.class.getResource("/com/mymanager/resources/icons/image_430x450.png")));
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setBounds(10, 39, 488, 512);
 		infoPanel.add(lblNewLabel_1);
