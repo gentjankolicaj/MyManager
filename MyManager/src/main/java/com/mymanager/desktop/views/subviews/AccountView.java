@@ -23,6 +23,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.AdressType;
 import com.mymanager.data.models.ContactType;
@@ -625,12 +627,15 @@ public class AccountView extends JDialog {
 			}
 
 		} else {
+			
 			String telephone = textFieldTelephone.getText();
 			String celular = textFieldCel.getText();
-			if (textFieldTelephone.getText().equals(""))
-				telephone = "0";
-			if (textFieldCel.getText().equals(""))
-				celular = "0";
+
+			if (telephone == null || !NumberUtils.isParsable(telephone))
+				telephone = "35501";
+
+			if (celular == null || !NumberUtils.isParsable(celular))
+				celular = "069";
 
 			UserContact newUserContact = new UserContact(1, user.getUserId(), Integer.parseInt(telephone),
 					Integer.parseInt(celular), textFieldEmail.getText(), textFieldFax.getText(), user.getUserId(),
@@ -653,9 +658,19 @@ public class AccountView extends JDialog {
 		ArrayList<String> first = new ArrayList<>();
 		ArrayList<String> second = new ArrayList<>();
 		if (userAdress != null) {
+			
+			
+			Object countryObject = comboBoxCountry.getSelectedItem();
+			String countryName = "";
+
+			if (countryObject == null)
+				countryName = "ALBANIA";
+			else
+				countryName=(String) countryObject.toString().trim();
+			
 
 			String actualCountryName = userAdress.getCountry().getCountryName();
-			String selectedCountryName = (String) comboBoxCountry.getSelectedItem();
+			
 
 			first.add(String.valueOf(userAdress.getZipCode()));
 			first.add(userAdress.getStreetName());
@@ -666,14 +681,17 @@ public class AccountView extends JDialog {
 			second.add(textFieldStreet.getText());
 			second.add(textFieldBuilding.getText());
 			second.add(textFieldCity.getText());
-			second.add(selectedCountryName);
+			second.add(countryName);
 
 			if (!MyUtil.areEquals(first, second)) {
-				String zipCode = textFieldZipCode.getText();
-				if (zipCode.equals(""))
-					zipCode = "0";
+				
 
-				UserAdress newUserAdress = new UserAdress(1, user.getUserId(), new Country(selectedCountryName),
+				String zipCode = textFieldZipCode.getText();
+
+				if (zipCode == null || !NumberUtils.isParsable(zipCode))
+					zipCode = "0000";
+
+				UserAdress newUserAdress = new UserAdress(1, user.getUserId(), new Country(countryName),
 						textFieldCity.getText(), textFieldStreet.getText(), Integer.parseInt(zipCode),
 						textFieldBuilding.getText(), userAdress.getCreatedBy(), user.getUserId(),
 						userAdress.getCreatedDate(), LocalDateTime.now());
@@ -682,26 +700,36 @@ public class AccountView extends JDialog {
 					userAdressService.updateAdress(userAdress, newUserAdress);
 					userAdress = newUserAdress;
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 			}
 
 		} else {
 
-			String selectedCountryName = (String) comboBoxCountry.getSelectedItem();
-			String zipCode = textFieldZipCode.getText();
-			if (zipCode.equals(""))
-				zipCode = "0";
+			Object countryObject = comboBoxCountry.getSelectedItem();
+			String countryName = "";
 
-			UserAdress newUserAdress = new UserAdress(1, user.getUserId(), new Country(selectedCountryName),
+			if (countryObject == null)
+				countryName = "ALBANIA";
+			else
+				countryName=(String) countryObject.toString().trim();
+
+			String zipCode = textFieldZipCode.getText();
+
+			if (zipCode == null || !NumberUtils.isParsable(zipCode))
+				zipCode = "0000";
+
+			UserAdress newUserAdress = new UserAdress(1, user.getUserId(), new Country(countryName),
 					textFieldCity.getText(), textFieldStreet.getText(), Integer.parseInt(zipCode),
 					textFieldBuilding.getText(), user.getUserId(), user.getUserId(), LocalDateTime.now(),
 					LocalDateTime.now());
 
 			try {
+				
 				userAdressService.saveAdress(newUserAdress);
 				userAdress = newUserAdress;
+				
 			} catch (Exception e) {
 				
 				e.printStackTrace();

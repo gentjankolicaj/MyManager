@@ -638,7 +638,7 @@ public class EditEmployee extends JDialog {
 
 		Employee newEmployee = new Employee(empId, firstName, lastName, middleName, birthday, birthplace,
 				Gender.valueOf(sex), jobId, departmentId, projectName, oldEmployee.getCreatedBy(), user.getUserId(),
-				LocalDateTime.now(), LocalDateTime.now());
+				oldEmployee.getCreatedDate(), LocalDateTime.now());
 
 		try {
 
@@ -670,7 +670,7 @@ public class EditEmployee extends JDialog {
 
 			EmployeeContact newContact = new EmployeeContact(1, tfId.getText(), Integer.parseInt(telephone),
 					Integer.parseInt(celular), textFieldEmail.getText(), textFieldFax.getText(), oldEmployeeContact.getCreatedBy(),
-					user.getUserId(), LocalDateTime.now(), LocalDateTime.now());
+					user.getUserId(), oldEmployeeContact.getCreatedDate(), LocalDateTime.now());
 
 			try {
 
@@ -732,7 +732,7 @@ public class EditEmployee extends JDialog {
 
 			EmployeeAdress newAdress = new EmployeeAdress(1, tfId.getText(), new Country(countryName),
 					textFieldCity.getText(), textFieldStreet.getText(), Integer.parseInt(zipCode),
-					textFieldBuilding.getText(), oldEmployeeAdress.getCreatedBy(), user.getUserId(), LocalDateTime.now(),
+					textFieldBuilding.getText(), oldEmployeeAdress.getCreatedBy(), user.getUserId(), oldEmployeeAdress.getCreatedDate(),
 					LocalDateTime.now());
 
 			try {

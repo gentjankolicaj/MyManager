@@ -19,20 +19,15 @@ public class UtilWindow {
 	public static void showMessage(Component component, String text, MessageType messageType) {
 		if (Config.MESSAGE_WINDOWS) {
 			if (messageType.equals(MessageType.PLAIN) && Config.PLAIN_MESSAGE) {
-				JOptionPane.showMessageDialog(component, text, AppText.plainLabel, JOptionPane.PLAIN_MESSAGE,
-						AppIcon.getIcon(AppIcon.plainIcon));
+				JOptionPane.showMessageDialog(component, text, AppText.plainLabel, JOptionPane.PLAIN_MESSAGE);
 			} else if (messageType.equals(MessageType.INFORMATION) && Config.INFO_MESSAGE) {
-				JOptionPane.showMessageDialog(component, text, AppText.infoLabel, JOptionPane.INFORMATION_MESSAGE,
-						AppIcon.getIcon(AppIcon.infoIcon));
+				JOptionPane.showMessageDialog(component, text, AppText.infoLabel, JOptionPane.INFORMATION_MESSAGE);
 			} else if (messageType.equals(MessageType.QUESTION) && Config.QUESTION_MESSAGE) {
-				JOptionPane.showMessageDialog(component, text, AppText.questionLabel, JOptionPane.QUESTION_MESSAGE,
-						AppIcon.getIcon(AppIcon.questionIcon));
+				JOptionPane.showMessageDialog(component, text, AppText.questionLabel, JOptionPane.QUESTION_MESSAGE);
 			} else if (messageType.equals(MessageType.WARNING) && Config.WARNING_MESSAGE) {
-				JOptionPane.showMessageDialog(component, text, AppText.warningLabel, JOptionPane.WARNING_MESSAGE,
-						AppIcon.getIcon(AppIcon.warningIcon));
+				JOptionPane.showMessageDialog(component, text, AppText.warningLabel, JOptionPane.WARNING_MESSAGE);
 			} else if (messageType.equals(MessageType.ERROR) && Config.ERROR_MESSAGE) {
-				JOptionPane.showMessageDialog(component, text, AppText.errorLabel, JOptionPane.ERROR_MESSAGE,
-						AppIcon.getIcon(AppIcon.errorIcon));
+				JOptionPane.showMessageDialog(component, text, AppText.errorLabel, JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
@@ -41,20 +36,15 @@ public class UtilWindow {
 		if (Config.MESSAGE_WINDOWS) {
 			if (decideScope(scope)) {
 				if (messageType.equals(MessageType.PLAIN) && Config.PLAIN_MESSAGE) {
-					JOptionPane.showMessageDialog(component, text, AppText.plainLabel, JOptionPane.PLAIN_MESSAGE,
-							AppIcon.getIcon(AppIcon.plainIcon));
+					JOptionPane.showMessageDialog(component, text, AppText.plainLabel, JOptionPane.PLAIN_MESSAGE);
 				} else if (messageType.equals(MessageType.INFORMATION) && Config.INFO_MESSAGE) {
-					JOptionPane.showMessageDialog(component, text, AppText.infoLabel, JOptionPane.INFORMATION_MESSAGE,
-							AppIcon.getIcon(AppIcon.infoIcon));
+					JOptionPane.showMessageDialog(component, text, AppText.infoLabel, JOptionPane.INFORMATION_MESSAGE);
 				} else if (messageType.equals(MessageType.QUESTION) && Config.QUESTION_MESSAGE) {
-					JOptionPane.showMessageDialog(component, text, AppText.questionLabel, JOptionPane.QUESTION_MESSAGE,
-							AppIcon.getIcon(AppIcon.questionIcon));
+					JOptionPane.showMessageDialog(component, text, AppText.questionLabel, JOptionPane.QUESTION_MESSAGE);
 				} else if (messageType.equals(MessageType.WARNING) && Config.WARNING_MESSAGE) {
-					JOptionPane.showMessageDialog(component, text, AppText.warningLabel, JOptionPane.WARNING_MESSAGE,
-							AppIcon.getIcon(AppIcon.warningIcon));
+					JOptionPane.showMessageDialog(component, text, AppText.warningLabel, JOptionPane.WARNING_MESSAGE);
 				} else if (messageType.equals(MessageType.ERROR) && Config.ERROR_MESSAGE) {
-					JOptionPane.showMessageDialog(component, text, AppText.errorLabel, JOptionPane.ERROR_MESSAGE,
-							AppIcon.getIcon(AppIcon.errorIcon));
+					JOptionPane.showMessageDialog(component, text, AppText.errorLabel, JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		}

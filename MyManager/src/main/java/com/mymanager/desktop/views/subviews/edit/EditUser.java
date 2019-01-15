@@ -554,7 +554,7 @@ public class EditUser extends JDialog {
 
 		User newUser = new User(id.getText(), userTypeStr, firstname.getText(), lastname.getText(), newPass, birthday,
 				birthplace.getText(), Gender.valueOf(genderStr), rightsStr, oldUser.getCreatedBy(),
-				currentUser.getUserId(), LocalDateTime.now(), LocalDateTime.now());
+				currentUser.getUserId(), oldUser.getCreatedDate(), LocalDateTime.now());
 
 		try {
 
@@ -582,7 +582,7 @@ public class EditUser extends JDialog {
 
 			UserContact newContact = new UserContact(1, id.getText(), Integer.parseInt(telephone),
 					Integer.parseInt(celular), textFieldEmail.getText(), textFieldFax.getText(), oldContact.getCreatedBy(),
-					currentUser.getUserId(), LocalDateTime.now(), LocalDateTime.now());
+					currentUser.getUserId(), oldContact.getCreatedDate(), LocalDateTime.now());
 
 			try {
 
@@ -640,7 +640,7 @@ public class EditUser extends JDialog {
 
 			UserAdress newAdress = new UserAdress(1, id.getText(), new Country(countryName), textFieldCity.getText(),
 					textFieldStreet.getText(), Integer.parseInt(zipCode), textFieldBuilding.getText(),
-					oldAdress.getCreatedBy(), currentUser.getUserId(), LocalDateTime.now(), LocalDateTime.now());
+					oldAdress.getCreatedBy(), currentUser.getUserId(), oldAdress.getCreatedDate(), LocalDateTime.now());
 
 			try {
 
