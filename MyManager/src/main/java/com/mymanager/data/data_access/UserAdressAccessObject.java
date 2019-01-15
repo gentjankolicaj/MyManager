@@ -219,7 +219,7 @@ public class UserAdressAccessObject implements UserAdressAccess {
 
 	@Override
 	public int updateAdress(UserAdress oldAdress, UserAdress newAdress) throws Exception {
-		String 		query = "UPDATE mymanager.user_adress SET adress_id=?,user_id=?,country=?,city=?,street_name=?,zipcode=?,building=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE adress_id=?";
+		String 	query = "UPDATE mymanager.user_adress SET user_id=?,country=?,city=?,street_name=?,zipcode=?,building=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE adress_id=?";
 		
 		setQueryType(QueryType.NORMAL);
 		
@@ -227,18 +227,17 @@ public class UserAdressAccessObject implements UserAdressAccess {
 		savePreviousRow(temp);
 
 		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setInt(1, newAdress.getAdressId());
-		pstmt.setString(2, newAdress.getPersonId());
-		pstmt.setString(3, newAdress.getCountry().getCountryName());
-		pstmt.setString(4, newAdress.getCity());
-		pstmt.setString(5, newAdress.getStreetName());
-		pstmt.setInt(6, newAdress.getZipCode());
-		pstmt.setString(7, newAdress.getBuilding());
-		pstmt.setString(8, newAdress.getCreatedBy());
-		pstmt.setObject(9, newAdress.getCreatedDate());
-		pstmt.setString(10, newAdress.getUpdatedBy());
-		pstmt.setObject(11, newAdress.getUpdatedDate());
-		pstmt.setInt(12, oldAdress.getAdressId());
+		pstmt.setString(1, newAdress.getPersonId());
+		pstmt.setString(2, newAdress.getCountry().getCountryName());
+		pstmt.setString(3, newAdress.getCity());
+		pstmt.setString(4, newAdress.getStreetName());
+		pstmt.setInt(5, newAdress.getZipCode());
+		pstmt.setString(6, newAdress.getBuilding());
+		pstmt.setString(7, newAdress.getCreatedBy());
+		pstmt.setObject(8, newAdress.getCreatedDate());
+		pstmt.setString(9, newAdress.getUpdatedBy());
+		pstmt.setObject(10, newAdress.getUpdatedDate());
+		pstmt.setInt(11, oldAdress.getAdressId());
 
 		return pstmt.executeUpdate();
 	}

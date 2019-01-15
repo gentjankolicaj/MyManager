@@ -181,7 +181,7 @@ public class UserContactAccessObject implements UserContactAccess{
 
 	@Override
 	public int updateContact(UserContact oldContact, UserContact newContact) throws Exception {
-		String query = "UPDATE mymanager.user_contact SET contact_id=?,user_id=?,telephone=?,celular=?,email=?,fax=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE contact_id=?";
+		String query = "UPDATE mymanager.user_contact SET user_id=?,telephone=?,celular=?,email=?,fax=?,created_by=?,created_date=?,updated_by=?,updated_date=? WHERE contact_id=?";
 
 		setQueryType(QueryType.NORMAL);
 		
@@ -191,17 +191,16 @@ public class UserContactAccessObject implements UserContactAccess{
 		
 
 		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setInt(1, newContact.getContactId());
-		pstmt.setString(2, newContact.getPersonId());
-		pstmt.setInt(3, newContact.getTelephone());
-		pstmt.setInt(4, newContact.getCelular());
-		pstmt.setString(5, newContact.getEmail());
-		pstmt.setString(6, newContact.getFax());
-		pstmt.setString(7, newContact.getCreatedBy());
-		pstmt.setObject(8, newContact.getCreatedDate());
-		pstmt.setString(9, newContact.getUpdatedBy());
-		pstmt.setObject(10, newContact.getUpdatedDate());
-		pstmt.setInt(11, oldContact.getContactId());
+		pstmt.setString(1, newContact.getPersonId());
+		pstmt.setInt(2, newContact.getTelephone());
+		pstmt.setInt(3, newContact.getCelular());
+		pstmt.setString(4, newContact.getEmail());
+		pstmt.setString(5, newContact.getFax());
+		pstmt.setString(6, newContact.getCreatedBy());
+		pstmt.setObject(7, newContact.getCreatedDate());
+		pstmt.setString(8, newContact.getUpdatedBy());
+		pstmt.setObject(9, newContact.getUpdatedDate());
+		pstmt.setInt(10, oldContact.getContactId());
 
 		return pstmt.executeUpdate();
 

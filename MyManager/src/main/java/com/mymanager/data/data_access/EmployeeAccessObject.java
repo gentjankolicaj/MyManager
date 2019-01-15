@@ -277,7 +277,8 @@ public class EmployeeAccessObject implements EmployeeAccess {
 	@Override
 	public int saveEmployee(Employee employee) throws Exception {
 		String query = "INSERT INTO mymanager.employees (employee_id,first_name,last_name,middle_name,"
-				+ "birthday,birthplace,gender,job_id,department_id,project_name,created_by,created_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "birthday,birthplace,gender,job_id,department_id,project_name,created_by,created_date,updated_by,updated_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
 
 		PreparedStatement pstmt = database.updateStatement(query);
 		pstmt.setString(1, employee.getEmployeeId());
@@ -292,6 +293,8 @@ public class EmployeeAccessObject implements EmployeeAccess {
 		pstmt.setString(10, employee.getProjectName());
 		pstmt.setString(11, employee.getCreatedBy());
 		pstmt.setObject(12, employee.getCreatedDate());
+		pstmt.setString(13, employee.getUpdatedBy());
+		pstmt.setObject(14, employee.getUpdatedDate());
 
 		return pstmt.executeUpdate();
 	}
