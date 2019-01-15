@@ -249,7 +249,9 @@ public class LoginView extends JPanel {
 			}
 
 		} catch (Exception e) {
-			UtilWindow.showMessage(null, "Failed to register attempt.", MessageType.ERROR);
+			
+			e.printStackTrace();
+			
 		}
 	}
 

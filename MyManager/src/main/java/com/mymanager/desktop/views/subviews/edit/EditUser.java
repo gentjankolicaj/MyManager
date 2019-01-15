@@ -24,6 +24,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import org.apache.commons.lang3.math.NumberUtils;
 
 import com.mymanager.data.models.Country;
 import com.mymanager.data.models.Gender;
@@ -57,10 +58,10 @@ public class EditUser extends JDialog {
 	private JTextField lastname;
 	private JTextField birthplace;
 	private JTextField birthday;
-	
+
 	private JComboBox userTypeComboBox;
 	private DefaultComboBoxModel<String> userTypeModel;
-	
+
 	private JTextField rights;
 
 	private JPasswordField tfNewPassword;
@@ -93,7 +94,7 @@ public class EditUser extends JDialog {
 	private JTextField textFieldBuilding;
 	private JTextField textFieldCity;
 	private JLabel lblCountry;
-	private DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd MM yyyy");
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM yyyy");
 
 	private JComboBox comboBoxCountry;
 	private DefaultComboBoxModel<String> comboBoxModel;
@@ -119,7 +120,7 @@ public class EditUser extends JDialog {
 	 * Create the dialog.
 	 */
 	public EditUser(UserService userService, UserContactService userContactService, UserAdressService userAdressService,
-			User currentUser, User oldUser, UserContact oldContact,UserAdress oldAdress) {
+			User currentUser, User oldUser, UserContact oldContact, UserAdress oldAdress) {
 		this.selfReference = this;
 		setResizable(false);
 		setAlwaysOnTop(true);
@@ -139,7 +140,7 @@ public class EditUser extends JDialog {
 
 		initButtonEvents();
 
-		loadPanelsData();
+		populatePanelsData();
 
 	}
 
@@ -228,13 +229,12 @@ public class EditUser extends JDialog {
 		userTypeComboBox = new JComboBox();
 		userTypeComboBox.setToolTipText("ADMIN or MANAGER or HR or ASSISTANT");
 		userTypeComboBox.setBounds(404, 87, 221, 19);
-		
-		userTypeModel=new DefaultComboBoxModel();
+
+		userTypeModel = new DefaultComboBoxModel();
 		fillUserTypeComboBox();
-		
-		
+
 		userTypeComboBox.setModel(userTypeModel);
-		
+
 		detailsPanel.add(userTypeComboBox);
 
 		JLabel lblRights = new JLabel("Rights  :");
@@ -247,12 +247,12 @@ public class EditUser extends JDialog {
 		rights.setColumns(10);
 		rights.setBounds(736, 86, 218, 20);
 		detailsPanel.add(rights);
-		
+
 		rdbtnM = new JRadioButton("M");
 		buttonGroupSex.add(rdbtnM);
 		rdbtnM.setBounds(83, 84, 43, 23);
 		detailsPanel.add(rdbtnM);
-		
+
 		rdbtnF = new JRadioButton("F");
 		buttonGroupSex.add(rdbtnF);
 		rdbtnF.setBounds(128, 84, 49, 23);
@@ -449,7 +449,7 @@ public class EditUser extends JDialog {
 		btnSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				savePanelsData();
+				updatePanelsData();
 				selfReference.dispose();
 			}
 		});
@@ -463,7 +463,7 @@ public class EditUser extends JDialog {
 
 	}
 
-	private void loadDetails() {
+	private void populateDetails() {
 		id.setText(oldUser.getUserId());
 		firstname.setText(oldUser.getFirstName());
 		lastname.setText(oldUser.getLastName());
@@ -471,15 +471,15 @@ public class EditUser extends JDialog {
 		birthday.setText(oldUser.getBirthday().format(formatter));
 		userTypeComboBox.setSelectedItem(oldUser.getUserType());
 		rights.setText(oldUser.getRights());
-		
-		if(oldUser.getGender().equals(Gender.M))
+
+		if (oldUser.getGender().equals(Gender.M))
 			rdbtnM.setSelected(true);
 		else
 			rdbtnF.setSelected(true);
 
 	}
 
-	private void loadContact() {
+	private void populateContact() {
 		if (oldContact != null) {
 			textFieldContactId.setText(String.valueOf(oldContact.getContactId()));
 			textFieldTelephone.setText(String.valueOf(oldContact.getTelephone()));
@@ -489,7 +489,7 @@ public class EditUser extends JDialog {
 		}
 	}
 
-	private void loadAdress() {
+	private void populateAdress() {
 		if (oldAdress != null) {
 			textFieldAdressId.setText(String.valueOf(oldAdress.getAdressId()));
 			textFieldZipCode.setText(String.valueOf(oldAdress.getZipCode()));
@@ -501,84 +501,87 @@ public class EditUser extends JDialog {
 		}
 	}
 
-	private void loadPassword() {
+	private void populatePassword() {
 		tfNewPassword.setText(oldUser.getPassword());
 		tfRetypeNewPassword.setText(oldUser.getPassword());
 	}
-	private void loadPanelsData() {
+
+	private void populatePanelsData() {
 		loadCountries();
-		loadDetails();
-		loadPassword();
-		loadContact();
-		loadAdress();
+		populateDetails();
+		populatePassword();
+		populateContact();
+		populateAdress();
 
 	}
 
-	private void saveDetails() {
+	private int updateDetails() {
 		char[] newPassArray = tfNewPassword.getPassword();
 		String newPass = String.valueOf(newPassArray);
-		String genderStr = rdbtnM.isSelected() ?  "M":"F";
+		String genderStr = rdbtnM.isSelected() ? "M" : "F";
 		String rightsStr = rights.getText();
-		String userTypeStr =(String) userTypeComboBox.getSelectedItem();
+		String userTypeStr = (String) userTypeComboBox.getSelectedItem();
 		String birthdayStr = birthday.getText();
 
-		LocalDate birthday=null;
-		
+		LocalDate birthday = null;
+
 		if (birthdayStr.equals("")) {
 			birthdayStr = "01 01 1972";
 			try {
-				birthday=MyDateUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
+
+				birthday = MyDateUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
+
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			}
-		}else {
+		} else {
 
+			try {
 
-           try {
-        	   
-			birthday=MyDateUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+				birthday = MyDateUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
+
+			} catch (ParseException e) {
+
+				e.printStackTrace();
+			}
+
 		}
-		   
-		       
-		}
-		
-		if (userTypeStr.equals("")) {
-			userTypeStr = "USER";
-		}
-		
+
 		if (rightsStr.equals("")) {
 			rightsStr = Rights.READ.toString();
 		}
 
-		User newUser = new User(id.getText(), userTypeStr, firstname.getText(), lastname.getText(), newPass,
-				birthday, birthplace.getText(), Gender.valueOf(genderStr), rightsStr,
-				oldUser.getUserId(), currentUser.getUserId(), LocalDateTime.now(), LocalDateTime.now());
+		User newUser = new User(id.getText(), userTypeStr, firstname.getText(), lastname.getText(), newPass, birthday,
+				birthplace.getText(), Gender.valueOf(genderStr), rightsStr, oldUser.getCreatedBy(),
+				currentUser.getUserId(), LocalDateTime.now(), LocalDateTime.now());
 
 		try {
 
 			userService.updateUser(oldUser, newUser);
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
+			return 0;
 		}
+		return 1;
 	}
 
-	private void saveContact() {
+	private int updateContact() {
 		if (oldContact != null) {
+
 			String telephone = textFieldTelephone.getText();
 			String celular = textFieldCel.getText();
-			if (textFieldTelephone.getText().equals(""))
-				telephone = "0";
-			if (textFieldCel.getText().equals(""))
-				celular = "0";
+
+			if (telephone == null || !NumberUtils.isParsable(telephone))
+				telephone = "35501";
+
+			if (celular == null || !NumberUtils.isParsable(celular))
+				celular = "069";
 
 			UserContact newContact = new UserContact(1, id.getText(), Integer.parseInt(telephone),
-					Integer.parseInt(celular), textFieldEmail.getText(), textFieldFax.getText(), oldUser.getUserId(),
+					Integer.parseInt(celular), textFieldEmail.getText(), textFieldFax.getText(), oldContact.getCreatedBy(),
 					currentUser.getUserId(), LocalDateTime.now(), LocalDateTime.now());
 
 			try {
@@ -586,20 +589,25 @@ public class EditUser extends JDialog {
 				userContactService.updateContact(oldContact, newContact);
 
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
+				return 0;
 			}
+			return 1;
 
 		} else {
+
 			String telephone = textFieldTelephone.getText();
 			String celular = textFieldCel.getText();
-			if (textFieldTelephone.getText().equals(""))
-				telephone = "0";
-			if (textFieldCel.getText().equals(""))
-				celular = "0";
+
+			if (telephone == null || !NumberUtils.isParsable(telephone))
+				telephone = "35501";
+
+			if (celular == null || !NumberUtils.isParsable(celular))
+				celular = "069";
 
 			UserContact newContact = new UserContact(1, id.getText(), Integer.parseInt(telephone),
-					Integer.parseInt(celular), textFieldEmail.getText(), textFieldFax.getText(), oldUser.getUserId(),
+					Integer.parseInt(celular), textFieldEmail.getText(), textFieldFax.getText(), currentUser.getUserId(),
 					currentUser.getUserId(), LocalDateTime.now(), LocalDateTime.now());
 
 			try {
@@ -607,63 +615,79 @@ public class EditUser extends JDialog {
 				userContactService.saveContact(newContact);
 
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
+				return 0;
 			}
+			return 1;
 		}
 	}
 
-	private void saveAdress() {
+	private int updateAdress() {
 		if (oldAdress != null) {
-			String selectedCountryName = (String) comboBoxCountry.getSelectedItem();
-			String zipCode = textFieldZipCode.getText();
-			if (zipCode.equals(""))
-				zipCode = "0";
+			Object countryObject = comboBoxCountry.getSelectedItem();
+			String countryName = "";
 
-			UserAdress newAdress = new UserAdress(1, id.getText(), new Country(selectedCountryName),
-					textFieldCity.getText(), textFieldStreet.getText(), Integer.parseInt(zipCode),
-					textFieldBuilding.getText(), oldUser.getUserId(), currentUser.getUserId(), LocalDateTime.now(),
-					LocalDateTime.now());
+			if (countryObject == null)
+				countryName = "ALBANIA";
+			else
+				countryName=(String) countryObject.toString().trim();
+
+			String zipCode = textFieldZipCode.getText();
+
+			if (zipCode == null || !NumberUtils.isParsable(zipCode))
+				zipCode = "0000";
+
+			UserAdress newAdress = new UserAdress(1, id.getText(), new Country(countryName), textFieldCity.getText(),
+					textFieldStreet.getText(), Integer.parseInt(zipCode), textFieldBuilding.getText(),
+					oldAdress.getCreatedBy(), currentUser.getUserId(), LocalDateTime.now(), LocalDateTime.now());
 
 			try {
 
 				userAdressService.updateAdress(oldAdress, newAdress);
 
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 
+				e.printStackTrace();
+				return 0;
 			}
+			return 1;
 
 		} else {
-			String selectedCountryName = (String) comboBoxCountry.getSelectedItem();
-			String zipCode = textFieldZipCode.getText();
-			if (zipCode.equals(""))
-				zipCode = "0";
+			Object countryObject = comboBoxCountry.getSelectedItem();
+			String countryName = "";
 
-			UserAdress newAdress = new UserAdress(1, id.getText(), new Country(selectedCountryName),
-					textFieldCity.getText(), textFieldStreet.getText(), Integer.parseInt(zipCode),
-					textFieldBuilding.getText(), oldUser.getUserId(), currentUser.getUserId(), LocalDateTime.now(),
-					LocalDateTime.now());
+			if (countryObject != null)
+				countryName = "ALBANIA";
+
+			String zipCode = textFieldZipCode.getText();
+
+			if (zipCode == null || !NumberUtils.isParsable(zipCode))
+				zipCode = "0000";
+
+			UserAdress newAdress = new UserAdress(1, id.getText(), new Country(countryName), textFieldCity.getText(),
+					textFieldStreet.getText(), Integer.parseInt(zipCode), textFieldBuilding.getText(),
+					 currentUser.getUserId(), currentUser.getUserId(), LocalDateTime.now(), LocalDateTime.now());
 
 			try {
 
 				userAdressService.saveAdress(newAdress);
 
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 
+				e.printStackTrace();
+				return 0;
+			}
+			return 1;
 		}
 	}
 
-	private void savePanelsData() {
+	private void updatePanelsData() {
 		if (validatePasswords()) {
-			saveDetails();
-			saveContact();
-			saveAdress();
-			UtilWindow.showMessage(this, "Changes saved.", MessageType.INFORMATION);
+			if (updateDetails() == 1)
+				if (updateContact() == 1)
+					if (updateAdress() == 1)
+						UtilWindow.showMessage(this, "Changes saved.", MessageType.INFORMATION);
 		}
 	}
 
@@ -706,5 +730,5 @@ public class EditUser extends JDialog {
 		userTypeModel.addElement("FINANCE");
 		userTypeModel.addElement("ASSISTANT");
 	}
-	
+
 }

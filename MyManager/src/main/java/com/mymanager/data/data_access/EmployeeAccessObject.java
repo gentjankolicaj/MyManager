@@ -246,7 +246,7 @@ public class EmployeeAccessObject implements EmployeeAccess {
 
 	@Override
 	public int updateEmployee(Employee oldEmployee, Employee newEmployee) throws Exception {
-		String query = "UPDATE mymanager.employees SET employee_id=?,first_name=?," + "last_name=?," + "middle_name=?,"
+		String query = "UPDATE mymanager.employees SET first_name=?," + "last_name=?," + "middle_name=?,"
 				+ "birthday=?," + "birthplace=?," + "gender=?," + "job_id=?,department_id=?,project_name=?,"
 				+ "created_by=?," + "created_date=?," + "updated_by=?," + "updated_date=? WHERE employee_id=?";
 
@@ -255,21 +255,20 @@ public class EmployeeAccessObject implements EmployeeAccess {
 		savePreviousRow(temp);
 
 		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setString(1, newEmployee.getEmployeeId());
-		pstmt.setString(2, newEmployee.getFirstName());
-		pstmt.setString(3, newEmployee.getLastName());
-		pstmt.setString(4, newEmployee.getMiddleName());
-		pstmt.setObject(5, newEmployee.getBirthday());
-		pstmt.setString(6, newEmployee.getBirthplace());
-		pstmt.setString(7, newEmployee.getGender().name());
-		pstmt.setInt(8, newEmployee.getJobId());
-		pstmt.setInt(9, newEmployee.getDepartmentId());
-		pstmt.setString(10, newEmployee.getProjectName());
-		pstmt.setString(11, newEmployee.getCreatedBy());
-		pstmt.setObject(12, newEmployee.getCreatedDate());
-		pstmt.setString(13, newEmployee.getUpdatedBy());
-		pstmt.setObject(14, newEmployee.getUpdatedDate());
-		pstmt.setString(15, oldEmployee.getEmployeeId());
+		pstmt.setString(1, newEmployee.getFirstName());
+		pstmt.setString(2, newEmployee.getLastName());
+		pstmt.setString(3, newEmployee.getMiddleName());
+		pstmt.setObject(4, newEmployee.getBirthday());
+		pstmt.setString(5, newEmployee.getBirthplace());
+		pstmt.setString(6, newEmployee.getGender().name());
+		pstmt.setInt(7, newEmployee.getJobId());
+		pstmt.setInt(8, newEmployee.getDepartmentId());
+		pstmt.setString(9, newEmployee.getProjectName());
+		pstmt.setString(10, newEmployee.getCreatedBy());
+		pstmt.setObject(11, newEmployee.getCreatedDate());
+		pstmt.setString(12, newEmployee.getUpdatedBy());
+		pstmt.setObject(13, newEmployee.getUpdatedDate());
+		pstmt.setString(14, oldEmployee.getEmployeeId());
 
 		return pstmt.executeUpdate();
 	}

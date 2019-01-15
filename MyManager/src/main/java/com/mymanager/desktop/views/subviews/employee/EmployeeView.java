@@ -28,6 +28,7 @@ import com.mymanager.desktop.views.MainView;
 import com.mymanager.desktop.views.subviews.create.CreateEmployee;
 import com.mymanager.desktop.views.subviews.create.CreateUser;
 import com.mymanager.desktop.views.subviews.custom.MyPanel;
+import com.mymanager.desktop.views.subviews.edit.EditEmployee;
 import com.mymanager.services.EmployeeAdressService;
 import com.mymanager.services.EmployeeAdressServiceImpl;
 import com.mymanager.services.EmployeeContactService;
@@ -197,8 +198,36 @@ public class EmployeeView extends MyPanel {
 		btnEdit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				
+				int selectedRow = table.getSelectedRow();
+				int totalRows = table.getRowCount();
+				if ((selectedRow > -1) && (selectedRow < totalRows)) {
+					Employee employeeToDelete = currentEmployeeList.get(selectedRow);
+					
+					EmployeeAdress employeeAdress=null;
+					EmployeeContact employeeContact=null;
+
+						try {
+							 employeeAdress=employeeAdressService.getAdressesByPersonId(employeeToDelete.getEmployeeId());
+							 employeeContact=employeeContactService.getContactByPersonId(employeeToDelete.getEmployeeId());
+							
+							
+						} catch (Exception e1) {
+							
+							e1.printStackTrace();
+						}
+						
+						EditEmployee editEmployee=new EditEmployee(employeeService,employeeAdressService,employeeContactService,user,employeeToDelete,employeeAdress,employeeContact);
+						editEmployee.setModal(true);
+						editEmployee.setVisible(true);
+						
+						loadData();
+					}
+				
 			}
 		});
+		
+		
 		btnDelete.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {

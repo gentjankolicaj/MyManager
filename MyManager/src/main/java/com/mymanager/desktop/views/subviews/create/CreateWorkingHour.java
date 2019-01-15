@@ -17,6 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 import com.mymanager.data.models.User;
 import com.mymanager.data.models.WorkingHour;
 import com.mymanager.services.WorkingHourService;
@@ -104,8 +106,12 @@ public class CreateWorkingHour extends JDialog {
 		btnSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				String amount=textFieldAmount.getText();
+				if (amount==null||!NumberUtils.isParsable(amount))
+					amount = "0";
+				
 				WorkingHour newWorkingHour = new WorkingHour(0, textFieldEmpId.getText(), LocalDate.now(),
-						Float.parseFloat(textFieldAmount.getText()), user.getUserId(), user.getUserId(),
+						Float.parseFloat(amount), user.getUserId(), user.getUserId(),
 						LocalDateTime.now(), LocalDateTime.now());
 				try {
 					

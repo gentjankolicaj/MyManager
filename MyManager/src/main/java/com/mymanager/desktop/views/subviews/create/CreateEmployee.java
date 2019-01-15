@@ -23,6 +23,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.AdressType;
 import com.mymanager.data.models.ContactType;
@@ -477,7 +479,9 @@ public class CreateEmployee extends JDialog {
 		btnSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				
 				savePanelsData();
+				
 				selfReference.dispose();
 			}
 		});
@@ -491,8 +495,8 @@ public class CreateEmployee extends JDialog {
 
 	}
 
-	private void saveDetails() {
-		
+	
+	private int saveDetails() {
 		String empId=tfId.getText();
 		String firstName=tfFirstName.getText();
 		String middleName=tfMiddleName.getText();
@@ -524,9 +528,21 @@ public class CreateEmployee extends JDialog {
 		        
 		}
 		
-		int jobId=(Integer)jobComboBox.getSelectedItem();
-		int departmentId=(Integer)departmentComboBox.getSelectedItem();
-		String projectName=(String)projectComboBox.getSelectedItem();
+		Object jobObject=jobComboBox.getSelectedItem();
+		Object departmentObject=departmentComboBox.getSelectedItem();
+		Object projectObject=projectComboBox.getSelectedItem();
+		int jobId=0;
+		int departmentId=0;
+		String projectName=null;
+		
+		if(jobObject!=null)
+			jobId=(Integer)jobObject;
+		
+		if(departmentObject!=null)
+			departmentId=(Integer)departmentObject;
+		
+		if(projectObject!=null)
+			projectName=(String) projectObject;
 		
 	
    
@@ -536,21 +552,29 @@ public class CreateEmployee extends JDialog {
 
 			employeeService.saveEmployee(newEmployee);
 		
-		} catch (Exception e) {
+		} catch (java.sql.SQLIntegrityConstraintViolationException c) {
+			
+			UtilWindow.showMessage(this, "New employee must have a job,department and project set.", MessageType.ERROR);
+			
+			return 0;
+			
+		}catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return 0;
 		}
-
+         return 1;
 	}
 
-	private void saveContact() {
+	private int saveContact() {
 		String telephone = textFieldTelephone.getText();
 		String celular = textFieldCel.getText();
-		if (telephone.equals("")||telephone.equals(" " ))
-			telephone = "0";
 		
-		if (celular.equals("")||celular.equals(" "))
-			celular = "0";
+		if (telephone==null||!NumberUtils.isParsable(telephone))
+			telephone = "35501";
+		
+		if (celular==null||!NumberUtils.isParsable(celular))
+			celular = "069";
 
 		EmployeeContact newContact = new EmployeeContact(1, tfId.getText(), Integer.parseInt(telephone),
 				Integer.parseInt(celular), textFieldEmail.getText(), textFieldFax.getText(), user.getUserId(),
@@ -563,18 +587,29 @@ public class CreateEmployee extends JDialog {
 		} catch (Exception e) {
 			
 			e.printStackTrace();
+			return 0;
 		}
 
+		
+		return 1;
 	}
 
-	private void saveAdress() {
-		String selectedCountryName = (String) comboBoxCountry.getSelectedItem();
+	private int saveAdress() {
+		Object countryObject = comboBoxCountry.getSelectedItem();
+		String countryName = "";
+
+		if (countryObject == null)
+			countryName = "ALBANIA";
+		else
+			countryName=(String) countryObject.toString().trim();
+		
 		String zipCode = textFieldZipCode.getText();
 		
-		if (zipCode.equals(""))
-			zipCode = "0";
+		
+		if (zipCode==null||!NumberUtils.isParsable(zipCode))
+			zipCode = "0000";
 
-		EmployeeAdress newAdress = new EmployeeAdress(1, tfId.getText(), new Country(selectedCountryName),
+		EmployeeAdress newAdress = new EmployeeAdress(1, tfId.getText(), new Country(countryName),
 				textFieldCity.getText(), textFieldStreet.getText(), Integer.parseInt(zipCode),
 				textFieldBuilding.getText(), user.getUserId(), user.getUserId(), LocalDateTime.now(),
 				LocalDateTime.now());
@@ -584,15 +619,17 @@ public class CreateEmployee extends JDialog {
 			employeeAdressService.saveAdress(newAdress);
 
 		} catch (Exception e) {
+			
 			e.printStackTrace();
+			return 0;
 		}
-
+        return 1;
 	}
 
 	private void savePanelsData() {
-			saveDetails();
-			saveContact();
-			saveAdress();
+			if(saveDetails()==1)
+			   if(saveContact()==1)
+				   saveAdress();
           
 	}
 	
@@ -625,7 +662,9 @@ public class CreateEmployee extends JDialog {
 		List<Project> tmp=null;
 		
 		try {
+			
 			tmp=projectService.getAllProjects();
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -634,15 +673,17 @@ public class CreateEmployee extends JDialog {
 				projectModel.addElement(var.getProjectName());
 			
 		}
-		
 	}
+	
 	
 private void fillComboBoxJob() {
 	jobModel.removeAllElements();
 	List<Job> tmp=null;
 	
 	try {
+		
 		tmp=jobService.getAllJobs();
+		
 	}catch(Exception e) {
 		e.printStackTrace();
 	}
@@ -660,6 +701,7 @@ private void fillComboBoxDepartment() {
 	departmentModel.removeAllElements();
 	List<Department> tmp=null;
 	try {
+		
 		tmp=departmentService.getAllDepartments();
 		
 	}catch(Exception e) {
@@ -669,8 +711,9 @@ private void fillComboBoxDepartment() {
 		for(Department var:tmp)
 		departmentModel.addElement(var.getDepartmentId());
 	}
-	
-	
 }
+
+
+
 	
 }

@@ -23,6 +23,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 import com.mymanager.data.database.QueryType;
 import com.mymanager.data.models.AdressType;
 import com.mymanager.data.models.ContactType;
@@ -456,7 +458,7 @@ public class CreateUser extends JDialog {
 
 	}
 
-	private void saveDetails() {
+	private int saveDetails() {
 		char[] newPassArray = textFieldNewPassword.getPassword();
 		String newPass = String.valueOf(newPassArray);
 		String genderStr = rdbtnM.isSelected() ?  "M":"F";
@@ -488,10 +490,6 @@ public class CreateUser extends JDialog {
 		}
 		
 		
-		if (userTypeStr.equals("")) {
-			userTypeStr = "USER";
-		}
-		
 		if (rightsStr.equals("")) {
 			rightsStr = Rights.READ.toString();
 		}
@@ -502,24 +500,27 @@ public class CreateUser extends JDialog {
 		try {
 
 			userService.saveUser(newUser);
+			
 			UtilWindow.showMessage(this, "New user created", MessageType.INFORMATION);
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
+			
+			return 0;
 		}
-
+		return 1;
 	}
 
-	private void saveContact() {
+	private int saveContact() {
 		String telephone = textFieldTelephone.getText();
 		String celular = textFieldCel.getText();
 		
-		if (telephone.equals("")||telephone.equals(" " ))
-			telephone = "0";
+		if (telephone==null||!NumberUtils.isParsable(telephone))
+			telephone = "35501";
 		
-		if (celular.equals("")||celular.equals(" "))
-			celular = "0";
+		if (celular==null||!NumberUtils.isParsable(celular))
+			celular = "069";
 
 		UserContact newContact = new UserContact(1, id.getText(), Integer.parseInt(telephone),
 				Integer.parseInt(celular), textFieldEmail.getText(), textFieldFax.getText(), user.getUserId(),
@@ -530,19 +531,29 @@ public class CreateUser extends JDialog {
 			userContactService.saveContact(newContact);
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
+			return 0;
 		}
 
+		return 1;
 	}
 
-	private void saveAdress() {
-		String selectedCountryName = (String) comboBoxCountry.getSelectedItem();
-		String zipCode = textFieldZipCode.getText();
-		if (zipCode.equals(""))
-			zipCode = "0";
+	private int saveAdress() {
+		Object countryObject = comboBoxCountry.getSelectedItem();
+		String countryName = "";
 
-		UserAdress newAdress = new UserAdress(1, id.getText(), new Country(selectedCountryName),
+		if (countryObject == null)
+			countryName = "ALBANIA";
+		else
+			countryName=(String) countryObject.toString().trim();
+		
+		String zipCode = textFieldZipCode.getText();
+		
+		if (zipCode==null||!NumberUtils.isParsable(zipCode))
+			zipCode = "0000";
+
+		UserAdress newAdress = new UserAdress(1, id.getText(), new Country(countryName),
 				textFieldCity.getText(), textFieldStreet.getText(), Integer.parseInt(zipCode),
 				textFieldBuilding.getText(), user.getUserId(), user.getUserId(), LocalDateTime.now(),
 				LocalDateTime.now());
@@ -552,16 +563,20 @@ public class CreateUser extends JDialog {
 			userAdressService.saveAdress(newAdress);
 
 		} catch (Exception e) {
+			
 			e.printStackTrace();
+			return 0;
 		}
 
+		return 1;
 	}
 
 	private void savePanelsData() {
 		if (validatePasswords()) {
-			saveDetails();
-			saveContact();
-			saveAdress();
+			if(saveDetails()==1)
+				if(saveContact()==1)
+					saveAdress();
+			
 		}
 	}
 
