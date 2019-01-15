@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mymanager.config.Config;
 import com.mymanager.data.models.MyModel;
 
@@ -16,6 +18,25 @@ import com.mymanager.data.models.MyModel;
 public class ConsolePrinter {
 
 	public static final PrintFormat FORMAT = Config.PRINT_FORMAT;
+	
+	private static final ObjectMapper mapper=new ObjectMapper();
+	
+	
+	public static void printFormat(Object object) {
+		if(FORMAT.equals(FORMAT.NORMAL)) {
+			System.out.println(object.toString());
+		}else if(FORMAT.equals(FORMAT.JSON)) {
+			try {
+				System.out.println(mapper.writeValueAsString(object));
+			} catch (JsonProcessingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+	
 
 	public static void print(String source) {
 		System.out.println("-  " + source);
@@ -26,12 +47,13 @@ public class ConsolePrinter {
 		if (object != null) {
 			if (object instanceof MyModel) {
 				MyModel model = (MyModel) object;
-				System.out.println(model.toString());
+				printFormat(model);
 			} else {
 				System.out.println("-  " + object.toString());
 			}
 
 		}
+        System.out.println();
 	}
 
 	public static void print(Class<?> cls) {
@@ -43,7 +65,6 @@ public class ConsolePrinter {
 
 	public static void print(Exception exception) {
 		if (exception != null) {
-
 			System.out.println(" Exception : " + exception.getMessage());
 		}
 	}
@@ -55,10 +76,12 @@ public class ConsolePrinter {
 			while (iter.hasNext()) {
 				Object key = iter.next();
 				Object value = map.get(key);
-				print("{ " + key.toString() + " : " + value.toString() + " }");
+				print("[ " + key.toString() + " = " + value.toString() + " ]");
 
 			}
 		}
+		
+		System.out.println();
 
 	}
 
@@ -69,11 +92,12 @@ public class ConsolePrinter {
 				i++;
 				if (object instanceof MyModel) {
 					MyModel model = (MyModel) object;
-					System.out.println(model.toString());
+					printFormat(model);
 				} else
 					print(i + "." + object.toString());
 			}
 		}
+		System.out.println();
 	}
 
 }
