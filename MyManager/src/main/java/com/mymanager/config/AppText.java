@@ -18,7 +18,7 @@ public class AppText {
 	public static String iconOwnerTitle = "Icons are property of https://icons8.com/ .They distribute icons under the license called Creative Commons Attribution-NoDerivs 3.0 Unported.Check the site for more awesome icons.";
 	public static String developer = "Author : Gentjan Kolicaj";
 	public static String githubAccount = "Github : https://github.com/gentjankolicaj";
-	public static String email = "Email : gentjankolicaj@gmail.com";
+	public static String email = "Email : gentjankolicaj@yahoo.com";
 
 	public static String[] textMode = { "ADMIN", "ASSISTANT", "FINANCE", "HUMAN RESOURCE", "MANAGER", };
 	public static String[] permissions = { "READ", "CREATE", "EDIT", "DELETE", "AUDIT" };
