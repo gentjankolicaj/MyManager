@@ -4,7 +4,6 @@ import io.gentjankolicaj.app.mymanager.desktop.data.dao.JobDao;
 import io.gentjankolicaj.app.mymanager.desktop.data.models.Job;
 import io.gentjankolicaj.app.mymanager.desktop.db.custom.Database;
 import io.gentjankolicaj.app.mymanager.desktop.db.custom.DatabaseManager;
-import io.gentjankolicaj.app.mymanager.desktop.db.custom.DatabasePool;
 import io.gentjankolicaj.app.mymanager.desktop.db.custom.QueryType;
 import io.gentjankolicaj.app.mymanager.desktop.enums.PrintType;
 import io.gentjankolicaj.app.mymanager.desktop.util.PrintUtils;
@@ -16,7 +15,7 @@ import java.util.List;
 
 public class JobDaoImpl implements JobDao {
 
-    protected static Database database = DatabasePool.getReference(DatabaseManager.getRecentInstanceNumber());
+    protected static Database database = DatabaseManager.getDb();
 
     private QueryType queryType;
 

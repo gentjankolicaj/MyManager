@@ -1,33 +1,36 @@
 package io.gentjankolicaj.app.mymanager.desktop;
 
 import io.gentjankolicaj.app.mymanager.desktop.db.custom.DatabaseManager;
-import io.gentjankolicaj.app.mymanager.desktop.db.custom.RDBMSType;
+import io.gentjankolicaj.app.mymanager.desktop.view.DesktopFrame;
 import io.gentjankolicaj.app.mymanager.desktop.view.LoginView;
-import io.gentjankolicaj.app.mymanager.desktop.view.MyFrame;
+import io.gentjankolicaj.app.mymanager.desktop.yaml.ApplicationConfigYaml;
+import io.gentjankolicaj.app.mymanager.desktop.yaml.YamlUtils;
 
 import java.awt.*;
+import java.io.IOException;
 
 /**
  * @author gentjan kolicaj
  */
 public class DesktopApplication {
 
-	public static void main(String[] args) {
-		try {
-			DatabaseManager.getDatabase(RDBMSType.MySQL);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public static void main(String[] args) throws Exception {
+		ApplicationConfigYaml applicationConfigYaml = getConfigurationYaml();
+		DatabaseManager.initDb(applicationConfigYaml.getDatabase());
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MyFrame frame = new MyFrame();
+					DesktopFrame frame = new DesktopFrame();
 					new LoginView(frame);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+	}
+
+	static ApplicationConfigYaml getConfigurationYaml() throws IOException {
+		return YamlUtils.readFile("application.yml", ApplicationConfigYaml.class);
 	}
 
 }

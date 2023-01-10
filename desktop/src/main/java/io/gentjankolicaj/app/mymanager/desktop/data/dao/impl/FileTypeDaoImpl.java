@@ -4,7 +4,6 @@ import io.gentjankolicaj.app.mymanager.desktop.data.dao.FileTypeDao;
 import io.gentjankolicaj.app.mymanager.desktop.data.models.FileType;
 import io.gentjankolicaj.app.mymanager.desktop.db.custom.Database;
 import io.gentjankolicaj.app.mymanager.desktop.db.custom.DatabaseManager;
-import io.gentjankolicaj.app.mymanager.desktop.db.custom.DatabasePool;
 import io.gentjankolicaj.app.mymanager.desktop.enums.PrintType;
 import io.gentjankolicaj.app.mymanager.desktop.util.PrintUtils;
 
@@ -15,7 +14,7 @@ import java.util.List;
 
 public class FileTypeDaoImpl implements FileTypeDao {
 
-	protected static Database database = DatabasePool.getReference(DatabaseManager.getRecentInstanceNumber());
+	protected static Database database = DatabaseManager.getDb();
 
 	@Override
 	public List<FileType> findAllFileTypes() throws Exception {

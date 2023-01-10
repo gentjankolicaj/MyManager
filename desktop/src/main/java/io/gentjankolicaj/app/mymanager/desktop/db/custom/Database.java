@@ -1,17 +1,16 @@
 package io.gentjankolicaj.app.mymanager.desktop.db.custom;
 
-import io.gentjankolicaj.app.mymanager.desktop.enums.PrintType;
-import io.gentjankolicaj.app.mymanager.desktop.util.PrintUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.sql.*;
 import java.util.List;
 
 /**
- * 
- * @author gentjan_kolicaj
- *
+ * @author gentjan kolicaj
  */
-public class Database implements Connectable {
+@Slf4j
+public abstract class Database implements Connectable {
 
 	private final String driverName;
 	private final String api;
@@ -25,8 +24,7 @@ public class Database implements Connectable {
 	private String url;
 
 	private Connection connection;
-	private Statement statement;
-	private PreparedStatement preparedStatement;
+
 
 	/**
 	 * @param driverName
@@ -57,7 +55,6 @@ public class Database implements Connectable {
 	@Override
 	public void initDriver() throws Exception {
 		Class.forName(driverName);
-
 	}
 
 	@Override
@@ -65,41 +62,34 @@ public class Database implements Connectable {
 		url = new ConnectionUrlBuilder().setApi(api).setDatabase(databaseType).setServer(server).setPort(port)
 				.setSchema(schema).setSSL(ssl).build();
 		connection = DriverManager.getConnection(url, user, password);
-		PrintUtils.print("--> Connected : " + url, PrintType.DATABASE_IO);
-
+		log.info("Connected : " + url);
 	}
 
 	@Override
 	public void disconnect() throws Exception {
 		if (connection != null) {
 			connection.close();
-			PrintUtils.print("--> Disconnected : " + url, PrintType.DATABASE_IO);
-
+			log.info("Disconnected : " + url);
 		}
-
 	}
 
 	public ResultSet selectStatement(String query) throws SQLException {
-		ResultSet resultSet = null;
-		statement = connection.createStatement();
-		resultSet = statement.executeQuery(query);
-		return resultSet;
+		return connection.createStatement().executeQuery(query);
 	}
 
 	public PreparedStatement updateStatement(String query) throws SQLException {
-		preparedStatement = connection.prepareStatement(query);
-		return preparedStatement;
-
+		return connection.prepareStatement(query);
 	}
 
-	public ResultSet selectStatement(String query, List<Object> objectList) throws SQLException {
-		ResultSet resultSet = null;
-		preparedStatement = connection.prepareStatement(query);
-		for (int i = 1; i < objectList.size() + 1; i++) {
-			preparedStatement.setObject(i, objectList.get(i));
+	public ResultSet selectStatement(String query, List<Object> list) throws SQLException {
+		if (CollectionUtils.isEmpty(list))
+			throw new SQLException("Error list of objects empty");
+
+		PreparedStatement preparedStatement = connection.prepareStatement(query);
+		for (int i = 1, len = list.size(); i < len + 1; i++) {
+			preparedStatement.setObject(i, list.get(i));
 		}
-		resultSet = preparedStatement.executeQuery();
-		return resultSet;
+		return preparedStatement.executeQuery();
 	}
 
 	public boolean isSsl() {

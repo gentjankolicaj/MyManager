@@ -1,0 +1,14 @@
+applicationName: MyManager
+
+database:
+  driverClassName: com.mysql.cj.jdbc.Driver
+  jdbcUrl: jdbc:mysql://localhost:3306/mymanager
+  username: admin
+  password: P4ssw0rd
+  datasourceProperties:
+    cachePrepStmts: true
+    prepStmtCacheSize: 250
+    prepStmtCacheSqlLimit: 2048
+
+
+    

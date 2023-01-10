@@ -4,9 +4,9 @@ package io.gentjankolicaj.app.mymanager.desktop.db.custom;
 /**
  * @author gentjan kolicaj
  */
-public class ConnectionUrlBuilder {
+public final class ConnectionUrlBuilder {
 
-    private String api;
+	private String api;
 	private String database;
 	private String server;
 	private int port;

@@ -4,7 +4,6 @@ import io.gentjankolicaj.app.mymanager.desktop.data.dao.PaymentTypeDao;
 import io.gentjankolicaj.app.mymanager.desktop.data.models.PaymentType;
 import io.gentjankolicaj.app.mymanager.desktop.db.custom.Database;
 import io.gentjankolicaj.app.mymanager.desktop.db.custom.DatabaseManager;
-import io.gentjankolicaj.app.mymanager.desktop.db.custom.DatabasePool;
 import io.gentjankolicaj.app.mymanager.desktop.enums.PrintType;
 import io.gentjankolicaj.app.mymanager.desktop.util.PrintUtils;
 
@@ -18,7 +17,7 @@ import java.util.List;
  */
 public class PaymentTypeDaoImpl implements PaymentTypeDao {
 
-    protected static Database database = DatabasePool.getReference(DatabaseManager.getRecentInstanceNumber());
+    protected static Database database = DatabaseManager.getDb();
 
     @Override
     public List<PaymentType> findAllPaymentTypes() throws Exception {

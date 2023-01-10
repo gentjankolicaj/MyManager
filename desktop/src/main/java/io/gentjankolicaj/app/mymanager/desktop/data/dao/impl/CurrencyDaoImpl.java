@@ -4,7 +4,6 @@ import io.gentjankolicaj.app.mymanager.desktop.data.dao.CurrencyDao;
 import io.gentjankolicaj.app.mymanager.desktop.data.models.Currency;
 import io.gentjankolicaj.app.mymanager.desktop.db.custom.Database;
 import io.gentjankolicaj.app.mymanager.desktop.db.custom.DatabaseManager;
-import io.gentjankolicaj.app.mymanager.desktop.db.custom.DatabasePool;
 import io.gentjankolicaj.app.mymanager.desktop.enums.PrintType;
 import io.gentjankolicaj.app.mymanager.desktop.util.PrintUtils;
 
@@ -18,7 +17,7 @@ import java.util.List;
  */
 public class CurrencyDaoImpl implements CurrencyDao {
 
-    protected static Database database = DatabasePool.getReference(DatabaseManager.getRecentInstanceNumber());
+    protected static Database database = DatabaseManager.getDb();
 
     public CurrencyDaoImpl() {
         super();

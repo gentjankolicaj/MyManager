@@ -2,7 +2,7 @@ package io.gentjankolicaj.app.mymanager.desktop;
 
 
 import io.gentjankolicaj.app.mymanager.desktop.db.custom.Database;
-import io.gentjankolicaj.app.mymanager.desktop.db.custom.MySQLDatabase;
+import io.gentjankolicaj.app.mymanager.desktop.db.custom.impl.MySQLDatabase;
 import org.junit.jupiter.api.Test;
 
 /**

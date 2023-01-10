@@ -8,13 +8,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MyFrame extends JFrame {
+public class DesktopFrame extends JFrame {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -7736940175263788897L;
-	
+
 	public int tempWidth;
 	public int tempHeight;
 	private JMenu menuFile;
@@ -34,7 +34,7 @@ public class MyFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MyFrame() {
+	public DesktopFrame() {
 		initMenu();
 		initMenuItemEvents();
 		initComponents();
@@ -44,10 +44,10 @@ public class MyFrame extends JFrame {
 
 	public void initComponents() {
 		getContentPane().setBackground(UIManager.getColor("Button.background"));
-        setBackground(UIManager.getColor("Button.background"));
-        setIconImage(Toolkit.getDefaultToolkit()
-                .getImage(MyFrame.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_45x45/icons8-admin-2.png")));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBackground(UIManager.getColor("Button.background"));
+		setIconImage(Toolkit.getDefaultToolkit()
+				.getImage(DesktopFrame.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_45x45/icons8-admin-2.png")));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(200, 150, Config.FRAME_WIDTH, Config.FRAME_HEIGHT);
 		setResizable(false);
 

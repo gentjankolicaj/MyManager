@@ -1,24 +1,45 @@
 package io.gentjankolicaj.app.mymanager.desktop.db.custom;
 
+import io.gentjankolicaj.app.mymanager.desktop.db.custom.impl.GenericDatabase;
+import io.gentjankolicaj.app.mymanager.desktop.db.custom.impl.MySQLDatabase;
+import io.gentjankolicaj.app.mymanager.desktop.db.custom.impl.OracleDatabase;
+import io.gentjankolicaj.app.mymanager.desktop.db.custom.impl.PostgresDatabase;
+import io.gentjankolicaj.app.mymanager.desktop.db.datasource.HikariCPManager;
+import io.gentjankolicaj.app.mymanager.desktop.yaml.DatabaseConfigYaml;
+
+import static java.util.Objects.isNull;
+
 /**
  * @author gentjan kolicaj
  */
 public class DatabaseManager {
 
 	private static int instanceNumber = 0;
+	private static Database db;
 
 	private DatabaseManager() {
+	}
+
+	public static void initDb(DatabaseConfigYaml databaseConfigYaml) throws Exception {
+		if (isNull(db)) {
+			HikariCPManager.initPool(databaseConfigYaml);
+			db = new GenericDatabase();
+		}
+	}
+
+	public static Database getDb() {
+		return db;
 	}
 
 	public static Database getDatabase(RDBMSType type) throws Exception {
 		Database temp = null;
 		switch (type) {
 			case ORACLE:
-                temp = new OracleDatabase();
-			break;
-		case PostgreSQL:
-			temp = new PostgresDatabase();
-			break;
+				temp = new OracleDatabase();
+				break;
+			case PostgreSQL:
+				temp = new PostgresDatabase();
+				break;
 		default:
 			temp = new MySQLDatabase();
 		}
