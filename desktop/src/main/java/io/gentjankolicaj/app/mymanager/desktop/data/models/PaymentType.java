@@ -5,35 +5,35 @@ package io.gentjankolicaj.app.mymanager.desktop.data.models;
  */
 public class PaymentType extends MyModel {
 
-	private String payment;
+    private String payment;
 
-	/**
-	 * 
-	 */
-	public PaymentType() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    /**
+     *
+     */
+    public PaymentType() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
-	/**
-	 * @param payment
-	 */
-	public PaymentType(String payment) {
-		super();
-		this.payment = payment;
-	}
+    /**
+     * @param payment
+     */
+    public PaymentType(String payment) {
+        super();
+        this.payment = payment;
+    }
 
-	public String getPayment() {
-		return payment;
-	}
+    public String getPayment() {
+        return payment;
+    }
 
-	public void setPayment(String payment) {
-		this.payment = payment;
-	}
+    public void setPayment(String payment) {
+        this.payment = payment;
+    }
 
-	@Override
-	public String toString() {
-		return "PaymentType [payment=" + payment + "]";
-	}
+    @Override
+    public String toString() {
+        return "PaymentType [payment=" + payment + "]";
+    }
 
 }

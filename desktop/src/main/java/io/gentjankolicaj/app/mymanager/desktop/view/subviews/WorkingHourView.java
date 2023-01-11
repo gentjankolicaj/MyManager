@@ -28,288 +28,288 @@ import java.util.List;
 
 public class WorkingHourView extends MyPanel {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -1225822272502930994L;
-	private final ButtonGroup buttonGroupSearchType = new ButtonGroup();
-	private final JFrame jframe;
-	private final MyPanel selfReference;
-	private final MainView mainView;
-	// Service fields
-	private final UserService userService;
-	private final WorkingHourService workingHourService;
-	private final User user;
-	private JTextField textFieldSearch;
-	private JButton btnSearch;
-	private DefaultTableModel tableModel;
-	private MyTable table;
-	private JButton btnCreate;
-	private JButton btnEdit;
-	private JButton btnDelete;
-	private JButton btnBack;
-	private JRadioButton rdbtnId;
-	private JRadioButton rdbtnEmpId;
-	private JRadioButton rdbtnDate;
-	private List<WorkingHour> currentWorkingHourList;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1225822272502930994L;
+    private final ButtonGroup buttonGroupSearchType = new ButtonGroup();
+    private final JFrame jframe;
+    private final MyPanel selfReference;
+    private final MainView mainView;
+    // Service fields
+    private final UserService userService;
+    private final WorkingHourService workingHourService;
+    private final User user;
+    private JTextField textFieldSearch;
+    private JButton btnSearch;
+    private DefaultTableModel tableModel;
+    private MyTable table;
+    private JButton btnCreate;
+    private JButton btnEdit;
+    private JButton btnDelete;
+    private JButton btnBack;
+    private JRadioButton rdbtnId;
+    private JRadioButton rdbtnEmpId;
+    private JRadioButton rdbtnDate;
+    private List<WorkingHour> currentWorkingHourList;
 
-	/**
-	 * Create the panel.
-	 */
-	public WorkingHourView(JFrame jframe, MainView mainView, UserService userService, User user) {
-		super(1060, 620);
-		this.jframe = jframe;
-		this.mainView = mainView;
-		this.selfReference = this;
+    /**
+     * Create the panel.
+     */
+    public WorkingHourView(JFrame jframe, MainView mainView, UserService userService, User user) {
+        super(1060, 620);
+        this.jframe = jframe;
+        this.mainView = mainView;
+        this.selfReference = this;
 
-		this.userService = userService;
-		this.user = user;
-		this.workingHourService = new WorkingHourServiceImpl();
+        this.userService = userService;
+        this.user = user;
+        this.workingHourService = new WorkingHourServiceImpl();
 
-		initComponents();
-		initEvents();
+        initComponents();
+        initEvents();
 
-	}
+    }
 
-	private void initComponents() {
-		setLayout(null);
-		JLabel lblNewLabel = new JLabel("All registered working hours");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel.setBounds(341, 13, 274, 35);
-		add(lblNewLabel);
+    private void initComponents() {
+        setLayout(null);
+        JLabel lblNewLabel = new JLabel("All registered working hours");
+        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+        lblNewLabel.setBounds(341, 13, 274, 35);
+        add(lblNewLabel);
 
-		textFieldSearch = new JTextField();
-		textFieldSearch.setBounds(12, 85, 785, 30);
-		add(textFieldSearch);
-		textFieldSearch.setColumns(10);
+        textFieldSearch = new JTextField();
+        textFieldSearch.setBounds(12, 85, 785, 30);
+        add(textFieldSearch);
+        textFieldSearch.setColumns(10);
 
-		btnSearch = new JButton("Search");
-		btnSearch.setBounds(807, 85, 138, 30);
-		add(btnSearch);
+        btnSearch = new JButton("Search");
+        btnSearch.setBounds(807, 85, 138, 30);
+        add(btnSearch);
 
-		JLabel lblSearcchBy = new JLabel("Search by :");
-		lblSearcchBy.setBounds(12, 48, 89, 31);
-		add(lblSearcchBy);
+        JLabel lblSearcchBy = new JLabel("Search by :");
+        lblSearcchBy.setBounds(12, 48, 89, 31);
+        add(lblSearcchBy);
 
-		rdbtnId = new JRadioButton("Id");
-		buttonGroupSearchType.add(rdbtnId);
-		rdbtnId.setBounds(92, 50, 71, 25);
-		add(rdbtnId);
+        rdbtnId = new JRadioButton("Id");
+        buttonGroupSearchType.add(rdbtnId);
+        rdbtnId.setBounds(92, 50, 71, 25);
+        add(rdbtnId);
 
-		rdbtnEmpId = new JRadioButton("Emp Id");
-		buttonGroupSearchType.add(rdbtnEmpId);
-		rdbtnEmpId.setBounds(159, 50, 71, 25);
-		add(rdbtnEmpId);
+        rdbtnEmpId = new JRadioButton("Emp Id");
+        buttonGroupSearchType.add(rdbtnEmpId);
+        rdbtnEmpId.setBounds(159, 50, 71, 25);
+        add(rdbtnEmpId);
 
-		rdbtnDate = new JRadioButton("Date");
-		buttonGroupSearchType.add(rdbtnDate);
-		rdbtnDate.setBounds(234, 50, 104, 25);
-		add(rdbtnDate);
+        rdbtnDate = new JRadioButton("Date");
+        buttonGroupSearchType.add(rdbtnDate);
+        rdbtnDate.setBounds(234, 50, 104, 25);
+        add(rdbtnDate);
 
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 127, 933, 442);
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBounds(12, 127, 933, 442);
 
-		table = new MyTable();
-		table.setFillsViewportHeight(true);
+        table = new MyTable();
+        table.setFillsViewportHeight(true);
 
-		tableModel = new DefaultTableModel();
-		tableModel.setColumnIdentifiers(new String[]{"Id", "Emp Id", "Date", "Amount", "Created by", "Created date",
-				"Updated by", "Updated date"});
+        tableModel = new DefaultTableModel();
+        tableModel.setColumnIdentifiers(new String[]{"Id", "Emp Id", "Date", "Amount", "Created by", "Created date",
+                "Updated by", "Updated date"});
 
-		table.setModel(tableModel);
-		scrollPane.setViewportView(table);
+        table.setModel(tableModel);
+        scrollPane.setViewportView(table);
 
-		add(scrollPane);
+        add(scrollPane);
 
-		btnCreate = new JButton("Create");
-		btnCreate.setBounds(957, 144, 97, 25);
-		add(btnCreate);
+        btnCreate = new JButton("Create");
+        btnCreate.setBounds(957, 144, 97, 25);
+        add(btnCreate);
 
-		btnEdit = new JButton("Edit");
-		btnEdit.setBounds(957, 182, 97, 25);
-		add(btnEdit);
+        btnEdit = new JButton("Edit");
+        btnEdit.setBounds(957, 182, 97, 25);
+        add(btnEdit);
 
-		btnDelete = new JButton("Delete");
-		btnDelete.setBounds(957, 220, 97, 25);
-		add(btnDelete);
+        btnDelete = new JButton("Delete");
+        btnDelete.setBounds(957, 220, 97, 25);
+        add(btnDelete);
 
-		btnBack = new JButton("Back");
-		btnBack.setBounds(957, 279, 97, 25);
-		add(btnBack);
-	}
+        btnBack = new JButton("Back");
+        btnBack.setBounds(957, 279, 97, 25);
+        add(btnBack);
+    }
 
-	private void initEvents() {
+    private void initEvents() {
 
-		btnSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				searchWorkingHours();
-			}
-		});
+        btnSearch.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                searchWorkingHours();
+            }
+        });
 
-		btnCreate.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				CreateWorkingHour createWorkingHour = new CreateWorkingHour(workingHourService, user);
-				createWorkingHour.setModal(true);
-				createWorkingHour.setVisible(true);
+        btnCreate.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                CreateWorkingHour createWorkingHour = new CreateWorkingHour(workingHourService, user);
+                createWorkingHour.setModal(true);
+                createWorkingHour.setVisible(true);
 
-				loadData();
+                loadData();
 
-			}
-		});
+            }
+        });
 
-		btnEdit.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				int selectedRow = table.getSelectedRow();
-				int totalRows = table.getRowCount();
-				if ((selectedRow > -1) && (selectedRow < totalRows)) {
-					WorkingHour oldWorkingHour = currentWorkingHourList.get(selectedRow);
-					EditWorkingHour editWorkingHour = new EditWorkingHour(workingHourService, user, oldWorkingHour);
-					editWorkingHour.setModal(true);
-					editWorkingHour.setVisible(true);
+        btnEdit.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                int selectedRow = table.getSelectedRow();
+                int totalRows = table.getRowCount();
+                if ((selectedRow > -1) && (selectedRow < totalRows)) {
+                    WorkingHour oldWorkingHour = currentWorkingHourList.get(selectedRow);
+                    EditWorkingHour editWorkingHour = new EditWorkingHour(workingHourService, user, oldWorkingHour);
+                    editWorkingHour.setModal(true);
+                    editWorkingHour.setVisible(true);
 
-					loadData();
-				}
-			}
-		});
+                    loadData();
+                }
+            }
+        });
 
-		btnDelete.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				int selectedRow = table.getSelectedRow();
-				int totalRows = table.getRowCount();
-				if ((selectedRow > -1) && (selectedRow < totalRows)) {
-					WorkingHour workingHourToDelete = currentWorkingHourList.get(selectedRow);
-					try {
+        btnDelete.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                int selectedRow = table.getSelectedRow();
+                int totalRows = table.getRowCount();
+                if ((selectedRow > -1) && (selectedRow < totalRows)) {
+                    WorkingHour workingHourToDelete = currentWorkingHourList.get(selectedRow);
+                    try {
 
-						workingHourService.deleteWorkingHour(workingHourToDelete);
+                        workingHourService.deleteWorkingHour(workingHourToDelete);
 
-					} catch (Exception e1) {
+                    } catch (Exception e1) {
 
-						e1.printStackTrace();
-					}
+                        e1.printStackTrace();
+                    }
 
-					loadData();
-				}
-			}
-		});
+                    loadData();
+                }
+            }
+        });
 
-		btnBack.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				ViewUtils.returnToMainView(jframe, selfReference, mainView);
-			}
-		});
+        btnBack.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                ViewUtils.returnToMainView(jframe, selfReference, mainView);
+            }
+        });
 
-	}
+    }
 
-	private void searchWorkingHours() {
-		String searchValue = textFieldSearch.getText().trim();
-		emptyTable();
-		if (rdbtnId.isSelected()) {
+    private void searchWorkingHours() {
+        String searchValue = textFieldSearch.getText().trim();
+        emptyTable();
+        if (rdbtnId.isSelected()) {
 
-			if (searchValue.equals("") || searchValue.equals(" "))
-				searchValue = "1";
+            if (searchValue.equals("") || searchValue.equals(" "))
+                searchValue = "1";
 
-			WorkingHour temp = null;
-			try {
-				temp = workingHourService.getWorkingHourByIndex(Integer.parseInt(searchValue));
-			} catch (Exception e) {
+            WorkingHour temp = null;
+            try {
+                temp = workingHourService.getWorkingHourByIndex(Integer.parseInt(searchValue));
+            } catch (Exception e) {
 
-				e.printStackTrace();
-			}
-			if (temp != null)
-				currentWorkingHourList.add(temp);
+                e.printStackTrace();
+            }
+            if (temp != null)
+                currentWorkingHourList.add(temp);
 
-			fillTable(currentWorkingHourList);
+            fillTable(currentWorkingHourList);
 
-		} else if (rdbtnEmpId.isSelected()) {
+        } else if (rdbtnEmpId.isSelected()) {
 
-			if (searchValue.equals("") || searchValue.equals(" "))
-				searchValue = "1";
+            if (searchValue.equals("") || searchValue.equals(" "))
+                searchValue = "1";
 
-			try {
+            try {
 
-				currentWorkingHourList = workingHourService.getWorkingHourByEmplyeeId(searchValue);
+                currentWorkingHourList = workingHourService.getWorkingHourByEmplyeeId(searchValue);
 
-			} catch (Exception e) {
+            } catch (Exception e) {
 
-				e.printStackTrace();
-			}
+                e.printStackTrace();
+            }
 
-			fillTable(currentWorkingHourList);
+            fillTable(currentWorkingHourList);
 
-		} else if (rdbtnDate.isSelected()) {
-			LocalDate localDateValue = null;
+        } else if (rdbtnDate.isSelected()) {
+            LocalDate localDateValue = null;
 
-			if (searchValue.equals("") || searchValue.equals(" "))
-				searchValue = "01 01 2000";
+            if (searchValue.equals("") || searchValue.equals(" "))
+                searchValue = "01 01 2000";
 
-			try {
-				localDateValue = DateTimeUtils.parseToLocalDate(searchValue, "dd MM yyyy");
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if (localDateValue != null)
-				try {
-					currentWorkingHourList = workingHourService.getWorkingHourByDate(localDateValue);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+            try {
+                localDateValue = DateTimeUtils.parseToLocalDate(searchValue, "dd MM yyyy");
+            } catch (ParseException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            if (localDateValue != null)
+                try {
+                    currentWorkingHourList = workingHourService.getWorkingHourByDate(localDateValue);
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
 
-		}
-	}
+        }
+    }
 
-	private void emptyTable() {
-		currentWorkingHourList = new ArrayList<>();
-		tableModel.setRowCount(0);
-	}
+    private void emptyTable() {
+        currentWorkingHourList = new ArrayList<>();
+        tableModel.setRowCount(0);
+    }
 
-	private void fillTable(List<WorkingHour> workingHoursList) {
-		if (workingHoursList != null && workingHoursList.size() != 0) {
-			Object[] rowData = new Object[8];
-			for (WorkingHour workingHour : workingHoursList) {
-				rowData[0] = workingHour.getIndex();
-				rowData[1] = workingHour.getEmployeeId();
-				rowData[2] = workingHour.getDate();
-				rowData[3] = workingHour.getAmount();
-				rowData[4] = workingHour.getCreatedBy();
-				rowData[5] = workingHour.getCreatedDate();
-				rowData[6] = workingHour.getUpdatedBy();
-				rowData[7] = workingHour.getUpdatedDate();
-				tableModel.addRow(rowData);
-			}
-		}
-	}
+    private void fillTable(List<WorkingHour> workingHoursList) {
+        if (workingHoursList != null && workingHoursList.size() != 0) {
+            Object[] rowData = new Object[8];
+            for (WorkingHour workingHour : workingHoursList) {
+                rowData[0] = workingHour.getIndex();
+                rowData[1] = workingHour.getEmployeeId();
+                rowData[2] = workingHour.getDate();
+                rowData[3] = workingHour.getAmount();
+                rowData[4] = workingHour.getCreatedBy();
+                rowData[5] = workingHour.getCreatedDate();
+                rowData[6] = workingHour.getUpdatedBy();
+                rowData[7] = workingHour.getUpdatedDate();
+                tableModel.addRow(rowData);
+            }
+        }
+    }
 
-	public void loadData() {
-		emptyTable();
-		try {
+    public void loadData() {
+        emptyTable();
+        try {
 
-			currentWorkingHourList = workingHourService.getAllWorkingHour(Config.ROW_LIMIT, Config.WORKINGHOUR_OFFSET);
+            currentWorkingHourList = workingHourService.getAllWorkingHour(Config.ROW_LIMIT, Config.WORKINGHOUR_OFFSET);
 
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
-		if (currentWorkingHourList != null && currentWorkingHourList.size() != 0) {
-			Object[] rowData = new Object[8];
-			for (WorkingHour workingHour : currentWorkingHourList) {
-				rowData[0] = workingHour.getIndex();
-				rowData[1] = workingHour.getEmployeeId();
-				rowData[2] = workingHour.getDate();
-				rowData[3] = workingHour.getAmount();
-				rowData[4] = workingHour.getCreatedBy();
-				rowData[5] = workingHour.getCreatedDate();
-				rowData[6] = workingHour.getUpdatedBy();
-				rowData[7] = workingHour.getUpdatedDate();
-				tableModel.addRow(rowData);
-			}
-		}
-	}
+        if (currentWorkingHourList != null && currentWorkingHourList.size() != 0) {
+            Object[] rowData = new Object[8];
+            for (WorkingHour workingHour : currentWorkingHourList) {
+                rowData[0] = workingHour.getIndex();
+                rowData[1] = workingHour.getEmployeeId();
+                rowData[2] = workingHour.getDate();
+                rowData[3] = workingHour.getAmount();
+                rowData[4] = workingHour.getCreatedBy();
+                rowData[5] = workingHour.getCreatedDate();
+                rowData[6] = workingHour.getUpdatedBy();
+                rowData[7] = workingHour.getUpdatedDate();
+                tableModel.addRow(rowData);
+            }
+        }
+    }
 
 }

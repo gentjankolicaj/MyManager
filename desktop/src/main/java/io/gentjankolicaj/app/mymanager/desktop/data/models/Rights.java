@@ -5,15 +5,15 @@ package io.gentjankolicaj.app.mymanager.desktop.data.models;
  */
 public enum Rights {
 
-	READ("READ"), WRITE("WRITE"), UPDATE("UPDATE"), DELETE("DELETE");
+    READ("READ"), WRITE("WRITE"), UPDATE("UPDATE"), DELETE("DELETE");
 
-	private final String value;
+    private final String value;
 
-	Rights(String value) {
-		this.value = value;
-	}
+    Rights(String value) {
+        this.value = value;
+    }
 
-	public String toString() {
-		return value;
-	}
+    public String toString() {
+        return value;
+    }
 }

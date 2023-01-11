@@ -5,15 +5,15 @@ package io.gentjankolicaj.app.mymanager.desktop.data.models;
  */
 public enum UserType {
 
-	HR("HR"), MANAGER("MANAGER"), ADMIN("ADMIN"), FINANCE("FINANCE");
+    HR("HR"), MANAGER("MANAGER"), ADMIN("ADMIN"), FINANCE("FINANCE");
 
-	private final String value;
+    private final String value;
 
-	UserType(String value) {
-		this.value = value;
-	}
+    UserType(String value) {
+        this.value = value;
+    }
 
-	public String toString() {
-		return value;
-	}
+    public String toString() {
+        return value;
+    }
 }

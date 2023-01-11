@@ -19,8 +19,8 @@ public interface DepartmentDao {
 
     int updateDepartment(Department oldDepartment, Department newDepartment) throws Exception;
 
-	int saveDepartment(Department department) throws Exception;
+    int saveDepartment(Department department) throws Exception;
 
-	int deleteDepartment(Department department) throws Exception;
+    int deleteDepartment(Department department) throws Exception;
 
 }

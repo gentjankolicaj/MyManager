@@ -5,5 +5,5 @@ package io.gentjankolicaj.app.mymanager.desktop.enums;
  */
 public enum MessageType {
 
-	ERROR, INFORMATION, WARNING, QUESTION, PLAIN
+    ERROR, INFORMATION, WARNING, QUESTION, PLAIN
 }

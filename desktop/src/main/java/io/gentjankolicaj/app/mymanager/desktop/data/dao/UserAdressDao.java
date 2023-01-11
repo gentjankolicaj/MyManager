@@ -21,17 +21,17 @@ public interface UserAdressDao {
 
     List<UserAdress> findAdressesByCountry(String country) throws Exception;
 
-	List<UserAdress> findAdressesByStreet(String streetName) throws Exception;
+    List<UserAdress> findAdressesByStreet(String streetName) throws Exception;
 
-	UserAdress findAdress(int adressId) throws Exception;
+    UserAdress findAdress(int adressId) throws Exception;
 
-	int updateAdress(UserAdress oldAdress, UserAdress newAdress) throws Exception;
+    int updateAdress(UserAdress oldAdress, UserAdress newAdress) throws Exception;
 
-	int saveAdress(UserAdress adress) throws Exception;
+    int saveAdress(UserAdress adress) throws Exception;
 
-	int deleteAdress(UserAdress adress) throws Exception;
+    int deleteAdress(UserAdress adress) throws Exception;
 
-	void setQueryType(QueryType queryType);
+    void setQueryType(QueryType queryType);
 
 
 }

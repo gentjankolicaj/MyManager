@@ -16,11 +16,11 @@ public interface UserContactDao {
 
     UserContact findContactByPersonId(String personId) throws Exception;
 
-	UserContact findContact(int contactId) throws Exception;
+    UserContact findContact(int contactId) throws Exception;
 
-	int updateContact(UserContact oldContact, UserContact newContact) throws Exception;
+    int updateContact(UserContact oldContact, UserContact newContact) throws Exception;
 
-	int saveContact(UserContact contact) throws Exception;
+    int saveContact(UserContact contact) throws Exception;
 
-	int deleteContact(UserContact contact) throws Exception;
+    int deleteContact(UserContact contact) throws Exception;
 }

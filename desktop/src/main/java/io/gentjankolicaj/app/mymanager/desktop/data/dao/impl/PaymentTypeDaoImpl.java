@@ -26,59 +26,59 @@ public class PaymentTypeDaoImpl implements PaymentTypeDao {
         String query = "Select * FROM mymanager.payment_type";
 
         results = database.selectStatement(query);
-		while (results.next()) {
-			PaymentType temp = new PaymentType(results.getString("payment_type"));
-			paymentTypeList.add(temp);
-		}
-		PrintUtils.print(paymentTypeList, PrintType.QUERY_RESULTS);
+        while (results.next()) {
+            PaymentType temp = new PaymentType(results.getString("payment_type"));
+            paymentTypeList.add(temp);
+        }
+        PrintUtils.print(paymentTypeList, PrintType.QUERY_RESULTS);
         return paymentTypeList;
 
-	}
+    }
 
-	@Override
-	public PaymentType findPaymentType(String paymentType) throws Exception {
-		PaymentType paymentTypeObj = null;
-		ResultSet results = null;
-		String query = "Select * FROM mymanager.payment_type WHERE payment_type=" + paymentType;
+    @Override
+    public PaymentType findPaymentType(String paymentType) throws Exception {
+        PaymentType paymentTypeObj = null;
+        ResultSet results = null;
+        String query = "Select * FROM mymanager.payment_type WHERE payment_type=" + paymentType;
 
-		results = database.selectStatement(query);
-		while (results.next()) {
-			paymentTypeObj = new PaymentType(results.getString("payment_type"));
-		}
-		PrintUtils.print(paymentTypeObj, PrintType.QUERY_RESULTS);
+        results = database.selectStatement(query);
+        while (results.next()) {
+            paymentTypeObj = new PaymentType(results.getString("payment_type"));
+        }
+        PrintUtils.print(paymentTypeObj, PrintType.QUERY_RESULTS);
         return paymentTypeObj;
 
-	}
+    }
 
-	@Override
-	public int savePaymentType(PaymentType paymentType) throws Exception {
-		String query = "INSERT INTO mymanager.payment_type (payment_type) VALUES (?)";
+    @Override
+    public int savePaymentType(PaymentType paymentType) throws Exception {
+        String query = "INSERT INTO mymanager.payment_type (payment_type) VALUES (?)";
 
-		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setString(1, paymentType.getPayment());
+        PreparedStatement pstmt = database.updateStatement(query);
+        pstmt.setString(1, paymentType.getPayment());
 
-		return pstmt.executeUpdate();
-	}
+        return pstmt.executeUpdate();
+    }
 
-	@Override
-	public int updatePaymentType(PaymentType oldPaymentType, PaymentType newPaymentType) throws Exception {
-		String query = "UPDATE mymanager.payment_type SET payment_type=? WHERE payment_type=?";
+    @Override
+    public int updatePaymentType(PaymentType oldPaymentType, PaymentType newPaymentType) throws Exception {
+        String query = "UPDATE mymanager.payment_type SET payment_type=? WHERE payment_type=?";
 
-		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setString(1, newPaymentType.getPayment());
-		pstmt.setString(2, oldPaymentType.getPayment());
+        PreparedStatement pstmt = database.updateStatement(query);
+        pstmt.setString(1, newPaymentType.getPayment());
+        pstmt.setString(2, oldPaymentType.getPayment());
 
-		return pstmt.executeUpdate();
-	}
+        return pstmt.executeUpdate();
+    }
 
-	@Override
-	public int deletePaymentType(PaymentType paymentType) throws Exception {
-		String query = "DELETE FROM mymanager.payment_type WHERE payment_type=?";
+    @Override
+    public int deletePaymentType(PaymentType paymentType) throws Exception {
+        String query = "DELETE FROM mymanager.payment_type WHERE payment_type=?";
 
-		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setString(1, paymentType.getPayment());
+        PreparedStatement pstmt = database.updateStatement(query);
+        pstmt.setString(1, paymentType.getPayment());
 
-		return pstmt.executeUpdate();
-	}
+        return pstmt.executeUpdate();
+    }
 
 }

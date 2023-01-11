@@ -16,12 +16,12 @@ public interface EmployeeContactDao {
 
     EmployeeContact findContactByPersonId(String personId) throws Exception;
 
-	EmployeeContact findContact(int contactId) throws Exception;
+    EmployeeContact findContact(int contactId) throws Exception;
 
-	int updateContact(EmployeeContact oldContact, EmployeeContact newContact) throws Exception;
+    int updateContact(EmployeeContact oldContact, EmployeeContact newContact) throws Exception;
 
-	int saveContact(EmployeeContact contact) throws Exception;
+    int saveContact(EmployeeContact contact) throws Exception;
 
-	int deleteContact(EmployeeContact contact) throws Exception;
+    int deleteContact(EmployeeContact contact) throws Exception;
 
 }

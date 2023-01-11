@@ -19,16 +19,16 @@ public interface UserDao {
 
     List<User> findUsersByLastName(String lastName) throws Exception;
 
-	List<User> findUsersByUserType(String userType) throws Exception;
+    List<User> findUsersByUserType(String userType) throws Exception;
 
-	List<User> findUsersByRights(String rights) throws Exception;
+    List<User> findUsersByRights(String rights) throws Exception;
 
-	User findUser(String userId) throws Exception;
+    User findUser(String userId) throws Exception;
 
-	int updateUser(User oldUser, User newUser) throws Exception;
+    int updateUser(User oldUser, User newUser) throws Exception;
 
-	int saveUser(User user) throws Exception;
+    int saveUser(User user) throws Exception;
 
-	int deleteUser(User user) throws Exception;
+    int deleteUser(User user) throws Exception;
 
 }

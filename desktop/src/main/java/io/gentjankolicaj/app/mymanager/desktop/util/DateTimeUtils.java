@@ -11,20 +11,20 @@ import java.util.Date;
  */
 public class DateTimeUtils {
 
-	public static Date parseDate(String stringDate, String pattern) throws ParseException {
-		Date parsedDate = null;
-		SimpleDateFormat dateFormatter = new SimpleDateFormat(pattern);
-		parsedDate = dateFormatter.parse(stringDate);
-		return parsedDate;
+    public static Date parseDate(String stringDate, String pattern) throws ParseException {
+        Date parsedDate = null;
+        SimpleDateFormat dateFormatter = new SimpleDateFormat(pattern);
+        parsedDate = dateFormatter.parse(stringDate);
+        return parsedDate;
 
-	}
+    }
 
-	public static LocalDate parseToLocalDate(String stringDate, String pattern) throws ParseException {
-		DateTimeFormatter formatter =DateTimeFormatter.ofPattern(pattern);
-		LocalDate localDate=LocalDate.parse(stringDate, formatter);
-		return localDate;
+    public static LocalDate parseToLocalDate(String stringDate, String pattern) throws ParseException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        LocalDate localDate = LocalDate.parse(stringDate, formatter);
+        return localDate;
 
-	}
-	
+    }
+
 
 }

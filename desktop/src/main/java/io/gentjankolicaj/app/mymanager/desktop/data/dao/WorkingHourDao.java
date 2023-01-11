@@ -20,12 +20,12 @@ public interface WorkingHourDao {
 
     List<WorkingHour> findWorkingHourByBetween(float minHours, float maxHours) throws Exception;
 
-	WorkingHour findWorkingHourByIndex(int index) throws Exception;
+    WorkingHour findWorkingHourByIndex(int index) throws Exception;
 
-	int updateWorkingHour(WorkingHour oldWorkingHour, WorkingHour newWorkingHour) throws Exception;
+    int updateWorkingHour(WorkingHour oldWorkingHour, WorkingHour newWorkingHour) throws Exception;
 
-	int saveWorkingHour(WorkingHour workingHour) throws Exception;
+    int saveWorkingHour(WorkingHour workingHour) throws Exception;
 
-	int deleteWorkingHour(WorkingHour workingHour) throws Exception;
+    int deleteWorkingHour(WorkingHour workingHour) throws Exception;
 
 }

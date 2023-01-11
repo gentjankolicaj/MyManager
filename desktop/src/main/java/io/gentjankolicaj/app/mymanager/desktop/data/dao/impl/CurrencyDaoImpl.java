@@ -26,70 +26,70 @@ public class CurrencyDaoImpl implements CurrencyDao {
 
     @Override
     public List<Currency> findAllCurrencies() throws Exception {
-		List<Currency> currencyList = new ArrayList<>();
-		ResultSet results = null;
-		String query = null;
-		query = "SELECT * FROM mymanager.currencies";
+        List<Currency> currencyList = new ArrayList<>();
+        ResultSet results = null;
+        String query = null;
+        query = "SELECT * FROM mymanager.currencies";
 
-		results = database.selectStatement(query);
-		while (results.next()) {
-			Currency temp = new Currency(results.getString("currency"));
-			currencyList.add(temp);
+        results = database.selectStatement(query);
+        while (results.next()) {
+            Currency temp = new Currency(results.getString("currency"));
+            currencyList.add(temp);
 
-		}
-		PrintUtils.print(currencyList, PrintType.QUERY_RESULTS);
+        }
+        PrintUtils.print(currencyList, PrintType.QUERY_RESULTS);
         return currencyList;
-	}
+    }
 
-	@Override
-	public List<Currency> findCurrencies(String currencyName) throws Exception {
-		List<Currency> currencyList = new ArrayList<>();
-		ResultSet results = null;
-		String query = null;
-		query = "SELECT * FROM mymanager.currencies WHERE currency LIKE'" + currencyName + "%'";
+    @Override
+    public List<Currency> findCurrencies(String currencyName) throws Exception {
+        List<Currency> currencyList = new ArrayList<>();
+        ResultSet results = null;
+        String query = null;
+        query = "SELECT * FROM mymanager.currencies WHERE currency LIKE'" + currencyName + "%'";
 
-		results = database.selectStatement(query);
-		while (results.next()) {
-			Currency temp = new Currency(results.getString("currency"));
-			currencyList.add(temp);
+        results = database.selectStatement(query);
+        while (results.next()) {
+            Currency temp = new Currency(results.getString("currency"));
+            currencyList.add(temp);
 
-		}
-		PrintUtils.print(currencyList, PrintType.QUERY_RESULTS);
+        }
+        PrintUtils.print(currencyList, PrintType.QUERY_RESULTS);
         return currencyList;
-	}
+    }
 
-	@Override
-	public int updateCurrency(Currency oldCurrency, Currency newCurrency) throws Exception {
-		String query = "UPDATE mymanager.currencies SET currency=? WHERE currency=?";
+    @Override
+    public int updateCurrency(Currency oldCurrency, Currency newCurrency) throws Exception {
+        String query = "UPDATE mymanager.currencies SET currency=? WHERE currency=?";
 
-		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setString(1, newCurrency.getCurrencyName());
-		pstmt.setString(2, oldCurrency.getCurrencyName());
+        PreparedStatement pstmt = database.updateStatement(query);
+        pstmt.setString(1, newCurrency.getCurrencyName());
+        pstmt.setString(2, oldCurrency.getCurrencyName());
 
-		return pstmt.executeUpdate();
+        return pstmt.executeUpdate();
 
-	}
+    }
 
-	@Override
-	public int saveCurrency(Currency currency) throws Exception {
-		String query = "INSERT INTO mymanager.currencies (currency) VALUES (?)";
+    @Override
+    public int saveCurrency(Currency currency) throws Exception {
+        String query = "INSERT INTO mymanager.currencies (currency) VALUES (?)";
 
-		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setString(1, currency.getCurrencyName());
+        PreparedStatement pstmt = database.updateStatement(query);
+        pstmt.setString(1, currency.getCurrencyName());
 
-		return pstmt.executeUpdate();
+        return pstmt.executeUpdate();
 
-	}
+    }
 
-	@Override
-	public int deleteCurrency(Currency currency) throws Exception {
-		String query = "DELETE FROM mymanager.currencies WHERE currency=?";
+    @Override
+    public int deleteCurrency(Currency currency) throws Exception {
+        String query = "DELETE FROM mymanager.currencies WHERE currency=?";
 
-		PreparedStatement pstmt = database.updateStatement(query);
-		pstmt.setString(1, currency.getCurrencyName());
+        PreparedStatement pstmt = database.updateStatement(query);
+        pstmt.setString(1, currency.getCurrencyName());
 
-		return pstmt.executeUpdate();
+        return pstmt.executeUpdate();
 
-	}
+    }
 
 }

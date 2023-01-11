@@ -11,11 +11,11 @@ public interface CurrencyService {
 
     List<Currency> getAllCurrencies() throws Exception;
 
-	List<Currency> getCurrencies(String currencyName) throws Exception;
+    List<Currency> getCurrencies(String currencyName) throws Exception;
 
-	int updateCurrency(Currency oldCurrency, Currency newCurrency) throws Exception;
+    int updateCurrency(Currency oldCurrency, Currency newCurrency) throws Exception;
 
-	int saveCurrency(Currency currency) throws Exception;
+    int saveCurrency(Currency currency) throws Exception;
 
-	int deleteCurrency(Currency currency) throws Exception;
+    int deleteCurrency(Currency currency) throws Exception;
 }

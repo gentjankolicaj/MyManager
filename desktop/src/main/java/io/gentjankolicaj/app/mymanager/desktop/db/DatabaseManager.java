@@ -11,30 +11,30 @@ import static java.util.Objects.isNull;
  */
 @Slf4j
 public class DatabaseManager {
-	private static Database db;
+    private static Database db;
 
-	private DatabaseManager() {
-	}
+    private DatabaseManager() {
+    }
 
-	public static Database initDb(DatabaseConfigYaml databaseConfigYaml) throws Exception {
-		if (isNull(db)) {
-			HikariConnectionPoolManager.initPool(databaseConfigYaml);
-			db = new GenericDatabase();
-			db.migrate();
-		}
-		return db;
-	}
+    public static Database initDb(DatabaseConfigYaml databaseConfigYaml) throws Exception {
+        if (isNull(db)) {
+            HikariConnectionPoolManager.initPool(databaseConfigYaml);
+            db = new GenericDatabase();
+            db.migrate();
+        }
+        return db;
+    }
 
-	public static Database getDb() {
-		return db;
-	}
+    public static Database getDb() {
+        return db;
+    }
 
-	public static void shutdown() {
-		try {
-			HikariConnectionPoolManager.closePool();
-		} catch (Exception e) {
-			log.error("Error on closing pool.", e);
-		}
-	}
+    public static void shutdown() {
+        try {
+            HikariConnectionPoolManager.closePool();
+        } catch (Exception e) {
+            log.error("Error on closing pool.", e);
+        }
+    }
 
 }

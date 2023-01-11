@@ -13,60 +13,60 @@ import java.util.List;
 public class EmployeeAdressServiceImpl implements EmployeeAdressService {
 
     private final EmployeeAdressDao employeeAdressDao;
-	
-	public EmployeeAdressServiceImpl() {
-		super();
+
+    public EmployeeAdressServiceImpl() {
+        super();
         this.employeeAdressDao = new EmployeeAdressDaoImpl();
     }
 
     @Override
-	public List<EmployeeAdress> getAllAdresses() throws Exception {
-		return employeeAdressDao.findAllAdresses();
+    public List<EmployeeAdress> getAllAdresses() throws Exception {
+        return employeeAdressDao.findAllAdresses();
     }
 
     @Override
-	public List<EmployeeAdress> getAllAdresses(int limit, int offset) throws Exception {
-		return employeeAdressDao.findAllAdresses(limit, offset);
+    public List<EmployeeAdress> getAllAdresses(int limit, int offset) throws Exception {
+        return employeeAdressDao.findAllAdresses(limit, offset);
     }
 
     @Override
-	public EmployeeAdress getAdressesByPersonId(String personId) throws Exception {
-		return employeeAdressDao.findAdressesByPersonId(personId);
+    public EmployeeAdress getAdressesByPersonId(String personId) throws Exception {
+        return employeeAdressDao.findAdressesByPersonId(personId);
     }
 
     @Override
-	public List<EmployeeAdress> getAdressesByCity(String city) throws Exception {
-		return employeeAdressDao.findAdressesByCity(city);
+    public List<EmployeeAdress> getAdressesByCity(String city) throws Exception {
+        return employeeAdressDao.findAdressesByCity(city);
     }
 
     @Override
-	public List<EmployeeAdress> getAdressesByCountry(String country) throws Exception {
-		return employeeAdressDao.findAdressesByCountry(country);
+    public List<EmployeeAdress> getAdressesByCountry(String country) throws Exception {
+        return employeeAdressDao.findAdressesByCountry(country);
     }
 
     @Override
-	public List<EmployeeAdress> getAdressesByStreet(String streetName) throws Exception {
-		return employeeAdressDao.findAdressesByStreet(streetName);
+    public List<EmployeeAdress> getAdressesByStreet(String streetName) throws Exception {
+        return employeeAdressDao.findAdressesByStreet(streetName);
     }
 
     @Override
-	public EmployeeAdress getAdress(int adressId) throws Exception {
-		return employeeAdressDao.findAdress(adressId);
+    public EmployeeAdress getAdress(int adressId) throws Exception {
+        return employeeAdressDao.findAdress(adressId);
     }
 
     @Override
-	public int updateAdress(EmployeeAdress oldAdress, EmployeeAdress newAdress) throws Exception {
-		return employeeAdressDao.updateAdress(oldAdress, newAdress);
+    public int updateAdress(EmployeeAdress oldAdress, EmployeeAdress newAdress) throws Exception {
+        return employeeAdressDao.updateAdress(oldAdress, newAdress);
     }
 
     @Override
-	public int saveAdress(EmployeeAdress adress) throws Exception {
-		return employeeAdressDao.saveAdress(adress);
+    public int saveAdress(EmployeeAdress adress) throws Exception {
+        return employeeAdressDao.saveAdress(adress);
     }
 
     @Override
-	public int deleteAdress(EmployeeAdress adress) throws Exception {
-		return employeeAdressDao.deleteAdress(adress);
+    public int deleteAdress(EmployeeAdress adress) throws Exception {
+        return employeeAdressDao.deleteAdress(adress);
     }
 
 }

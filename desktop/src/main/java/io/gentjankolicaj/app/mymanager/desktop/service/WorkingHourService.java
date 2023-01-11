@@ -12,19 +12,19 @@ public interface WorkingHourService {
 
     List<WorkingHour> getAllWorkingHour() throws Exception;
 
-	List<WorkingHour> getAllWorkingHour(int limit, int offset) throws Exception;
+    List<WorkingHour> getAllWorkingHour(int limit, int offset) throws Exception;
 
-	List<WorkingHour> getWorkingHourByEmplyeeId(String employeeId) throws Exception;
+    List<WorkingHour> getWorkingHourByEmplyeeId(String employeeId) throws Exception;
 
-	List<WorkingHour> getWorkingHourByDate(LocalDate date) throws Exception;
+    List<WorkingHour> getWorkingHourByDate(LocalDate date) throws Exception;
 
-	List<WorkingHour> getWorkingHourByBetween(float minHours, float maxHours) throws Exception;
+    List<WorkingHour> getWorkingHourByBetween(float minHours, float maxHours) throws Exception;
 
-	WorkingHour getWorkingHourByIndex(int index) throws Exception;
+    WorkingHour getWorkingHourByIndex(int index) throws Exception;
 
-	int updateWorkingHour(WorkingHour oldWorkingHour, WorkingHour newWorkingHour) throws Exception;
+    int updateWorkingHour(WorkingHour oldWorkingHour, WorkingHour newWorkingHour) throws Exception;
 
-	int saveWorkingHour(WorkingHour workingHour) throws Exception;
+    int saveWorkingHour(WorkingHour workingHour) throws Exception;
 
-	int deleteWorkingHour(WorkingHour workingHour) throws Exception;
+    int deleteWorkingHour(WorkingHour workingHour) throws Exception;
 }

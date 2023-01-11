@@ -11,11 +11,11 @@ public interface PaymentTypeService {
 
     List<PaymentType> getAllPaymentTypes() throws Exception;
 
-	PaymentType getPaymentType(String paymentType) throws Exception;
+    PaymentType getPaymentType(String paymentType) throws Exception;
 
-	int savePaymentType(PaymentType paymentType) throws Exception;
+    int savePaymentType(PaymentType paymentType) throws Exception;
 
-	int updatePaymentType(PaymentType oldPaymentType, PaymentType newPaymentType) throws Exception;
+    int updatePaymentType(PaymentType oldPaymentType, PaymentType newPaymentType) throws Exception;
 
-	int deletePaymentType(PaymentType paymentType) throws Exception;
+    int deletePaymentType(PaymentType paymentType) throws Exception;
 }

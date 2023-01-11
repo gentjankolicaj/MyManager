@@ -19,6 +19,6 @@ public interface CountryDao {
 
     int saveCountry(Country country) throws Exception;
 
-	int deleteCountry(Country country) throws Exception;
+    int deleteCountry(Country country) throws Exception;
 
 }

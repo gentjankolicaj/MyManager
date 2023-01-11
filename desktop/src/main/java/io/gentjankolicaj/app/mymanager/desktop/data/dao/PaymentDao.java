@@ -20,12 +20,12 @@ public interface PaymentDao {
 
     List<Payment> findAllPaymentsByEmployeeId(String employeeId) throws Exception;
 
-	Payment findPayment(int paymentId) throws Exception;
+    Payment findPayment(int paymentId) throws Exception;
 
-	int updatePayment(Payment oldPayment, Payment newPayment) throws Exception;
+    int updatePayment(Payment oldPayment, Payment newPayment) throws Exception;
 
-	int savePayment(Payment payment) throws Exception;
+    int savePayment(Payment payment) throws Exception;
 
-	int deletePayment(Payment payment) throws Exception;
+    int deletePayment(Payment payment) throws Exception;
 
 }

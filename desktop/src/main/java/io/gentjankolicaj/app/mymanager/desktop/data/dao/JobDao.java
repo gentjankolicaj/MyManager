@@ -19,10 +19,10 @@ public interface JobDao {
 
     Job findJob(int jobId) throws Exception;
 
-	int updateJob(Job oldJob, Job newJob) throws Exception;
+    int updateJob(Job oldJob, Job newJob) throws Exception;
 
-	int saveJob(Job job) throws Exception;
+    int saveJob(Job job) throws Exception;
 
-	int deleteJob(Job job) throws Exception;
+    int deleteJob(Job job) throws Exception;
 
 }

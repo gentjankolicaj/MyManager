@@ -13,50 +13,50 @@ import java.util.List;
 public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectDao projectDao;
-	
-	public ProjectServiceImpl() {
-		super();
+
+    public ProjectServiceImpl() {
+        super();
         this.projectDao = new ProjectDaoImpl();
     }
 
     @Override
-	public List<Project> getAllProjects() throws Exception {
-    	return projectDao.findAllProjects();
+    public List<Project> getAllProjects() throws Exception {
+        return projectDao.findAllProjects();
     }
 
     @Override
-	public List<Project> getAllProjects(int limit, int offset) throws Exception {
-		return projectDao.findAllProjects(limit, offset);
+    public List<Project> getAllProjects(int limit, int offset) throws Exception {
+        return projectDao.findAllProjects(limit, offset);
     }
 
     @Override
-	public List<Project> getAllProjectsByCustomer(String customer) throws Exception {
-		return projectDao.findAllProjectsByCustomer(customer);
+    public List<Project> getAllProjectsByCustomer(String customer) throws Exception {
+        return projectDao.findAllProjectsByCustomer(customer);
     }
 
     @Override
-	public List<Project> getAllProjectsByDescription(String projectDescription) throws Exception {
-		return projectDao.findAllProjectsByDescription(projectDescription);
+    public List<Project> getAllProjectsByDescription(String projectDescription) throws Exception {
+        return projectDao.findAllProjectsByDescription(projectDescription);
     }
 
     @Override
-	public Project getProjectByName(String projectName) throws Exception {
-		return projectDao.findProjectByName(projectName);
+    public Project getProjectByName(String projectName) throws Exception {
+        return projectDao.findProjectByName(projectName);
     }
 
     @Override
-	public int updateProject(Project oldProject, Project newProject) throws Exception {
-		return projectDao.updateProject(oldProject, newProject);
+    public int updateProject(Project oldProject, Project newProject) throws Exception {
+        return projectDao.updateProject(oldProject, newProject);
     }
 
     @Override
-	public int saveProject(Project project) throws Exception {
-		return projectDao.saveProject(project);
+    public int saveProject(Project project) throws Exception {
+        return projectDao.saveProject(project);
     }
 
     @Override
-	public int deleteProject(Project project) throws Exception {
-		return projectDao.deleteProject(project);
+    public int deleteProject(Project project) throws Exception {
+        return projectDao.deleteProject(project);
     }
 
 }

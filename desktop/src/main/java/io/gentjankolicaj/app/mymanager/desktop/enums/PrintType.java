@@ -5,6 +5,6 @@ package io.gentjankolicaj.app.mymanager.desktop.enums;
  */
 public enum PrintType {
 
-	EXCEPTION, FILE_IO, DATABASE_QUERY, DATABASE_IO, LOG, OTHER, QUERY_RESULTS
+    EXCEPTION, FILE_IO, DATABASE_QUERY, DATABASE_IO, LOG, OTHER, QUERY_RESULTS
 
 }

@@ -5,35 +5,35 @@ package io.gentjankolicaj.app.mymanager.desktop.data.models;
  */
 public class FileType extends MyModel {
 
-	private String file;
+    private String file;
 
-	/**
-	 * 
-	 */
-	public FileType() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    /**
+     *
+     */
+    public FileType() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
-	/**
-	 * @param file
-	 */
-	public FileType(String file) {
-		super();
-		this.file = file;
-	}
+    /**
+     * @param file
+     */
+    public FileType(String file) {
+        super();
+        this.file = file;
+    }
 
-	public String getFile() {
-		return file;
-	}
+    public String getFile() {
+        return file;
+    }
 
-	public void setFile(String file) {
-		this.file = file;
-	}
+    public void setFile(String file) {
+        this.file = file;
+    }
 
-	@Override
-	public String toString() {
-		return "FileType [file=" + file + "]";
-	}
+    @Override
+    public String toString() {
+        return "FileType [file=" + file + "]";
+    }
 
 }

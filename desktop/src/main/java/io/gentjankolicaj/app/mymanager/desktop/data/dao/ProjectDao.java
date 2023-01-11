@@ -19,10 +19,10 @@ public interface ProjectDao {
 
     Project findProjectByName(String projectName) throws Exception;
 
-	int updateProject(Project oldProject, Project newProject) throws Exception;
+    int updateProject(Project oldProject, Project newProject) throws Exception;
 
-	int saveProject(Project project) throws Exception;
+    int saveProject(Project project) throws Exception;
 
-	int deleteProject(Project project) throws Exception;
+    int deleteProject(Project project) throws Exception;
 
 }

@@ -19,6 +19,6 @@ public interface AdditionalDao {
 
     int saveAdditional(Additional additional) throws Exception;
 
-	int deleteAdditional(Additional additional) throws Exception;
+    int deleteAdditional(Additional additional) throws Exception;
 
 }

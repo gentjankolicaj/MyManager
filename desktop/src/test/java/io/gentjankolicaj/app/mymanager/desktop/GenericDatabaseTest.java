@@ -13,13 +13,13 @@ import org.junit.jupiter.api.Test;
 class GenericDatabaseTest {
 
 
-	@Test
-	void testConnection() throws Exception {
-		ApplicationConfigYaml applicationConfigYaml = DesktopApplication.getConfigurationYaml();
-		Database database = DatabaseManager.initDb(applicationConfigYaml.getDatabase());
-		Assertions.assertThat(database.isConnected()).isTrue();
-		database.initDriver();
-	}
+    @Test
+    void testConnection() throws Exception {
+        ApplicationConfigYaml applicationConfigYaml = DesktopApplication.getConfigurationYaml();
+        Database database = DatabaseManager.initDb(applicationConfigYaml.getDatabase());
+        Assertions.assertThat(database.isConnected()).isTrue();
+        database.initDriver();
+    }
 
 
 }

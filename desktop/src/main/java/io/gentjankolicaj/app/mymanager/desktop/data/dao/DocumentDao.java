@@ -19,10 +19,10 @@ public interface DocumentDao {
 
     List<Document> findDocumentByEmployeeId(String employeeId) throws Exception;
 
-	int updateDocument(Document oldDocument, Document newDocument) throws Exception;
+    int updateDocument(Document oldDocument, Document newDocument) throws Exception;
 
-	int saveDocument(Document document) throws Exception;
+    int saveDocument(Document document) throws Exception;
 
-	int deleteDocument(Document document) throws Exception;
+    int deleteDocument(Document document) throws Exception;
 
 }

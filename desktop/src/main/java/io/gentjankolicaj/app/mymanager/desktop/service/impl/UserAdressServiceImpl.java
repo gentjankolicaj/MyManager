@@ -13,60 +13,60 @@ import java.util.List;
 public class UserAdressServiceImpl implements UserAdressService {
 
     private final UserAdressDao userAdressDao;
-	
-	public UserAdressServiceImpl() {
-		super();
+
+    public UserAdressServiceImpl() {
+        super();
         this.userAdressDao = new UserAdressDaoImpl();
     }
 
     @Override
-	public List<UserAdress> getAllAdresses() throws Exception {
-		return userAdressDao.findAllAdresses();
+    public List<UserAdress> getAllAdresses() throws Exception {
+        return userAdressDao.findAllAdresses();
     }
 
     @Override
-	public List<UserAdress> getAllAdresses(int limit, int offset) throws Exception {
-		return userAdressDao.findAllAdresses(limit, offset);
+    public List<UserAdress> getAllAdresses(int limit, int offset) throws Exception {
+        return userAdressDao.findAllAdresses(limit, offset);
     }
 
     @Override
-	public UserAdress getAdressesByPersonId(String personId) throws Exception {
-		return userAdressDao.findAdressesByPersonId(personId);
+    public UserAdress getAdressesByPersonId(String personId) throws Exception {
+        return userAdressDao.findAdressesByPersonId(personId);
     }
 
     @Override
-	public List<UserAdress> getAdressesByCity(String city) throws Exception {
-		return userAdressDao.findAdressesByCity(city);
+    public List<UserAdress> getAdressesByCity(String city) throws Exception {
+        return userAdressDao.findAdressesByCity(city);
     }
 
     @Override
-	public List<UserAdress> getAdressesByCountry(String country) throws Exception {
-	  return userAdressDao.findAdressesByCountry(country);
+    public List<UserAdress> getAdressesByCountry(String country) throws Exception {
+        return userAdressDao.findAdressesByCountry(country);
     }
 
     @Override
-	public List<UserAdress> getAdressesByStreet(String streetName) throws Exception {
-		return userAdressDao.findAdressesByStreet(streetName);
+    public List<UserAdress> getAdressesByStreet(String streetName) throws Exception {
+        return userAdressDao.findAdressesByStreet(streetName);
     }
 
     @Override
-	public UserAdress getAdress(int adressId) throws Exception {
-		return userAdressDao.findAdress(adressId);
+    public UserAdress getAdress(int adressId) throws Exception {
+        return userAdressDao.findAdress(adressId);
     }
 
     @Override
-	public int updateAdress(UserAdress oldAdress, UserAdress newAdress) throws Exception {
-		return userAdressDao.updateAdress(oldAdress, newAdress);
+    public int updateAdress(UserAdress oldAdress, UserAdress newAdress) throws Exception {
+        return userAdressDao.updateAdress(oldAdress, newAdress);
     }
 
     @Override
-	public int saveAdress(UserAdress adress) throws Exception {
-		return userAdressDao.saveAdress(adress);
+    public int saveAdress(UserAdress adress) throws Exception {
+        return userAdressDao.saveAdress(adress);
     }
 
     @Override
-	public int deleteAdress(UserAdress adress) throws Exception {
-	   return userAdressDao.deleteAdress(adress);
+    public int deleteAdress(UserAdress adress) throws Exception {
+        return userAdressDao.deleteAdress(adress);
     }
 
 

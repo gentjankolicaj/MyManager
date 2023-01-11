@@ -19,18 +19,18 @@ public interface EmployeeDao {
 
     List<Employee> findEmployeesByLastName(String lastName) throws Exception;
 
-	List<Employee> findEmployeesByJobId(int jobId) throws Exception;
+    List<Employee> findEmployeesByJobId(int jobId) throws Exception;
 
-	List<Employee> findEmployeesByDepartmentId(int departmentId) throws Exception;
+    List<Employee> findEmployeesByDepartmentId(int departmentId) throws Exception;
 
-	List<Employee> findEmployeesByProjectName(String projectName) throws Exception;
+    List<Employee> findEmployeesByProjectName(String projectName) throws Exception;
 
-	Employee findEmployee(String employeeId) throws Exception;
+    Employee findEmployee(String employeeId) throws Exception;
 
-	int updateEmployee(Employee oldEmployee, Employee newEmployee) throws Exception;
+    int updateEmployee(Employee oldEmployee, Employee newEmployee) throws Exception;
 
-	int saveEmployee(Employee employee) throws Exception;
+    int saveEmployee(Employee employee) throws Exception;
 
-	int deleteEmployee(Employee employee) throws Exception;
+    int deleteEmployee(Employee employee) throws Exception;
 
 }

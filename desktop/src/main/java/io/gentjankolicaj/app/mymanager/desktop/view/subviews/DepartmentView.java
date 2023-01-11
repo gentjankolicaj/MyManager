@@ -27,251 +27,248 @@ import java.util.List;
 
 public class DepartmentView extends MyPanel {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2191151781811208739L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -2191151781811208739L;
+    private final ButtonGroup buttonGroupSearchType = new ButtonGroup();
+    private final JFrame jframe;
+    private final MyPanel selfReference;
+    private final MainView mainView;
+    // Service fields
+    private final UserService userService;
+    private final DepartmentService departmentService;
+    private final EmployeeService employeeService;
+    private final User user;
+    private JTextField textFieldSearch;
+    private JButton btnSearch;
+    private DefaultTableModel tableModel;
+    private MyTable table;
+    private JButton btnCreate;
+    private JButton btnEdit;
+    private JButton btnDelete;
+    private JButton btnBack;
+    private JRadioButton rdbtnId;
+    private JRadioButton rdbtnName;
+    private List<Department> currentDepartmentList;
 
-	private JTextField textFieldSearch;
-	private final ButtonGroup buttonGroupSearchType = new ButtonGroup();
-	private JButton btnSearch;
-	private DefaultTableModel tableModel;
-	private MyTable table;
-	private JButton btnCreate;
-	private JButton btnEdit;
-	private JButton btnDelete;
-	private JButton btnBack;
-	private JRadioButton rdbtnId;
-	private JRadioButton rdbtnName;
-	private List<Department> currentDepartmentList;
+    /**
+     * Create the panel.
+     */
+    public DepartmentView(JFrame jframe, MainView mainView, UserService userService, User user) {
+        super(1060, 620);
+        this.jframe = jframe;
+        this.mainView = mainView;
+        this.selfReference = this;
 
-	private final JFrame jframe;
-	private final MyPanel selfReference;
-	private final MainView mainView;
+        this.userService = userService;
+        this.user = user;
+        this.departmentService = new DepartmentServiceImpl();
+        this.employeeService = new EmployeeServiceImpl();
 
-	// Service fields
-	private final UserService userService;
-	private final DepartmentService departmentService;
-	private final EmployeeService employeeService;
-	private final User user;
+        initComponents();
+        initEvents();
 
-	/**
-	 * Create the panel.
-	 */
-	public DepartmentView(JFrame jframe, MainView mainView, UserService userService, User user) {
-		super(1060, 620);
-		this.jframe = jframe;
-		this.mainView = mainView;
-		this.selfReference = this;
+    }
 
-		this.userService = userService;
-		this.user = user;
-		this.departmentService = new DepartmentServiceImpl();
-		this.employeeService=new EmployeeServiceImpl();
+    private void initComponents() {
+        setLayout(null);
+        JLabel lblNewLabel = new JLabel("All registered departments");
+        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+        lblNewLabel.setBounds(341, 13, 274, 35);
+        add(lblNewLabel);
 
-		initComponents();
-		initEvents();
+        textFieldSearch = new JTextField();
+        textFieldSearch.setBounds(12, 85, 771, 30);
+        add(textFieldSearch);
+        textFieldSearch.setColumns(10);
 
-	}
+        rdbtnId = new JRadioButton("Id");
+        buttonGroupSearchType.add(rdbtnId);
+        rdbtnId.setBounds(92, 50, 71, 25);
+        add(rdbtnId);
 
-	private void initComponents() {
-		setLayout(null);
-		JLabel lblNewLabel = new JLabel("All registered departments");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel.setBounds(341, 13, 274, 35);
-		add(lblNewLabel);
+        JLabel lblSearcchBy = new JLabel("Search by :");
+        lblSearcchBy.setBounds(12, 48, 89, 31);
+        add(lblSearcchBy);
 
-		textFieldSearch = new JTextField();
-		textFieldSearch.setBounds(12, 85, 771, 30);
-		add(textFieldSearch);
-		textFieldSearch.setColumns(10);
+        rdbtnName = new JRadioButton("Name");
+        buttonGroupSearchType.add(rdbtnName);
+        rdbtnName.setBounds(159, 50, 153, 25);
+        add(rdbtnName);
 
-		rdbtnId = new JRadioButton("Id");
-		buttonGroupSearchType.add(rdbtnId);
-		rdbtnId.setBounds(92, 50, 71, 25);
-		add(rdbtnId);
+        btnSearch = new JButton("Search");
+        btnSearch.setBounds(813, 85, 138, 30);
+        add(btnSearch);
 
-		JLabel lblSearcchBy = new JLabel("Search by :");
-		lblSearcchBy.setBounds(12, 48, 89, 31);
-		add(lblSearcchBy);
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBounds(12, 127, 933, 442);
 
-		rdbtnName = new JRadioButton("Name");
-		buttonGroupSearchType.add(rdbtnName);
-		rdbtnName.setBounds(159, 50, 153, 25);
-		add(rdbtnName);
+        table = new MyTable();
+        table.setFillsViewportHeight(true);
 
-		btnSearch = new JButton("Search");
-		btnSearch.setBounds(813, 85, 138, 30);
-		add(btnSearch);
+        tableModel = new DefaultTableModel();
+        tableModel.setColumnIdentifiers(new String[]{"Id", "Name", "Manager Id", "Created by", "Created date",
+                "Updated by", "Updated date"});
 
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 127, 933, 442);
+        table.setModel(tableModel);
+        scrollPane.setViewportView(table);
 
-		table = new MyTable();
-		table.setFillsViewportHeight(true);
+        add(scrollPane);
 
-		tableModel = new DefaultTableModel();
-		tableModel.setColumnIdentifiers(new String[] { "Id", "Name", "Manager Id", "Created by", "Created date",
-				"Updated by", "Updated date" });
+        btnCreate = new JButton("Create");
+        btnCreate.setBounds(957, 156, 97, 25);
+        add(btnCreate);
 
-		table.setModel(tableModel);
-		scrollPane.setViewportView(table);
+        btnEdit = new JButton("Edit");
+        btnEdit.setBounds(957, 194, 97, 25);
+        add(btnEdit);
 
-		add(scrollPane);
+        btnDelete = new JButton("Delete");
+        btnDelete.setBounds(957, 232, 97, 25);
+        add(btnDelete);
 
-		btnCreate = new JButton("Create");
-		btnCreate.setBounds(957, 156, 97, 25);
-		add(btnCreate);
+        btnBack = new JButton("Back");
+        btnBack.setBounds(957, 291, 97, 25);
+        add(btnBack);
+    }
 
-		btnEdit = new JButton("Edit");
-		btnEdit.setBounds(957, 194, 97, 25);
-		add(btnEdit);
+    private void initEvents() {
 
-		btnDelete = new JButton("Delete");
-		btnDelete.setBounds(957, 232, 97, 25);
-		add(btnDelete);
+        btnSearch.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                searchDepartments();
+            }
+        });
 
-		btnBack = new JButton("Back");
-		btnBack.setBounds(957, 291, 97, 25);
-		add(btnBack);
-	}
+        btnCreate.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                CreateDepartment createDepartment = new CreateDepartment(departmentService, user);
+                createDepartment.setModal(true);
+                createDepartment.setVisible(true);
 
-	private void initEvents() {
+                loadData();
 
-		btnSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				searchDepartments();
-			}
-		});
+            }
+        });
+        btnEdit.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                int selectedRow = table.getSelectedRow();
+                int totalRows = table.getRowCount();
+                if ((selectedRow > -1) && (selectedRow < totalRows)) {
+                    Department oldDepartment = currentDepartmentList.get(selectedRow);
+                    EditDepartment editDepartment = new EditDepartment(departmentService, user, oldDepartment);
+                    editDepartment.setModal(true);
+                    editDepartment.setVisible(true);
 
-		btnCreate.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				CreateDepartment createDepartment = new CreateDepartment(departmentService, user);
-				createDepartment.setModal(true);
-				createDepartment.setVisible(true);
+                    loadData();
+                }
+            }
+        });
+        btnDelete.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                int selectedRow = table.getSelectedRow();
+                int totalRows = table.getRowCount();
+                if ((selectedRow > -1) && (selectedRow < totalRows)) {
+                    Department departmentToDelete = currentDepartmentList.get(selectedRow);
 
-				loadData();
+                    try {
+                        departmentService.deleteDepartment(departmentToDelete);
+                    } catch (Exception e1) {
 
-			}
-		});
-		btnEdit.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				int selectedRow = table.getSelectedRow();
-				int totalRows = table.getRowCount();
-				if ((selectedRow > -1) && (selectedRow < totalRows)) {
-					Department oldDepartment = currentDepartmentList.get(selectedRow);
-					EditDepartment editDepartment = new EditDepartment(departmentService, user, oldDepartment);
-					editDepartment.setModal(true);
-					editDepartment.setVisible(true);
+                        e1.printStackTrace();
+                    }
 
-					loadData();
-				}
-			}
-		});
-		btnDelete.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				int selectedRow = table.getSelectedRow();
-				int totalRows = table.getRowCount();
-				if ((selectedRow > -1) && (selectedRow < totalRows)) {
-					Department departmentToDelete = currentDepartmentList.get(selectedRow);
-				    
-					try {
-						departmentService.deleteDepartment(departmentToDelete);
-					} catch (Exception e1) {
+                    loadData();
+                }
 
-						e1.printStackTrace();
-					}
-
-					loadData();
-				}
-
-			}
-		});
-		btnBack.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
+            }
+        });
+        btnBack.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
                 ViewUtils.returnToMainView(jframe, selfReference, mainView);
-			}
-		});
+            }
+        });
 
-	}
+    }
 
-	private void searchDepartments() {
-		String searchValue = textFieldSearch.getText().trim();
-		emptyTable();
-		if (rdbtnId.isSelected()) {
-			Department temp = null;
-			try {
-				temp = departmentService.getDepartment(searchValue);
-			} catch (Exception e) {
+    private void searchDepartments() {
+        String searchValue = textFieldSearch.getText().trim();
+        emptyTable();
+        if (rdbtnId.isSelected()) {
+            Department temp = null;
+            try {
+                temp = departmentService.getDepartment(searchValue);
+            } catch (Exception e) {
 
-				e.printStackTrace();
-			}
-			if (temp != null)
-				currentDepartmentList.add(temp);
-			fillTable(currentDepartmentList);
+                e.printStackTrace();
+            }
+            if (temp != null)
+                currentDepartmentList.add(temp);
+            fillTable(currentDepartmentList);
 
-		} else if (rdbtnName.isSelected()) {
-			try {
-				currentDepartmentList = departmentService.getDepartments(searchValue);
-			} catch (Exception e) {
+        } else if (rdbtnName.isSelected()) {
+            try {
+                currentDepartmentList = departmentService.getDepartments(searchValue);
+            } catch (Exception e) {
 
-				e.printStackTrace();
-			}
-			fillTable(currentDepartmentList);
+                e.printStackTrace();
+            }
+            fillTable(currentDepartmentList);
 
-		}
+        }
 
-	}
+    }
 
-	private void emptyTable() {
-		currentDepartmentList = new ArrayList<>();
-		tableModel.setRowCount(0);
-	}
+    private void emptyTable() {
+        currentDepartmentList = new ArrayList<>();
+        tableModel.setRowCount(0);
+    }
 
-	private void fillTable(List<Department> departmentsList) {
-		if (departmentsList != null && departmentsList.size() != 0) {
-			Object[] rowData = new Object[7];
-			for (Department department : departmentsList) {
-				rowData[0] = department.getDepartmentId();
-				rowData[1] = department.getDepartmentName();
-				rowData[2] = department.getManagerId();
-				rowData[3] = department.getCreatedBy();
-				rowData[4] = department.getCreatedDate();
-				rowData[5] = department.getUpdatedBy();
-				rowData[6] = department.getUpdatedDate();
-				tableModel.addRow(rowData);
-			}
-		}
-	}
+    private void fillTable(List<Department> departmentsList) {
+        if (departmentsList != null && departmentsList.size() != 0) {
+            Object[] rowData = new Object[7];
+            for (Department department : departmentsList) {
+                rowData[0] = department.getDepartmentId();
+                rowData[1] = department.getDepartmentName();
+                rowData[2] = department.getManagerId();
+                rowData[3] = department.getCreatedBy();
+                rowData[4] = department.getCreatedDate();
+                rowData[5] = department.getUpdatedBy();
+                rowData[6] = department.getUpdatedDate();
+                tableModel.addRow(rowData);
+            }
+        }
+    }
 
-	public void loadData() {
-		emptyTable();
-		try {
+    public void loadData() {
+        emptyTable();
+        try {
 
-			currentDepartmentList = departmentService.getAllDepartments(Config.ROW_LIMIT, Config.DEPARTMENT_OFFSET);
+            currentDepartmentList = departmentService.getAllDepartments(Config.ROW_LIMIT, Config.DEPARTMENT_OFFSET);
 
-		} catch (Exception e) {
+        } catch (Exception e) {
 
-			e.printStackTrace();
-		}
-		if (currentDepartmentList != null && currentDepartmentList.size() != 0) {
-			Object[] rowData = new Object[7];
-			for (Department department : currentDepartmentList) {
-				rowData[0] = department.getDepartmentId();
-				rowData[1] = department.getDepartmentName();
-				rowData[2] = department.getManagerId();
-				rowData[3] = department.getCreatedBy();
-				rowData[4] = department.getCreatedDate();
-				rowData[5] = department.getUpdatedBy();
-				rowData[6] = department.getUpdatedDate();
-				tableModel.addRow(rowData);
-			}
+            e.printStackTrace();
+        }
+        if (currentDepartmentList != null && currentDepartmentList.size() != 0) {
+            Object[] rowData = new Object[7];
+            for (Department department : currentDepartmentList) {
+                rowData[0] = department.getDepartmentId();
+                rowData[1] = department.getDepartmentName();
+                rowData[2] = department.getManagerId();
+                rowData[3] = department.getCreatedBy();
+                rowData[4] = department.getCreatedDate();
+                rowData[5] = department.getUpdatedBy();
+                rowData[6] = department.getUpdatedDate();
+                tableModel.addRow(rowData);
+            }
 
-		}
-	}
+        }
+    }
 
 }

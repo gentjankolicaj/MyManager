@@ -21,8 +21,8 @@ public interface AttemptDao {
 
     List<Attempt> findAttempts(Status status) throws Exception;
 
-	int saveAttempt(Attempt attempt) throws Exception;
+    int saveAttempt(Attempt attempt) throws Exception;
 
-	int deleteAttempt(Attempt attempt) throws Exception;
+    int deleteAttempt(Attempt attempt) throws Exception;
 
 }

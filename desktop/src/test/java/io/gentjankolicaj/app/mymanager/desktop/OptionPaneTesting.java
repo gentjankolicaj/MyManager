@@ -14,27 +14,27 @@ import java.awt.*;
  */
 public class OptionPaneTesting {
 
-	JFrame frame;
+    JFrame frame;
 
-	@BeforeEach
-	public void setUp() throws Exception {
-		frame = new JFrame();
-		frame.setSize(new Dimension(600, 350));
-		frame.setVisible(true);
-	}
+    @BeforeEach
+    public void setUp() throws Exception {
+        frame = new JFrame();
+        frame.setSize(new Dimension(600, 350));
+        frame.setVisible(true);
+    }
 
-	@AfterEach
-	public void tearDown() throws Exception {
-	}
+    @AfterEach
+    public void tearDown() throws Exception {
+    }
 
-	@Test
-	public final void testMessage() {
-		WindowUtils.showMessage(frame, "Info", MessageType.ERROR);
-		WindowUtils.showMessage(frame, "Info", MessageType.WARNING);
-		WindowUtils.showMessage(frame, "Info", MessageType.INFORMATION);
-		WindowUtils.showMessage(frame, "Info", MessageType.QUESTION);
-		WindowUtils.showMessage(frame, "Info", MessageType.PLAIN);
+    @Test
+    public final void testMessage() {
+        WindowUtils.showMessage(frame, "Info", MessageType.ERROR);
+        WindowUtils.showMessage(frame, "Info", MessageType.WARNING);
+        WindowUtils.showMessage(frame, "Info", MessageType.INFORMATION);
+        WindowUtils.showMessage(frame, "Info", MessageType.QUESTION);
+        WindowUtils.showMessage(frame, "Info", MessageType.PLAIN);
 
-	}
+    }
 
 }

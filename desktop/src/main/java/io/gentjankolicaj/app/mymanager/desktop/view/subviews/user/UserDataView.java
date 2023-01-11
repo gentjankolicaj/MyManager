@@ -16,100 +16,94 @@ import java.awt.event.MouseEvent;
  */
 public class UserDataView extends MyPanel {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4100590738083935784L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4100590738083935784L;
 
-	private final ButtonGroup buttonGroup = new ButtonGroup();
+    private final ButtonGroup buttonGroup = new ButtonGroup();
+    private final JFrame jframe;
+    private final MyPanel selfReference;
+    private final MainView mainView;
+    //Service fields
+    private final UserService userService;
+    //
+    private final User user;
+    private UserView userView;
+    private UserAdressView adressView;
+    private UserContactView contactView;
+    // important for inside navigation
+    private MyPanel previousPanel;
+    private JButton btnContacts;
+    private JButton btnAdresses;
+    private JButton btnUsers;
 
-	private UserView userView;
-	private UserAdressView adressView;
-	private UserContactView contactView;
+    /**
+     * Create the panel.
+     */
+    public UserDataView(JFrame jframe, MainView mainView, UserService userService, User user) {
+        super(1330, 650);
+        this.jframe = jframe;
+        this.selfReference = this;
+        this.mainView = mainView;
+        this.userService = userService;
+        this.user = user;
 
-	// important for inside navigation
-	private MyPanel previousPanel;
-	//
+        initComponents();
+        initEvents();
+    }
 
-	private final JFrame jframe;
-	private final MyPanel selfReference;
-	private final MainView mainView;
+    private void initComponents() {
+        setLayout(null);
 
-	private JButton btnContacts;
-	private JButton btnAdresses;
-	private JButton btnUsers;
-	
-	
-	//Service fields
-	private final UserService userService;
-	private final User user;
+        userView = new UserView(jframe, mainView, userService, user);
+        previousPanel = userView;
+        userView.setBounds(134, 11, 1221, 650);
+        add(userView);
 
-	/**
-	 * Create the panel.
-	 */
-	public UserDataView(JFrame jframe, MainView mainView, UserService userService,User user) {
-		super(1330, 650);
-		this.jframe = jframe;
-		this.selfReference=this;
-		this.mainView = mainView;
-		this.userService=userService;
-		this.user=user;
-		
-		initComponents();
-		initEvents();
-	}
+        btnContacts = new JButton("Contacts");
+        btnContacts.setBounds(10, 269, 120, 35);
+        add(btnContacts);
 
-	private void initComponents() {
-		setLayout(null);
+        btnAdresses = new JButton("Adresses");
+        btnAdresses.setBounds(10, 206, 120, 35);
+        add(btnAdresses);
 
-		userView = new UserView(jframe, mainView, userService,user);
-		previousPanel = userView;
-		userView.setBounds(134, 11, 1221, 650);
-		add(userView);
+        btnUsers = new JButton("Users");
+        btnUsers.setForeground(Color.BLACK);
+        btnUsers.setBackground(UIManager.getColor("Button.background"));
+        btnUsers.setBounds(10, 146, 120, 35);
+        add(btnUsers);
 
-		btnContacts = new JButton("Contacts");
-		btnContacts.setBounds(10, 269, 120, 35);
-		add(btnContacts);
+    }
 
-		btnAdresses = new JButton("Adresses");
-		btnAdresses.setBounds(10, 206, 120, 35);
-		add(btnAdresses);
+    public void initEvents() {
 
-		btnUsers = new JButton("Users");
-		btnUsers.setForeground(Color.BLACK);
-		btnUsers.setBackground(UIManager.getColor("Button.background"));
-		btnUsers.setBounds(10, 146, 120, 35);
-		add(btnUsers);
+        btnUsers.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                userView = new UserView(jframe, mainView, userService, user);
+                ViewUtils.changeUserView(selfReference, userView, previousPanel);
+                previousPanel = userView;
 
-	}
+            }
+        });
+        btnAdresses.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                adressView = new UserAdressView(jframe, mainView);
+                ViewUtils.changeUserView(selfReference, adressView, previousPanel);
+                previousPanel = adressView;
+            }
+        });
 
-	public void initEvents() {
-
-		btnUsers.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				userView = new UserView(jframe, mainView, userService, user);
-				ViewUtils.changeUserView(selfReference, userView, previousPanel);
-				previousPanel = userView;
-
-			}
-		});
-		btnAdresses.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				adressView = new UserAdressView(jframe, mainView);
-				ViewUtils.changeUserView(selfReference, adressView, previousPanel);
-				previousPanel = adressView;
-			}
-		});
-
-		btnContacts.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				contactView = new UserContactView(jframe, mainView);
-				ViewUtils.changeUserView(selfReference, contactView, previousPanel);
-				previousPanel = contactView;
-			}
-		});
-	}
+        btnContacts.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                contactView = new UserContactView(jframe, mainView);
+                ViewUtils.changeUserView(selfReference, contactView, previousPanel);
+                previousPanel = contactView;
+            }
+        });
+    }
 }

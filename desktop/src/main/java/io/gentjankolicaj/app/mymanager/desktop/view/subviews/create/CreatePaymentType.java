@@ -14,84 +14,83 @@ import java.awt.event.MouseEvent;
 
 public class CreatePaymentType extends JDialog {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7927585795717063183L;
-	private final JDialog selfReference;
-	private final JPanel contentPanel = new JPanel();
-	private JButton btnCreate;
-	private JTextField textFieldPayment;
-
-
-	//Service field
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7927585795717063183L;
+    private final JDialog selfReference;
+    private final JPanel contentPanel = new JPanel();
+    //Service field
     private final PaymentTypeService paymentTypeService;
-	/**
-	 * Create the dialog.
-	 */
-	public CreatePaymentType(PaymentTypeService paymentTypeService) {
-		setTitle("Create new payment type");
-		selfReference = this;
-		this.paymentTypeService=paymentTypeService;
-		initComponents();
-		initEvents();
+    private JButton btnCreate;
+    private JTextField textFieldPayment;
 
-	}
+    /**
+     * Create the dialog.
+     */
+    public CreatePaymentType(PaymentTypeService paymentTypeService) {
+        setTitle("Create new payment type");
+        selfReference = this;
+        this.paymentTypeService = paymentTypeService;
+        initComponents();
+        initEvents();
 
-	private void initEvents() {
-		btnCreate.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				String newPaymentType = textFieldPayment.getText();
-				try {
-					
-					paymentTypeService.savePaymentType(new PaymentType(newPaymentType));
-					
-				} catch (Exception e1) {
-					
-					e1.printStackTrace();
-				}
-				selfReference.dispose();
-			}
-		});
+    }
 
-		textFieldPayment.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					String newPaymentType = textFieldPayment.getText();
-					try {
-						
-						paymentTypeService.savePaymentType(new PaymentType(newPaymentType));
-						
-					} catch (Exception e1) {
-						
-						e1.printStackTrace();
-					}
-					selfReference.dispose();
-				}
-			}
-		});
-	}
+    private void initEvents() {
+        btnCreate.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                String newPaymentType = textFieldPayment.getText();
+                try {
 
-	private void initComponents() {
-		setIconImage(IconUtils.getImage("icons/icons_24x24/icons8-save-money.png"));
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 362, 110);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(null);
+                    paymentTypeService.savePaymentType(new PaymentType(newPaymentType));
 
-		btnCreate = new JButton("Save");
+                } catch (Exception e1) {
 
-		btnCreate.setIcon(IconUtils.getIcon("icons/icons_24x24/icons8-save-2.png"));
-		btnCreate.setBounds(226, 28, 110, 24);
-		contentPanel.add(btnCreate);
+                    e1.printStackTrace();
+                }
+                selfReference.dispose();
+            }
+        });
 
-		textFieldPayment = new JTextField();
-		textFieldPayment.setBounds(10, 29, 206, 22);
-		contentPanel.add(textFieldPayment);
-		textFieldPayment.setColumns(10);
-	}
+        textFieldPayment.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    String newPaymentType = textFieldPayment.getText();
+                    try {
+
+                        paymentTypeService.savePaymentType(new PaymentType(newPaymentType));
+
+                    } catch (Exception e1) {
+
+                        e1.printStackTrace();
+                    }
+                    selfReference.dispose();
+                }
+            }
+        });
+    }
+
+    private void initComponents() {
+        setIconImage(IconUtils.getImage("icons/icons_24x24/icons8-save-money.png"));
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setBounds(100, 100, 362, 110);
+        getContentPane().setLayout(new BorderLayout());
+        contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        getContentPane().add(contentPanel, BorderLayout.CENTER);
+        contentPanel.setLayout(null);
+
+        btnCreate = new JButton("Save");
+
+        btnCreate.setIcon(IconUtils.getIcon("icons/icons_24x24/icons8-save-2.png"));
+        btnCreate.setBounds(226, 28, 110, 24);
+        contentPanel.add(btnCreate);
+
+        textFieldPayment = new JTextField();
+        textFieldPayment.setBounds(10, 29, 206, 22);
+        contentPanel.add(textFieldPayment);
+        textFieldPayment.setColumns(10);
+    }
 }

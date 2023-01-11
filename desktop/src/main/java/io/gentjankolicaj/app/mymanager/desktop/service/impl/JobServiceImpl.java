@@ -14,50 +14,50 @@ public class JobServiceImpl implements JobService {
 
 
     private final JobDao jobDao;
-	
-	public JobServiceImpl() {
-		super();
+
+    public JobServiceImpl() {
+        super();
         this.jobDao = new JobDaoImpl();
     }
 
     @Override
-	public List<Job> getAllJobs() throws Exception {
-		return jobDao.findAllJobs();
+    public List<Job> getAllJobs() throws Exception {
+        return jobDao.findAllJobs();
     }
 
     @Override
-	public List<Job> getAllJobs(int limit, int offset) throws Exception {
-		return jobDao.findAllJobs(limit, offset);
+    public List<Job> getAllJobs(int limit, int offset) throws Exception {
+        return jobDao.findAllJobs(limit, offset);
     }
 
     @Override
-	public List<Job> getAllJobsBetweenSalary(float minSalary, float maxSalary) throws Exception {
-		return jobDao.findAllJobsBetweenSalary(minSalary, maxSalary);
+    public List<Job> getAllJobsBetweenSalary(float minSalary, float maxSalary) throws Exception {
+        return jobDao.findAllJobsBetweenSalary(minSalary, maxSalary);
     }
 
     @Override
-	public List<Job> getAllJobsByTitle(String jobTitle) throws Exception {
-		return jobDao.findAllJobsByTitle(jobTitle);
+    public List<Job> getAllJobsByTitle(String jobTitle) throws Exception {
+        return jobDao.findAllJobsByTitle(jobTitle);
     }
 
     @Override
-	public Job getJob(int jobId) throws Exception {
-		return jobDao.findJob(jobId);
+    public Job getJob(int jobId) throws Exception {
+        return jobDao.findJob(jobId);
     }
 
     @Override
-	public int updateJob(Job oldJob, Job newJob) throws Exception {
-		return jobDao.updateJob(oldJob, newJob);
+    public int updateJob(Job oldJob, Job newJob) throws Exception {
+        return jobDao.updateJob(oldJob, newJob);
     }
 
     @Override
-	public int saveJob(Job job) throws Exception {
-	   return jobDao.saveJob(job);
+    public int saveJob(Job job) throws Exception {
+        return jobDao.saveJob(job);
     }
 
     @Override
-	public int deleteJob(Job job) throws Exception {
-		return jobDao.deleteJob(job);
+    public int deleteJob(Job job) throws Exception {
+        return jobDao.deleteJob(job);
     }
 
 }

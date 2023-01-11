@@ -23,233 +23,228 @@ import java.util.List;
 
 public class CreatePayments extends JDialog {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4041425686102020001L;
-	private final JDialog selfReference;
-	private final JPanel contentPanel = new JPanel();
-	private JPanel buttonPane;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4041425686102020001L;
+    private final JDialog selfReference;
+    private final JPanel contentPanel = new JPanel();
+    // Service fields
+    private final PaymentService paymentService;
+    private final PaymentTypeService paymentTypeService;
+    private final CurrencyService currencyService;
+    private final EmployeeService employeeService;
+    private final User user;
+    private JPanel buttonPane;
+    private JComboBox comboBoxPaymentType;
+    private DefaultComboBoxModel<String> paymentTypeModel;
+    private JComboBox comboBoxCurrency;
+    private DefaultComboBoxModel<String> currencyModel;
+    private JComboBox employeeComboBox;
+    private DefaultComboBoxModel<String> employeeModel;
+    private JButton btnSave;
+    private JButton btnCancel;
+    private JTextField textFieldAmount;
+    private JTextArea textAreaDesc;
 
-	private JComboBox comboBoxPaymentType;
-	private DefaultComboBoxModel<String> paymentTypeModel;
+    public CreatePayments(PaymentService paymentService, User user) {
+        this.selfReference = this;
+        this.paymentService = paymentService;
+        this.user = user;
+        this.paymentTypeService = new PaymentTypeServiceImpl();
+        this.currencyService = new CurrencyServiceImpl();
+        this.employeeService = new EmployeeServiceImpl();
 
-	private JComboBox comboBoxCurrency;
-	private DefaultComboBoxModel<String> currencyModel;
+        setResizable(false);
 
-	private JComboBox employeeComboBox;
-	private DefaultComboBoxModel<String> employeeModel;
-	
-	private JButton btnSave;
-	private JButton btnCancel;
-	private JTextField textFieldAmount;
-	private JTextArea textAreaDesc;
+        initComponents();
+        initEvents();
+        fillComboBoxes();
+    }
 
-	// Service fields
-	private final PaymentService paymentService;
-	private final PaymentTypeService paymentTypeService;
-	private final CurrencyService currencyService;
-	private final EmployeeService employeeService;
-	private final User user;
+    private void initComponents() {
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setBounds(100, 100, 560, 483);
+        getContentPane().setLayout(new BorderLayout());
+        contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        getContentPane().add(contentPanel, BorderLayout.CENTER);
+        contentPanel.setLayout(null);
 
-	public CreatePayments(PaymentService paymentService,User user) {
-		this.selfReference = this;
-		this.paymentService = paymentService;
-		this.user = user;
-		this.paymentTypeService = new PaymentTypeServiceImpl();
-		this.currencyService = new CurrencyServiceImpl();
-		this.employeeService=new EmployeeServiceImpl();
+        JLabel lblCreateNewType = new JLabel("Create new payment :");
+        lblCreateNewType.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
+        lblCreateNewType.setBounds(129, 13, 270, 26);
+        contentPanel.add(lblCreateNewType);
 
-		setResizable(false);
+        JLabel lblPaymentType = new JLabel("Type :");
+        lblPaymentType.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lblPaymentType.setBounds(51, 67, 53, 26);
+        contentPanel.add(lblPaymentType);
 
-		initComponents();
-		initEvents();
-		fillComboBoxes();
-	}
+        JLabel lblEmpId = new JLabel("Emp Id  :");
+        lblEmpId.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lblEmpId.setBounds(30, 125, 74, 26);
+        contentPanel.add(lblEmpId);
 
-	private void initComponents() {
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 560, 483);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(null);
+        JLabel lblCurrency = new JLabel("Currency :");
+        lblCurrency.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lblCurrency.setBounds(23, 183, 81, 26);
+        contentPanel.add(lblCurrency);
 
-		JLabel lblCreateNewType = new JLabel("Create new payment :");
-		lblCreateNewType.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
-		lblCreateNewType.setBounds(129, 13, 270, 26);
-		contentPanel.add(lblCreateNewType);
+        comboBoxPaymentType = new JComboBox();
+        comboBoxPaymentType.setBounds(112, 67, 276, 30);
 
-		JLabel lblPaymentType = new JLabel("Type :");
-		lblPaymentType.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblPaymentType.setBounds(51, 67, 53, 26);
-		contentPanel.add(lblPaymentType);
+        paymentTypeModel = new DefaultComboBoxModel();
+        comboBoxPaymentType.setModel(paymentTypeModel);
 
-		JLabel lblEmpId = new JLabel("Emp Id  :");
-		lblEmpId.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblEmpId.setBounds(30, 125, 74, 26);
-		contentPanel.add(lblEmpId);
+        contentPanel.add(comboBoxPaymentType);
 
-		JLabel lblCurrency = new JLabel("Currency :");
-		lblCurrency.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCurrency.setBounds(23, 183, 81, 26);
-		contentPanel.add(lblCurrency);
+        employeeComboBox = new JComboBox();
+        employeeComboBox.setBounds(112, 125, 276, 30);
 
-		comboBoxPaymentType = new JComboBox();
-		comboBoxPaymentType.setBounds(112, 67, 276, 30);
+        employeeModel = new DefaultComboBoxModel();
+        employeeComboBox.setModel(employeeModel);
 
-		paymentTypeModel = new DefaultComboBoxModel();
-		comboBoxPaymentType.setModel(paymentTypeModel);
+        contentPanel.add(employeeComboBox);
 
-		contentPanel.add(comboBoxPaymentType);
+        comboBoxCurrency = new JComboBox();
+        comboBoxCurrency.setBounds(112, 183, 276, 30);
 
-		employeeComboBox = new JComboBox();
-		employeeComboBox.setBounds(112, 125, 276, 30);
-		
-		employeeModel=new DefaultComboBoxModel();
-		employeeComboBox.setModel(employeeModel);
-		
-		contentPanel.add(employeeComboBox);
+        currencyModel = new DefaultComboBoxModel();
+        comboBoxCurrency.setModel(currencyModel);
 
-		comboBoxCurrency = new JComboBox();
-		comboBoxCurrency.setBounds(112, 183, 276, 30);
+        contentPanel.add(comboBoxCurrency);
 
-		currencyModel = new DefaultComboBoxModel();
-		comboBoxCurrency.setModel(currencyModel);
+        JLabel lblAmount = new JLabel("Amount  :");
+        lblAmount.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lblAmount.setBounds(23, 240, 81, 26);
+        contentPanel.add(lblAmount);
 
-		contentPanel.add(comboBoxCurrency);
+        textFieldAmount = new JTextField();
+        textFieldAmount.setText("0");
+        textFieldAmount.setToolTipText("eg : 12.234\r\n");
+        textFieldAmount.setColumns(10);
+        textFieldAmount.setBounds(112, 240, 276, 30);
+        contentPanel.add(textFieldAmount);
 
-		JLabel lblAmount = new JLabel("Amount  :");
-		lblAmount.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblAmount.setBounds(23, 240, 81, 26);
-		contentPanel.add(lblAmount);
+        JLabel lblDescription = new JLabel("Description  :");
+        lblDescription.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lblDescription.setBounds(12, 306, 93, 26);
+        contentPanel.add(lblDescription);
 
-		textFieldAmount = new JTextField();
-		textFieldAmount.setText("0");
-		textFieldAmount.setToolTipText("eg : 12.234\r\n");
-		textFieldAmount.setColumns(10);
-		textFieldAmount.setBounds(112, 240, 276, 30);
-		contentPanel.add(textFieldAmount);
+        textAreaDesc = new JTextArea();
+        textAreaDesc.setLineWrap(true);
+        textAreaDesc.setToolTipText("eg : 12.234\r\n");
+        textAreaDesc.setColumns(10);
+        textAreaDesc.setBounds(105, 312, 283, 97);
+        contentPanel.add(textAreaDesc);
 
-		JLabel lblDescription = new JLabel("Description  :");
-		lblDescription.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblDescription.setBounds(12, 306, 93, 26);
-		contentPanel.add(lblDescription);
+        buttonPane = new JPanel();
+        buttonPane.setBorder(new LineBorder(new Color(0, 0, 0)));
+        buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
-		textAreaDesc = new JTextArea();
-		textAreaDesc.setLineWrap(true);
-		textAreaDesc.setToolTipText("eg : 12.234\r\n");
-		textAreaDesc.setColumns(10);
-		textAreaDesc.setBounds(105, 312, 283, 97);
-		contentPanel.add(textAreaDesc);
+        btnSave = new JButton("Save");
+        btnSave.setActionCommand("Save");
+        buttonPane.add(btnSave);
+        getRootPane().setDefaultButton(btnSave);
 
-		buttonPane = new JPanel();
-			buttonPane.setBorder(new LineBorder(new Color(0, 0, 0)));
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+        btnCancel = new JButton("Cancel");
+        btnCancel.setActionCommand("Cancel");
+        buttonPane.add(btnCancel);
 
-		btnSave = new JButton("Save");
-				btnSave.setActionCommand("Save");
-				buttonPane.add(btnSave);
-				getRootPane().setDefaultButton(btnSave);
+    }
 
-		btnCancel = new JButton("Cancel");
-				btnCancel.setActionCommand("Cancel");
-				buttonPane.add(btnCancel);
+    private void initEvents() {
+        btnSave.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                String selectedPaymentType = (String) comboBoxPaymentType.getSelectedItem();
+                String selectedCurrency = (String) comboBoxCurrency.getSelectedItem();
+                String employeeId = (String) employeeComboBox.getSelectedItem();
+                String amount = textFieldAmount.getText();
+                String desc = textAreaDesc.getText();
 
-	}
+                Payment newPayment = new Payment(1, new PaymentType(selectedPaymentType), employeeId,
+                        new Currency(selectedCurrency), Float.parseFloat(amount), desc, user.getUserId(),
+                        user.getUserId(), LocalDateTime.now(), LocalDateTime.now());
 
-	private void initEvents() {
-		btnSave.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				String selectedPaymentType = (String) comboBoxPaymentType.getSelectedItem();
-				String selectedCurrency = (String) comboBoxCurrency.getSelectedItem();
-				String employeeId=(String) employeeComboBox.getSelectedItem();
-				String amount = textFieldAmount.getText();
-				String desc = textAreaDesc.getText();
+                try {
+                    paymentService.savePayment(newPayment);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+                selfReference.dispose();
+            }
+        });
 
-				Payment newPayment = new Payment(1, new PaymentType(selectedPaymentType),employeeId,
-						new Currency(selectedCurrency), Float.parseFloat(amount), desc, user.getUserId(),
-						user.getUserId(), LocalDateTime.now(), LocalDateTime.now());
+        btnCancel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                selfReference.dispose();
 
-				try {
-					paymentService.savePayment(newPayment);
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-				selfReference.dispose();
-			}
-		});
+            }
+        });
+    }
 
-		btnCancel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				selfReference.dispose();
+    private void fillComboBoxes() {
+        fillPaymentTypeComboBox();
+        fillEmployeeComboBox();
+        fillCurrencyComboBox();
 
-			}
-		});
-	}
 
-	private void fillComboBoxes() {
-		fillPaymentTypeComboBox();
-		fillEmployeeComboBox();
-		fillCurrencyComboBox();
-		
+    }
 
-	}
+    private void fillEmployeeComboBox() {
+        employeeModel.removeAllElements();
+        List<String> employeeIdList = null;
 
-	private void fillEmployeeComboBox() {
-		employeeModel.removeAllElements();
-		List<String> employeeIdList=null;
-		
-		try {
-			employeeIdList=employeeService.getAllEmployeeIds();
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		if(employeeIdList!=null&&employeeIdList.size()!=0) {
-			for(String var:employeeIdList)
-				employeeModel.addElement(var);
-		}
-		
-	}
+        try {
+            employeeIdList = employeeService.getAllEmployeeIds();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (employeeIdList != null && employeeIdList.size() != 0) {
+            for (String var : employeeIdList)
+                employeeModel.addElement(var);
+        }
 
-	private void fillPaymentTypeComboBox() {
-		paymentTypeModel.removeAllElements();
-		List<PaymentType> paymentTypeList = null;
+    }
 
-		try {
-			
-			paymentTypeList = paymentTypeService.getAllPaymentTypes();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if (paymentTypeList != null && paymentTypeList.size() != 0) {
-			for (PaymentType paymentType : paymentTypeList) {
-				paymentTypeModel.addElement(paymentType.getPayment());
-			}
+    private void fillPaymentTypeComboBox() {
+        paymentTypeModel.removeAllElements();
+        List<PaymentType> paymentTypeList = null;
 
-		}
-	}
+        try {
 
-	private void fillCurrencyComboBox() {
-		currencyModel.removeAllElements();
-		List<Currency> currenciesList = null;
-		try {
-			
-			currenciesList = currencyService.getAllCurrencies();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+            paymentTypeList = paymentTypeService.getAllPaymentTypes();
 
-		if (currenciesList != null && currenciesList.size() != 0) {
-			for (Currency currency : currenciesList) {
-				currencyModel.addElement(currency.getCurrencyName());
-			}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (paymentTypeList != null && paymentTypeList.size() != 0) {
+            for (PaymentType paymentType : paymentTypeList) {
+                paymentTypeModel.addElement(paymentType.getPayment());
+            }
 
-		}
-	}
+        }
+    }
+
+    private void fillCurrencyComboBox() {
+        currencyModel.removeAllElements();
+        List<Currency> currenciesList = null;
+        try {
+
+            currenciesList = currencyService.getAllCurrencies();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (currenciesList != null && currenciesList.size() != 0) {
+            for (Currency currency : currenciesList) {
+                currencyModel.addElement(currency.getCurrencyName());
+            }
+
+        }
+    }
 }

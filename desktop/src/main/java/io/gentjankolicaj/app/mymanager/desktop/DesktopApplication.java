@@ -16,27 +16,26 @@ import java.io.IOException;
 @Slf4j
 public class DesktopApplication {
 
-	public static void main(String[] args) throws Exception {
-		try {
-			ApplicationConfigYaml applicationConfigYaml = getConfigurationYaml();
-			DatabaseManager.initDb(applicationConfigYaml.getDatabase());
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					try {
-						DesktopFrame frame = new DesktopFrame();
-						new LoginView(frame);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			});
-		} catch (Exception e) {
-			log.error("Error ", e);
-		}
-	}
+    public static void main(String[] args) throws Exception {
+        try {
+            ApplicationConfigYaml applicationConfigYaml = getConfigurationYaml();
+            DatabaseManager.initDb(applicationConfigYaml.getDatabase());
+            EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    try {
+                        DesktopFrame frame = new DesktopFrame();
+                        new LoginView(frame);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            log.error("Error ", e);
+        }
+    }
 
-	static ApplicationConfigYaml getConfigurationYaml() throws IOException {
-		return YamlUtils.readFile("application.yml", ApplicationConfigYaml.class);
-	}
-
+    static ApplicationConfigYaml getConfigurationYaml() throws IOException {
+        return YamlUtils.readFile("application.yml", ApplicationConfigYaml.class);
+    }
 }

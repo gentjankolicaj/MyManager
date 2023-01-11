@@ -14,121 +14,120 @@ import java.time.LocalDateTime;
 
 public class CreateJob extends JDialog {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4041425686102020001L;
-	private final JDialog selfReference;
-	private final JPanel contentPanel = new JPanel();
-	private JPanel buttonPane;
-	private JTextField textFieldTitle;
-	private JTextField textFieldMaxSalary;
-	private JTextField textFieldMinSalary;
-	private JButton btnSave;
-	private JButton btnCancel;
-
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4041425686102020001L;
+    private final JDialog selfReference;
+    private final JPanel contentPanel = new JPanel();
     private final JobService jobService;
-	private final User user;
+    private final User user;
+    private JPanel buttonPane;
+    private JTextField textFieldTitle;
+    private JTextField textFieldMaxSalary;
+    private JTextField textFieldMinSalary;
+    private JButton btnSave;
+    private JButton btnCancel;
 
-	public CreateJob(JobService jobService,User user) {
-		this.selfReference = this;
-		this.jobService=jobService;
-		this.user=user;
-		
-		setResizable(false);
-		initComponents();
-		initEvents();
+    public CreateJob(JobService jobService, User user) {
+        this.selfReference = this;
+        this.jobService = jobService;
+        this.user = user;
 
-	}
+        setResizable(false);
+        initComponents();
+        initEvents();
 
-	private void initComponents() {
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 560, 280);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(null);
+    }
 
-		JLabel lblCreateNewType = new JLabel("Create new type of job :");
-		lblCreateNewType.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
-		lblCreateNewType.setBounds(129, 13, 270, 26);
-		contentPanel.add(lblCreateNewType);
+    private void initComponents() {
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setBounds(100, 100, 560, 280);
+        getContentPane().setLayout(new BorderLayout());
+        contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        getContentPane().add(contentPanel, BorderLayout.CENTER);
+        contentPanel.setLayout(null);
 
-		JLabel lblJobTitle = new JLabel("Job Title :");
-		lblJobTitle.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblJobTitle.setBounds(12, 67, 81, 26);
-		contentPanel.add(lblJobTitle);
+        JLabel lblCreateNewType = new JLabel("Create new type of job :");
+        lblCreateNewType.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
+        lblCreateNewType.setBounds(129, 13, 270, 26);
+        contentPanel.add(lblCreateNewType);
 
-		JLabel lblMinSalary = new JLabel("Min salary  :");
-		lblMinSalary.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblMinSalary.setBounds(12, 116, 81, 26);
-		contentPanel.add(lblMinSalary);
+        JLabel lblJobTitle = new JLabel("Job Title :");
+        lblJobTitle.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lblJobTitle.setBounds(12, 67, 81, 26);
+        contentPanel.add(lblJobTitle);
 
-		JLabel lblMaxSalary = new JLabel("Max salary :");
-		lblMaxSalary.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblMaxSalary.setBounds(12, 167, 93, 26);
-		contentPanel.add(lblMaxSalary);
+        JLabel lblMinSalary = new JLabel("Min salary  :");
+        lblMinSalary.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lblMinSalary.setBounds(12, 116, 81, 26);
+        contentPanel.add(lblMinSalary);
 
-		textFieldTitle = new JTextField();
-		textFieldTitle.setBounds(105, 66, 270, 30);
-		contentPanel.add(textFieldTitle);
-		textFieldTitle.setColumns(10);
+        JLabel lblMaxSalary = new JLabel("Max salary :");
+        lblMaxSalary.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lblMaxSalary.setBounds(12, 167, 93, 26);
+        contentPanel.add(lblMaxSalary);
 
-		textFieldMinSalary = new JTextField();
-		textFieldMinSalary.setToolTipText("Must be integer or float\r\n");
-		textFieldMinSalary.setText("0");
-		textFieldMinSalary.setColumns(10);
-		textFieldMinSalary.setBounds(105, 115, 270, 30);
-		contentPanel.add(textFieldMinSalary);
+        textFieldTitle = new JTextField();
+        textFieldTitle.setBounds(105, 66, 270, 30);
+        contentPanel.add(textFieldTitle);
+        textFieldTitle.setColumns(10);
 
-		textFieldMaxSalary = new JTextField();
-		textFieldMaxSalary.setToolTipText("Must be integer of float\r\n");
-		textFieldMaxSalary.setText("0");
-		textFieldMaxSalary.setColumns(10);
-		textFieldMaxSalary.setBounds(105, 166, 270, 30);
-		contentPanel.add(textFieldMaxSalary);
+        textFieldMinSalary = new JTextField();
+        textFieldMinSalary.setToolTipText("Must be integer or float\r\n");
+        textFieldMinSalary.setText("0");
+        textFieldMinSalary.setColumns(10);
+        textFieldMinSalary.setBounds(105, 115, 270, 30);
+        contentPanel.add(textFieldMinSalary);
 
-		buttonPane = new JPanel();
-			buttonPane.setBorder(new LineBorder(new Color(0, 0, 0)));
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+        textFieldMaxSalary = new JTextField();
+        textFieldMaxSalary.setToolTipText("Must be integer of float\r\n");
+        textFieldMaxSalary.setText("0");
+        textFieldMaxSalary.setColumns(10);
+        textFieldMaxSalary.setBounds(105, 166, 270, 30);
+        contentPanel.add(textFieldMaxSalary);
 
-		btnSave = new JButton("Save");
-				btnSave.setActionCommand("Save");
-				buttonPane.add(btnSave);
-				getRootPane().setDefaultButton(btnSave);
+        buttonPane = new JPanel();
+        buttonPane.setBorder(new LineBorder(new Color(0, 0, 0)));
+        buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
-		btnCancel = new JButton("Cancel");
-				btnCancel.setActionCommand("Cancel");
-				buttonPane.add(btnCancel);
+        btnSave = new JButton("Save");
+        btnSave.setActionCommand("Save");
+        buttonPane.add(btnSave);
+        getRootPane().setDefaultButton(btnSave);
 
-	}
+        btnCancel = new JButton("Cancel");
+        btnCancel.setActionCommand("Cancel");
+        buttonPane.add(btnCancel);
 
-	private void initEvents() {
-		btnSave.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				Job newJob = new Job(1, textFieldTitle.getText(), Float.parseFloat(textFieldMaxSalary.getText()),
-						Float.parseFloat(textFieldMinSalary.getText()), user.getUserId(), user.getUserId(),
-						LocalDateTime.now(), LocalDateTime.now());
-				try {
-					
-					jobService.saveJob(newJob);
-					
-				} catch (Exception e1) {
-					
-					e1.printStackTrace();
-				}
-				selfReference.dispose();
-			}
-		});
+    }
 
-		btnCancel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				selfReference.dispose();
+    private void initEvents() {
+        btnSave.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                Job newJob = new Job(1, textFieldTitle.getText(), Float.parseFloat(textFieldMaxSalary.getText()),
+                        Float.parseFloat(textFieldMinSalary.getText()), user.getUserId(), user.getUserId(),
+                        LocalDateTime.now(), LocalDateTime.now());
+                try {
 
-			}
-		});
-	}
+                    jobService.saveJob(newJob);
+
+                } catch (Exception e1) {
+
+                    e1.printStackTrace();
+                }
+                selfReference.dispose();
+            }
+        });
+
+        btnCancel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                selfReference.dispose();
+
+            }
+        });
+    }
 }

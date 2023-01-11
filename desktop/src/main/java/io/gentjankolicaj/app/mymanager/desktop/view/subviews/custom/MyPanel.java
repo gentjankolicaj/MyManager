@@ -3,23 +3,23 @@ package io.gentjankolicaj.app.mymanager.desktop.view.subviews.custom;
 import javax.swing.*;
 
 public class MyPanel extends JPanel {
-	protected int width;
-	protected int height;
+    protected int width;
+    protected int height;
 
-	public MyPanel(int width, int height) {
-		this.width = width;
-		this.height = height;
-	}
+    public MyPanel(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
 
-	public int getMyHeight() {
-		return height;
-	}
+    public int getMyHeight() {
+        return height;
+    }
 
-	public int getMyWidth() {
-		return width;
-	}
+    public int getMyWidth() {
+        return width;
+    }
 
-	public void loadData() {
-	}
+    public void loadData() {
+    }
 
 }

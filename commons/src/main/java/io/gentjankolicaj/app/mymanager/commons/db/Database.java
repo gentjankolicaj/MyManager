@@ -35,14 +35,14 @@ public abstract class Database implements Connectable {
      * @param user
      * @param password
      * @param schema
-	 * @throws Exception
-	 */
-	public Database(String driverName, String api, boolean ssl, String databaseType, String server, int port,
-			String user, String password, String schema) throws Exception {
-		super();
-		this.driverName = driverName;
-		this.api = api;
-		this.ssl = ssl;
+     * @throws Exception
+     */
+    public Database(String driverName, String api, boolean ssl, String databaseType, String server, int port,
+                    String user, String password, String schema) throws Exception {
+        super();
+        this.driverName = driverName;
+        this.api = api;
+        this.ssl = ssl;
         this.databaseType = databaseType;
         this.server = server;
         this.port = port;
@@ -69,36 +69,36 @@ public abstract class Database implements Connectable {
     public void connect() throws Exception {
         url = new UrlBuilder().setApi(api).setDatabase(databaseType).setServer(server).setPort(port)
                 .setSchema(schema).setSSL(ssl).build();
-		connection = DriverManager.getConnection(url, user, password);
-		log.info("Connected : " + url);
-	}
+        connection = DriverManager.getConnection(url, user, password);
+        log.info("Connected : " + url);
+    }
 
-	@Override
-	public void disconnect() throws Exception {
-		if (connection != null) {
-			connection.close();
-			log.info("Disconnected : " + url);
-		}
-	}
+    @Override
+    public void disconnect() throws Exception {
+        if (connection != null) {
+            connection.close();
+            log.info("Disconnected : " + url);
+        }
+    }
 
 
-	public ResultSet selectStatement(String query) throws SQLException {
-		return connection.createStatement().executeQuery(query);
-	}
+    public ResultSet selectStatement(String query) throws SQLException {
+        return connection.createStatement().executeQuery(query);
+    }
 
-	public PreparedStatement updateStatement(String query) throws SQLException {
-		return connection.prepareStatement(query);
-	}
+    public PreparedStatement updateStatement(String query) throws SQLException {
+        return connection.prepareStatement(query);
+    }
 
-	public ResultSet selectStatement(String query, List<Object> list) throws SQLException {
-		if (CollectionUtils.isEmpty(list))
-			throw new SQLException("Error list of objects empty");
+    public ResultSet selectStatement(String query, List<Object> list) throws SQLException {
+        if (CollectionUtils.isEmpty(list))
+            throw new SQLException("Error list of objects empty");
 
-		PreparedStatement preparedStatement = connection.prepareStatement(query);
-		for (int i = 1, len = list.size(); i < len + 1; i++) {
-			preparedStatement.setObject(i, list.get(i));
-		}
-		return preparedStatement.executeQuery();
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        for (int i = 1, len = list.size(); i < len + 1; i++) {
+            preparedStatement.setObject(i, list.get(i));
+        }
+        return preparedStatement.executeQuery();
     }
 
     public boolean isSsl() {

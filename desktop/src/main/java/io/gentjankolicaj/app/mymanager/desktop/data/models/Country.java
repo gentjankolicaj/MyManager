@@ -5,32 +5,32 @@ package io.gentjankolicaj.app.mymanager.desktop.data.models;
  */
 public class Country extends MyModel {
 
-	private String countryName;
+    private String countryName;
 
-	/**
-	 * 
-	 */
-	public Country() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    /**
+     *
+     */
+    public Country() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
-	public Country(String countryName) {
-		super();
-		this.countryName = countryName;
-	}
+    public Country(String countryName) {
+        super();
+        this.countryName = countryName;
+    }
 
-	public String getCountryName() {
-		return countryName;
-	}
+    public String getCountryName() {
+        return countryName;
+    }
 
-	public void setCountryName(String countryName) {
-		this.countryName = countryName;
-	}
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
+    }
 
-	@Override
-	public String toString() {
-		return "Country [countryName=" + countryName + "]";
-	}
+    @Override
+    public String toString() {
+        return "Country [countryName=" + countryName + "]";
+    }
 
 }

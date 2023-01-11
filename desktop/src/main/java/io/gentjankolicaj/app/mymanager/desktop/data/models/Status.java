@@ -5,15 +5,15 @@ package io.gentjankolicaj.app.mymanager.desktop.data.models;
  */
 public enum Status {
 
-	SUCCESS("SUCCESS"), FAILURE("FAILURE");
+    SUCCESS("SUCCESS"), FAILURE("FAILURE");
 
-	private final String value;
+    private final String value;
 
-	Status(String value) {
-		this.value = value;
-	}
+    Status(String value) {
+        this.value = value;
+    }
 
-	public String toString() {
-		return value;
-	}
+    public String toString() {
+        return value;
+    }
 }

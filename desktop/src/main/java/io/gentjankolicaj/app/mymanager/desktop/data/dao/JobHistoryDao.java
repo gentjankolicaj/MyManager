@@ -19,14 +19,14 @@ public interface JobHistoryDao {
 
     List<JobHistory> findAllJobHistoryByJobId(String jobId) throws Exception;
 
-	List<JobHistory> findAllJobHistoryByDepartmentId(String departmentId) throws Exception;
+    List<JobHistory> findAllJobHistoryByDepartmentId(String departmentId) throws Exception;
 
-	List<JobHistory> findJobHistoryByEmployeeId(String employeeId) throws Exception;
+    List<JobHistory> findJobHistoryByEmployeeId(String employeeId) throws Exception;
 
-	int updateJobHistory(JobHistory oldJobHistory, JobHistory newJobHistory) throws Exception;
+    int updateJobHistory(JobHistory oldJobHistory, JobHistory newJobHistory) throws Exception;
 
-	int saveJobHistory(JobHistory jobHistory) throws Exception;
+    int saveJobHistory(JobHistory jobHistory) throws Exception;
 
-	int deleteJobHistory(JobHistory jobHistory) throws Exception;
+    int deleteJobHistory(JobHistory jobHistory) throws Exception;
 
 }
