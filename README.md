@@ -34,7 +34,7 @@ mvn -Dskiptests=true clean install
 ```
 
 ```
-java -jar ./desktop/target/console-1.0-SNAPSHOT.jar
+ java -jar ./desktop/target/desktop-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 ```
 
 Login using credentials as below :

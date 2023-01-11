@@ -19,6 +19,7 @@ class GenericDatabaseTest {
         Database database = DatabaseManager.initDb(applicationConfigYaml.getDatabase());
         Assertions.assertThat(database.isConnected()).isTrue();
         database.initDriver();
+        DatabaseManager.shutdown();
     }
 
 

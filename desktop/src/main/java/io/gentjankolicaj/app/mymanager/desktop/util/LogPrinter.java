@@ -1,6 +1,5 @@
 package io.gentjankolicaj.app.mymanager.desktop.util;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.gentjankolicaj.app.mymanager.desktop.config.Config;
 import io.gentjankolicaj.app.mymanager.desktop.data.models.MyModel;
 import io.gentjankolicaj.app.mymanager.desktop.enums.PrintFormatType;
@@ -18,8 +17,6 @@ import java.util.Set;
 public class LogPrinter {
 
     public static final PrintFormatType FORMAT = Config.PRINT_FORMAT;
-
-    private static final ObjectMapper mapper = new ObjectMapper();
 
 
     public static void printFormat(Object object) {
