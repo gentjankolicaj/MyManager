@@ -30,11 +30,15 @@ schema & tables are created automatically.
 ## TO RUN
 
 ```
-mvn -Dskiptests=true clean install
+docker compose up -d
 ```
 
 ```
- java -jar ./desktop/target/desktop-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+mvn -DskipTests=true clean install
+```
+
+```
+java -jar ./desktop/target/desktop-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 ```
 
 Login using credentials as below :
