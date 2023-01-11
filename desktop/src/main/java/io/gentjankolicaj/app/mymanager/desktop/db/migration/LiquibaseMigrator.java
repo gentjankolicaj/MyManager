@@ -15,25 +15,18 @@ public class LiquibaseMigrator {
     private LiquibaseMigrator() {
     }
 
-    public static void runMigrations() throws SQLException {
-        Connection connection = getConnection(); //your openConnection logic
+    public static void runMigrations(Connection connection) throws SQLException {
         try {
             Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(connection));
-
-            Liquibase liquibase = new Liquibase("path/to/changelog.sql", new ClassLoaderResourceAccessor(), database);
-
+            Liquibase liquibase = new Liquibase("liquibase/master-changelog.xml", new ClassLoaderResourceAccessor(), database);
             liquibase.update(new Contexts(), new LabelExpression());
         } catch (Exception e) {
             e.printStackTrace();
             if (connection != null) {
                 connection.rollback();
-                connection.close();
             }
         }
     }
 
-    private static Connection getConnection() {
-        return null;
-    }
 
 }

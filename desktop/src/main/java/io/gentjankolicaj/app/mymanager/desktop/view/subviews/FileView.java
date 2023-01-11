@@ -2,6 +2,7 @@ package io.gentjankolicaj.app.mymanager.desktop.view.subviews;
 
 import io.gentjankolicaj.app.mymanager.desktop.data.models.FileType;
 import io.gentjankolicaj.app.mymanager.desktop.data.models.MyTable;
+import io.gentjankolicaj.app.mymanager.desktop.icon.IconUtils;
 import io.gentjankolicaj.app.mymanager.desktop.service.FileTypeService;
 import io.gentjankolicaj.app.mymanager.desktop.service.impl.FileTypeServiceImpl;
 import io.gentjankolicaj.app.mymanager.desktop.view.subviews.create.CreateFile;
@@ -47,8 +48,8 @@ public class FileView extends JDialog {
 	}
 
 	public void initComponents() {
-        setIconImage(Toolkit.getDefaultToolkit().getImage(FileView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-new-file-3.png")));
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setIconImage(IconUtils.getImage("icons/icons_24x24/icons8-new-file-3.png"));
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 420, 380);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -57,21 +58,18 @@ public class FileView extends JDialog {
 
 		btnCreate = new JButton("Create");
 
-        btnCreate.setIcon(new ImageIcon(
-                CurrencyView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-add-2.png")));
-        btnCreate.setBounds(10, 23, 108, 23);
+		btnCreate.setIcon(IconUtils.getIcon("icons/icons_24x24/icons8-add-2.png"));
+		btnCreate.setBounds(10, 23, 108, 23);
 		contentPanel.add(btnCreate);
 
-        btnEdit = new JButton("Edit");
-        btnEdit.setIcon(new ImageIcon(
-                CurrencyView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-edit-3.png")));
-        btnEdit.setBounds(10, 68, 108, 23);
+		btnEdit = new JButton("Edit");
+		btnEdit.setIcon(IconUtils.getIcon("icons/icons_24x24/icons8-edit-3.png"));
+		btnEdit.setBounds(10, 68, 108, 23);
 		contentPanel.add(btnEdit);
 
-        btnDelete = new JButton("Delete");
-        btnDelete.setIcon(new ImageIcon(
-                CurrencyView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-minus-2.png")));
-        btnDelete.setBounds(10, 116, 108, 23);
+		btnDelete = new JButton("Delete");
+		btnDelete.setIcon(IconUtils.getIcon("icons/icons_24x24/icons8-minus-2.png"));
+		btnDelete.setBounds(10, 116, 108, 23);
 		contentPanel.add(btnDelete);
 
 		scrollPane = new JScrollPane();

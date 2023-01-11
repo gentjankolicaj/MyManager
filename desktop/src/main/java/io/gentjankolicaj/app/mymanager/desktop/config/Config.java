@@ -44,7 +44,7 @@ public class Config {
     public static boolean PRINT_QUERY_RESULTS = true;
 
     public static PrintFormatType PRINT_FORMAT = PrintFormatType.JSON;
-    public static PrintEnvironment PRINT_ENV = PrintEnvironment.CONSOLE;
+    public static PrintEnvironment PRINT_ENV = PrintEnvironment.LOG;
 
     // Message Pain
     public static boolean MESSAGE_WINDOWS = true;

@@ -74,23 +74,22 @@ public class CreateDepartment extends JDialog {
 		textFieldManId.setBounds(105, 147, 270, 30);
 		contentPanel.add(textFieldManId);
 
-		{
+
 			buttonPane = new JPanel();
 			buttonPane.setBorder(new LineBorder(new Color(0, 0, 0)));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				btnSave = new JButton("Save");
+
+		btnSave = new JButton("Save");
 				btnSave.setActionCommand("Save");
 				buttonPane.add(btnSave);
 				getRootPane().setDefaultButton(btnSave);
-			}
-			{
-				btnCancel = new JButton("Cancel");
+
+		btnCancel = new JButton("Cancel");
 				btnCancel.setActionCommand("Cancel");
 				buttonPane.add(btnCancel);
-			}
-		}
+
+
 	}
 
 	private void initEvents() {

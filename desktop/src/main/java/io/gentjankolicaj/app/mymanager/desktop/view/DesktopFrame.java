@@ -1,10 +1,10 @@
 package io.gentjankolicaj.app.mymanager.desktop.view;
 
 import io.gentjankolicaj.app.mymanager.desktop.config.Config;
+import io.gentjankolicaj.app.mymanager.desktop.icon.IconUtils;
 import io.gentjankolicaj.app.mymanager.desktop.view.about.AboutDialog;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -44,10 +44,9 @@ public class DesktopFrame extends JFrame {
 
 	public void initComponents() {
 		getContentPane().setBackground(UIManager.getColor("Button.background"));
-		setBackground(UIManager.getColor("Button.background"));
-		setIconImage(Toolkit.getDefaultToolkit()
-				.getImage(DesktopFrame.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_45x45/icons8-admin-2.png")));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBackground(UIManager.getColor("Button.background"));
+        setIconImage(IconUtils.getImage("icons/icons_45x45/icons8-admin-2.png"));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(200, 150, Config.FRAME_WIDTH, Config.FRAME_HEIGHT);
 		setResizable(false);
 
@@ -98,13 +97,6 @@ public class DesktopFrame extends JFrame {
 
 	}
 
-	public void initMenuEvents() {
-
-	}
-
-	public void initEvents() {
-
-	}
 
 	public void initMenuItemEvents() {
 		mntmAbout.addActionListener(new ActionListener() {

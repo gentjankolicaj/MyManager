@@ -2,12 +2,13 @@ package io.gentjankolicaj.app.mymanager.desktop.view.subviews.edit;
 
 import io.gentjankolicaj.app.mymanager.desktop.data.models.*;
 import io.gentjankolicaj.app.mymanager.desktop.enums.MessageType;
+import io.gentjankolicaj.app.mymanager.desktop.icon.IconUtils;
 import io.gentjankolicaj.app.mymanager.desktop.service.CountryService;
 import io.gentjankolicaj.app.mymanager.desktop.service.UserAdressService;
 import io.gentjankolicaj.app.mymanager.desktop.service.UserContactService;
 import io.gentjankolicaj.app.mymanager.desktop.service.UserService;
 import io.gentjankolicaj.app.mymanager.desktop.service.impl.CountryServiceImpl;
-import io.gentjankolicaj.app.mymanager.desktop.util.MyDateUtils;
+import io.gentjankolicaj.app.mymanager.desktop.util.DateTimeUtils;
 import io.gentjankolicaj.app.mymanager.desktop.util.WindowUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -127,8 +128,7 @@ public class EditUser extends JDialog {
 
 	private void initComponents() {
 		setTitle("Edit user details");
-		setIconImage(Toolkit.getDefaultToolkit()
-				.getImage(EditUser.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-admin-2.png")));
+		setIconImage(IconUtils.getImage("icons/icons_24x24/icons8-admin-2.png"));
 		setBounds(100, 100, 997, 653);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -510,7 +510,7 @@ public class EditUser extends JDialog {
 			birthdayStr = "01 01 1972";
 			try {
 
-				birthday = MyDateUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
+				birthday = DateTimeUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
 
 			} catch (ParseException e) {
 
@@ -520,7 +520,7 @@ public class EditUser extends JDialog {
 
 			try {
 
-				birthday = MyDateUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
+				birthday = DateTimeUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
 
 			} catch (ParseException e) {
 

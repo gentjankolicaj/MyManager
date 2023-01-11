@@ -3,6 +3,7 @@ package io.gentjankolicaj.app.mymanager.desktop.view;
 import io.gentjankolicaj.app.mymanager.desktop.data.models.User;
 import io.gentjankolicaj.app.mymanager.desktop.data.models.UserType;
 import io.gentjankolicaj.app.mymanager.desktop.enums.MessageType;
+import io.gentjankolicaj.app.mymanager.desktop.icon.IconUtils;
 import io.gentjankolicaj.app.mymanager.desktop.service.UserService;
 import io.gentjankolicaj.app.mymanager.desktop.util.ViewUtils;
 import io.gentjankolicaj.app.mymanager.desktop.util.WindowUtils;
@@ -123,9 +124,8 @@ public class MainView extends MyPanel {
 		accountPanel.setLayout(null);
 
 		JLabel lblUser = new JLabel("");
-		lblUser.setIcon(new ImageIcon(MainView.class
-                .getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_45x45/icons8-administrator-male-2.png")));
-        lblUser.setBounds(116, 0, 75, 56);
+		lblUser.setIcon(IconUtils.getIcon("icons/icons_45x45/icons8-administrator-male-2.png"));
+		lblUser.setBounds(116, 0, 75, 56);
         accountPanel.add(lblUser);
 
 		labelFirstname = new JLabel("default");
@@ -236,8 +236,7 @@ public class MainView extends MyPanel {
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBounds(41, 11, 102, 88);
 		useDataPanel.add(lblNewLabel_1);
-        lblNewLabel_1.setIcon(new ImageIcon(
-                MainView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_80x80/icons8-user-menu-male.png")));
+		lblNewLabel_1.setIcon(IconUtils.getIcon("icons/icons_80x80/icons8-user-menu-male.png"));
 
         employeeDataPanel = new JPanel();
 		employeeDataPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Employees",
@@ -250,8 +249,7 @@ public class MainView extends MyPanel {
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setBounds(43, 11, 97, 88);
 		employeeDataPanel.add(lblNewLabel);
-        lblNewLabel.setIcon(new ImageIcon(
-                MainView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_80x80/icons8-users-meeting-2.png")));
+		lblNewLabel.setIcon(IconUtils.getIcon("icons/icons_80x80/icons8-users-meeting-2.png"));
 
         jobsPanel = new JPanel();
 		jobsPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 191, 255)), "Jobs", TitledBorder.LEADING,
@@ -262,9 +260,8 @@ public class MainView extends MyPanel {
 		jobsPanel.setLayout(null);
 
 		JLabel label_1 = new JLabel("");
-		label_1.setIcon(new ImageIcon(MainView.class
-                .getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_80x80/icons8-conference-foreground-selected.png")));
-        label_1.setBounds(37, 22, 98, 77);
+		label_1.setIcon(IconUtils.getIcon("icons/icons_80x80/icons8-conference-foreground-selected.png"));
+		label_1.setBounds(37, 22, 98, 77);
         jobsPanel.add(label_1);
 
 		projectsPanel = new JPanel();
@@ -277,9 +274,8 @@ public class MainView extends MyPanel {
 		dataPanel.add(projectsPanel);
 
 		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon(
-                MainView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_80x80/icons8-training-2.png")));
-        lblNewLabel_2.setBounds(42, 11, 100, 88);
+		lblNewLabel_2.setIcon(IconUtils.getIcon("icons/icons_80x80/icons8-training-2.png"));
+		lblNewLabel_2.setBounds(42, 11, 100, 88);
         projectsPanel.add(lblNewLabel_2);
 
 		departmentsPanel = new JPanel();
@@ -291,9 +287,8 @@ public class MainView extends MyPanel {
 		dataPanel.add(departmentsPanel);
 
 		JLabel label_7 = new JLabel("");
-		label_7.setIcon(new ImageIcon(
-                MainView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_80x80/icons8-contact-us-2.png")));
-        label_7.setBounds(35, 11, 102, 88);
+		label_7.setIcon(IconUtils.getIcon("icons/icons_80x80/icons8-contact-us-2.png"));
+		label_7.setBounds(35, 11, 102, 88);
         departmentsPanel.add(label_7);
 
 		attemptsPanel = new JPanel();
@@ -305,9 +300,8 @@ public class MainView extends MyPanel {
 		dataPanel.add(attemptsPanel);
 
 		JLabel label_9 = new JLabel("");
-		label_9.setIcon(new ImageIcon(
-                MainView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_80x80/icons8-resume.png")));
-        label_9.setBounds(35, 11, 102, 88);
+		label_9.setIcon(IconUtils.getIcon("icons/icons_80x80/icons8-resume.png"));
+		label_9.setBounds(35, 11, 102, 88);
         attemptsPanel.add(label_9);
 
 		workingHoursPanel = new JPanel();
@@ -319,9 +313,8 @@ public class MainView extends MyPanel {
 		dataPanel.add(workingHoursPanel);
 
 		JLabel label_8 = new JLabel("");
-		label_8.setIcon(new ImageIcon(
-                MainView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_80x80/icons8-street-worker-2.png")));
-        label_8.setBounds(33, 11, 102, 88);
+		label_8.setIcon(IconUtils.getIcon("icons/icons_80x80/icons8-street-worker-2.png"));
+		label_8.setBounds(33, 11, 102, 88);
         workingHoursPanel.add(label_8);
 
 		paymentsPanel = new JPanel();
@@ -333,9 +326,8 @@ public class MainView extends MyPanel {
 		dataPanel.add(paymentsPanel);
 
 		JLabel label_10 = new JLabel("");
-		label_10.setIcon(new ImageIcon(
-                MainView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_80x80/icons8-payment-history-2.png")));
-        label_10.setBounds(40, 11, 102, 88);
+		label_10.setIcon(IconUtils.getIcon("icons/icons_80x80/icons8-payment-history-2.png"));
+		label_10.setBounds(40, 11, 102, 88);
         paymentsPanel.add(label_10);
 
 		documentsPanel = new JPanel();
@@ -346,9 +338,8 @@ public class MainView extends MyPanel {
 		dataPanel.add(documentsPanel);
 
 		JLabel label_11 = new JLabel("");
-		label_11.setIcon(new ImageIcon(
-                MainView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_80x80/icons8-book-shelf.png")));
-        label_11.setBounds(30, 11, 102, 88);
+		label_11.setIcon(IconUtils.getIcon("icons/icons_80x80/icons8-book-shelf.png"));
+		label_11.setBounds(30, 11, 102, 88);
         documentsPanel.add(label_11);
 
 		JPanel configPanel = new JPanel();
@@ -369,9 +360,8 @@ public class MainView extends MyPanel {
 		myAccountPanel.setLayout(null);
 
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(
-                MainView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_45x45/icons8-edit-account-2.png")));
-        label.setBounds(21, 11, 56, 56);
+		label.setIcon(IconUtils.getIcon("icons/icons_45x45/icons8-edit-account-2.png"));
+		label.setBounds(21, 11, 56, 56);
         myAccountPanel.add(label);
 
 		currenciesPanel = new JPanel();
@@ -383,8 +373,8 @@ public class MainView extends MyPanel {
 		currenciesPanel.setLayout(null);
 
 		JLabel label_2 = new JLabel("");
-		label_2.setIcon(new ImageIcon(MainView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_45x45/icons8-sack-of-money-2.png")));
-        label_2.setBounds(21, 11, 56, 56);
+		label_2.setIcon(IconUtils.getIcon("icons/icons_45x45/icons8-sack-of-money-2.png"));
+		label_2.setBounds(21, 11, 56, 56);
         currenciesPanel.add(label_2);
 
 		paymentTypePanel = new JPanel();
@@ -395,8 +385,8 @@ public class MainView extends MyPanel {
 		paymentTypePanel.setLayout(null);
 
 		JLabel label_3 = new JLabel("");
-		label_3.setIcon(new ImageIcon(MainView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_45x45/icons8-save-money-2.png")));
-        label_3.setBounds(21, 11, 56, 56);
+		label_3.setIcon(IconUtils.getIcon("icons/icons_45x45/icons8-save-money-2.png"));
+		label_3.setBounds(21, 11, 56, 56);
         paymentTypePanel.add(label_3);
 
 		countryPanel = new JPanel();
@@ -408,9 +398,8 @@ public class MainView extends MyPanel {
 		countryPanel.setLayout(null);
 
 		JLabel label_4 = new JLabel("");
-		label_4.setIcon(new ImageIcon(
-                MainView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_45x45/icons8-country.png")));
-        label_4.setBounds(21, 11, 56, 56);
+		label_4.setIcon(IconUtils.getIcon("icons/icons_45x45/icons8-country.png"));
+		label_4.setBounds(21, 11, 56, 56);
         countryPanel.add(label_4);
 
 		rightsPanel = new JPanel();
@@ -422,9 +411,8 @@ public class MainView extends MyPanel {
 		rightsPanel.setLayout(null);
 
 		JLabel label_5 = new JLabel("");
-		label_5.setIcon(new ImageIcon(
-                MainView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_45x45/icons8-user-rights.png")));
-        label_5.setBounds(21, 11, 56, 56);
+		label_5.setIcon(IconUtils.getIcon("icons/icons_45x45/icons8-user-rights.png"));
+		label_5.setBounds(21, 11, 56, 56);
         rightsPanel.add(label_5);
 
 		fileTypePanel = new JPanel();
@@ -436,8 +424,8 @@ public class MainView extends MyPanel {
 		fileTypePanel.setLayout(null);
 
 		JLabel label_6 = new JLabel("");
-		label_6.setIcon(new ImageIcon(MainView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_45x45/icons8-new-file-3.png")));
-        label_6.setBounds(21, 11, 56, 56);
+		label_6.setIcon(IconUtils.getIcon("icons/icons_45x45/icons8-new-file-3.png"));
+		label_6.setBounds(21, 11, 56, 56);
         fileTypePanel.add(label_6);
 
 		JPanel panel_7 = new JPanel();
@@ -645,7 +633,6 @@ public class MainView extends MyPanel {
 		labelUsertype.setText(user.getUserType());
 		labelRights.setText(user.getRights());
 		labelDate.setText(LocalDateTime.now().toString());
-
 	}
 
 	public void updateMainViewUserDetails() {

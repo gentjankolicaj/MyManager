@@ -1,6 +1,7 @@
 package io.gentjankolicaj.app.mymanager.desktop.view.subviews.create;
 
 import io.gentjankolicaj.app.mymanager.desktop.data.models.Currency;
+import io.gentjankolicaj.app.mymanager.desktop.icon.IconUtils;
 import io.gentjankolicaj.app.mymanager.desktop.service.CurrencyService;
 
 import javax.swing.*;
@@ -77,8 +78,8 @@ public class CreateCurrency extends JDialog {
 	}
 
 	private void initComponents() {
-        setIconImage(Toolkit.getDefaultToolkit().getImage(CreateCurrency.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-sack-of-money-2.png")));
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setIconImage(IconUtils.getImage("icons/icons_24x24/icons8-sack-of-money-2.png"));
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 362, 110);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -87,9 +88,9 @@ public class CreateCurrency extends JDialog {
 
 		btnCreate = new JButton("Save");
 
-        btnCreate.setIcon(new ImageIcon(
-                CreateCurrency.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-save-2.png")));
-        btnCreate.setBounds(226, 23, 110, 24);
+		btnCreate.setIcon(IconUtils.getIcon("icons/icons_24x24/icons8-save-2.png"));
+
+		btnCreate.setBounds(226, 23, 110, 24);
 		contentPanel.add(btnCreate);
 
 		textFieldCurrency = new JTextField();

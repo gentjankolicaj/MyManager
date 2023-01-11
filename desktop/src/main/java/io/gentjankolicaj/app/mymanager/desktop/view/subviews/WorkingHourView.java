@@ -7,7 +7,7 @@ import io.gentjankolicaj.app.mymanager.desktop.data.models.WorkingHour;
 import io.gentjankolicaj.app.mymanager.desktop.service.UserService;
 import io.gentjankolicaj.app.mymanager.desktop.service.WorkingHourService;
 import io.gentjankolicaj.app.mymanager.desktop.service.impl.WorkingHourServiceImpl;
-import io.gentjankolicaj.app.mymanager.desktop.util.MyDateUtils;
+import io.gentjankolicaj.app.mymanager.desktop.util.DateTimeUtils;
 import io.gentjankolicaj.app.mymanager.desktop.util.ViewUtils;
 import io.gentjankolicaj.app.mymanager.desktop.view.MainView;
 import io.gentjankolicaj.app.mymanager.desktop.view.subviews.create.CreateWorkingHour;
@@ -29,11 +29,18 @@ import java.util.List;
 public class WorkingHourView extends MyPanel {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -1225822272502930994L;
-	private JTextField textFieldSearch;
 	private final ButtonGroup buttonGroupSearchType = new ButtonGroup();
+	private final JFrame jframe;
+	private final MyPanel selfReference;
+	private final MainView mainView;
+	// Service fields
+	private final UserService userService;
+	private final WorkingHourService workingHourService;
+	private final User user;
+	private JTextField textFieldSearch;
 	private JButton btnSearch;
 	private DefaultTableModel tableModel;
 	private MyTable table;
@@ -45,15 +52,6 @@ public class WorkingHourView extends MyPanel {
 	private JRadioButton rdbtnEmpId;
 	private JRadioButton rdbtnDate;
 	private List<WorkingHour> currentWorkingHourList;
-
-	private final JFrame jframe;
-	private final MyPanel selfReference;
-	private final MainView mainView;
-
-	// Service fields
-	private final UserService userService;
-	private final WorkingHourService workingHourService;
-	private final User user;
 
 	/**
 	 * Create the panel.
@@ -115,8 +113,8 @@ public class WorkingHourView extends MyPanel {
 		table.setFillsViewportHeight(true);
 
 		tableModel = new DefaultTableModel();
-		tableModel.setColumnIdentifiers(new String[] { "Id", "Emp Id", "Date", "Amount", "Created by", "Created date",
-				"Updated by", "Updated date" });
+		tableModel.setColumnIdentifiers(new String[]{"Id", "Emp Id", "Date", "Amount", "Created by", "Created date",
+				"Updated by", "Updated date"});
 
 		table.setModel(tableModel);
 		scrollPane.setViewportView(table);
@@ -200,7 +198,7 @@ public class WorkingHourView extends MyPanel {
 		btnBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-                ViewUtils.returnToMainView(jframe, selfReference, mainView);
+				ViewUtils.returnToMainView(jframe, selfReference, mainView);
 			}
 		});
 
@@ -210,10 +208,10 @@ public class WorkingHourView extends MyPanel {
 		String searchValue = textFieldSearch.getText().trim();
 		emptyTable();
 		if (rdbtnId.isSelected()) {
-			
-			if(searchValue.equals("")|| searchValue.equals(" "))
-				searchValue="1";
-			
+
+			if (searchValue.equals("") || searchValue.equals(" "))
+				searchValue = "1";
+
 			WorkingHour temp = null;
 			try {
 				temp = workingHourService.getWorkingHourByIndex(Integer.parseInt(searchValue));
@@ -227,10 +225,10 @@ public class WorkingHourView extends MyPanel {
 			fillTable(currentWorkingHourList);
 
 		} else if (rdbtnEmpId.isSelected()) {
-			
-			if(searchValue.equals("")|| searchValue.equals(" "))
-				searchValue="1";
-			
+
+			if (searchValue.equals("") || searchValue.equals(" "))
+				searchValue = "1";
+
 			try {
 
 				currentWorkingHourList = workingHourService.getWorkingHourByEmplyeeId(searchValue);
@@ -244,12 +242,12 @@ public class WorkingHourView extends MyPanel {
 
 		} else if (rdbtnDate.isSelected()) {
 			LocalDate localDateValue = null;
-			
-			if(searchValue.equals("")|| searchValue.equals(" "))
-				searchValue="01 01 2000";
-	      	 
+
+			if (searchValue.equals("") || searchValue.equals(" "))
+				searchValue = "01 01 2000";
+
 			try {
-				localDateValue = MyDateUtils.parseToLocalDate(searchValue, "dd MM yyyy");
+				localDateValue = DateTimeUtils.parseToLocalDate(searchValue, "dd MM yyyy");
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -292,7 +290,7 @@ public class WorkingHourView extends MyPanel {
 		try {
 
 			currentWorkingHourList = workingHourService.getAllWorkingHour(Config.ROW_LIMIT, Config.WORKINGHOUR_OFFSET);
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -312,7 +310,6 @@ public class WorkingHourView extends MyPanel {
 				tableModel.addRow(rowData);
 			}
 		}
-
 	}
 
 }

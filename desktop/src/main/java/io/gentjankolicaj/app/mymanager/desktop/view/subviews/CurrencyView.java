@@ -2,6 +2,7 @@ package io.gentjankolicaj.app.mymanager.desktop.view.subviews;
 
 import io.gentjankolicaj.app.mymanager.desktop.data.models.Currency;
 import io.gentjankolicaj.app.mymanager.desktop.data.models.MyTable;
+import io.gentjankolicaj.app.mymanager.desktop.icon.IconUtils;
 import io.gentjankolicaj.app.mymanager.desktop.service.CurrencyService;
 import io.gentjankolicaj.app.mymanager.desktop.service.impl.CurrencyServiceImpl;
 import io.gentjankolicaj.app.mymanager.desktop.view.subviews.create.CreateCurrency;
@@ -47,8 +48,8 @@ public class CurrencyView extends JDialog {
 	}
 
 	public void initComponents() {
-        setIconImage(Toolkit.getDefaultToolkit().getImage(CurrencyView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-sack-of-money-2.png")));
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setIconImage(IconUtils.getImage("icons/icons_24x24/icons8-sack-of-money-2.png"));
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 420, 380);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -57,21 +58,18 @@ public class CurrencyView extends JDialog {
 
 		btnCreate = new JButton("Create");
 
-        btnCreate.setIcon(new ImageIcon(
-                CurrencyView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-add-2.png")));
-        btnCreate.setBounds(10, 23, 108, 23);
+		btnCreate.setIcon(IconUtils.getIcon("icons/icons_24x24/icons8-add-2.png"));
+		btnCreate.setBounds(10, 23, 108, 23);
 		contentPanel.add(btnCreate);
 
-        btnEdit = new JButton("Edit");
-        btnEdit.setIcon(new ImageIcon(
-                CurrencyView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-edit-3.png")));
-        btnEdit.setBounds(10, 68, 108, 23);
+		btnEdit = new JButton("Edit");
+		btnEdit.setIcon(IconUtils.getIcon("icons/icons_24x24/icons8-edit-3.png"));
+		btnEdit.setBounds(10, 68, 108, 23);
 		contentPanel.add(btnEdit);
 
-        btnDelete = new JButton("Delete");
-        btnDelete.setIcon(new ImageIcon(
-                CurrencyView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-minus-2.png")));
-        btnDelete.setBounds(10, 116, 108, 23);
+		btnDelete = new JButton("Delete");
+		btnDelete.setIcon(IconUtils.getIcon("icons/icons_24x24/icons8-minus-2.png"));
+		btnDelete.setBounds(10, 116, 108, 23);
 		contentPanel.add(btnDelete);
 
 		scrollPane = new JScrollPane();
@@ -121,14 +119,11 @@ public class CurrencyView extends JDialog {
 				String currency = (String) tableModel.getValueAt(index, 0);
 
 				try {
-
 					currencyService.deleteCurrency(new Currency(currency));
-
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-
 				updateTable();
 			}
 		});
@@ -137,16 +132,12 @@ public class CurrencyView extends JDialog {
 
 	public void updateTable() {
 		emptyTable();
-
 		try {
-
 			currencyList = currencyService.getAllCurrencies();
-
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		if (currencyList != null && currencyList.size() != 0) {
 			Object[] obj = new Object[1];
 			for (Currency currency : currencyList) {

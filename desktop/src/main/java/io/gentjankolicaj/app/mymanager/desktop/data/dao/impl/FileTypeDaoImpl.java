@@ -1,9 +1,9 @@
 package io.gentjankolicaj.app.mymanager.desktop.data.dao.impl;
 
+import io.gentjankolicaj.app.mymanager.commons.db.Database;
 import io.gentjankolicaj.app.mymanager.desktop.data.dao.FileTypeDao;
 import io.gentjankolicaj.app.mymanager.desktop.data.models.FileType;
-import io.gentjankolicaj.app.mymanager.desktop.db.custom.Database;
-import io.gentjankolicaj.app.mymanager.desktop.db.custom.DatabaseManager;
+import io.gentjankolicaj.app.mymanager.desktop.db.DatabaseManager;
 import io.gentjankolicaj.app.mymanager.desktop.enums.PrintType;
 import io.gentjankolicaj.app.mymanager.desktop.util.PrintUtils;
 

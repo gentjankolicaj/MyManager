@@ -65,7 +65,6 @@ public class CreatePayments extends JDialog {
 		initComponents();
 		initEvents();
 		fillComboBoxes();
-
 	}
 
 	private void initComponents() {
@@ -143,23 +142,21 @@ public class CreatePayments extends JDialog {
 		textAreaDesc.setColumns(10);
 		textAreaDesc.setBounds(105, 312, 283, 97);
 		contentPanel.add(textAreaDesc);
-		{
-			buttonPane = new JPanel();
+
+		buttonPane = new JPanel();
 			buttonPane.setBorder(new LineBorder(new Color(0, 0, 0)));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				btnSave = new JButton("Save");
+
+		btnSave = new JButton("Save");
 				btnSave.setActionCommand("Save");
 				buttonPane.add(btnSave);
 				getRootPane().setDefaultButton(btnSave);
-			}
-			{
-				btnCancel = new JButton("Cancel");
+
+		btnCancel = new JButton("Cancel");
 				btnCancel.setActionCommand("Cancel");
 				buttonPane.add(btnCancel);
-			}
-		}
+
 	}
 
 	private void initEvents() {
@@ -177,14 +174,10 @@ public class CreatePayments extends JDialog {
 						user.getUserId(), LocalDateTime.now(), LocalDateTime.now());
 
 				try {
-
 					paymentService.savePayment(newPayment);
-
 				} catch (Exception e1) {
-
 					e1.printStackTrace();
 				}
-
 				selfReference.dispose();
 			}
 		});
@@ -211,9 +204,7 @@ public class CreatePayments extends JDialog {
 		List<String> employeeIdList=null;
 		
 		try {
-			
 			employeeIdList=employeeService.getAllEmployeeIds();
-			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

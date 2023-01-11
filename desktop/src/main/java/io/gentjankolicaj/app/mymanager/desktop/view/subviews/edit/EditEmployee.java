@@ -2,12 +2,13 @@ package io.gentjankolicaj.app.mymanager.desktop.view.subviews.edit;
 
 import io.gentjankolicaj.app.mymanager.desktop.data.models.*;
 import io.gentjankolicaj.app.mymanager.desktop.enums.MessageType;
+import io.gentjankolicaj.app.mymanager.desktop.icon.IconUtils;
 import io.gentjankolicaj.app.mymanager.desktop.service.*;
 import io.gentjankolicaj.app.mymanager.desktop.service.impl.CountryServiceImpl;
 import io.gentjankolicaj.app.mymanager.desktop.service.impl.DepartmentServiceImpl;
 import io.gentjankolicaj.app.mymanager.desktop.service.impl.JobServiceImpl;
 import io.gentjankolicaj.app.mymanager.desktop.service.impl.ProjectServiceImpl;
-import io.gentjankolicaj.app.mymanager.desktop.util.MyDateUtils;
+import io.gentjankolicaj.app.mymanager.desktop.util.DateTimeUtils;
 import io.gentjankolicaj.app.mymanager.desktop.util.WindowUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -147,7 +148,6 @@ public class EditEmployee extends JDialog {
 		populateContact();
 		populateAdress();
 		populateWorkDetails();
-		
 	}
 	
 	
@@ -228,10 +228,9 @@ public class EditEmployee extends JDialog {
 	}
 
 	private void initComponents() {
-        setTitle("Edit employee");
-        setIconImage(Toolkit.getDefaultToolkit().getImage(
-                EditEmployee.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-admin-2.png")));
-        setBounds(100, 100, 997, 664);
+		setTitle("Edit employee");
+		setIconImage(IconUtils.getImage("icons/icons_24x24/icons8-admin-2.png"));
+		setBounds(100, 100, 997, 664);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -534,13 +533,10 @@ public class EditEmployee extends JDialog {
 	}
 
 	private void initButtonEvents() {
-
 		btnSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				
 				updatePanelsData();
-				
 				selfReference.dispose();
 			}
 		});
@@ -570,13 +566,13 @@ public class EditEmployee extends JDialog {
 
 			birthdayStr = "01 01 1972";
 			try {
-				birthday = MyDateUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
+				birthday = DateTimeUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 		} else {
 			try {
-				birthday = MyDateUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
+				birthday = DateTimeUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}

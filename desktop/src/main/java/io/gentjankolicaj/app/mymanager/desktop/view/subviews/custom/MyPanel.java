@@ -3,7 +3,6 @@ package io.gentjankolicaj.app.mymanager.desktop.view.subviews.custom;
 import javax.swing.*;
 
 public class MyPanel extends JPanel {
-
 	protected int width;
 	protected int height;
 
@@ -21,7 +20,6 @@ public class MyPanel extends JPanel {
 	}
 
 	public void loadData() {
-
 	}
 
 }

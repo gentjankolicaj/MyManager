@@ -2,6 +2,7 @@ package io.gentjankolicaj.app.mymanager.desktop.view.subviews;
 
 import io.gentjankolicaj.app.mymanager.desktop.data.models.Country;
 import io.gentjankolicaj.app.mymanager.desktop.data.models.MyTable;
+import io.gentjankolicaj.app.mymanager.desktop.icon.IconUtils;
 import io.gentjankolicaj.app.mymanager.desktop.service.CountryService;
 import io.gentjankolicaj.app.mymanager.desktop.service.impl.CountryServiceImpl;
 import io.gentjankolicaj.app.mymanager.desktop.view.subviews.create.CreateCountry;
@@ -46,8 +47,8 @@ public class CountryView extends JDialog {
 	}
 
 	public void initComponents() {
-        setIconImage(Toolkit.getDefaultToolkit().getImage(CountryView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-country.png")));
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setIconImage(IconUtils.getImage("icons/icons_24x24/icons8-country.png"));
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 420, 380);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -56,21 +57,18 @@ public class CountryView extends JDialog {
 
 		btnCreate = new JButton("Create");
 
-        btnCreate.setIcon(new ImageIcon(
-                CurrencyView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-add-2.png")));
-        btnCreate.setBounds(10, 26, 108, 23);
+		btnCreate.setIcon(IconUtils.getIcon("icons_24x24/icons8-add-2.png"));
+		btnCreate.setBounds(10, 26, 108, 23);
 		contentPanel.add(btnCreate);
 
-        btnEdit = new JButton("Edit");
-        btnEdit.setIcon(new ImageIcon(
-                CurrencyView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-edit-3.png")));
-        btnEdit.setBounds(10, 71, 108, 23);
+		btnEdit = new JButton("Edit");
+		btnEdit.setIcon(IconUtils.getIcon("icons/icons_24x24/icons8-edit-3.png"));
+		btnEdit.setBounds(10, 71, 108, 23);
 		contentPanel.add(btnEdit);
 
-        btnDelete = new JButton("Delete");
-        btnDelete.setIcon(new ImageIcon(
-                CurrencyView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-minus-2.png")));
-        btnDelete.setBounds(10, 119, 108, 23);
+		btnDelete = new JButton("Delete");
+		btnDelete.setIcon(IconUtils.getIcon("icons/icons_24x24/icons8-minus-2.png"));
+		btnDelete.setBounds(10, 119, 108, 23);
 		contentPanel.add(btnDelete);
 
 		scrollPane = new JScrollPane();
@@ -107,7 +105,6 @@ public class CountryView extends JDialog {
 				EditCountry editCountry = new EditCountry(countryService, oldCountry);
 				editCountry.setModal(true);
 				editCountry.setVisible(true);
-
 				updateTable();
 			}
 		});
@@ -137,9 +134,7 @@ public class CountryView extends JDialog {
 		emptyTable();
 
 		try {
-
 			countryList = countryService.getAllCountries();
-
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

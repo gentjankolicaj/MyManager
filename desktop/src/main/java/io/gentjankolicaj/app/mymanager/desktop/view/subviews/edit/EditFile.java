@@ -1,8 +1,8 @@
 package io.gentjankolicaj.app.mymanager.desktop.view.subviews.edit;
 
 import io.gentjankolicaj.app.mymanager.desktop.data.models.FileType;
+import io.gentjankolicaj.app.mymanager.desktop.icon.IconUtils;
 import io.gentjankolicaj.app.mymanager.desktop.service.FileTypeService;
-import io.gentjankolicaj.app.mymanager.desktop.view.subviews.create.CreateCurrency;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -77,18 +77,17 @@ public class EditFile extends JDialog {
 	}
 
 	private void initComponents() {
-        setIconImage(Toolkit.getDefaultToolkit().getImage(EditFile.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-edit-file-3.png")));
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setIconImage(IconUtils.getImage("icons/icons_24x24/icons8-edit-file-3.png"));
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 384, 110);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-        btnCreate = new JButton("Save");
-        btnCreate.setIcon(new ImageIcon(
-                CreateCurrency.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-save-2.png")));
-        btnCreate.setBounds(245, 23, 113, 24);
+		btnCreate = new JButton("Save");
+		btnCreate.setIcon(IconUtils.getIcon("icons/icons_24x24/icons8-save-2.png"));
+		btnCreate.setBounds(245, 23, 113, 24);
 		contentPanel.add(btnCreate);
 
 		textFieldFile = new JTextField();

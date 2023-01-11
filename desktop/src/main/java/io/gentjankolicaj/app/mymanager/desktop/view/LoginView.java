@@ -4,8 +4,10 @@ import io.gentjankolicaj.app.mymanager.desktop.config.AppText;
 import io.gentjankolicaj.app.mymanager.desktop.data.models.Attempt;
 import io.gentjankolicaj.app.mymanager.desktop.data.models.Status;
 import io.gentjankolicaj.app.mymanager.desktop.data.models.User;
+import io.gentjankolicaj.app.mymanager.desktop.db.DatabaseManager;
 import io.gentjankolicaj.app.mymanager.desktop.enums.MessageType;
 import io.gentjankolicaj.app.mymanager.desktop.enums.PrintType;
+import io.gentjankolicaj.app.mymanager.desktop.icon.IconUtils;
 import io.gentjankolicaj.app.mymanager.desktop.service.AttemptService;
 import io.gentjankolicaj.app.mymanager.desktop.service.UserService;
 import io.gentjankolicaj.app.mymanager.desktop.service.impl.AttemptServiceImpl;
@@ -48,8 +50,6 @@ public class LoginView extends JPanel {
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel;
 
-	
-
 	private User user;
 	private final JPanel selfReference;
 	
@@ -72,7 +72,6 @@ public class LoginView extends JPanel {
 		initComponents();
 		initButtonEvents();
 		initKeyEvents();
-
 	}
 
 	public void initComponents() {
@@ -86,10 +85,9 @@ public class LoginView extends JPanel {
 		add(loginPanel);
 		loginPanel.setLayout(null);
 
-        lblUser = new JLabel("User ID :");
-        lblUser.setIcon(new ImageIcon(LoginView.class
-                .getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-login-to-my-account.png")));
-        lblUser.setBounds(49, 228, 83, 39);
+		lblUser = new JLabel("User ID :");
+		lblUser.setIcon(IconUtils.getIcon("icons/icons_24x24/icons8-login-to-my-account.png"));
+		lblUser.setBounds(49, 228, 83, 39);
 		loginPanel.add(lblUser);
 
 		textFieldUsername = new JTextField();
@@ -98,10 +96,9 @@ public class LoginView extends JPanel {
 		loginPanel.add(textFieldUsername);
 		textFieldUsername.setColumns(10);
 
-        lblPassword = new JLabel("Password :");
-        lblPassword.setIcon(new ImageIcon(
-                LoginView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-key.png")));
-        lblPassword.setBounds(36, 300, 96, 24);
+		lblPassword = new JLabel("Password :");
+		lblPassword.setIcon(IconUtils.getIcon("icons/icons_24x24/icons8-key.png"));
+		lblPassword.setBounds(36, 300, 96, 24);
 		loginPanel.add(lblPassword);
 
 		textFieldPassword = new JPasswordField();
@@ -110,17 +107,15 @@ public class LoginView extends JPanel {
 		textFieldPassword.setBounds(129, 302, 183, 20);
 		loginPanel.add(textFieldPassword);
 
-        btnLogin = new JButton(AppText.loginButtonText);
-        btnLogin.setIcon(new ImageIcon(
-                LoginView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-login-2.png")));
-        btnLogin.setBackground(UIManager.getColor("Button.background"));
+		btnLogin = new JButton(AppText.loginButtonText);
+		btnLogin.setIcon(IconUtils.getIcon("icons/icons_24x24/icons8-login-2.png"));
+		btnLogin.setBackground(UIManager.getColor("Button.background"));
 		btnLogin.setBounds(56, 390, 106, 33);
 		loginPanel.add(btnLogin);
 
-        btnClose = new JButton(AppText.closeButtonText);
-        btnClose.setIcon(new ImageIcon(LoginView.class
-                .getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-switch-power-off-2.png")));
-        btnClose.setBackground(UIManager.getColor("Button.background"));
+		btnClose = new JButton(AppText.closeButtonText);
+		btnClose.setIcon(IconUtils.getIcon("icons/icons_24x24/icons8-switch-power-off-2.png"));
+		btnClose.setBackground(UIManager.getColor("Button.background"));
 		btnClose.setBounds(206, 390, 106, 33);
 		loginPanel.add(btnClose);
 
@@ -137,9 +132,9 @@ public class LoginView extends JPanel {
 		lblNewLabel.setBounds(65, 11, 215, 27);
 		infoPanel.add(lblNewLabel);
 
-        lblNewLabel_1 = new JLabel("");
-        lblNewLabel_1.setIcon(new ImageIcon(LoginView.class.getResource("/icons/image_430x450.png")));
-        lblNewLabel_1.setForeground(new Color(255, 255, 255));
+		lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(IconUtils.getIcon("icons/image_430x450.png"));
+		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setBounds(10, 39, 488, 512);
 		infoPanel.add(lblNewLabel_1);
 		jframe.setSize(width, height);
@@ -184,13 +179,13 @@ public class LoginView extends JPanel {
                     ViewUtils.openMainView(jframe, selfReference, mainView);
 
 				}
-
 			}
 		});
 
 		btnClose.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				DatabaseManager.shutdown();
 				System.exit(0);
 			}
 		});
@@ -223,7 +218,6 @@ public class LoginView extends JPanel {
             PrintUtils.print(e1, PrintType.DATABASE_QUERY);
 			return false;
 		}
-
 		return false;
 	}
 
@@ -238,22 +232,10 @@ public class LoginView extends JPanel {
 						LocalDateTime.now());
 				attemptService.saveAttempt(attempt);
 			}
-
 		} catch (Exception e) {
-			
 			e.printStackTrace();
-			
 		}
 	}
-
-	public int getMyHeight() {
-		return height;
-	}
-
-	public int getMyWidth() {
-		return width;
-	}
-	
 	
 	public boolean validateUser(User user, String userId, String password) {
 		boolean status = false;

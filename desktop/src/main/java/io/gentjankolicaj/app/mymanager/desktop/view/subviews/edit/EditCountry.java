@@ -1,6 +1,7 @@
 package io.gentjankolicaj.app.mymanager.desktop.view.subviews.edit;
 
 import io.gentjankolicaj.app.mymanager.desktop.data.models.Country;
+import io.gentjankolicaj.app.mymanager.desktop.icon.IconUtils;
 import io.gentjankolicaj.app.mymanager.desktop.service.CountryService;
 
 import javax.swing.*;
@@ -80,7 +81,7 @@ public class EditCountry extends JDialog {
 	}
 
 	private void initComponents() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(EditCountry.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-country.png")));
+		setIconImage(IconUtils.getImage("icons_24x24/icons8-country.png"));
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 351, 110);
 		getContentPane().setLayout(new BorderLayout());
@@ -90,8 +91,7 @@ public class EditCountry extends JDialog {
 
 		btnEdit = new JButton("Save");
 
-		btnEdit.setIcon(new ImageIcon(
-				EditCountry.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-save-2.png")));
+		btnEdit.setIcon(IconUtils.getIcon("icons/icons_24x24/icons8-save-2.png"));
 		btnEdit.setBounds(217, 22, 108, 23);
 		contentPanel.add(btnEdit);
 

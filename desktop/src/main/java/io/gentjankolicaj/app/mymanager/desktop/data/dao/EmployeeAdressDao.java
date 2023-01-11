@@ -1,7 +1,7 @@
 package io.gentjankolicaj.app.mymanager.desktop.data.dao;
 
+import io.gentjankolicaj.app.mymanager.commons.enums.QueryType;
 import io.gentjankolicaj.app.mymanager.desktop.data.models.EmployeeAdress;
-import io.gentjankolicaj.app.mymanager.desktop.db.custom.QueryType;
 
 import java.util.List;
 

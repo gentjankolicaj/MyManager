@@ -2,12 +2,13 @@ package io.gentjankolicaj.app.mymanager.desktop.view.subviews.create;
 
 import io.gentjankolicaj.app.mymanager.desktop.data.models.*;
 import io.gentjankolicaj.app.mymanager.desktop.enums.MessageType;
+import io.gentjankolicaj.app.mymanager.desktop.icon.IconUtils;
 import io.gentjankolicaj.app.mymanager.desktop.service.*;
 import io.gentjankolicaj.app.mymanager.desktop.service.impl.CountryServiceImpl;
 import io.gentjankolicaj.app.mymanager.desktop.service.impl.DepartmentServiceImpl;
 import io.gentjankolicaj.app.mymanager.desktop.service.impl.JobServiceImpl;
 import io.gentjankolicaj.app.mymanager.desktop.service.impl.ProjectServiceImpl;
-import io.gentjankolicaj.app.mymanager.desktop.util.MyDateUtils;
+import io.gentjankolicaj.app.mymanager.desktop.util.DateTimeUtils;
 import io.gentjankolicaj.app.mymanager.desktop.util.WindowUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -132,10 +133,9 @@ public class CreateEmployee extends JDialog {
 	}
 
 	private void initComponents() {
-        setTitle("Create new employee");
-        setIconImage(Toolkit.getDefaultToolkit().getImage(
-                CreateEmployee.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-admin-2.png")));
-        setBounds(100, 100, 997, 664);
+		setTitle("Create new employee");
+		setIconImage(IconUtils.getImage("icons/icons_24x24/icons8-admin-2.png"));
+		setBounds(100, 100, 997, 664);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -208,9 +208,7 @@ public class CreateEmployee extends JDialog {
 		tfBirthday.setColumns(10);
 		tfBirthday.setBounds(736, 48, 218, 20);
 		detailsPanel.add(tfBirthday);
-		
-		
-		
+
 		rdbtnM = new JRadioButton("M");
 		buttonGroupSex.add(rdbtnM);
 		rdbtnM.setBounds(733, 86, 48, 23);
@@ -438,24 +436,19 @@ public class CreateEmployee extends JDialog {
 	}
 
 	private void initButtonEvents() {
-
 		btnSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				
 				savePanelsData();
-				
 				selfReference.dispose();
 			}
 		});
-
 		btnBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				selfReference.dispose();
 			}
 		});
-
 	}
 
 	
@@ -474,18 +467,14 @@ public class CreateEmployee extends JDialog {
 			
 			birthdayStr = "01 01 1972";
 			try {
-                birthday = MyDateUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
+				birthday = DateTimeUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
 			} catch (ParseException e) {
-				
 				e.printStackTrace();
 			}
 		}else {
            try {
-        	   
-			birthday=MyDateUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
-			
+			   birthday = DateTimeUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
 		  } catch (ParseException e) {
-		
 			e.printStackTrace();
 		 }
 		        
@@ -511,15 +500,10 @@ public class CreateEmployee extends JDialog {
         Employee newEmployee = new Employee(empId, firstName, lastName, middleName, birthday, birthplace, Gender.valueOf(sex), jobId, departmentId, projectName, user.getUserId(), user.getUserId(), LocalDateTime.now(), LocalDateTime.now());
 				
 		try {
-
 			employeeService.saveEmployee(newEmployee);
-		
 		} catch (java.sql.SQLIntegrityConstraintViolationException c) {
-
             WindowUtils.showMessage(this, "New employee must have a job,department and project set.", MessageType.ERROR);
-			
 			return 0;
-			
 		}catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -211,8 +211,8 @@ public class UserView extends MyPanel {
 				if ((selectedRow > -1) && (selectedRow < totalRows)) {
 					User userToDelete = currentUserList.get(selectedRow);
 					int value = JOptionPane.showConfirmDialog(null,
-							"If you delete the user,you are also going to delete its adress,contacts etc...",
-							"Do you want to proceed ?", JOptionPane.YES_NO_OPTION);
+                            "If you delete the user,you are also going to delete its address,contacts etc...",
+                            "Do you want to proceed ?", JOptionPane.YES_NO_OPTION);
 					if (value == 0) {
 
 						try {

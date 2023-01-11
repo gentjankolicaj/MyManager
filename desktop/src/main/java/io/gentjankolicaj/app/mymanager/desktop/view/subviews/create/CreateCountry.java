@@ -1,6 +1,7 @@
 package io.gentjankolicaj.app.mymanager.desktop.view.subviews.create;
 
 import io.gentjankolicaj.app.mymanager.desktop.data.models.Country;
+import io.gentjankolicaj.app.mymanager.desktop.icon.IconUtils;
 import io.gentjankolicaj.app.mymanager.desktop.service.CountryService;
 
 import javax.swing.*;
@@ -75,8 +76,8 @@ public class CreateCountry extends JDialog {
 	}
 
 	private void initComponents() {
-        setIconImage(Toolkit.getDefaultToolkit().getImage(CreateCountry.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-country.png")));
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setIconImage(IconUtils.getImage("icons/icons_24x24/icons8-country.png"));
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 351, 110);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -85,9 +86,8 @@ public class CreateCountry extends JDialog {
 
 		btnCreate = new JButton("Save");
 
-        btnCreate.setIcon(new ImageIcon(
-                CreateCurrency.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-save-2.png")));
-        btnCreate.setBounds(217, 21, 108, 24);
+		btnCreate.setIcon(IconUtils.getIcon("icons/icons_24x24/icons8-save-2.png"));
+		btnCreate.setBounds(217, 21, 108, 24);
 		contentPanel.add(btnCreate);
 
 		textFieldCountry = new JTextField();

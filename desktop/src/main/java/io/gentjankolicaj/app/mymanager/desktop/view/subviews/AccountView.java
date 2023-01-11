@@ -2,6 +2,7 @@ package io.gentjankolicaj.app.mymanager.desktop.view.subviews;
 
 import io.gentjankolicaj.app.mymanager.desktop.data.models.*;
 import io.gentjankolicaj.app.mymanager.desktop.enums.MessageType;
+import io.gentjankolicaj.app.mymanager.desktop.icon.IconUtils;
 import io.gentjankolicaj.app.mymanager.desktop.service.CountryService;
 import io.gentjankolicaj.app.mymanager.desktop.service.UserAdressService;
 import io.gentjankolicaj.app.mymanager.desktop.service.UserContactService;
@@ -128,13 +129,11 @@ public class AccountView extends JDialog {
 		initPasswordPanelEvents();
 
 		loadPanelsData();
-
 	}
 
 	private void initComponents() {
         setTitle("My Account");
-        setIconImage(Toolkit.getDefaultToolkit().getImage(
-                AccountView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-admin-2.png")));
+        setIconImage(IconUtils.getImage("icons/icons_24x24/icons8-admin-2.png"));
         setBounds(100, 100, 997, 653);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -454,12 +453,10 @@ public class AccountView extends JDialog {
 	}
 
 	private void initButtonEvents() {
-
 		btnSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				savePanelsData();
-
 				selfReference.dispose();
 			}
 		});
@@ -467,7 +464,6 @@ public class AccountView extends JDialog {
 		btnBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-
 				selfReference.dispose();
 			}
 		});
@@ -478,7 +474,6 @@ public class AccountView extends JDialog {
 		btnSavePassword.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-
 				changePassword();
 
 			}
@@ -487,7 +482,6 @@ public class AccountView extends JDialog {
 		buttonBack2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-
 				selfReference.dispose();
 			}
 		});
@@ -597,12 +591,9 @@ public class AccountView extends JDialog {
                         userContact.getCreatedDate(), LocalDateTime.now());
 
                 try {
-
                     userContactService.updateContact(userContact, newUserContact);
                     userContact = newUserContact;
-
 				} catch (Exception e) {
-
 					e.printStackTrace();
 				}
 			}
@@ -639,8 +630,6 @@ public class AccountView extends JDialog {
 		ArrayList<String> first = new ArrayList<>();
 		ArrayList<String> second = new ArrayList<>();
 		if (userAdress != null) {
-			
-			
 			Object countryObject = comboBoxCountry.getSelectedItem();
 			String countryName = "";
 
@@ -651,8 +640,6 @@ public class AccountView extends JDialog {
 			
 
 			String actualCountryName = userAdress.getCountry().getCountryName();
-			
-
 			first.add(String.valueOf(userAdress.getZipCode()));
 			first.add(userAdress.getStreetName());
 			first.add(userAdress.getBuilding());

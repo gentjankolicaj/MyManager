@@ -1,8 +1,8 @@
 package io.gentjankolicaj.app.mymanager.desktop.view.subviews.edit;
 
 import io.gentjankolicaj.app.mymanager.desktop.data.models.PaymentType;
+import io.gentjankolicaj.app.mymanager.desktop.icon.IconUtils;
 import io.gentjankolicaj.app.mymanager.desktop.service.PaymentTypeService;
-import io.gentjankolicaj.app.mymanager.desktop.view.subviews.create.CreateCurrency;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -78,7 +78,7 @@ public class EditPaymentType extends JDialog {
 	}
 
 	private void initComponents() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(EditPaymentType.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-save-money.png")));
+		setIconImage(IconUtils.getImage("icons/icons_24x24/icons8-save-money.png"));
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 362, 110);
 		getContentPane().setLayout(new BorderLayout());
@@ -88,8 +88,7 @@ public class EditPaymentType extends JDialog {
 
 		btnCreate = new JButton("Save");
 
-		btnCreate.setIcon(new ImageIcon(
-				CreateCurrency.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-save-2.png")));
+		btnCreate.setIcon(IconUtils.getIcon("icons/icons_24x24/icons8-save-2.png"));
 		btnCreate.setBounds(226, 23, 110, 24);
 		contentPanel.add(btnCreate);
 

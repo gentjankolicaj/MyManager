@@ -224,11 +224,9 @@ public class AttemptView extends MyPanel {
 
 	public void loadData() {
 		emptyTable();
-
 		try {
 			currentAttemptList = attemptService.getAllAttempts(Config.ROW_LIMIT, Config.ATTEMPT_OFFSET);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -243,7 +241,6 @@ public class AttemptView extends MyPanel {
 				tableModel.addRow(rowData);
 			}
 		}
-
 	}
 
 }

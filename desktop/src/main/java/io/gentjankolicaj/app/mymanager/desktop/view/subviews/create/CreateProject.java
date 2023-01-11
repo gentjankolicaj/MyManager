@@ -52,7 +52,6 @@ public class CreateProject extends JDialog {
 		initEvents();
 		
 		loadCountries();
-
 	}
 
 	private void initComponents() {
@@ -110,23 +109,21 @@ public class CreateProject extends JDialog {
 
 		comboBoxCountry.setModel(countryModel);
 		contentPanel.add(comboBoxCountry);
-		{
-			buttonPane = new JPanel();
+
+		buttonPane = new JPanel();
 			buttonPane.setBorder(new LineBorder(new Color(0, 0, 0)));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				okButton = new JButton("Save");
+
+		okButton = new JButton("Save");
 				okButton.setActionCommand("Save");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				cancelButton = new JButton("Cancel");
+
+		cancelButton = new JButton("Cancel");
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
-			}
-		}
+
 	}
 
 	private void initEvents() {
@@ -139,11 +136,8 @@ public class CreateProject extends JDialog {
 						textFieldCustomer.getText(), new Country(selectedCountry), user.getUserId(), user.getUserId(),
 						LocalDateTime.now(), LocalDateTime.now());
 				try {
-
 					projectService.saveProject(newProject);
-
 				} catch (Exception e1) {
-
 					e1.printStackTrace();
 				}
 
@@ -164,11 +158,9 @@ public class CreateProject extends JDialog {
 		countryModel.removeAllElements();
 		List<Country> countryList = null;
 		try {
-
 			countryList = countryService.getAllCountries();
 
 		} catch (Exception e) {
-
 			e.printStackTrace();
 		}
 
@@ -176,7 +168,6 @@ public class CreateProject extends JDialog {
 			for (Country country : countryList) {
 				countryModel.addElement(country.getCountryName());
 			}
-
 		}
 	}
 }

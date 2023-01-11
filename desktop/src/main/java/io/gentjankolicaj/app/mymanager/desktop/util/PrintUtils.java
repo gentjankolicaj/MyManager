@@ -16,72 +16,72 @@ public class PrintUtils {
 
     private static void print(String source) {
         switch (ENV) {
-            case CONSOLE:
-                ConsolePrinter.print(source);
+            case LOG:
+                LogPrinter.print(source);
                 break;
             case SWING:
                 SwingPrinter.print(source);
-			break;
-		}
+                break;
+        }
 
 	}
 
 	private static void print(Object object) {
 		switch (ENV) {
-		case CONSOLE:
-			ConsolePrinter.print(object);
-			break;
-		case SWING:
-			SwingPrinter.print(object);
-			break;
-		}
+            case LOG:
+                LogPrinter.print(object);
+                break;
+            case SWING:
+                SwingPrinter.print(object);
+                break;
+        }
 	}
 
 	private static void print(Class<?> cls) {
 		switch (ENV) {
-		case CONSOLE:
-			ConsolePrinter.print(cls);
-			break;
-		case SWING:
-			SwingPrinter.print(cls);
-			break;
-		}
+            case LOG:
+                LogPrinter.print(cls);
+                break;
+            case SWING:
+                SwingPrinter.print(cls);
+                break;
+        }
 
 	}
 
 	private static void print(Exception exception) {
 		switch (ENV) {
-		case CONSOLE:
-			ConsolePrinter.print(exception);
-			break;
-		case SWING:
-			SwingPrinter.print(exception);
-			break;
-		}
+            case LOG:
+                LogPrinter.print(exception);
+                break;
+            case SWING:
+                SwingPrinter.print(exception);
+                break;
+        }
 
 	}
 
 	private static void print(Map<?, ?> map) {
 		switch (ENV) {
-		case CONSOLE:
-			ConsolePrinter.print(map);
-			break;
-		case SWING:
-			SwingPrinter.print(map);
-			break;
-		}
+            case LOG:
+                LogPrinter.print(map);
+                break;
+            case SWING:
+                SwingPrinter.print(map);
+                break;
+        }
 
 	}
 
 	private static void print(List<?> list) {
 		switch (ENV) {
-		case CONSOLE:
-			ConsolePrinter.print(list);
-			break;
-		case SWING:
-			SwingPrinter.print(list);
-			break;
-		}
+            case LOG:
+                LogPrinter.print(list);
+                break;
+            case SWING:
+                SwingPrinter.print(list);
+                break;
+        }
 
 	}
 
@@ -94,7 +94,6 @@ public class PrintUtils {
 			return Config.PRINT_DATABASE_QUERY;
 		} else if (type == PrintType.EXCEPTION) {
 			return Config.PRINT_EXCEPTION;
-
 		} else if (type == PrintType.LOG) {
 			return Config.PRINT_LOG;
 		} else if (type == PrintType.OTHER) {
@@ -103,7 +102,6 @@ public class PrintUtils {
 			return Config.PRINT_QUERY_RESULTS;
 		} else
 			return false;
-
 	}
 
 	public static void print(List<?> list, PrintType type) {

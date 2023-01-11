@@ -2,12 +2,13 @@ package io.gentjankolicaj.app.mymanager.desktop.view.subviews.create;
 
 import io.gentjankolicaj.app.mymanager.desktop.data.models.*;
 import io.gentjankolicaj.app.mymanager.desktop.enums.MessageType;
+import io.gentjankolicaj.app.mymanager.desktop.icon.IconUtils;
 import io.gentjankolicaj.app.mymanager.desktop.service.CountryService;
 import io.gentjankolicaj.app.mymanager.desktop.service.UserAdressService;
 import io.gentjankolicaj.app.mymanager.desktop.service.UserContactService;
 import io.gentjankolicaj.app.mymanager.desktop.service.UserService;
 import io.gentjankolicaj.app.mymanager.desktop.service.impl.CountryServiceImpl;
-import io.gentjankolicaj.app.mymanager.desktop.util.MyDateUtils;
+import io.gentjankolicaj.app.mymanager.desktop.util.DateTimeUtils;
 import io.gentjankolicaj.app.mymanager.desktop.util.WindowUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -107,18 +108,14 @@ public class CreateUser extends JDialog {
 		this.countryService = new CountryServiceImpl();
 
 		initComponents();
-
 		loadCountries();
-
 		initButtonEvents();
-
 	}
 
 	private void initComponents() {
-        setTitle("Create new user ");
-        setIconImage(Toolkit.getDefaultToolkit().getImage(
-                CreateUser.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-admin-2.png")));
-        setBounds(100, 100, 997, 653);
+		setTitle("Create new user ");
+		setIconImage(IconUtils.getImage("icons/icons_24x24/icons8-admin-2.png"));
+		setBounds(100, 100, 997, 653);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -418,7 +415,6 @@ public class CreateUser extends JDialog {
 	}
 
 	private void initButtonEvents() {
-
 		btnSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -426,14 +422,12 @@ public class CreateUser extends JDialog {
 				selfReference.dispose();
 			}
 		});
-
 		btnBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				selfReference.dispose();
 			}
 		});
-
 	}
 
 	private int saveDetails() {
@@ -443,28 +437,23 @@ public class CreateUser extends JDialog {
 		String rightsStr = rights.getText();
 		String userTypeStr =(String) userTypeComboBox.getSelectedItem();
 		String birthdayStr = birthday.getText();
-
 		LocalDate birthday=null;
 		if (birthdayStr.equals("")) {
 			birthdayStr = "01 01 1972";
 			try {
-                birthday = MyDateUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
+				birthday = DateTimeUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}else {
-
-
            try {
-        	   
-			birthday=MyDateUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
+
+			   birthday = DateTimeUtils.parseToLocalDate(birthdayStr, "dd MM yyyy");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		   
-		       
 		}
 		
 		
@@ -476,15 +465,11 @@ public class CreateUser extends JDialog {
 				birthday, birthplace.getText(), Gender.valueOf(genderStr), rightsStr,
 				user.getUserId(), user.getUserId(), LocalDateTime.now(), LocalDateTime.now());
 		try {
-
 			userService.saveUser(newUser);
-
             WindowUtils.showMessage(this, "New user created", MessageType.INFORMATION);
 
 		} catch (Exception e) {
-			
 			e.printStackTrace();
-			
 			return 0;
 		}
 		return 1;

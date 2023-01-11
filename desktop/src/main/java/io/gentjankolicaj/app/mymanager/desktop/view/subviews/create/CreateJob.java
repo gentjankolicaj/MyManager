@@ -87,23 +87,21 @@ public class CreateJob extends JDialog {
 		textFieldMaxSalary.setColumns(10);
 		textFieldMaxSalary.setBounds(105, 166, 270, 30);
 		contentPanel.add(textFieldMaxSalary);
-		{
-			buttonPane = new JPanel();
+
+		buttonPane = new JPanel();
 			buttonPane.setBorder(new LineBorder(new Color(0, 0, 0)));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				btnSave = new JButton("Save");
+
+		btnSave = new JButton("Save");
 				btnSave.setActionCommand("Save");
 				buttonPane.add(btnSave);
 				getRootPane().setDefaultButton(btnSave);
-			}
-			{
-				btnCancel = new JButton("Cancel");
+
+		btnCancel = new JButton("Cancel");
 				btnCancel.setActionCommand("Cancel");
 				buttonPane.add(btnCancel);
-			}
-		}
+
 	}
 
 	private void initEvents() {

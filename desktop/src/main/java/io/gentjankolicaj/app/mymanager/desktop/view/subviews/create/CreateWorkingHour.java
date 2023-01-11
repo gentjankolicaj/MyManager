@@ -39,7 +39,6 @@ public class CreateWorkingHour extends JDialog {
 		setResizable(false);
 		initComponents();
 		initEvents();
-
 	}
 
 	private void initComponents() {
@@ -74,23 +73,21 @@ public class CreateWorkingHour extends JDialog {
 		textFieldAmount.setColumns(10);
 		textFieldAmount.setBounds(145, 102, 228, 30);
 		contentPanel.add(textFieldAmount);
-		{
-			buttonPane = new JPanel();
+
+		buttonPane = new JPanel();
 			buttonPane.setBorder(new LineBorder(new Color(0, 0, 0)));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				btnSave = new JButton("Save");
+
+		btnSave = new JButton("Save");
 				btnSave.setActionCommand("Save");
 				buttonPane.add(btnSave);
 				getRootPane().setDefaultButton(btnSave);
-			}
-			{
-				btnCancel = new JButton("Cancel");
+
+		btnCancel = new JButton("Cancel");
 				btnCancel.setActionCommand("Cancel");
 				buttonPane.add(btnCancel);
-			}
-		}
+
 	}
 
 	private void initEvents() {
@@ -105,14 +102,10 @@ public class CreateWorkingHour extends JDialog {
 						Float.parseFloat(amount), user.getUserId(), user.getUserId(),
 						LocalDateTime.now(), LocalDateTime.now());
 				try {
-					
 					workingHourService.saveWorkingHour(newWorkingHour);
-					
 				} catch (Exception e1) {
-					
 					e1.printStackTrace();
 				}
-				
 				selfReference.dispose();
 			}
 		});

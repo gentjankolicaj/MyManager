@@ -1,6 +1,7 @@
 package io.gentjankolicaj.app.mymanager.desktop.view.subviews.create;
 
 import io.gentjankolicaj.app.mymanager.desktop.data.models.PaymentType;
+import io.gentjankolicaj.app.mymanager.desktop.icon.IconUtils;
 import io.gentjankolicaj.app.mymanager.desktop.service.PaymentTypeService;
 
 import javax.swing.*;
@@ -74,8 +75,8 @@ public class CreatePaymentType extends JDialog {
 	}
 
 	private void initComponents() {
-        setIconImage(Toolkit.getDefaultToolkit().getImage(CreatePaymentType.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-save-money.png")));
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setIconImage(IconUtils.getImage("icons/icons_24x24/icons8-save-money.png"));
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 362, 110);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -84,9 +85,8 @@ public class CreatePaymentType extends JDialog {
 
 		btnCreate = new JButton("Save");
 
-        btnCreate.setIcon(new ImageIcon(
-                CreateCurrency.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-save-2.png")));
-        btnCreate.setBounds(226, 28, 110, 24);
+		btnCreate.setIcon(IconUtils.getIcon("icons/icons_24x24/icons8-save-2.png"));
+		btnCreate.setBounds(226, 28, 110, 24);
 		contentPanel.add(btnCreate);
 
 		textFieldPayment = new JTextField();

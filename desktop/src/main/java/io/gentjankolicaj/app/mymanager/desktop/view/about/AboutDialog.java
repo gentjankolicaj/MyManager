@@ -1,5 +1,7 @@
 package io.gentjankolicaj.app.mymanager.desktop.view.about;
 
+import io.gentjankolicaj.app.mymanager.desktop.icon.IconUtils;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -16,10 +18,9 @@ public class AboutDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public AboutDialog() {
-        setTitle("About");
-        setIconImage(Toolkit.getDefaultToolkit().getImage(
-                AboutDialog.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-admin-2.png")));
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setTitle("About");
+		setIconImage(IconUtils.getImage("icons/icons_24x24/icons8-admin-2.png"));
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 622, 332);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

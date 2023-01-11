@@ -3,6 +3,7 @@ package io.gentjankolicaj.app.mymanager.desktop.view.subviews;
 import io.gentjankolicaj.app.mymanager.desktop.data.models.Rights;
 import io.gentjankolicaj.app.mymanager.desktop.data.models.User;
 import io.gentjankolicaj.app.mymanager.desktop.enums.MessageType;
+import io.gentjankolicaj.app.mymanager.desktop.icon.IconUtils;
 import io.gentjankolicaj.app.mymanager.desktop.service.UserService;
 import io.gentjankolicaj.app.mymanager.desktop.util.WindowUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -20,7 +21,7 @@ import java.util.List;
 public class RightsView extends JDialog {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -2398676643579841060L;
 
@@ -52,15 +53,14 @@ public class RightsView extends JDialog {
 
 		initComponents();
 		initEvents();
-		
+
 		showRights();
 	}
 
 	private void initComponents() {
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        setIconImage(Toolkit.getDefaultToolkit().getImage(
-                RightsView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-admin-2.png")));
-        setBounds(100, 100, 561, 250);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setIconImage(IconUtils.getImage("icons/icons_24x24/icons8-admin-2.png"));
+		setBounds(100, 100, 561, 250);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -82,10 +82,9 @@ public class RightsView extends JDialog {
 		lblRights_1.setBounds(287, 105, 106, 28);
 		contentPanel.add(lblRights_1);
 
-        btnSave = new JButton("  Save");
-        btnSave.setIcon(new ImageIcon(
-                RightsView.class.getResource("/io/gentjankolicaj/apps/mymanager/resources/icons/icons_24x24/icons8-checkmark.png")));
-        btnSave.setBounds(87, 149, 106, 23);
+		btnSave = new JButton("  Save");
+		btnSave.setIcon(IconUtils.getIcon("icons/icons_24x24/icons8-checkmark.png"));
+		btnSave.setBounds(87, 149, 106, 23);
 		contentPanel.add(btnSave);
 
 		comboBox_1 = new JComboBox();
@@ -116,9 +115,7 @@ public class RightsView extends JDialog {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				int selectedRadioButton = getSelectedRadioButton();
-
 				User currentUser = null;
-
 				if (selectedRadioButton == 1) {
 
 					try {
@@ -131,8 +128,8 @@ public class RightsView extends JDialog {
 					}
 					if (currentUser != null) {
 						User newUser = new User(currentUser.getUserId(), currentUser.getUserType(), currentUser.getFirstName(),
-								currentUser.getLastName(),currentUser.getPassword(), currentUser.getBirthday(),
-								currentUser.getBirthplace(),currentUser.getGender(), null, currentUser.getCreatedBy(),
+								currentUser.getLastName(), currentUser.getPassword(), currentUser.getBirthday(),
+								currentUser.getBirthplace(), currentUser.getGender(), null, currentUser.getCreatedBy(),
 								currentUser.getUserId(), currentUser.getCreatedDate(), LocalDateTime.now());
 
 						String currentRights = currentUser.getRights();
@@ -140,7 +137,7 @@ public class RightsView extends JDialog {
 						String decidedRight = right.name();
 
 						if (currentRights.contains(decidedRight)) {
-                            WindowUtils.showMessage(null, "This user already has this right.", MessageType.INFORMATION);
+							WindowUtils.showMessage(null, "This user already has this right.", MessageType.INFORMATION);
 
 						} else {
 							String newRights = currentRights.concat(" ").concat(decidedRight);
@@ -149,17 +146,17 @@ public class RightsView extends JDialog {
 							try {
 
 								userService.updateUser(user, newUser);
-								user=newUser;
+								user = newUser;
 
 							} catch (Exception e1) {
 
 								e1.printStackTrace();
 							}
 
-                            WindowUtils.showMessage(null, decidedRight + " is added.", MessageType.INFORMATION);
-							
+							WindowUtils.showMessage(null, decidedRight + " is added.", MessageType.INFORMATION);
+
 							showRights();
-							
+
 						}
 
 					}
@@ -177,36 +174,33 @@ public class RightsView extends JDialog {
 
 					if (currentUser != null) {
 
-						String currentRights =currentUser.getRights();
+						String currentRights = currentUser.getRights();
 						Rights rightSelected = (Rights) comboBox_1.getSelectedItem();
 						String rightToRemove = rightSelected.name();
-						       rightToRemove=" "+rightToRemove;
-						
-						String updatedRights=StringUtils.remove(currentRights, rightToRemove);
-						
+						rightToRemove = " " + rightToRemove;
+
+						String updatedRights = StringUtils.remove(currentRights, rightToRemove);
+
 						User newUser = new User(currentUser.getUserId(), currentUser.getUserType(), currentUser.getFirstName(),
-								currentUser.getLastName(),currentUser.getPassword(), currentUser.getBirthday(),
+								currentUser.getLastName(), currentUser.getPassword(), currentUser.getBirthday(),
 								currentUser.getBirthplace(), currentUser.getGender(), updatedRights, currentUser.getCreatedBy(),
-								currentUser.getUserId(),currentUser.getCreatedDate(), LocalDateTime.now());
+								currentUser.getUserId(), currentUser.getCreatedDate(), LocalDateTime.now());
 
 						try {
 
 							userService.updateUser(user, newUser);
-							user=newUser;
+							user = newUser;
 
 						} catch (Exception e1) {
 
 							e1.printStackTrace();
 						}
 
-                        WindowUtils.showMessage(null, rightToRemove + " removed.", MessageType.INFORMATION);
-						
+						WindowUtils.showMessage(null, rightToRemove + " removed.", MessageType.INFORMATION);
 						showRights();
-
 					}
-
 				} else {
-                    WindowUtils.showMessage(null, "Select add or remove.", MessageType.INFORMATION);
+					WindowUtils.showMessage(null, "Select add or remove.", MessageType.INFORMATION);
 				}
 
 			}

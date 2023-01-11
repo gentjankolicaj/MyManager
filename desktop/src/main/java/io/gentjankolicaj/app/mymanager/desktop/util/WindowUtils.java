@@ -5,7 +5,7 @@ import io.gentjankolicaj.app.mymanager.desktop.config.Config;
 import io.gentjankolicaj.app.mymanager.desktop.domain.Answer;
 import io.gentjankolicaj.app.mymanager.desktop.enums.MessageType;
 import io.gentjankolicaj.app.mymanager.desktop.enums.OptionType;
-import io.gentjankolicaj.app.mymanager.desktop.icon.AppIcon;
+import io.gentjankolicaj.app.mymanager.desktop.icon.IconUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -72,7 +72,7 @@ public class WindowUtils {
 	public static String showInput(Component component, String text, String[] choices, String defaultChoice) {
 		String result = null;
 		if (Config.INPUT_WINDOWS) {
-			Icon icon = AppIcon.getIcon(AppIcon.inputIcon);
+			Icon icon = IconUtils.getIcon(IconUtils.inputIcon);
 			result = (String) JOptionPane.showInputDialog(component, text, AppText.inputLabel,
 					JOptionPane.QUESTION_MESSAGE, icon, choices, defaultChoice);
 		}
@@ -81,7 +81,7 @@ public class WindowUtils {
 	}
 
 	public static String showInput(Component component, String text, String[] choices) {
-		Icon icon = AppIcon.getIcon(AppIcon.inputIcon);
+		Icon icon = IconUtils.getIcon(IconUtils.inputIcon);
 		String result = null;
 		result = (String) JOptionPane.showInputDialog(component, text, AppText.inputLabel, JOptionPane.QUESTION_MESSAGE,
 				icon, choices, choices[0]);
@@ -90,7 +90,7 @@ public class WindowUtils {
 	}
 
 	public static String showInput(Component component, String text) {
-		Icon icon = AppIcon.getIcon(AppIcon.inputIcon);
+		Icon icon = IconUtils.getIcon(IconUtils.inputIcon);
 		String result = null;
 		result = JOptionPane.showInputDialog(component, text);
 		return result;
